@@ -1,0 +1,11 @@
+{
+  "name": "book-and-beyond",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Book & Beyond — CLB Đọc Sách Web Hub",
+  "scripts": {
+    "dev": "npx wrangler pages dev .",
+    "deploy": "npx wrangler pages deploy .",
+    "preview": "npx wrangler pages dev . --port 8788"
+  }
+}

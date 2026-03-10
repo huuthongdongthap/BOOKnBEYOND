@@ -1,0 +1,183 @@
+{
+  "clubName": "Book & Beyond",
+  "slogan": "Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa",
+  "meetLink": "https://meet.google.com/kug-jttn-szc",
+  "meetTime": { "day": "Sunday", "start": "05:15", "end": "07:15" },
+  "driveLink": "https://drive.google.com/drive/folders/1Y8xC8wfZTJ-mP5MGx4JolxpXzt4cut_h?usp=sharing",
+  "registerFormLink": "https://docs.google.com/spreadsheets/d/18JVy2EqdRsJDf_tzDfsqX-jE5I6gos8sWBVzcK06tRU/edit?pli=1&gid=0#gid=0",
+  "voteFormLink": "https://docs.google.com/forms/d/e/1FAIpQLSfBXm5uto3jFNqRw85xJDSFraRV1Z3JOs_lgh6dOPyV0uswrg/viewform?usp=sf_link",
+  "zaloGroupLink": "https://zalo.me/g/ukcaaq228",
+  "sheetsLink": "https://docs.google.com/spreadsheets/d/18JVy2EqdRsJDf_tzDfsqX-jE5I6gos8sWBVzcK06tRU/edit?pli=1&gid=0#gid=0",
+
+  "currentBook": {
+    "title": "Nhóm Chính Bắc",
+    "author": "",
+    "originalTitle": "",
+    "cover": "https://images.unsplash.com/photo-1529158062015-cad636e205a0?w=400",
+    "totalChapters": 7,
+    "totalPages": 253,
+    "startDate": "2026-03-15",
+    "endDate": "2026-04-26"
+  },
+
+  "schedule": [
+    {
+      "week": 1,
+      "date": "2026-03-15",
+      "mc": "Thông Phan",
+      "sharers": [
+        { "name": "Giangle", "chapter": "Lời giới thiệu + Lời nói đầu + Giới thiệu: Tìm kiếm chiều sâu và sự gần gũi trong cuộc sống (tr.7–39, 17 trang)" },
+        { "name": "Thanh", "chapter": "Chương 1: Nhóm Chính Bắc (tr.41–58, 27 trang)" },
+        { "name": "Thông", "chapter": "Chương 2: Phát triển bản thân và nâng cao năng lực lãnh đạo (tr.59–74, 17 trang)" }
+      ]
+    },
+    {
+      "week": 2,
+      "date": "2026-03-22",
+      "mc": "Giangle",
+      "sharers": [
+        { "name": "Giang", "chapter": "Chương 3: Thành lập nhóm — phần đầu (tr.75–93, 20 trang)" },
+        { "name": "Thanh", "chapter": "Chương 3: Thành lập nhóm — từ phần 'Lãnh đạo nhóm chính bắc' (tr.94–112, 20 trang)" },
+        { "name": "Bảo", "chapter": "Chương 4: Thiết lập nguyên tắc (tr.113–132, 21 trang)" }
+      ]
+    },
+    {
+      "week": 3,
+      "date": "2026-04-05",
+      "mc": "Bảo Bảo",
+      "sharers": [
+        { "name": "Giangle", "chapter": "Chương 5: Xáo động (tr.133–154, 23 trang)" },
+        { "name": "Giang", "chapter": "Chương 6: Hoạt động (tr.155–176, 23 trang)" },
+        { "name": "Lương", "chapter": "Chương 7: Cải tổ nhóm (tr.177–190, 15 trang)" }
+      ]
+    },
+    {
+      "week": 4,
+      "date": "2026-04-12",
+      "mc": "Thanh Lương",
+      "sharers": [
+        { "name": "Thanh", "chapter": "Nguồn lực 1: Chương trình cho nhóm mới thành lập — 12 chủ đề đầu tiên (tr.191–206, 17 trang)" },
+        { "name": "Giang", "chapter": "Nguồn lực 2: Các ý tưởng khác về chương trình hoạt động + NL3: Cuộc họp đầu tiên (tr.207–214, 10 trang)" },
+        { "name": "Lương", "chapter": "Nguồn lực 4: Bản cam kết thành viên + NL5: Hình thức tổ chức cuộc họp + NL6: Nguyên tắc nền tảng (tr.215–224, 13 trang)" }
+      ]
+    },
+    {
+      "week": 5,
+      "date": "2026-04-19",
+      "mc": "Thanh Võ",
+      "sharers": [
+        { "name": "Giang", "chapter": "Nguồn lực 7: Hướng dẫn điều hành nhóm (tr.225–236, 13 trang)" },
+        { "name": "Giangle", "chapter": "Nguồn lực 8: Khảo sát sự hài lòng + NL9: Các kỳ nghỉ + NL10: Bổ sung thành viên mới (tr.237–248, 14 trang)" },
+        { "name": "Bảo", "chapter": "Nguồn lực 11: Đóng góp và tiếp thu ý kiến phản hồi + NL12: Quá trình nghiên cứu (tr.249–259, 12 trang)" }
+      ]
+    },
+    {
+      "week": 6,
+      "date": "2026-04-26",
+      "mc": "Cả nhóm",
+      "sharers": [
+        { "name": "Cả nhóm", "chapter": "REVIEW & TỔNG KẾT toàn bộ sách Nhóm Chính Bắc" },
+        { "name": "", "chapter": "Rút bài học ứng dụng cá nhân" },
+        { "name": "", "chapter": "Bình chọn sách tiếp theo" }
+      ]
+    }
+  ],
+
+  "members": [
+    { "name": "Giangle", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
+    { "name": "Thông Phan", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
+    { "name": "Thanh", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
+    { "name": "Giang", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
+    { "name": "Bảo", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
+    { "name": "Lương", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
+    { "name": "Thanh Lương", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
+    { "name": "Thanh Võ", "points": 0, "shares": 0, "attendance": 0, "streak": 0 }
+  ],
+
+  "fund": {
+    "balance": 0,
+    "monthlyFee": 200000,
+    "thisMonth": {
+      "income": 0,
+      "expense": 0,
+      "details": [
+        { "desc": "Chưa có giao dịch — chương trình bắt đầu 15/03", "amount": 0, "type": "income" }
+      ]
+    }
+  },
+
+  "library": [
+    {
+      "title": "Trò Chơi Vô Cực",
+      "author": "Simon Sinek",
+      "finishedDate": "2025-02-23",
+      "rating": 4.5,
+      "topInsight": "Người chơi vô cực không chơi để thắng mà chơi để tiếp tục cuộc chơi."
+    },
+    {
+      "title": "Flow — Dòng Chảy",
+      "author": "Mihaly Csikszentmihalyi",
+      "finishedDate": "2025-04-15",
+      "rating": 4.0,
+      "topInsight": "Trạng thái flow xuất hiện khi thử thách và kỹ năng cân bằng hoàn hảo."
+    },
+    {
+      "title": "Quản Lý Nghiệp",
+      "author": "Geshe Michael Roach",
+      "finishedDate": "2025-06-20",
+      "rating": 4.5,
+      "topInsight": "Muốn giàu có, hãy giúp người khác giàu có. Đó là quy luật nghiệp."
+    },
+    {
+      "title": "Súng, Vi Trùng và Thép",
+      "author": "Jared Diamond",
+      "finishedDate": "2025-09-15",
+      "rating": 4.0,
+      "topInsight": "Địa lý và sinh thái, chứ không phải chủng tộc, quyết định vận mệnh các nền văn minh."
+    },
+    {
+      "title": "The 4 Pillar Plan",
+      "author": "Dr. Rangan Chatterjee",
+      "finishedDate": "2025-10-20",
+      "rating": 4.0,
+      "topInsight": "Sức khỏe dựa trên 4 trụ cột: Thư giãn, Ăn uống, Vận động, Giấc ngủ."
+    },
+    {
+      "title": "Cuộc Chiến Vi Mạch",
+      "author": "Chris Miller",
+      "finishedDate": "2025-11-25",
+      "rating": 4.5,
+      "topInsight": "Chip bán dẫn là tài nguyên chiến lược quan trọng nhất thế kỷ 21."
+    },
+    {
+      "title": "Hồi Ký Lý Quang Diệu",
+      "author": "Lý Quang Diệu",
+      "finishedDate": "2025-12-30",
+      "rating": 5.0,
+      "topInsight": "Sự sống còn của một quốc gia nhỏ phụ thuộc vào kỷ luật và tầm nhìn xa của lãnh đạo."
+    }
+  ],
+
+  "rules": [
+    { "icon": "🗳️", "rule": "Chọn sách bằng vote hoặc cá nhân đề cử theo tuần tự" },
+    { "icon": "📅", "rule": "Mỗi cuốn sách đọc trong 4 tuần, đăng ký chương cá nhân" },
+    { "icon": "⏱️", "rule": "Chia sẻ nội dung tối đa 10 phút/người/tuần" },
+    { "icon": "🎙️", "rule": "MC luân phiên mỗi tuần" },
+    { "icon": "📝", "rule": "Khuyến khích viết đúc kết bài học và chia sẻ lên nhóm sau mỗi buổi Meet" },
+    { "icon": "👥", "rule": "Nhóm 1: Bạn bè — tuân thủ kỷ luật. Nhóm 2: Cần hỗ trợ — tham gia Meet ít nhất 1 lần/tháng" }
+  ],
+
+  "penalties": [
+    { "violation": "Đến trễ >15' không báo / Ngủ trong buổi", "amount": "20 hít đất/squat (quay video) hoặc 20K" },
+    { "violation": "Vắng không báo trước 12h / Không lý do", "amount": "Chạy 10km (24h) / 200 hít đất / 50K" },
+    { "violation": "Không chuẩn bị nội dung đã đăng ký", "amount": "Chạy 10km (24h) / 200 hít đất / 50K" },
+    { "violation": "Không tương tác @All / Không vote", "amount": "20 hít đất/squat hoặc 20K" }
+  ],
+
+  "rewards": [
+    { "achievement": "Chia sẻ xuất sắc nhất tháng", "reward": "100.000đ + 🏅" },
+    { "achievement": "MC xuất sắc nhất quý", "reward": "200.000đ" },
+    { "achievement": "Tham dự 100% trong tháng", "reward": "Hoàn 50% phí" },
+    { "achievement": "Streak 16 tuần liên tục", "reward": "500.000đ 🔥" }
+  ]
+}

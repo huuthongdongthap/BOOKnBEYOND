@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book & Beyond — CLB Đọc Sách</title>
+  <meta name="description" content="Cộng đồng đọc, chia sẻ và ứng dụng sách vào thực tiễn. Mỗi Chủ Nhật 05h15 – 07h15.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Book & Beyond — CLB Đọc Sách">
+  <meta property="og:description" content="Cộng đồng đọc, chia sẻ và ứng dụng sách vào thực tiễn. Mỗi Chủ Nhật 05h15 – 07h15.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="vi_VN">
+  <link rel="apple-touch-icon" href="assets/favicon.svg">
+  <meta name="theme-color" content="#0a0e17">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <img src="assets/logo.svg" alt="Book & Beyond" class="nav-logo-img">
+        <span>Book & Beyond</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#book">Sách</a></li>
+        <li><a href="#schedule">Lịch</a></li>
+        <li><a href="#leaderboard">Xếp Hạng</a></li>
+        <li><a href="#fund">Quỹ</a></li>
+        <li><a href="#library">Thư Viện</a></li>
+        <li><a href="#rules">Nội Quy</a></li>
+        <li><a href="#links" class="nav-cta">Quick Links</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-badge">📖 Cộng đồng học tập</div>
+      <h1 class="hero-title" id="clubName">Book & Beyond</h1>
+      <p class="hero-slogan" id="clubSlogan">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</p>
+      
+      <div class="countdown-card">
+        <div class="countdown-label">Buổi tiếp theo trong</div>
+        <div class="countdown-timer" id="countdown">
+          <div class="countdown-unit">
+            <span class="countdown-number" id="days">0</span>
+            <span class="countdown-text">Ngày</span>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-number" id="hours">0</span>
+            <span class="countdown-text">Giờ</span>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-number" id="minutes">0</span>
+            <span class="countdown-text">Phút</span>
+          </div>
+          <div class="countdown-separator">:</div>
+          <div class="countdown-unit">
+            <span class="countdown-number" id="seconds">0</span>
+            <span class="countdown-text">Giây</span>
+          </div>
+        </div>
+        <div class="countdown-info">
+          <span>🕐 Chủ Nhật, 05:15 – 07:15</span>
+          <span>📍 Google Meet</span>
+        </div>
+      </div>
+      
+      <div class="hero-actions">
+        <a href="#" class="btn btn-primary" id="meetBtn">🎥 Vào Google Meet</a>
+        <a href="#schedule" class="btn btn-secondary">📅 Xem lịch tuần này</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Book -->
+  <section class="section" id="book">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-icon">📖</span>
+        <h2>Sách Đang Đọc</h2>
+      </div>
+      <div class="book-card" id="bookCard">
+        <div class="book-cover-wrapper">
+          <div class="book-cover" id="bookCover"></div>
+        </div>
+        <div class="book-info">
+          <h3 class="book-title" id="bookTitle">—</h3>
+          <p class="book-author" id="bookAuthor">—</p>
+          <p class="book-original" id="bookOriginal"></p>
+          <div class="book-progress">
+            <div class="progress-bar">
+              <div class="progress-fill" id="bookProgress"></div>
+            </div>
+            <span class="progress-text" id="bookProgressText">0%</span>
+          </div>
+          <div class="book-dates">
+            <span id="bookDates">—</span>
+          </div>
+          <a href="#" class="btn btn-outline btn-sm" id="registerBtn">✍️ Đăng ký chương</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Schedule -->
+  <section class="section section-alt" id="schedule">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-icon">📅</span>
+        <h2>Lịch Chia Sẻ</h2>
+      </div>
+      <div class="schedule-grid" id="scheduleGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaderboard -->
+  <section class="section" id="leaderboard">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-icon">🏆</span>
+        <h2>Bảng Xếp Hạng</h2>
+      </div>
+      <div class="leaderboard-table-wrapper">
+        <table class="leaderboard-table" id="leaderboardTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Thành viên</th>
+              <th>Điểm</th>
+              <th>Chia sẻ</th>
+              <th>Tham dự</th>
+              <th>Streak 🔥</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fund -->
+  <section class="section section-alt" id="fund">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-icon">💰</span>
+        <h2>Quỹ Nhóm</h2>
+      </div>
+      <div class="fund-overview">
+        <div class="fund-balance-card">
+          <div class="fund-balance-label">Số dư hiện tại</div>
+          <div class="fund-balance-amount" id="fundBalance">—</div>
+        </div>
+        <div class="fund-stats">
+          <div class="fund-stat income">
+            <span class="fund-stat-label">Thu tháng này</span>
+            <span class="fund-stat-amount" id="fundIncome">—</span>
+          </div>
+          <div class="fund-stat expense">
+            <span class="fund-stat-label">Chi tháng này</span>
+            <span class="fund-stat-amount" id="fundExpense">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="fund-details">
+        <h3>Chi tiết thu chi</h3>
+        <div class="fund-list" id="fundList">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Library -->
+  <section class="section" id="library">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-icon">📚</span>
+        <h2>Thư Viện — Sách Đã Đọc</h2>
+      </div>
+      <div class="library-grid" id="libraryGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Rules -->
+  <section class="section section-alt" id="rules">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-icon">📋</span>
+        <h2>Nội Quy</h2>
+      </div>
+      <div class="rules-grid">
+        <div class="rules-list" id="rulesList">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="rewards-penalties">
+          <div class="rp-card penalties-card">
+            <h3>⚡ Phạt</h3>
+            <div class="rp-list" id="penaltiesList"></div>
+          </div>
+          <div class="rp-card rewards-card">
+            <h3>🏆 Thưởng</h3>
+            <div class="rp-list" id="rewardsList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Links -->
+  <section class="section" id="links">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-icon">🔗</span>
+        <h2>Quick Links</h2>
+      </div>
+      <div class="links-grid" id="linksGrid">
+        <a href="#" class="link-card" id="linkMeet">
+          <span class="link-icon">🎥</span>
+          <span class="link-title">Google Meet</span>
+          <span class="link-desc">Vào phòng họp</span>
+        </a>
+        <a href="#" class="link-card" id="linkRegister">
+          <span class="link-icon">✍️</span>
+          <span class="link-title">Đăng Ký Chương</span>
+          <span class="link-desc">Chọn chương chia sẻ</span>
+        </a>
+        <a href="#" class="link-card" id="linkVote">
+          <span class="link-icon">🗳️</span>
+          <span class="link-title">Vote Sách</span>
+          <span class="link-desc">Bình chọn sách mới</span>
+        </a>
+        <a href="#" class="link-card" id="linkDrive">
+          <span class="link-icon">📁</span>
+          <span class="link-title">Google Drive</span>
+          <span class="link-desc">Tài liệu & slide</span>
+        </a>
+        <a href="#" class="link-card" id="linkZalo">
+          <span class="link-icon">💬</span>
+          <span class="link-title">Nhóm Zalo</span>
+          <span class="link-desc">Thảo luận nhóm</span>
+        </a>
+        <a href="#" class="link-card" id="linkCalendar">
+          <span class="link-icon">📅</span>
+          <span class="link-title">Google Calendar</span>
+          <span class="link-desc">Thêm lịch nhắc nhở</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>📚 Book & Beyond — Cộng đồng đọc, chia sẻ và ứng dụng sách</p>
+      <p class="footer-sub">Chủ Nhật hàng tuần · 05:15 – 07:15 · Google Meet</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
