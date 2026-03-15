@@ -11,9 +11,9 @@
 
   "currentBook": {
     "title": "Nhóm Chính Bắc",
-    "author": "",
-    "originalTitle": "",
-    "cover": "https://images.unsplash.com/photo-1529158062015-cad636e205a0?w=400",
+    "author": "Bill George",
+    "originalTitle": "True North Groups",
+    "cover": "assets/cover-chinh-bac.png",
     "totalChapters": 7,
     "totalPages": 253,
     "startDate": "2026-03-15",

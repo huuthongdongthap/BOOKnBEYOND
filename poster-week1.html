@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poster Tuần 1 — Kickoff</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1a1a2e;
+      padding: 20px;
+    }
+
+    .poster {
+      width: 1080px;
+      height: 1920px;
+      background: linear-gradient(180deg, #060a14 0%, #0a0e17 15%, #0d1321 50%, #0a0e17 85%, #060a14 100%);
+      position: relative;
+      overflow: hidden;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: #f1f5f9;
+    }
+
+    /* Background effects */
+    .poster::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Compass rose watermark */
+    .compass-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      height: 900px;
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .poster::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1200px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(245,158,11,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Decorative lines */
+    .deco-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,158,11,0.3), transparent);
+    }
+    .deco-line.top { top: 60px; left: 80px; right: 80px; }
+    .deco-line.bottom { bottom: 60px; left: 80px; right: 80px; }
+
+    /* Corner decorations */
+    .corner {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border-color: rgba(245,158,11,0.4);
+      border-style: solid;
+      border-width: 0;
+    }
+    .corner.tl { top: 48px; left: 68px; border-top-width: 2px; border-left-width: 2px; }
+    .corner.tr { top: 48px; right: 68px; border-top-width: 2px; border-right-width: 2px; }
+    .corner.bl { bottom: 48px; left: 68px; border-bottom-width: 2px; border-left-width: 2px; }
+    .corner.br { bottom: 48px; right: 68px; border-bottom-width: 2px; border-right-width: 2px; }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      padding: 100px 80px 80px;
+    }
+
+    /* Brand */
+    .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .brand-sub {
+      font-size: 15px;
+      color: #94a3b8;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    /* Compass icon */
+    .compass {
+      font-size: 64px;
+      margin-bottom: 50px;
+      filter: drop-shadow(0 0 30px rgba(245,158,11,0.3));
+    }
+
+    /* Kickoff title */
+    .kickoff-label {
+      font-size: 18px;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: #f59e0b;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .kickoff-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 88px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .kickoff-week {
+      font-size: 54px;
+      font-weight: 300;
+      color: #94a3b8;
+      margin-bottom: 50px;
+    }
+
+    /* Date & Time */
+    .datetime {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+
+    .datetime-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .datetime-item .icon {
+      font-size: 28px;
+    }
+
+    .datetime-divider {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #f59e0b;
+    }
+
+    .meet-link {
+      font-size: 22px;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    /* QR Code section */
+    .qr-section {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 24px 36px;
+      background: rgba(245,158,11,0.04);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 20px;
+      margin-bottom: 50px;
+    }
+
+    .qr-wrapper {
+      width: 140px;
+      height: 140px;
+      padding: 10px;
+      background: rgba(10,14,23,0.9);
+      border: 2px solid rgba(245,158,11,0.3);
+      border-radius: 14px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-wrapper img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .qr-info {
+      text-align: left;
+    }
+
+    .qr-label {
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .qr-meet-text {
+      font-size: 22px;
+      font-weight: 600;
+      color: #f59e0b;
+      margin-bottom: 6px;
+    }
+
+    .qr-meet-link {
+      font-size: 16px;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    /* Divider */
+    .divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #f59e0b, transparent);
+      margin-bottom: 60px;
+    }
+
+    /* Book section */
+    .book-section {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .book-label {
+      font-size: 14px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-bottom: 16px;
+    }
+
+    .book-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .book-author {
+      font-size: 24px;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    .book-original {
+      font-size: 18px;
+      color: #64748b;
+      font-style: italic;
+      margin-top: 6px;
+    }
+
+    /* Speaker cards */
+    .speakers-label {
+      font-size: 16px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: #f59e0b;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      margin-bottom: 50px;
+    }
+
+    .speaker-card {
+      background: linear-gradient(135deg, rgba(26,34,52,0.9), rgba(17,24,39,0.9));
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 20px;
+      padding: 32px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .speaker-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    }
+
+    .speaker-part {
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #f59e0b;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .speaker-name {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .speaker-chapter {
+      font-size: 17px;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .speaker-pages {
+      display: inline-block;
+      font-size: 14px;
+      color: #f59e0b;
+      font-weight: 600;
+      background: rgba(245,158,11,0.1);
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(245,158,11,0.2);
+    }
+
+    /* MC */
+    .mc-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 40px;
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 50px;
+      margin-bottom: 40px;
+    }
+
+    .mc-label {
+      font-size: 20px;
+      color: #94a3b8;
+    }
+
+    .mc-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #f59e0b;
+    }
+
+    /* Footer */
+    .footer-text {
+      font-size: 16px;
+      color: #475569;
+      letter-spacing: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="deco-line top"></div>
+    <div class="deco-line bottom"></div>
+    <div class="corner tl"></div>
+    <div class="corner tr"></div>
+    <div class="corner bl"></div>
+    <div class="corner br"></div>
+
+    <!-- Compass Rose Watermark -->
+    <svg class="compass-watermark" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer circle -->
+      <circle cx="200" cy="200" r="190" stroke="#f59e0b" stroke-width="2"/>
+      <circle cx="200" cy="200" r="170" stroke="#f59e0b" stroke-width="1"/>
+      <circle cx="200" cy="200" r="60" stroke="#f59e0b" stroke-width="1.5"/>
+      <!-- Main compass points (N, S, E, W) -->
+      <polygon points="200,15 210,170 200,150 190,170" fill="#f59e0b"/>
+      <polygon points="200,385 190,230 200,250 210,230" fill="#f59e0b"/>
+      <polygon points="385,200 230,190 250,200 230,210" fill="#f59e0b"/>
+      <polygon points="15,200 170,210 150,200 170,190" fill="#f59e0b"/>
+      <!-- Diagonal points (NE, NW, SE, SW) -->
+      <polygon points="335,65 225,185 240,180 230,165" fill="#f59e0b"/>
+      <polygon points="65,335 175,215 160,220 170,235" fill="#f59e0b"/>
+      <polygon points="335,335 215,225 220,240 235,230" fill="#f59e0b"/>
+      <polygon points="65,65 185,175 180,160 165,170" fill="#f59e0b"/>
+      <!-- Inner decorative ring -->
+      <circle cx="200" cy="200" r="30" stroke="#f59e0b" stroke-width="2"/>
+      <circle cx="200" cy="200" r="8" fill="#f59e0b"/>
+      <!-- Tick marks -->
+      <line x1="200" y1="32" x2="200" y2="45" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="200" y1="355" x2="200" y2="368" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="32" y1="200" x2="45" y2="200" stroke="#f59e0b" stroke-width="2"/>
+      <line x1="355" y1="200" x2="368" y2="200" stroke="#f59e0b" stroke-width="2"/>
+      <!-- N letter -->
+      <text x="200" y="55" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#f59e0b">N</text>
+    </svg>
+
+    <div class="content">
+      <!-- Brand -->
+      <div class="brand">Nhóm Chính Bắc</div>
+      <div class="brand-sub">True North Groups — Book Club</div>
+
+      <!-- Compass -->
+      <div class="compass">🧭</div>
+
+      <!-- Kickoff -->
+      <div class="kickoff-label">✦ chia sẻ sách ✦</div>
+      <div class="kickoff-title">KICKOFF</div>
+      <div class="kickoff-week">— Tuần 1 —</div>
+
+      <!-- Date & Time -->
+      <div class="datetime">
+        <div class="datetime-item">
+          <span class="icon">📅</span>
+          <span>Chủ Nhật, 15/03/2026</span>
+        </div>
+        <div class="datetime-divider"></div>
+        <div class="datetime-item">
+          <span class="icon">🕐</span>
+          <span>05:15 – 07:15</span>
+        </div>
+      </div>
+
+      <!-- QR Code + Meet Link -->
+      <div class="qr-section">
+        <div class="qr-wrapper">
+          <img src="assets/qr-meet.svg" alt="QR Code Meet">
+        </div>
+        <div class="qr-info">
+          <div class="qr-label">quét để tham gia</div>
+          <div class="qr-meet-text">📍 Google Meet</div>
+          <div class="qr-meet-link">meet.google.com/kug-jttn-szc</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Book -->
+      <div class="book-section">
+        <div class="book-label">sách tuần này</div>
+        <div class="book-title">Nhóm Chính Bắc</div>
+        <div class="book-author">Bill George</div>
+        <div class="book-original">True North Groups</div>
+      </div>
+
+      <!-- Speakers -->
+      <div class="speakers-label">nội dung chia sẻ</div>
+      <div class="speakers-grid">
+        <div class="speaker-card">
+          <div class="speaker-part">Phần 1</div>
+          <div class="speaker-name">Giangle</div>
+          <div class="speaker-chapter">Lời giới thiệu + Lời nói đầu + Tìm kiếm chiều sâu</div>
+          <div class="speaker-pages">tr. 7–39 · 17 trang</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-part">Phần 2</div>
+          <div class="speaker-name">Thanh</div>
+          <div class="speaker-chapter">Chương 1: Nhóm Chính Bắc</div>
+          <div class="speaker-pages">tr. 41–58 · 27 trang</div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-part">Phần 3</div>
+          <div class="speaker-name">Thông</div>
+          <div class="speaker-chapter">Chương 2: Phát triển bản thân & năng lực lãnh đạo</div>
+          <div class="speaker-pages">tr. 59–74 · 17 trang</div>
+        </div>
+      </div>
+
+      <!-- MC -->
+      <div class="mc-section">
+        <span>🎙️</span>
+        <span class="mc-label">MC dẫn chương trình:</span>
+        <span class="mc-name">Thông Phan</span>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer-text">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</div>
+    </div>
+  </div>
+</body>
+</html>

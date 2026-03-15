@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chương 2 — Phát triển bản thân & năng lực lãnh đạo | Thông Phan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-deep: #060a14;
+      --navy: #0a0e17;
+      --navy-light: #0d1321;
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --gold-dim: rgba(245,158,11,0.15);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent-green: #10b981;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--navy-deep);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: var(--text);
+    }
+
+    /* ── Slide container ── */
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 100px;
+      background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 30%, var(--navy-light) 60%, var(--navy) 100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+      transform: translateX(40px);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    /* ── Background effects ── */
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 1000px;
+      background: radial-gradient(circle, rgba(245,158,11,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .slide-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1200px;
+      text-align: center;
+    }
+
+    /* ── Typography ── */
+    .serif { font-family: 'Playfair Display', serif; }
+
+    .slide-number {
+      position: absolute;
+      bottom: 30px;
+      right: 50px;
+      font-size: 14px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      z-index: 10;
+    }
+
+    .slide-brand {
+      position: absolute;
+      bottom: 30px;
+      left: 50px;
+      font-size: 13px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      z-index: 10;
+    }
+
+    /* ── Title slide ── */
+    .title-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 50px;
+      font-size: 14px;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 40px;
+    }
+
+    .title-main {
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #f1f5f9 30%, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .title-sub {
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--gold);
+      margin-bottom: 50px;
+    }
+
+    .title-meta {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    .title-meta span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Section header slides ── */
+    .section-icon {
+      font-size: 80px;
+      margin-bottom: 30px;
+      filter: drop-shadow(0 0 40px rgba(245,158,11,0.3));
+    }
+
+    .section-title {
+      font-size: 56px;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 22px;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Content slides ── */
+    .content-layout {
+      text-align: left;
+      width: 100%;
+    }
+
+    .content-header {
+      margin-bottom: 50px;
+    }
+
+    .content-tag {
+      display: inline-block;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .content-title {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .content-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .content-body.single {
+      grid-template-columns: 1fr;
+    }
+
+    .content-body.triple {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: linear-gradient(135deg, rgba(26,34,52,0.8), rgba(17,24,39,0.8));
+      border: 1px solid rgba(245,158,11,0.15);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+
+    .card.no-top::before { display: none; }
+
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .card-text {
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── Quote ── */
+    .quote-block {
+      position: relative;
+      padding: 50px 60px;
+      background: linear-gradient(135deg, rgba(26,34,52,0.6), rgba(17,24,39,0.6));
+      border-left: 4px solid var(--gold);
+      border-radius: 0 20px 20px 0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 80px;
+      color: rgba(245,158,11,0.2);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+
+    .quote-text {
+      font-size: 32px;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-author {
+      font-size: 18px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ── Lists ── */
+    .insight-list {
+      list-style: none;
+      text-align: left;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .insight-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(245,158,11,0.1);
+      font-size: 22px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    .insight-list li:last-child { border-bottom: none; }
+
+    .insight-list .num {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold-dim);
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 12px;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .insight-list strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── Highlight boxes ── */
+    .highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: var(--gold-dim);
+      border-radius: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    /* ── Key takeaway box ── */
+    .takeaway-box {
+      background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03));
+      border: 2px solid rgba(245,158,11,0.25);
+      border-radius: 24px;
+      padding: 50px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .takeaway-box .emoji { font-size: 60px; margin-bottom: 20px; }
+
+    .takeaway-box h3 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .takeaway-box p {
+      font-size: 22px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── Progress bar (bottom) ── */
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.4s ease;
+      z-index: 100;
+    }
+
+    /* ── Navigation arrows ── */
+    .nav-arrows {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 16px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      border: 1px solid rgba(245,158,11,0.3);
+      background: rgba(10,14,23,0.8);
+      color: var(--gold);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-btn:hover {
+      background: rgba(245,158,11,0.15);
+      border-color: var(--gold);
+    }
+
+    /* ── Decorative elements ── */
+    .deco-compass {
+      position: absolute;
+      top: 30px;
+      right: 50px;
+      font-size: 28px;
+      opacity: 0.4;
+      z-index: 10;
+    }
+
+    /* ── MC Agenda ── */
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 0;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .agenda-time {
+      font-size: 15px;
+      color: var(--gold);
+      font-weight: 600;
+      padding: 20px 0;
+      border-right: 2px solid rgba(245,158,11,0.2);
+      text-align: right;
+      padding-right: 24px;
+    }
+
+    .agenda-item {
+      padding: 20px 0 20px 24px;
+      border-bottom: 1px solid rgba(245,158,11,0.08);
+    }
+
+    .agenda-item-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .agenda-item-desc {
+      font-size: 16px;
+      color: var(--text-dim);
+    }
+
+    .agenda-active .agenda-item-title {
+      color: var(--gold);
+    }
+
+    .agenda-active .agenda-time {
+      border-right-color: var(--gold);
+    }
+
+    /* ── Discussion prompt ── */
+    .discussion-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .discussion-card {
+      background: linear-gradient(135deg, rgba(26,34,52,0.8), rgba(17,24,39,0.8));
+      border: 1px solid rgba(245,158,11,0.15);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: left;
+    }
+
+    .discussion-card .q-num {
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      background: var(--gold);
+      color: var(--navy-deep);
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .discussion-card p {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    /* ── Closing slide ── */
+    .closing-brand {
+      font-size: 60px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 20px;
+    }
+
+    .closing-slogan {
+      font-size: 22px;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 50px;
+    }
+
+    .closing-info {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .closing-info span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <!-- ═══════ SLIDE 1: Title ═══════ -->
+    <div class="slide active" id="slide-1">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="title-badge">📖 Nhóm Chính Bắc · Tuần 1</div>
+        <h1 class="title-main serif">Phát Triển Bản Thân<br>& Năng Lực Lãnh Đạo</h1>
+        <p class="title-sub serif">Chương 2 · trang 59–74</p>
+        <div class="title-meta">
+          <span>🎙️ MC & Trình bày: <strong style="color: var(--gold); margin-left: 6px;">Thông Phan</strong></span>
+          <span>📅 CN, 15/03/2026</span>
+          <span>🕐 05:15 – 07:15</span>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">01 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 2: MC Agenda ═══════ -->
+    <div class="slide" id="slide-2">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">chương trình buổi chia sẻ</div>
+            <h2 class="content-title serif" style="text-align: center;">Lịch Trình Tuần 1</h2>
+          </div>
+          <div class="agenda-grid">
+            <div class="agenda-time">05:15</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">🎙️ Khai mạc & Chào hỏi</div>
+              <div class="agenda-item-desc">MC: Thông Phan — Giới thiệu sách & các diễn giả</div>
+            </div>
+            <div class="agenda-time">05:25</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">📖 Phần 1 — Giangle</div>
+              <div class="agenda-item-desc">Lời giới thiệu + Lời nói đầu + Tìm kiếm chiều sâu (tr. 7–39)</div>
+            </div>
+            <div class="agenda-time">05:45</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">📖 Phần 2 — Thanh</div>
+              <div class="agenda-item-desc">Chương 1: Nhóm Chính Bắc (tr. 41–58)</div>
+            </div>
+            <div class="agenda-time">06:05</div>
+            <div class="agenda-item agenda-active">
+              <div class="agenda-item-title">📖 Phần 3 — Thông ⭐</div>
+              <div class="agenda-item-desc">Chương 2: Phát triển bản thân & năng lực lãnh đạo (tr. 59–74)</div>
+            </div>
+            <div class="agenda-time">06:25</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">💬 Thảo luận nhóm</div>
+              <div class="agenda-item-desc">Câu hỏi mở & chia sẻ trải nghiệm cá nhân</div>
+            </div>
+            <div class="agenda-time">07:00</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">📌 Tổng kết & Hẹn tuần sau</div>
+              <div class="agenda-item-desc">Đúc kết bài học — Nhắc lịch Tuần 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">02 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 3: Chapter overview ═══════ -->
+    <div class="slide" id="slide-3">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="section-icon">🌱</div>
+        <h2 class="section-title serif">Chương 2</h2>
+        <p class="section-desc">
+          <strong style="color: var(--gold);">Phát triển bản thân và nâng cao năng lực lãnh đạo</strong><br><br>
+          Tại sao những nhà lãnh đạo giỏi nhất đều cần một nhóm "chính bắc" để không lạc hướng?
+        </p>
+        <div style="margin-top: 30px;">
+          <span class="highlight">📄 trang 59–74 · 17 trang</span>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">03 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 4: Quote mở đầu ═══════ -->
+    <div class="slide" id="slide-4">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-tag" style="text-align: center; display: block; margin-bottom: 30px;">💡 Trích dẫn mở đầu</div>
+        <div class="quote-block">
+          <div class="quote-mark serif">"</div>
+          <p class="quote-text serif">
+            Lãnh đạo đích thực không đến từ quyền lực hay chức danh, mà từ sự hiểu biết sâu sắc về chính mình và khả năng truyền cảm hứng cho người khác.
+          </p>
+          <div class="quote-author">— Bill George, True North Groups</div>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">04 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 5: 3 Trụ cột phát triển ═══════ -->
+    <div class="slide" id="slide-5">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">ý chính chương 2</div>
+            <h2 class="content-title serif" style="text-align: center;">Ba trụ cột phát triển</h2>
+          </div>
+          <div class="content-body triple">
+            <div class="card">
+              <div class="card-icon">🔍</div>
+              <div class="card-title">Tự nhận thức</div>
+              <p class="card-text">Hiểu rõ giá trị cốt lõi, điểm mạnh và điểm yếu của bản thân — nền tảng của mọi sự phát triển</p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🤝</div>
+              <div class="card-title">Kết nối sâu sắc</div>
+              <p class="card-text">Xây dựng các mối quan hệ tin cậy, nơi mọi người dám chia sẻ thật sự — không cần "mặt nạ"</p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🎯</div>
+              <div class="card-title">Hành động có mục đích</div>
+              <p class="card-text">Biến những hiểu biết thành hành động cụ thể, tạo ảnh hưởng tích cực trong công việc và cuộc sống</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">05 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 6: Tại sao cần nhóm chính bắc? ═══════ -->
+    <div class="slide" id="slide-6">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">câu hỏi trọng tâm</div>
+            <h2 class="content-title serif" style="text-align: center;">Tại sao lãnh đạo cần nhóm hỗ trợ?</h2>
+          </div>
+          <div class="content-body">
+            <div class="card">
+              <div class="card-icon">⚡</div>
+              <div class="card-title">Vấn đề</div>
+              <p class="card-text">
+                Nhiều nhà lãnh đạo thành công nhưng cô đơn. Họ thiếu nơi an toàn để nói về nỗi sợ, sai lầm và các quyết định khó khăn.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon">💡</div>
+              <div class="card-title">Giải pháp</div>
+              <p class="card-text">
+                Nhóm Chính Bắc tạo ra "vùng an toàn" — nơi mọi người phản hồi trung thực, giúp nhau phát triển mà không phán xét.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">06 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 7: Lợi ích cụ thể ═══════ -->
+    <div class="slide" id="slide-7">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">lợi ích thực tế</div>
+            <h2 class="content-title serif" style="text-align: center;">Nhóm chính bắc giúp gì cho bạn?</h2>
+          </div>
+          <ul class="insight-list">
+            <li>
+              <span class="num">1</span>
+              <span><strong>Phản hồi chân thực</strong> — Nhận góp ý trung thực mà không ai trong công ty dám nói</span>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <span><strong>Ra quyết định tốt hơn</strong> — Nhiều góc nhìn giúp tránh "blind spots" cá nhân</span>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <span><strong>Chữa lành và phục hồi</strong> — Nơi an toàn để chia sẻ áp lực, tránh kiệt sức (burnout)</span>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <span><strong>Tăng trưởng liên tục</strong> — Cam kết nhóm tạo "áp lực tích cực" để không ngừng cải thiện</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">07 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 8: Phẩm chất lãnh đạo đích thực ═══════ -->
+    <div class="slide" id="slide-8">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">năng lực lãnh đạo</div>
+            <h2 class="content-title serif" style="text-align: center;">5 phẩm chất của lãnh đạo đích thực</h2>
+          </div>
+          <div class="content-body triple" style="grid-template-columns: repeat(5, 1fr); gap: 16px;">
+            <div class="card" style="padding: 28px 20px; text-align: center;">
+              <div class="card-icon">❤️</div>
+              <div class="card-title" style="font-size: 18px;">Đam mê<br>mục đích</div>
+            </div>
+            <div class="card" style="padding: 28px 20px; text-align: center;">
+              <div class="card-icon">⚖️</div>
+              <div class="card-title" style="font-size: 18px;">Sống theo<br>giá trị</div>
+            </div>
+            <div class="card" style="padding: 28px 20px; text-align: center;">
+              <div class="card-icon">🫀</div>
+              <div class="card-title" style="font-size: 18px;">Lãnh đạo<br>bằng trái tim</div>
+            </div>
+            <div class="card" style="padding: 28px 20px; text-align: center;">
+              <div class="card-icon">🤝</div>
+              <div class="card-title" style="font-size: 18px;">Xây dựng<br>mối quan hệ</div>
+            </div>
+            <div class="card" style="padding: 28px 20px; text-align: center;">
+              <div class="card-icon">🪞</div>
+              <div class="card-title" style="font-size: 18px;">Tự kỷ luật<br>& nhất quán</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">08 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 9: Câu chuyện thực tế ═══════ -->
+    <div class="slide" id="slide-9">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-tag" style="text-align: center; display: block; margin-bottom: 30px;">📌 Case study</div>
+        <div class="quote-block">
+          <div class="quote-mark serif">"</div>
+          <p class="quote-text serif" style="font-size: 28px;">
+            Trong hơn 30 năm, nhóm chính bắc của tôi đã giúp tôi vượt qua những quyết định khó khăn nhất — từ việc rời bỏ vị trí CEO tại Medtronic đến việc xây dựng lại sự nghiệp ở tuổi 60.
+          </p>
+          <div class="quote-author">— Bill George, cựu CEO Medtronic</div>
+        </div>
+        <p style="text-align: center; margin-top: 30px; font-size: 20px; color: var(--text-muted);">
+          Bill George cho rằng thành công lớn nhất không đo bằng doanh thu,<br>mà bằng chất lượng các mối quan hệ hỗ trợ xung quanh bạn.
+        </p>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">09 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 10: Ứng dụng cho nhóm mình ═══════ -->
+    <div class="slide" id="slide-10">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">ứng dụng thực tế</div>
+            <h2 class="content-title serif" style="text-align: center;">Áp dụng cho nhóm Book & Beyond</h2>
+          </div>
+          <div class="content-body">
+            <div class="card">
+              <div class="card-icon">🎯</div>
+              <div class="card-title">Chúng ta đang làm gì đúng?</div>
+              <p class="card-text">
+                ✅ Gặp mặt đều đặn mỗi tuần<br>
+                ✅ Chia sẻ kiến thức & trải nghiệm<br>
+                ✅ Luân phiên MC — phát triển kỹ năng<br>
+                ✅ Cam kết kỷ luật cá nhân
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🚀</div>
+              <div class="card-title">Có thể nâng cấp thêm</div>
+              <p class="card-text">
+                🔹 Chia sẻ sâu hơn — không chỉ sách<br>
+                🔹 Phản hồi cho nhau sau mỗi buổi<br>
+                🔹 Đặt mục tiêu cá nhân & theo dõi<br>
+                🔹 Xây dựng "vùng an toàn" tin cậy
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">10 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 11: Discussion ═══════ -->
+    <div class="slide" id="slide-11">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-header" style="text-align: center;">
+          <div class="content-tag">💬 thảo luận nhóm</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu hỏi suy ngẫm</h2>
+        </div>
+        <div class="discussion-cards" style="margin-top: 40px;">
+          <div class="discussion-card">
+            <div class="q-num">1</div>
+            <p>Bạn có ai / nhóm nào đóng vai trò "chính bắc" trong cuộc sống không? Nhóm đó giúp gì cho bạn?</p>
+          </div>
+          <div class="discussion-card">
+            <div class="q-num">2</div>
+            <p>Điều gì khiến bạn <strong>chưa dám</strong> chia sẻ thật sự trong một nhóm? Làm sao để vượt qua rào cản đó?</p>
+          </div>
+          <div class="discussion-card">
+            <div class="q-num">3</div>
+            <p>Nếu nhóm Book & Beyond trở thành "nhóm chính bắc" của bạn, bạn mong muốn điều gì nhất?</p>
+          </div>
+          <div class="discussion-card">
+            <div class="q-num">4</div>
+            <p>Trong 5 phẩm chất lãnh đạo, bạn tự đánh giá mình <strong>mạnh nhất</strong> và <strong>cần cải thiện nhất</strong> ở phẩm chất nào?</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">11 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 12: Closing ═══════ -->
+    <div class="slide" id="slide-12">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div style="font-size: 80px; margin-bottom: 30px;">🧭</div>
+        <div class="closing-brand serif">Nhóm Chính Bắc</div>
+        <div class="closing-slogan">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</div>
+
+        <div class="takeaway-box" style="margin-bottom: 40px;">
+          <h3 class="serif" style="color: var(--gold); font-size: 28px;">💡 Bài học cốt lõi</h3>
+          <p style="font-size: 20px;">
+            Bạn không cần phải đi một mình. Hãy tìm hoặc tạo ra nhóm "chính bắc" — nơi bạn được là chính mình, được thử thách và được nâng đỡ.
+          </p>
+        </div>
+
+        <div class="closing-info">
+          <span>📅 Tuần sau: CN, 22/03/2026</span>
+          <span>🎙️ MC: Giangle</span>
+          <span>📖 Chương 3: Thành lập nhóm</span>
+        </div>
+      </div>
+      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-number">12 / 12</div>
+    </div>
+
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Nav arrows -->
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+
+      // Update progress bar
+      const progress = ((current + 1) / slides.length) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        nextSlide();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+        e.preventDefault();
+        prevSlide();
+      }
+      // Press 'f' for fullscreen
+      if (e.key === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    });
+
+    // Touch/swipe
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? nextSlide() : prevSlide();
+      }
+    });
+
+    // Init progress
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
