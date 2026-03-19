@@ -1,7 +1,7 @@
 {
-  "clubName": "Book & Beyond",
+  "clubName": "BooknBeyond",
   "slogan": "Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa",
-  "meetLink": "https://meet.google.com/kug-jttn-szc",
+  "meetLink": "https://meet.google.com/onb-gepu-owa",
   "meetTime": { "day": "Sunday", "start": "05:15", "end": "07:15" },
   "driveLink": "https://drive.google.com/drive/folders/1Y8xC8wfZTJ-mP5MGx4JolxpXzt4cut_h?usp=sharing",
   "registerFormLink": "https://docs.google.com/spreadsheets/d/18JVy2EqdRsJDf_tzDfsqX-jE5I6gos8sWBVzcK06tRU/edit?pli=1&gid=0#gid=0",
@@ -34,11 +34,11 @@
     {
       "week": 2,
       "date": "2026-03-22",
-      "mc": "Giangle",
+      "mc": "GiangLe",
       "sharers": [
-        { "name": "Giang", "chapter": "Chương 3: Thành lập nhóm — phần đầu (tr.75–93, 20 trang)" },
-        { "name": "Thanh", "chapter": "Chương 3: Thành lập nhóm — từ phần 'Lãnh đạo nhóm chính bắc' (tr.94–112, 20 trang)" },
-        { "name": "Bảo", "chapter": "Chương 4: Thiết lập nguyên tắc (tr.113–132, 21 trang)" }
+        { "name": "Ms Giang", "chapter": "Chương 3: Thành lập nhóm (tr.75–112, 39 trang)" },
+        { "name": "Bảo", "chapter": "Chương 4: Thiết lập nguyên tắc (tr.113–132, 21 trang)" },
+        { "name": "Lương", "chapter": "Nguồn lực 4: Bản cam kết thành viên + NL5: Hình thức tổ chức cuộc họp + NL6: Nguyên tắc nền tảng (tr.215–224, 13 trang)" }
       ]
     },
     {
@@ -57,17 +57,8 @@
       "mc": "Thanh Lương",
       "sharers": [
         { "name": "Thanh", "chapter": "Nguồn lực 1: Chương trình cho nhóm mới thành lập — 12 chủ đề đầu tiên (tr.191–206, 17 trang)" },
-        { "name": "Giang", "chapter": "Nguồn lực 2: Các ý tưởng khác về chương trình hoạt động + NL3: Cuộc họp đầu tiên (tr.207–214, 10 trang)" },
-        { "name": "Lương", "chapter": "Nguồn lực 4: Bản cam kết thành viên + NL5: Hình thức tổ chức cuộc họp + NL6: Nguyên tắc nền tảng (tr.215–224, 13 trang)" }
-      ]
-    },
-    {
-      "week": 5,
-      "date": "2026-04-19",
-      "mc": "Thanh Võ",
-      "sharers": [
-        { "name": "Giang", "chapter": "Nguồn lực 7: Hướng dẫn điều hành nhóm (tr.225–236, 13 trang)" },
-        { "name": "Giangle", "chapter": "Nguồn lực 8: Khảo sát sự hài lòng + NL9: Các kỳ nghỉ + NL10: Bổ sung thành viên mới (tr.237–248, 14 trang)" },
+        { "name": "Thanh", "chapter": "Nguồn lực 2: Các ý tưởng khác về chương trình hoạt động (tr.207–213, 7 trang)" },
+        { "name": "GiangLe", "chapter": "Nguồn lực 10: Bổ sung thành viên mới vào nhóm (tr.245–249, 5 trang)" },
         { "name": "Bảo", "chapter": "Nguồn lực 11: Đóng góp và tiếp thu ý kiến phản hồi + NL12: Quá trình nghiên cứu (tr.249–259, 12 trang)" }
       ]
     },

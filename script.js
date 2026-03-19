@@ -1,5 +1,5 @@
 /* ===========================
-   Book & Beyond — Web Hub
+   BooknBeyond — Web Hub
    Script
    =========================== */
 
@@ -305,7 +305,7 @@
     document.getElementById('linkZalo').href = CONFIG.zaloGroupLink;
     // Calendar link — Google Calendar event creation
     document.getElementById('linkCalendar').href =
-      `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Book & Beyond — Chia sẻ sách')}&dates=20260315T051500/20260315T071500&recur=RRULE:FREQ=WEEKLY;BYDAY=SU&details=${encodeURIComponent('Buổi chia sẻ sách hàng tuần. Link Meet: ' + CONFIG.meetLink)}`;
+      `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(CONFIG.clubName + ' — Chia sẻ sách')}&dates=20260315T051500/20260315T071500&recur=RRULE:FREQ=WEEKLY;BYDAY=SU&details=${encodeURIComponent('Buổi chia sẻ sách hàng tuần. Link Meet: ' + CONFIG.meetLink)}`;
   }
 
   // ——————————————————————————
