@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Poster Tuần 1 — Kickoff</title>
+  <title>Poster Tuần 2 — Chia Sẻ Sách</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -29,7 +29,6 @@
       color: #f1f5f9;
     }
 
-    /* Background effects */
     .poster::before {
       content: '';
       position: absolute;
@@ -42,7 +41,6 @@
       pointer-events: none;
     }
 
-    /* Compass rose watermark */
     .compass-watermark {
       position: absolute;
       top: 50%;
@@ -67,7 +65,6 @@
       pointer-events: none;
     }
 
-    /* Decorative lines */
     .deco-line {
       position: absolute;
       height: 1px;
@@ -76,7 +73,6 @@
     .deco-line.top { top: 60px; left: 80px; right: 80px; }
     .deco-line.bottom { bottom: 60px; left: 80px; right: 80px; }
 
-    /* Corner decorations */
     .corner {
       position: absolute;
       width: 40px;
@@ -100,13 +96,11 @@
       padding: 100px 80px 80px;
     }
 
-    /* Brand */
     .brand {
       font-family: 'Playfair Display', serif;
       font-size: 42px;
       font-weight: 800;
       letter-spacing: 6px;
-      text-transform: uppercase;
       background: linear-gradient(135deg, #f59e0b, #fbbf24, #f59e0b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -122,45 +116,39 @@
       margin-bottom: 40px;
     }
 
-    /* Compass icon */
-    .compass {
-      font-size: 64px;
-      margin-bottom: 50px;
-      filter: drop-shadow(0 0 30px rgba(245,158,11,0.3));
-    }
+    .compass { font-size: 64px; margin-bottom: 48px; filter: drop-shadow(0 0 30px rgba(245,158,11,0.3)); }
 
-    /* Kickoff title */
-    .kickoff-label {
+    .week-label {
       font-size: 18px;
       letter-spacing: 8px;
       text-transform: uppercase;
       color: #f59e0b;
       font-weight: 600;
-      margin-bottom: 16px;
+      margin-bottom: 32px;
     }
 
-    .kickoff-title {
-      font-family: 'Playfair Display', serif;
+    .week-title {
+      font-family: 'Be Vietnam Pro', sans-serif;
       font-size: 88px;
       font-weight: 900;
-      letter-spacing: -1px;
+      letter-spacing: 2px;
       line-height: 1;
-      margin-bottom: 8px;
+      margin-bottom: 44px;
+      font-feature-settings: 'lnum' 1;
     }
 
-    .kickoff-week {
+    .week-num {
       font-size: 54px;
       font-weight: 300;
       color: #94a3b8;
-      margin-bottom: 50px;
+      margin-bottom: 44px;
     }
 
-    /* Date & Time */
     .datetime {
       display: flex;
       align-items: center;
       gap: 20px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .datetime-item {
@@ -171,21 +159,13 @@
       font-weight: 500;
     }
 
-    .datetime-item .icon {
-      font-size: 28px;
-    }
+    .datetime-item .icon { font-size: 28px; }
 
     .datetime-divider {
       width: 4px;
       height: 4px;
       border-radius: 50%;
       background: #f59e0b;
-    }
-
-    .meet-link {
-      font-size: 22px;
-      color: #64748b;
-      margin-bottom: 12px;
     }
 
     /* QR Code section */
@@ -197,7 +177,7 @@
       background: rgba(245,158,11,0.04);
       border: 1px solid rgba(245,158,11,0.2);
       border-radius: 20px;
-      margin-bottom: 50px;
+      margin-bottom: 44px;
     }
 
     .qr-wrapper {
@@ -213,14 +193,9 @@
       justify-content: center;
     }
 
-    .qr-wrapper img {
-      width: 100%;
-      height: 100%;
-    }
+    .qr-wrapper img { width: 100%; height: 100%; }
 
-    .qr-info {
-      text-align: left;
-    }
+    .qr-info { text-align: left; }
 
     .qr-label {
       font-size: 13px;
@@ -243,18 +218,16 @@
       font-weight: 400;
     }
 
-    /* Divider */
     .divider {
       width: 120px;
       height: 2px;
       background: linear-gradient(90deg, transparent, #f59e0b, transparent);
-      margin-bottom: 60px;
+      margin-bottom: 50px;
     }
 
-    /* Book section */
     .book-section {
       text-align: center;
-      margin-bottom: 70px;
+      margin-bottom: 60px;
     }
 
     .book-label {
@@ -267,7 +240,7 @@
 
     .book-title {
       font-family: 'Playfair Display', serif;
-      font-size: 56px;
+      font-size: 52px;
       font-weight: 800;
       background: linear-gradient(135deg, #f59e0b, #fbbf24);
       -webkit-background-clip: text;
@@ -289,7 +262,6 @@
       margin-top: 6px;
     }
 
-    /* Speaker cards */
     .speakers-label {
       font-size: 16px;
       letter-spacing: 6px;
@@ -320,9 +292,7 @@
     .speaker-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 3px;
       background: linear-gradient(90deg, #f59e0b, #fbbf24);
     }
@@ -343,7 +313,7 @@
     }
 
     .speaker-chapter {
-      font-size: 17px;
+      font-size: 16px;
       color: #94a3b8;
       line-height: 1.5;
       margin-bottom: 14px;
@@ -360,7 +330,6 @@
       border: 1px solid rgba(245,158,11,0.2);
     }
 
-    /* MC */
     .mc-section {
       display: flex;
       align-items: center;
@@ -372,18 +341,9 @@
       margin-bottom: 40px;
     }
 
-    .mc-label {
-      font-size: 20px;
-      color: #94a3b8;
-    }
+    .mc-label { font-size: 20px; color: #94a3b8; }
+    .mc-name { font-size: 24px; font-weight: 700; color: #f59e0b; }
 
-    .mc-name {
-      font-size: 24px;
-      font-weight: 700;
-      color: #f59e0b;
-    }
-
-    /* Footer */
     .footer-text {
       font-size: 16px;
       color: #475569;
@@ -402,50 +362,43 @@
 
     <!-- Compass Rose Watermark -->
     <svg class="compass-watermark" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Outer circle -->
       <circle cx="200" cy="200" r="190" stroke="#f59e0b" stroke-width="2"/>
       <circle cx="200" cy="200" r="170" stroke="#f59e0b" stroke-width="1"/>
       <circle cx="200" cy="200" r="60" stroke="#f59e0b" stroke-width="1.5"/>
-      <!-- Main compass points (N, S, E, W) -->
       <polygon points="200,15 210,170 200,150 190,170" fill="#f59e0b"/>
       <polygon points="200,385 190,230 200,250 210,230" fill="#f59e0b"/>
       <polygon points="385,200 230,190 250,200 230,210" fill="#f59e0b"/>
       <polygon points="15,200 170,210 150,200 170,190" fill="#f59e0b"/>
-      <!-- Diagonal points (NE, NW, SE, SW) -->
       <polygon points="335,65 225,185 240,180 230,165" fill="#f59e0b"/>
       <polygon points="65,335 175,215 160,220 170,235" fill="#f59e0b"/>
       <polygon points="335,335 215,225 220,240 235,230" fill="#f59e0b"/>
       <polygon points="65,65 185,175 180,160 165,170" fill="#f59e0b"/>
-      <!-- Inner decorative ring -->
       <circle cx="200" cy="200" r="30" stroke="#f59e0b" stroke-width="2"/>
       <circle cx="200" cy="200" r="8" fill="#f59e0b"/>
-      <!-- Tick marks -->
       <line x1="200" y1="32" x2="200" y2="45" stroke="#f59e0b" stroke-width="2"/>
       <line x1="200" y1="355" x2="200" y2="368" stroke="#f59e0b" stroke-width="2"/>
       <line x1="32" y1="200" x2="45" y2="200" stroke="#f59e0b" stroke-width="2"/>
       <line x1="355" y1="200" x2="368" y2="200" stroke="#f59e0b" stroke-width="2"/>
-      <!-- N letter -->
       <text x="200" y="55" text-anchor="middle" font-family="serif" font-size="24" font-weight="bold" fill="#f59e0b">N</text>
     </svg>
 
     <div class="content">
       <!-- Brand -->
-      <div class="brand">Nhóm Chính Bắc</div>
-      <div class="brand-sub">True North Groups — Book Club</div>
+      <div class="brand">BOOKnBEYOND</div>
+      <div class="brand-sub">Nhóm Chính Bắc — Book Club</div>
 
       <!-- Compass -->
       <div class="compass">🧭</div>
 
-      <!-- Kickoff -->
-      <div class="kickoff-label">✦ chia sẻ sách ✦</div>
-      <div class="kickoff-title">KICKOFF</div>
-      <div class="kickoff-week">— Tuần 1 —</div>
+      <!-- Week Info -->
+      <div class="week-label">✦ chia sẻ sách ✦</div>
+      <div class="week-title">TUẦN 2</div>
 
       <!-- Date & Time -->
       <div class="datetime">
         <div class="datetime-item">
           <span class="icon">📅</span>
-          <span>Chủ Nhật, 15/03/2026</span>
+          <span>Chủ Nhật, 22/03/2026</span>
         </div>
         <div class="datetime-divider"></div>
         <div class="datetime-item">
@@ -457,12 +410,12 @@
       <!-- QR Code + Meet Link -->
       <div class="qr-section">
         <div class="qr-wrapper">
-          <img src="assets/qr-meet.svg" alt="QR Code Meet">
+          <img src="assets/qr-meet-week2.svg" alt="QR Code Meet">
         </div>
         <div class="qr-info">
           <div class="qr-label">quét để tham gia</div>
           <div class="qr-meet-text">📍 Google Meet</div>
-          <div class="qr-meet-link">meet.google.com/kug-jttn-szc</div>
+          <div class="qr-meet-link">meet.google.com/onb-gepu-owa</div>
         </div>
       </div>
 
@@ -481,21 +434,21 @@
       <div class="speakers-grid">
         <div class="speaker-card">
           <div class="speaker-part">Phần 1</div>
-          <div class="speaker-name">Giangle</div>
-          <div class="speaker-chapter">Lời giới thiệu + Lời nói đầu + Tìm kiếm chiều sâu</div>
-          <div class="speaker-pages">tr. 7–39 · 17 trang</div>
+          <div class="speaker-name">Ms Giang</div>
+          <div class="speaker-chapter">Chương 3: Thành lập nhóm</div>
+          <div class="speaker-pages">tr. 75–112 · 39 trang</div>
         </div>
         <div class="speaker-card">
           <div class="speaker-part">Phần 2</div>
-          <div class="speaker-name">Thanh</div>
-          <div class="speaker-chapter">Chương 1: Nhóm Chính Bắc</div>
-          <div class="speaker-pages">tr. 41–58 · 27 trang</div>
+          <div class="speaker-name">Bảo</div>
+          <div class="speaker-chapter">Chương 4: Thiết lập nguyên tắc</div>
+          <div class="speaker-pages">tr. 113–132 · 21 trang</div>
         </div>
         <div class="speaker-card">
           <div class="speaker-part">Phần 3</div>
-          <div class="speaker-name">Thông</div>
-          <div class="speaker-chapter">Chương 2: Phát triển bản thân & năng lực lãnh đạo</div>
-          <div class="speaker-pages">tr. 59–74 · 17 trang</div>
+          <div class="speaker-name">Lương</div>
+          <div class="speaker-chapter">NL4: Bản cam kết + NL5: Tổ chức cuộc họp + NL6: Nguyên tắc nền tảng</div>
+          <div class="speaker-pages">tr. 215–224 · 13 trang</div>
         </div>
       </div>
 
@@ -503,7 +456,7 @@
       <div class="mc-section">
         <span>🎙️</span>
         <span class="mc-label">MC dẫn chương trình:</span>
-        <span class="mc-name">Thông Phan</span>
+        <span class="mc-name">GiangLe</span>
       </div>
 
       <!-- Footer -->
