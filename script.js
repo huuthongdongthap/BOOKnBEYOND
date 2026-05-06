@@ -372,7 +372,7 @@
       // Removed month marker to keep spines in a continuous horizontal shelf
 
       const colorPair = colors[i % colors.length];
-      const hWidth = Math.floor(Math.random() * 15) + 40; // 40px - 55px
+      const hWidth = Math.floor(Math.random() * 20) + 50; // 50px - 70px
 
       html += `
         <div class="book-spine-group">

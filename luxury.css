@@ -157,15 +157,17 @@ a, button, .btn {
 }
 
 .hero-title {
-  font-size: clamp(4rem, 12vw, 8rem) !important;
+  font-size: clamp(2.8rem, 8vw, 5.5rem) !important;
   background: var(--gold-gradient) !important;
   background-size: 100% auto !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   line-height: 1.1;
   animation: fadeInUp 0.6s ease 0.1s both !important;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 .hero-image {
@@ -566,25 +568,34 @@ a, button, .btn {
 }
 .spine-content {
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%) rotate(-90deg);
   transform-origin: center bottom;
-  width: 240px;
+  width: 220px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  color: rgba(255,255,255,0.9);
+  justify-content: flex-start;
+  gap: 8px;
+  color: rgba(255,255,255,0.95);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .spine-title {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.75rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 .spine-author {
-  font-size: 0.75rem;
-  opacity: 0.7;
+  font-size: 0.65rem;
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
 }
 
 .book-spine-tooltip {
@@ -740,7 +751,22 @@ textarea, input[type="text"], select {
 /* Responsive hero image */
 @media (max-width: 768px) {
   .hero-image { max-width: 90%; }
-  .hero-title { font-size: clamp(2.5rem, 10vw, 5rem) !important; }
+  .hero-title { font-size: clamp(2rem, 8vw, 3.5rem) !important; }
   .leaderboard-top { flex-direction: column; align-items: center; }
   .lb-top-card.rank-1 { transform: scale(1.05) translateY(0) !important; }
+  .fund-dashboard { grid-template-columns: 1fr !important; }
+}
+
+/* Navbar compact: prevent 2-line wrapping */
+.nav-links {
+  gap: 0 !important;
+}
+.nav-links a {
+  font-size: 0.78rem !important;
+  padding: 8px 8px !important;
+  white-space: nowrap;
+}
+.nav-cta {
+  white-space: nowrap;
+  padding: 8px 16px !important;
 }
