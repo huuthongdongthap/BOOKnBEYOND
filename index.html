@@ -16,6 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="luxury.css">
 </head>
 <body>
   <!-- Navigation -->
@@ -43,44 +44,48 @@
 
   <!-- Hero Section -->
   <section class="hero" id="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg">
+      <div class="noise"></div>
+      <div class="line-art"></div>
+    </div>
     <div class="container hero-content">
-      <div class="hero-badge">🧭 Cộng đồng Chính Bắc</div>
-      <h1 class="hero-title" id="clubName">BooknBeyond</h1>
-      <p class="hero-slogan" id="clubSlogan">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</p>
+      <div class="hero-badge fade-in">🧭 Cộng đồng Chính Bắc</div>
+      <h1 class="hero-title fade-in" id="clubName">BooknBeyond</h1>
+      <div class="hero-slogan fade-in" id="clubSlogan">
+        <div class="slogan-line"><span>•</span> Đọc để biết</div>
+        <div class="slogan-line"><span>•</span> Chia sẻ để nhớ</div>
+        <div class="slogan-line"><span>•</span> Ứng dụng để chuyển hóa</div>
+      </div>
       
-      <div class="countdown-card">
-        <div class="countdown-label">Buổi tiếp theo trong</div>
+      <div class="countdown-wrapper fade-in">
+        <div class="countdown-label">NGHI THỨC BẮT ĐẦU TRONG</div>
         <div class="countdown-timer" id="countdown">
           <div class="countdown-unit">
-            <span class="countdown-number" id="days">0</span>
-            <span class="countdown-text">Ngày</span>
+            <span class="countdown-number" id="days">00</span>
+            <span class="countdown-text">NGÀY</span>
           </div>
-          <div class="countdown-separator">:</div>
           <div class="countdown-unit">
-            <span class="countdown-number" id="hours">0</span>
-            <span class="countdown-text">Giờ</span>
+            <span class="countdown-number" id="hours">00</span>
+            <span class="countdown-text">GIỜ</span>
           </div>
-          <div class="countdown-separator">:</div>
           <div class="countdown-unit">
-            <span class="countdown-number" id="minutes">0</span>
-            <span class="countdown-text">Phút</span>
+            <span class="countdown-number" id="minutes">00</span>
+            <span class="countdown-text">PHÚT</span>
           </div>
-          <div class="countdown-separator">:</div>
           <div class="countdown-unit">
-            <span class="countdown-number" id="seconds">0</span>
-            <span class="countdown-text">Giây</span>
+            <span class="countdown-number" id="seconds">00</span>
+            <span class="countdown-text">GIÂY</span>
           </div>
         </div>
         <div class="countdown-info">
-          <span>🕐 Chủ Nhật, 05:15 – 07:15</span>
-          <span>📍 Google Meet</span>
+          <span>Chủ Nhật, 05:15 – 07:15</span>
+          <span><span class="gold-dot"></span> Google Meet</span>
         </div>
       </div>
       
-      <div class="hero-actions">
-        <a href="#" class="btn btn-primary" id="meetBtn">🎥 Vào Google Meet</a>
-        <a href="#schedule" class="btn btn-secondary">📅 Xem lịch tuần này</a>
+      <div class="hero-actions fade-in">
+        <a href="#" class="btn btn-primary" id="meetBtn">Vào Google Meet</a>
+        <a href="#schedule" class="btn btn-secondary">Xem lịch tuần này</a>
       </div>
     </div>
   </section>
@@ -130,56 +135,58 @@
 
   <!-- Leaderboard -->
   <section class="section" id="leaderboard">
+    <div class="section-divider"></div>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header fade-in">
         <span class="section-icon">🌟</span>
-        <h2>Bảng Xếp Hạng</h2>
+        <h2>Bia Đá Danh Dự</h2>
       </div>
-      <div class="leaderboard-table-wrapper">
-        <table class="leaderboard-table" id="leaderboardTable">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Thành viên</th>
-              <th>Điểm</th>
-              <th>Chia sẻ</th>
-              <th>Tham dự</th>
-              <th>Streak 🔥</th>
-            </tr>
-          </thead>
-          <tbody id="leaderboardBody"></tbody>
-        </table>
+      <div class="leaderboard-top" id="leaderboardTop">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="leaderboard-list" id="leaderboardList">
+        <!-- Rendered by JS -->
       </div>
     </div>
   </section>
 
   <!-- Fund -->
   <section class="section section-alt" id="fund">
+    <div class="section-divider"></div>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header fade-in">
         <span class="section-icon">🤝</span>
         <h2>Quỹ Nhóm</h2>
       </div>
-      <div class="fund-overview">
-        <div class="fund-balance-card">
-          <div class="fund-balance-label">Số dư hiện tại</div>
-          <div class="fund-balance-amount" id="fundBalance">—</div>
-        </div>
-        <div class="fund-stats">
-          <div class="fund-stat income">
-            <span class="fund-stat-label">Thu tháng này</span>
-            <span class="fund-stat-amount" id="fundIncome">—</span>
+      <div class="fund-dashboard">
+        <div class="fund-visuals">
+          <div class="fund-sparkline-card fade-in">
+            <div class="fund-label">SỐ DƯ HIỆN TẠI</div>
+            <div class="fund-balance-amount" id="fundBalance">—</div>
+            <div class="sparkline-wrapper">
+              <div class="sparkline"></div>
+            </div>
+            <div class="sparkline-labels">
+              <span>6 tháng trước</span>
+              <span>Hiện tại</span>
+            </div>
           </div>
-          <div class="fund-stat expense">
-            <span class="fund-stat-label">Chi tháng này</span>
-            <span class="fund-stat-amount" id="fundExpense">—</span>
+          <div class="fund-donut-card fade-in">
+            <div class="fund-label">THÁNG NÀY</div>
+            <div class="donut-chart-container">
+              <div class="donut-chart" id="fundDonut"></div>
+              <div class="donut-legend">
+                <div class="legend-item"><span class="legend-dot income"></span> Thu: <span id="fundIncome">—</span></div>
+                <div class="legend-item"><span class="legend-dot expense"></span> Chi: <span id="fundExpense">—</span></div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="fund-details">
-        <h3>Chi tiết thu chi</h3>
-        <div class="fund-list" id="fundList">
-          <!-- Rendered by JS -->
+        <div class="fund-details fade-in">
+          <h3>Lịch sử giao dịch</h3>
+          <div class="fund-timeline" id="fundList">
+            <!-- Rendered by JS -->
+          </div>
         </div>
       </div>
     </div>
@@ -187,12 +194,17 @@
 
   <!-- Library -->
   <section class="section" id="library">
+    <div class="section-divider"></div>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header fade-in">
         <span class="section-icon">📚</span>
-        <h2>Thư Viện — Sách Đã Đọc</h2>
+        <h2>Di Sản Đọc Sách</h2>
       </div>
-      <div class="library-grid" id="libraryGrid">
+      <div class="library-controls fade-in">
+        <button class="btn btn-outline btn-sm active" id="btnSpineView">Kệ Sách</button>
+        <button class="btn btn-outline btn-sm" id="btnGridView">Lưới Bìa</button>
+      </div>
+      <div class="library-shelf spine-view" id="libraryGrid">
         <!-- Rendered by JS -->
       </div>
     </div>
@@ -200,19 +212,17 @@
 
   <!-- Reviews -->
   <section class="section section-alt" id="reviews">
+    <div class="section-divider"></div>
     <div class="container">
-      <div class="section-header">
+      <div class="section-header fade-in">
         <span class="section-icon">📝</span>
-        <h2>Cảm Nhận Về Sách</h2>
+        <h2>Góc Khai Sáng</h2>
       </div>
-      <div class="review-summary" id="reviewSummary">
-        <!-- Rendered by JS: avg rating + total reviews -->
-      </div>
-      <div class="review-grid" id="reviewGrid">
+      <div class="review-masonry" id="reviewGrid">
         <!-- Rendered by JS -->
       </div>
-      <div class="review-actions">
-        <button class="btn btn-primary" id="writeReviewBtn" onclick="openReviewModal()">✍️ Viết Review</button>
+      <div class="review-actions fade-in">
+        <button class="btn btn-primary" id="writeReviewBtn" onclick="openReviewModal()">Viết Cảm Nhận</button>
       </div>
     </div>
   </section>

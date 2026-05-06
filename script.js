@@ -240,47 +240,104 @@
   }
 
   function renderLeaderboard() {
-    const body = document.getElementById('leaderboardBody');
+    const topContainer = document.getElementById('leaderboardTop');
+    const listContainer = document.getElementById('leaderboardList');
+    if (!topContainer || !listContainer) return;
+
+    if (!CONFIG.members || CONFIG.members.length === 0) {
+      topContainer.innerHTML = '';
+      listContainer.innerHTML = '<div class="empty-state">Tuần đầu tiên — bảng còn trống, ai sẽ chia sẻ trước?</div>';
+      return;
+    }
+
     const sorted = [...CONFIG.members].sort((a, b) => b.points - a.points);
+    const top3 = sorted.slice(0, 3);
+    const others = sorted.slice(3);
 
-    body.innerHTML = sorted.map((m, i) => {
-      const rank = i + 1;
-      const rankClass = rank <= 3 ? `rank-${rank}` : 'rank-other';
-      const medal = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : '';
+    // Reorder Top 3 for visual display: #2, #1, #3
+    const displayTop3 = [];
+    if (top3[1]) displayTop3.push({ ...top3[1], rank: 2 });
+    if (top3[0]) displayTop3.push({ ...top3[0], rank: 1 });
+    if (top3[2]) displayTop3.push({ ...top3[2], rank: 3 });
 
+    topContainer.innerHTML = displayTop3.map(m => {
+      const isTop1 = m.rank === 1;
+      const streakDots = Array.from({length: Math.min(m.streak, 5)}).map((_, i) => 
+        `<span class="streak-dot" style="opacity: ${0.4 + (i * 0.15)}"></span>`
+      ).join('');
+      
       return `
-        <tr>
-          <td><span class="rank-badge ${rankClass}">${medal || rank}</span></td>
-          <td>
-            <span class="member-name">
-              ${m.name}
-              ${m.role ? `<span class="member-role">${m.role}</span>` : ''}
-            </span>
-          </td>
-          <td class="points-cell">${m.points}</td>
-          <td>${m.shares}</td>
-          <td>${m.attendance}</td>
-          <td class="streak-cell">${m.streak > 0 ? m.streak + ' 🔥' : '—'}</td>
-        </tr>
+        <div class="lb-top-card rank-${m.rank}">
+          <div class="lb-avatar">${m.name.charAt(0).toUpperCase()}</div>
+          <div class="lb-name">${m.name}</div>
+          <div class="lb-points">${m.points} điểm</div>
+          ${m.streak > 0 ? `<div class="lb-streak" title="${m.streak} tuần liên tiếp">${streakDots} <span style="font-size:10px; margin-left:4px;">${m.streak}</span></div>` : ''}
+        </div>
+      `;
+    }).join('');
+
+    const maxPoints = others.length > 0 ? others[0].points : 1;
+
+    listContainer.innerHTML = others.map((m, i) => {
+      const rank = i + 4;
+      const pct = Math.max(5, Math.round((m.points / maxPoints) * 100));
+      return `
+        <div class="lb-list-item">
+          <div class="lb-list-progress" style="width: ${pct}%"></div>
+          <div class="lb-list-content">
+            <span class="lb-rank">${rank}</span>
+            <span class="lb-name">${m.name}</span>
+            <span class="lb-points">${m.points} đ</span>
+          </div>
+        </div>
       `;
     }).join('');
   }
 
   function renderFund() {
     const fund = CONFIG.fund;
+    if(!fund) return;
+    
     document.getElementById('fundBalance').textContent = formatVND(fund.balance);
-    document.getElementById('fundIncome').textContent = '+' + formatVND(fund.thisMonth.income);
-    document.getElementById('fundExpense').textContent = '-' + formatVND(fund.thisMonth.expense);
+    const incEl = document.getElementById('fundIncome');
+    const expEl = document.getElementById('fundExpense');
+    if(incEl) incEl.textContent = formatVND(fund.thisMonth.income);
+    if(expEl) expEl.textContent = formatVND(fund.thisMonth.expense);
+
+    // Donut chart logic
+    const donut = document.getElementById('fundDonut');
+    if (donut) {
+      const total = fund.thisMonth.income + fund.thisMonth.expense;
+      if (total > 0) {
+        const incPct = Math.round((fund.thisMonth.income / total) * 100);
+        donut.style.background = `conic-gradient(var(--green) 0% ${incPct}%, var(--red) ${incPct}% 100%)`;
+      } else {
+        donut.style.background = `var(--border-light)`;
+      }
+    }
 
     const list = document.getElementById('fundList');
+    if (!list) return;
+    
+    if (fund.thisMonth.details.length === 0) {
+      list.innerHTML = '<div class="empty-state">Chưa có thu chi tháng này.</div>';
+      return;
+    }
+
     list.innerHTML = fund.thisMonth.details.map(d => {
       const isPositive = d.amount >= 0;
       return `
-        <div class="fund-item">
-          <span class="fund-item-desc">${d.desc}</span>
-          <span class="fund-item-amount ${isPositive ? 'positive' : 'negative'}">
-            ${isPositive ? '+' : ''}${formatVND(Math.abs(d.amount))}
-          </span>
+        <div class="fund-timeline-item">
+          <div class="fund-timeline-icon ${isPositive ? 'income' : 'expense'}">
+            ${isPositive ? '↓' : '↑'}
+          </div>
+          <div class="fund-timeline-content">
+            <div class="fund-timeline-desc">${d.desc}</div>
+            <div class="fund-timeline-date">${d.date || 'Tháng này'}</div>
+          </div>
+          <div class="fund-timeline-amount ${isPositive ? 'positive' : 'negative'}">
+            ${isPositive ? '+' : '-'}${formatVND(Math.abs(d.amount))}
+          </div>
         </div>
       `;
     }).join('');
@@ -288,26 +345,75 @@
 
   function renderLibrary() {
     const grid = document.getElementById('libraryGrid');
+    if (!grid) return;
 
     if (!CONFIG.library || CONFIG.library.length === 0) {
-      grid.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">📚</div>
-          <div class="empty-state-text">Chưa có sách nào hoàn thành. Hãy bắt đầu cuốn đầu tiên!</div>
-        </div>
-      `;
+      grid.innerHTML = '<div class="empty-state">Chưa có cuốn sách nào được hoàn thành. Di sản bắt đầu từ hôm nay.</div>';
       return;
     }
 
-    grid.innerHTML = CONFIG.library.map(book => `
-      <div class="library-card">
-        <div class="library-card-title">${book.title}</div>
-        <div class="library-card-author">${book.author}</div>
-        <div class="library-card-date">📅 Hoàn thành: ${formatDate(book.finishedDate)}</div>
-        <div class="library-card-rating">${getStars(book.rating)} <span style="color: var(--text-muted); font-size: 0.85rem;">${book.rating}/5</span></div>
-        ${book.topInsight ? `<div class="library-card-insight">"${book.topInsight}"</div>` : ''}
-      </div>
-    `).join('');
+    // Colors for spine gradient
+    const colors = [
+      ['#0f172a', '#1e293b'],
+      ['#064e3b', '#047857'],
+      ['#451a03', '#78350f'],
+      ['#312e81', '#4338ca'],
+      ['#831843', '#be185d'],
+      ['#1c1917', '#44403c']
+    ];
+
+    let currentMonthYear = '';
+    let html = '';
+
+    CONFIG.library.forEach((book, i) => {
+      const date = new Date(book.finishedDate + 'T00:00:00');
+      const monthYear = !isNaN(date.getTime()) ? `Tháng ${date.getMonth() + 1}, ${date.getFullYear()}` : 'Chưa rõ';
+      
+      if (monthYear !== currentMonthYear) {
+        if (i > 0) html += `<div class="shelf-divider"></div>`;
+        html += `<div class="shelf-month-marker">${monthYear}</div>`;
+        currentMonthYear = monthYear;
+      }
+
+      const colorPair = colors[i % colors.length];
+      const hWidth = Math.floor(Math.random() * 15) + 40; // 40px - 55px
+
+      html += `
+        <div class="book-spine-group">
+          <div class="book-spine" style="width: ${hWidth}px; background: linear-gradient(180deg, ${colorPair[0]}, ${colorPair[1]});">
+            <div class="spine-content">
+              <span class="spine-title">${book.title}</span>
+              <span class="spine-author">${book.author}</span>
+            </div>
+          </div>
+          <div class="book-spine-tooltip">
+            <strong>${book.title}</strong>
+            <div style="font-size:0.8rem; margin:4px 0; color:var(--gold);">${getStars(book.rating)}</div>
+            ${book.topInsight ? `<div style="font-style:italic; font-size:0.85rem; color:var(--text-secondary); margin-top:8px;">"${book.topInsight}"</div>` : ''}
+          </div>
+        </div>
+      `;
+    });
+
+    grid.innerHTML = html;
+
+    // View Toggle
+    const btnSpine = document.getElementById('btnSpineView');
+    const btnGrid = document.getElementById('btnGridView');
+    if (btnSpine && btnGrid) {
+      btnSpine.addEventListener('click', () => {
+        btnSpine.classList.add('active');
+        btnGrid.classList.remove('active');
+        grid.classList.add('spine-view');
+        grid.classList.remove('grid-view');
+      });
+      btnGrid.addEventListener('click', () => {
+        btnGrid.classList.add('active');
+        btnSpine.classList.remove('active');
+        grid.classList.add('grid-view');
+        grid.classList.remove('spine-view');
+      });
+    }
   }
 
   function renderRules() {
@@ -410,8 +516,7 @@
   
   async function renderReviews() {
     const grid = document.getElementById('reviewGrid');
-    const summary = document.getElementById('reviewSummary');
-    if (!grid || !summary) return;
+    if (!grid) return;
 
     try {
       const res = await fetch('/api/reviews');
@@ -423,30 +528,18 @@
     }
 
     if (!currentReviews || currentReviews.length === 0) {
-      grid.innerHTML = '<p style="text-align:center; color:#64748B; width:100%; grid-column: 1/-1;">Chưa có cảm nhận nào. Hãy là người đầu tiên!</p>';
-      summary.innerHTML = '';
+      grid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;">Một cuốn sách chưa có dòng review nào. Bạn sẽ là người mở đầu?</div>';
       return;
     }
 
-    const avg = (currentReviews.reduce((sum, r) => sum + Number(r.rating), 0) / currentReviews.length).toFixed(1);
-    
-    summary.innerHTML = `
-      <div class="rating-badge">⭐ ${avg}/5.0</div>
-      <div class="review-count">Dựa trên ${currentReviews.length} bài review</div>
-    `;
-
     grid.innerHTML = currentReviews.map(r => `
-      <div class="review-card">
-        <div class="review-header">
-          <div class="review-avatar">${r.name.charAt(0).toUpperCase()}</div>
-          <div class="review-meta">
-            <h4>${r.name} <span style="font-size: 0.8em; font-weight: normal; color: var(--text-light); display: block;">đã review <em>${r.bookTitle || 'Sách Tuần Này'}</em></span></h4>
-            <div class="review-stars">${'⭐'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
-          </div>
+      <div class="review-quote-card">
+        <div class="quote-mark">“</div>
+        <p class="review-text">${r.text.replace(/\n/g, '<br>')}</p>
+        <div class="review-divider"></div>
+        <div class="review-author">
+          <strong>— ${r.name}</strong>, về <cite>${r.bookTitle || 'Sách Tuần Này'}</cite>
         </div>
-        ${r.insight ? `<div class="review-insight">💡 ${r.insight}</div>` : ''}
-        <p class="review-text">${r.text}</p>
-        <div class="review-date">${new Date(r.date).toLocaleDateString('vi-VN')}</div>
       </div>
     `).join('');
   }
