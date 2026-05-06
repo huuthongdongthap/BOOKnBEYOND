@@ -4,23 +4,23 @@
 
 /* 1. TYPOGRAPHY & COLOR VARIABLES */
 :root {
-  --bg-primary: #e6eee5; /* Light sage green */
-  --bg-secondary: #f3f7f1; /* Creamy white/green */
-  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-primary: #cce0d0; /* Deeper sage green for more body */
+  --bg-secondary: #eef4ed; /* Creamy white/green */
+  --bg-card: rgba(255, 255, 255, 0.98);
   --bg-card-hover: #ffffff;
   
-  --gold: #b28a50;
-  --gold-light: #d6b27a;
-  --gold-glow: rgba(178, 138, 80, 0.1);
-  --gold-glow-hover: rgba(178, 138, 80, 0.2);
-  --gold-gradient: linear-gradient(135deg, #a67c00 0%, #d4af37 50%, #8b6508 100%);
+  --gold: #b87a1f; /* Richer bronze-gold for better contrast */
+  --gold-light: #d69e3a;
+  --gold-glow: rgba(184, 122, 31, 0.15);
+  --gold-glow-hover: rgba(184, 122, 31, 0.3);
+  --gold-gradient: linear-gradient(135deg, #a66a00 0%, #e6a72e 50%, #8b5108 100%);
   
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
+  --text-primary: #0f172a; /* Deepest blue-black */
+  --text-secondary: #334155;
   --text-muted: #64748b;
   
-  --green: #047857;
-  --red: #dc2626;
+  --green: #047857; /* Deep emerald */
+  --red: #e11d48; /* Vibrant crimson red */
   --blue: #2563eb;
 
   --border-glass: rgba(0, 0, 0, 0.05);
@@ -77,6 +77,34 @@ a, button, .btn {
   cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" stroke="%23b28a50" stroke-width="1.5" fill="rgba(178,138,80,0.2)"/></svg>') 12 12, pointer !important;
 }
 
+/* BUTTON ACCENTS (Nét chấm phá) */
+.btn-primary {
+  background: linear-gradient(135deg, #065f46 0%, #047857 100%) !important;
+  box-shadow: 0 4px 15px rgba(4, 120, 87, 0.3) !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 600;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 100%) !important;
+  box-shadow: 0 6px 20px rgba(4, 120, 87, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+.nav-cta {
+  background: linear-gradient(135deg, #e11d48 0%, #be123c 100%) !important;
+  box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3) !important;
+  color: #fff !important;
+  border: none !important;
+  font-weight: 600;
+  padding: 10px 24px !important;
+  border-radius: 30px !important;
+}
+.nav-cta:hover {
+  background: linear-gradient(135deg, #be123c 0%, #9f1239 100%) !important;
+  box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4) !important;
+}
+
 /* Base Elevation Card */
 .elevation-card {
   background: var(--bg-card);
@@ -117,7 +145,7 @@ a, button, .btn {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--bg-secondary) 0%, #dde8da 50%, var(--bg-primary) 100%);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, #c4d8c6 50%, #a3c2a6 100%);
 }
 .hero-bg .line-art {
   position: absolute;
