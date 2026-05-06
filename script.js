@@ -485,6 +485,7 @@
     renderLeaderboard();
     renderFund();
     renderLibrary();
+    populateReviewBookSelect();
     renderReviews();
     renderRules();
     renderLinks();
@@ -509,6 +510,31 @@
   // Reviews Logic
   // ——————————————————————————
   let currentReviews = [];
+  
+  function populateReviewBookSelect() {
+    const sel = document.getElementById('reviewBookSelect');
+    if (!sel || !CONFIG || !CONFIG.library) return;
+    
+    sel.innerHTML = '<option value="" disabled selected>— Chọn quyển sách —</option>';
+    
+    // Reverse array to show newest books first
+    const reversedLibrary = [...CONFIG.library].reverse();
+    
+    reversedLibrary.forEach(book => {
+      if (book.title) {
+        const opt = document.createElement('option');
+        opt.value = book.title;
+        opt.textContent = `📖 ${book.title}`;
+        sel.appendChild(opt);
+      }
+    });
+    
+    // Keep the "Other" option
+    const otherOpt = document.createElement('option');
+    otherOpt.value = "_other";
+    otherOpt.textContent = "✏️ Sách khác (tự nhập)...";
+    sel.appendChild(otherOpt);
+  }
   
   async function renderReviews() {
     const grid = document.getElementById('reviewGrid');
