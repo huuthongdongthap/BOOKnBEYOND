@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Cho Người Bận Rộn | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #faf8f5; --bg-warm: #f5f0e8; --ink: #1a1a1a; --ink-soft: #4a4a4a;
+      --ink-muted: #8a8a8a; --gold: #c89b3c; --gold-warm: #b8860b;
+      --accent: #2c5f2d; --accent-soft: rgba(44,95,45,0.08); --white: #ffffff;
+      --blue: #3b82f6; --purple: #8b5cf6; --red: #ef4444;
+    }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: 'Be Vietnam Pro', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.7s ease, transform 0.7s ease; transform: translateY(16px); }
+    .slide.active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    .zen-center { text-align: center; padding: 60px 100px 80px; }
+    .dark { background: var(--ink); color: var(--white); }
+    .warm { background: var(--bg-warm); }
+
+    /* Typography — Large for presentation */
+    .tag { display: inline-block; font-size: 18px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-warm); font-weight: 600; margin-bottom: 20px; }
+    .dark .tag { color: var(--gold); }
+    h1.zen { font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+    h2.zen { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    h3.zen { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+    .body { font-size: 28px; line-height: 1.7; color: var(--ink-soft); max-width: 800px; }
+    .body.c { margin: 0 auto; }
+    .dark .body { color: rgba(255,255,255,0.55); }
+    .dark h1.zen, .dark h2.zen, .dark h3.zen { color: var(--white); }
+    .small { font-size: 20px; color: var(--ink-muted); letter-spacing: 1px; }
+    .dark .small { color: rgba(255,255,255,0.35); }
+    .quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 42px; line-height: 1.5; max-width: 850px; margin: 0 auto; padding-left: 44px; border-left: 4px solid var(--gold); text-align: left; }
+    .quote cite { font-family: 'Be Vietnam Pro', sans-serif; font-style: normal; font-size: 22px; color: var(--ink-muted); margin-top: 16px; display: block; }
+
+    /* Cards */
+    .grid { display: grid; gap: 20px; margin-top: 32px; }
+    .g2 { grid-template-columns: repeat(2, 1fr); }
+    .g3 { grid-template-columns: repeat(3, 1fr); }
+    .g4 { grid-template-columns: repeat(4, 1fr); }
+    .card { background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 28px; position: relative; text-align: left; }
+    .card::after { content: ''; position: absolute; top: 0; left: 20px; right: 20px; height: 2px; background: var(--gold); border-radius: 2px; }
+    .card.no-bar::after { display: none; }
+    .card h4 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 22px; color: var(--ink-soft); line-height: 1.55; }
+    .dark .card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+    .dark .card h4 { color: var(--white); }
+    .dark .card p { color: rgba(255,255,255,0.5); }
+
+    /* List */
+    .zlist { list-style: none; max-width: 900px; text-align: left; }
+    .zlist li { display: flex; align-items: flex-start; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 26px; line-height: 1.6; color: var(--ink-soft); }
+    .zlist li:last-child { border-bottom: none; }
+    .zlist .ic { flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: var(--accent-soft); border-radius: 10px; font-size: 28px; }
+    .zlist strong { color: var(--ink); font-weight: 700; }
+
+    /* Stats */
+    .stat-row { display: flex; justify-content: center; gap: 60px; margin-top: 40px; }
+    .stat { text-align: center; }
+    .stat-number { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 800; color: var(--gold); line-height: 1; }
+    .stat-label { font-size: 20px; color: var(--ink-soft); margin-top: 8px; max-width: 200px; }
+    .dark .stat-label { color: rgba(255,255,255,0.5); }
+    .dark .stat-number { color: var(--gold); }
+
+    /* Image */
+    .slide-img { max-width: 500px; max-height: 350px; object-fit: contain; border-radius: 16px; }
+    .split { display: flex; align-items: center; gap: 60px; width: 100%; max-width: 1200px; text-align: left; }
+    .split-text { flex: 1.2; }
+    .split-img { flex: 1; display: flex; justify-content: center; }
+
+    /* Divider */
+    .gold-line { width: 60px; height: 2px; background: var(--gold); margin: 24px auto; }
+
+    /* Source badge */
+    .source { display: inline-block; font-size: 16px; color: var(--ink-muted); margin-top: 20px; padding: 6px 16px; background: rgba(0,0,0,0.04); border-radius: 50px; }
+    .dark .source { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.4); }
+
+    /* Footer & Nav */
+    .sf { position: absolute; bottom: 28px; left: 80px; right: 80px; display: flex; justify-content: space-between; font-size: 16px; color: var(--ink-muted); letter-spacing: 2px; z-index: 10; }
+    .dark .sf { color: rgba(255,255,255,0.25); }
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--gold); transition: width 0.5s ease; z-index: 100; }
+    .nav-arrows { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; }
+    .nav-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: var(--white); color: var(--ink); font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .nav-btn:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    /* Timeline */
+    .timeline { display: flex; gap: 0; margin-top: 40px; max-width: 1100px; position: relative; }
+    .timeline::before { content: ''; position: absolute; top: 28px; left: 40px; right: 40px; height: 3px; background: var(--gold); opacity: 0.3; }
+    .tl-item { flex: 1; text-align: center; position: relative; }
+    .tl-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--gold); margin: 18px auto 16px; position: relative; z-index: 2; }
+    .tl-year { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 800; color: var(--gold); }
+    .tl-title { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .tl-desc { font-size: 18px; color: var(--ink-soft); line-height: 1.4; }
+
+    /* Animations */
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(139,92,246,0.15), 0 0 40px rgba(139,92,246,0.05); }
+      50% { box-shadow: 0 0 30px rgba(139,92,246,0.3), 0 0 60px rgba(139,92,246,0.1); }
+    }
+    @keyframes arrow-flow {
+      0%, 100% { opacity: 0.4; transform: translateX(0); }
+      50% { opacity: 1; transform: translateX(4px); }
+    }
+    .glow-card { animation: glow-pulse 3s ease-in-out infinite; }
+    .flow-arrow { animation: arrow-flow 2s ease-in-out infinite; }
+    .gradient-text { background: linear-gradient(135deg, #8b5cf6, #c084fc, #e879f9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .zen-center { padding: 32px 24px 50px; }
+      h1.zen { font-size: 36px; }
+      h2.zen { font-size: 28px; }
+      h3.zen { font-size: 22px; }
+      .tag { font-size: 12px; letter-spacing: 3px; }
+      .body { font-size: 18px; }
+      .small { font-size: 14px; }
+      .quote { font-size: 22px; padding-left: 16px; }
+      .grid.g2, .grid.g3, .grid.g4 { grid-template-columns: 1fr; gap: 12px; }
+      .card { padding: 20px; }
+      .card h4 { font-size: 18px; }
+      .card p { font-size: 15px; }
+      .zlist li { font-size: 17px; gap: 14px; padding: 14px 0; }
+      .stat-row { flex-direction: column; gap: 20px; }
+      .stat-number { font-size: 48px; }
+      .stat-label { font-size: 14px; }
+      .split { flex-direction: column; gap: 24px; }
+      .slide-img { max-width: 280px; }
+      .timeline { flex-direction: column; gap: 16px; }
+      .timeline::before { display: none; }
+      .sf { left: 20px; right: 20px; font-size: 10px; bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- S1: TITLE -->
+  <div class="slide active zen-center warm">
+    <div class="tag">BOOKnBEYOND · Chủ đề mở rộng</div>
+    <h1 class="zen">AI Cho<br>Người Bận Rộn</h1>
+    <p class="body c" style="font-size: 30px;">Không cần biết code.<br>Chỉ cần biết <em style="color: var(--gold-warm);">hỏi đúng câu.</em></p>
+    <div class="gold-line"></div>
+    <p class="small">Buổi chia sẻ thực hành · Online Meeting</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>01 / 32</span></div>
+  </div>
+
+  <!-- S2: WHY AI NOW -->
+  <div class="slide zen-center dark">
+    <div class="tag">Tại sao bây giờ?</div>
+    <h2 class="zen">AI Không Còn Là<br>Công Nghệ Tương Lai</h2>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-number">88%</div>
+        <div class="stat-label">doanh nghiệp toàn cầu đã sử dụng AI</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">900M</div>
+        <div class="stat-label">người dùng ChatGPT mỗi tuần</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">750M+</div>
+        <div class="stat-label">người dùng Google Gemini mỗi tháng</div>
+      </div>
+    </div>
+    <div class="source">Nguồn: McKinsey Global Survey 2025, OpenAI Feb 2026, Google Q4 2025</div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>02 / 32</span></div>
+  </div>
+
+  <!-- S3: AI TIMELINE -->
+  <div class="slide zen-center">
+    <div class="tag">Lịch sử phát triển</div>
+    <h2 class="zen">Hành Trình Của AI</h2>
+    <img src="img/ai-timeline.png" alt="AI Timeline" class="slide-img" style="max-width: 600px; margin-bottom: 20px;">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1950s</div>
+        <div class="tl-dot"></div>
+        <div class="tl-title">Ý tưởng AI</div>
+        <div class="tl-desc">Alan Turing đặt câu hỏi: "Máy có thể suy nghĩ?"</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1990s</div>
+        <div class="tl-dot"></div>
+        <div class="tl-title">Machine Learning</div>
+        <div class="tl-desc">Máy bắt đầu học từ dữ liệu thay vì lập trình thủ công</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2012</div>
+        <div class="tl-dot"></div>
+        <div class="tl-title">Deep Learning</div>
+        <div class="tl-desc">Mạng neural sâu nhận diện hình ảnh chính xác hơn người</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2022–<br>Nay</div>
+        <div class="tl-dot"></div>
+        <div class="tl-title">Generative AI</div>
+        <div class="tl-desc">ChatGPT, Gemini — AI viết, vẽ, nói như người</div>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>03 / 32</span></div>
+  </div>
+
+  <!-- S4: TERMINOLOGY -->
+  <div class="slide zen-center warm">
+    <div class="tag">Thuật ngữ phổ biến</div>
+    <h2 class="zen">Từ Điển AI Bỏ Túi</h2>
+    <ul class="zlist" style="margin: 0 auto;">
+      <li>
+        <span class="ic">🤖</span>
+        <div><strong>AI (Trí tuệ nhân tạo)</strong> — Máy tính được thiết kế để bắt chước khả năng tư duy của con người.</div>
+      </li>
+      <li>
+        <span class="ic">📊</span>
+        <div><strong>Machine Learning</strong> — Máy tự học từ dữ liệu, không cần lập trình chi tiết từng bước.</div>
+      </li>
+      <li>
+        <span class="ic">✨</span>
+        <div><strong>Generative AI (AI tạo sinh)</strong> — AI có thể <em>tạo ra nội dung mới</em>: văn bản, hình ảnh, âm thanh, video.</div>
+      </li>
+      <li>
+        <span class="ic">💬</span>
+        <div><strong>Prompt (Câu lệnh)</strong> — Câu hỏi hoặc yêu cầu bạn nhập vào để AI hiểu và phản hồi.</div>
+      </li>
+      <li>
+        <span class="ic">🧠</span>
+        <div><strong>LLM (Mô hình ngôn ngữ lớn)</strong> — "Bộ não" của ChatGPT, Gemini — được huấn luyện từ hàng tỷ văn bản.</div>
+      </li>
+    </ul>
+    <div class="sf"><span>BOOKnBEYOND</span><span>04 / 32</span></div>
+  </div>
+
+  <!-- S5: AI CLASSIFICATION -->
+  <div class="slide zen-center">
+    <div class="tag">Phân loại AI</div>
+    <h2 class="zen">3 Cấp Độ AI</h2>
+    <p class="body c" style="margin-bottom: 28px;">Hiểu để biết chúng ta đang ở đâu trên hành trình AI:</p>
+    <div class="grid g3" style="max-width: 1100px;">
+      <div class="card" style="border-top: 3px solid var(--accent);">
+        <h4 style="color: var(--accent);">🟢 ANI — AI Hẹp</h4>
+        <p><strong>Chúng ta đang ở đây.</strong> AI chỉ giỏi một việc: dịch ngôn ngữ, nhận diện giọng nói, đề xuất nội dung.</p>
+        <p style="margin-top: 12px; font-size: 18px; color: var(--ink-muted);">Ví dụ: Siri, ChatGPT, Google Maps</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--gold);">
+        <h4 style="color: var(--gold-warm);">🟡 AGI — AI Tổng quát</h4>
+        <p><strong>Đang nghiên cứu.</strong> AI có thể tư duy và học hỏi như con người ở mọi lĩnh vực.</p>
+        <p style="margin-top: 12px; font-size: 18px; color: var(--ink-muted);">Dự kiến: 2030–2040?</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--purple);">
+        <h4 style="color: var(--purple);">🟣 ASI — AI Siêu trí tuệ</h4>
+        <p><strong>Lý thuyết.</strong> AI vượt xa mọi trí tuệ con người trong tất cả lĩnh vực.</p>
+        <p style="margin-top: 12px; font-size: 18px; color: var(--ink-muted);">Viễn tưởng khoa học</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>05 / 32</span></div>
+  </div>
+
+  <!-- S6: AI USAGE EVOLUTION -->
+  <div class="slide zen-center dark">
+    <div class="tag">Bức tranh toàn cảnh</div>
+    <h2 class="zen">3 Giai Đoạn<br>Cách Con Người Dùng AI</h2>
+    <p class="body c" style="margin-bottom: 32px;">Chúng ta đang ở đâu — và AI đang đi đến đâu?</p>
+    <div style="display: flex; gap: 24px; max-width: 1100px; margin: 0 auto; align-items: stretch;">
+      <div class="card no-bar" style="flex: 1; text-align: center; border: 2px solid var(--accent); padding: 28px;">
+        <div style="font-size: 18px; color: var(--accent); font-weight: 800; margin-bottom: 8px;">GIAI ĐOẠN 1 · 2023–2024</div>
+        <div style="font-size: 48px; margin-bottom: 10px;">⌨️</div>
+        <h4 style="color: var(--accent); font-size: 26px;">Tự Viết Prompt</h4>
+        <p style="font-size: 20px;">Người dùng <strong>tự soạn câu lệnh</strong> cho AI. Chất lượng phụ thuộc vào kỹ năng viết prompt.</p>
+        <p style="margin-top: 12px; font-size: 16px; color: rgba(255,255,255,0.35);">→ Đa số mọi người đang ở đây</p>
+      </div>
+      <div class="flow-arrow" style="display: flex; align-items: center; font-size: 36px; color: var(--gold); font-weight: 800;">→</div>
+      <div class="card no-bar" style="flex: 1; text-align: center; border: 2px solid var(--gold); padding: 28px;">
+        <div style="font-size: 18px; color: var(--gold); font-weight: 800; margin-bottom: 8px;">GIAI ĐOẠN 2 · 2025–NAY</div>
+        <div style="font-size: 48px; margin-bottom: 10px;">🔄</div>
+        <h4 style="color: var(--gold); font-size: 26px;">AI Tạo Prompt Cho AI</h4>
+        <p style="font-size: 20px;">Dùng AI để <strong>viết prompt tốt hơn</strong>, rồi đưa prompt đó cho AI khác xử lý. AI kiểm tra AI.</p>
+        <p style="margin-top: 12px; font-size: 16px; color: rgba(255,255,255,0.35);">→ Người dùng nâng cao đang ở đây</p>
+      </div>
+      <div class="flow-arrow" style="display: flex; align-items: center; font-size: 36px; color: var(--gold); font-weight: 800;">→</div>
+      <div class="card no-bar glow-card" style="flex: 1.15; text-align: center; border: 2px solid var(--purple); padding: 28px; position: relative; overflow: visible;">
+        <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--purple); color: white; padding: 4px 16px; border-radius: 50px; font-size: 14px; font-weight: 800; letter-spacing: 1px;">🔮 NEXT</div>
+        <div style="font-size: 18px; color: var(--purple); font-weight: 800; margin-bottom: 8px; margin-top: 8px;">GIAI ĐOẠN 3 · ĐANG ĐẾN</div>
+        <div style="font-size: 56px; margin-bottom: 10px;">🤖</div>
+        <h4 class="gradient-text" style="font-size: 28px;">Agent AI</h4>
+        <p style="font-size: 20px;">AI <strong>tự lên kế hoạch, tự thực hiện</strong> nhiều bước, tự sửa lỗi. Người dùng chỉ cần nói <em>mục tiêu</em>.</p>
+        <p style="margin-top: 12px; font-size: 16px; color: rgba(255,255,255,0.35);">→ Tương lai rất gần</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>06 / 32</span></div>
+  </div>
+
+  <!-- S7: AGENT AI EXPLAINED -->
+  <div class="slide zen-center">
+    <div class="tag">Agent AI · Tương lai rất gần</div>
+    <h2 class="zen">Từ "Hỏi — Trả Lời"<br>Sang "Ra Lệnh — AI Tự Làm"</h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 24px auto 0;">
+      <div class="card no-bar" style="border-left: 3px solid var(--ink-muted);">
+        <h4>🔁 Hôm nay: Chatbot</h4>
+        <p style="font-size: 22px; line-height: 1.7;">Bạn hỏi → AI trả lời<br>Bạn hỏi tiếp → AI trả lời tiếp<br>Bạn copy kết quả → tự paste vào <br><strong>Mỗi bước bạn phải "cầm tay chỉ việc"</strong></p>
+      </div>
+      <div class="card no-bar glow-card" style="border-left: 3px solid var(--purple); border: 2px solid var(--purple);">
+        <h4 class="gradient-text" style="font-size: 28px;">🤖 Sắp tới: Agent AI</h4>
+        <p style="font-size: 22px; line-height: 1.7;">Bạn nói: <em>"Lên kế hoạch du lịch Đà Lạt 3N2Đ, đặt khách sạn, tạo lịch trình, gửi nhóm"</em><br><br>→ <strong style="font-size: 26px; color: var(--purple);">AI TỰ LÀM TẤT CẢ</strong><br>Tìm kiếm → So sánh → Đặt → Gửi</p>
+      </div>
+    </div>
+    <div style="margin-top: 28px; padding: 16px 28px; background: var(--accent-soft); border: 1px solid rgba(44,95,45,0.15); border-radius: 14px; display: inline-block;">
+      <p style="font-size: 22px; color: var(--accent);"><strong>💡 Thông điệp:</strong> Prompt chỉ là bước đầu. Học prompt hôm nay = chuẩn bị tư duy cho Agent AI ngày mai.</p>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>07 / 32</span></div>
+  </div>
+
+  <!-- S8: IDE AGENT DEMO -->
+  <div class="slide zen-center dark">
+    <div class="tag" style="color: var(--purple);">Demo · Agent AI đã ở đây</div>
+    <h2 class="zen">AI IDE: Agent AI<br><span class="gradient-text">Đang Hoạt Động Ngay Bây Giờ</span></h2>
+    <p class="body c" style="margin-bottom: 24px;">Không còn là tương lai — đây là những gì AI IDE làm được <strong>hôm nay</strong>:</p>
+    <div class="grid g3" style="max-width: 1100px; margin: 0 auto;">
+      <div class="card no-bar glow-card" style="text-align: center; border: 1px solid rgba(139,92,246,0.3);">
+        <div style="font-size: 48px; margin-bottom: 10px;">🏗️</div>
+        <h4 class="gradient-text" style="font-size: 24px;">Xây Web Full-Stack</h4>
+        <p style="font-size: 20px;">"Tạo website quản lý đơn hàng cho quán cà phê"<br><br>→ AI tự viết code frontend + backend + database + deploy</p>
+      </div>
+      <div class="card no-bar glow-card" style="text-align: center; border: 1px solid rgba(139,92,246,0.3);">
+        <div style="font-size: 48px; margin-bottom: 10px;">⚙️</div>
+        <h4 class="gradient-text" style="font-size: 24px;">Tự Vận Hành</h4>
+        <p style="font-size: 20px;">"Mỗi sáng tự tạo báo cáo doanh thu, gửi Telegram cho tôi"<br><br>→ AI tạo luồng tự động chạy hàng ngày, không cần con người</p>
+      </div>
+      <div class="card no-bar glow-card" style="text-align: center; border: 1px solid rgba(139,92,246,0.3);">
+        <div style="font-size: 48px; margin-bottom: 10px;">🎨</div>
+        <h4 class="gradient-text" style="font-size: 24px;">Thiết Kế Slide Này</h4>
+        <p style="font-size: 20px;">Toàn bộ bài trình chiếu các bạn đang xem<br><br>→ Được <strong>AI tạo ra 100%</strong> trong vài phút</p>
+      </div>
+    </div>
+    <div style="margin-top: 24px; padding: 12px 24px; background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); border-radius: 14px; display: inline-block;">
+      <p style="font-size: 20px; color: var(--purple);">🔧 <strong>Công cụ:</strong> Cursor · Claude Code · Antigravity · Windsurf — AI viết code thay bạn</p>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>08 / 32</span></div>
+  </div>
+
+  <!-- S9: VIBE CODING -->
+  <div class="slide zen-center">
+    <div class="tag" style="color: var(--gold-warm);">🔥 Xu hướng 2025–2026</div>
+    <h2 class="zen">Vibe Coding<br><span style="font-size: 28px; font-weight: 400; color: var(--ink-soft);">Không cần biết code. Chỉ cần biết <em style="color: var(--gold-warm);">mình muốn gì.</em></span></h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 20px auto 0;">
+      <div class="card no-bar" style="border-top: 3px solid var(--gold);">
+        <h4 style="color: var(--gold-warm);">💡 Vibe Coding là gì?</h4>
+        <p style="font-size: 20px; line-height: 1.8;">Thuật ngữ do <strong>Andrej Karpathy</strong> (cựu giám đốc AI tại Tesla) đặt ra.<br><br>Thay vì viết code từng dòng → bạn <strong>mô tả bằng tiếng Việt</strong> → AI viết code cho bạn.<br><br><em>"Tạo cho tôi app quản lý chi tiêu, có biểu đồ, lưu trên cloud"</em><br>→ AI làm xong trong 5 phút.</p>
+      </div>
+      <div class="card no-bar" style="border-top: 3px solid var(--accent);">
+        <h4 style="color: var(--accent);">🔄 Quy trình Vibe Coding</h4>
+        <div style="font-size: 20px; color: var(--ink-soft); line-height: 2.2;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: var(--gold); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">1</span>
+            <span><strong>Mô tả</strong> — Nói cho AI bạn muốn gì</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: var(--blue); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">2</span>
+            <span><strong>AI tạo</strong> — Code được sinh ra tự động</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: var(--accent); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">3</span>
+            <span><strong>Chạy thử</strong> — Xem kết quả ngay</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="background: var(--purple); color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0;">4</span>
+            <span><strong>Chỉnh sửa</strong> — "Đổi màu xanh, thêm nút đăng nhập"</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top: 24px; padding: 14px 28px; background: rgba(200,155,60,0.06); border: 1px solid rgba(200,155,60,0.15); border-radius: 14px; display: inline-block;">
+      <p style="font-size: 20px; color: var(--gold-warm);"><strong>🎯 Tầm quan trọng:</strong> Vibe coding <em>dân chủ hóa</em> việc tạo phần mềm — bất kỳ ai cũng có thể xây app, không cần bằng IT.</p>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>09 / 32</span></div>
+  </div>
+
+  <!-- S10: OPENCLAW -->
+  <div class="slide zen-center warm">
+    <div class="tag" style="color: var(--purple);">🔥 Trending 2026</div>
+    <h2 class="zen">OpenClaw<br><span style="font-size: 28px; font-weight: 400; color: var(--ink-soft);">AI Agent mã nguồn mở · Dự án tăng trưởng nhanh nhất lịch sử GitHub</span></h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 20px auto 0;">
+      <div class="card no-bar glow-card" style="border-top: 3px solid var(--purple);">
+        <h4 class="gradient-text" style="font-size: 24px;">🤖 OpenClaw là gì?</h4>
+        <p style="font-size: 20px; line-height: 1.8;">Nền tảng <strong>AI tự hành</strong> chạy trên máy bạn.<br>Không chỉ chat — mà <strong>thực hiện công việc</strong>:<br>đọc email, viết code, duyệt web, gửi tin nhắn, quản lý file — <em>tất cả tự động</em>.</p>
+        <p style="margin-top: 12px; font-size: 18px; color: var(--accent);"><strong>openclaw.ai</strong> · Open-source · Miễn phí</p>
+      </div>
+      <div class="card no-bar" style="border-top: 3px solid var(--gold);">
+        <h4 style="color: var(--gold-warm);">📊 Con số ấn tượng</h4>
+        <ul style="font-size: 20px; color: var(--ink-soft); line-height: 2.2; padding-left: 16px; list-style: none;">
+          <li>⭐ <strong>295,000+ GitHub stars</strong> — nhanh nhất lịch sử</li>
+          <li>👤 Peter Steinberger → gia nhập OpenAI (02/2026)</li>
+          <li>🔌 Điều khiển qua Telegram, WhatsApp, Slack</li>
+          <li>🌍 Chạy 24/7 trên máy cá nhân</li>
+          <li>⚠️ 36% skills cộng đồng chứa mã độc</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>10 / 32</span></div>
+  </div>
+
+  <!-- S10: AI AGENT ECOSYSTEM -->
+  <div class="slide zen-center dark">
+    <div class="tag">Hệ sinh thái Agent AI · 2026</div>
+    <h2 class="zen">Không Chỉ OpenClaw<br>Cả Thế Giới Đang "Agent Hóa"</h2>
+    <div style="display: flex; gap: 16px; max-width: 1100px; margin: 24px auto 0; flex-wrap: wrap; justify-content: center;">
+      <div class="card no-bar glow-card" style="flex: 1; min-width: 200px; text-align: center; border: 1px solid rgba(139,92,246,0.3); padding: 20px;">
+        <div style="font-size: 36px; margin-bottom: 8px;">🐾</div>
+        <h4 class="gradient-text" style="font-size: 20px;">OpenClaw</h4>
+        <p style="font-size: 16px;">Mã nguồn mở<br>Chạy trên máy<br>Trò chuyện → Hành động</p>
+      </div>
+      <div class="card no-bar" style="flex: 1; min-width: 200px; text-align: center; border: 1px solid rgba(200,155,60,0.3); padding: 20px;">
+        <div style="font-size: 36px; margin-bottom: 8px;">🤚</div>
+        <h4 style="color: var(--gold); font-size: 20px;">Manus AI</h4>
+        <p style="font-size: 16px;">Agent đa năng<br>Viết báo cáo, nghiên cứu<br>Giao diện web đẹp</p>
+      </div>
+      <div class="card no-bar" style="flex: 1; min-width: 200px; text-align: center; border: 1px solid rgba(59,130,246,0.3); padding: 20px;">
+        <div style="font-size: 36px; margin-bottom: 8px;">👨‍💻</div>
+        <h4 style="color: var(--blue); font-size: 20px;">Devin</h4>
+        <p style="font-size: 16px;">AI Software Engineer<br>Tự code, test, deploy<br>Thay lập trình viên junior</p>
+      </div>
+      <div class="card no-bar" style="flex: 1; min-width: 200px; text-align: center; border: 1px solid rgba(44,95,45,0.3); padding: 20px;">
+        <div style="font-size: 36px; margin-bottom: 8px;">🔮</div>
+        <h4 style="color: var(--accent); font-size: 20px;">Claude Code</h4>
+        <p style="font-size: 16px;">Anthropic<br>Agent trong terminal<br>Xây full-stack từ A-Z</p>
+      </div>
+    </div>
+    <div style="margin-top: 24px; padding: 14px 28px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); border-radius: 14px; display: inline-block;">
+      <p style="font-size: 20px; color: var(--red);">⚠️ <strong>Cảnh báo:</strong> Agent AI có quyền truy cập hệ thống — cần cẩn trọng bảo mật, không cài skill lạ, không cho quyền admin bừa bãi</p>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>11 / 32</span></div>
+  </div>
+
+  <!-- S11: DIVIDER — MINDSET -->
+  <div class="slide zen-center dark">
+    <div class="tag">Phần 1</div>
+    <h1 class="zen">Mindset<br>Skillset · Toolset</h1>
+    <p class="body c">Tư duy đúng trước. Công cụ sau.</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>12 / 32</span></div>
+  </div>
+
+  <!-- S7: MINDSET -->
+  <div class="slide zen-center">
+    <div class="split" style="margin: 0 auto;">
+      <div class="split-text">
+        <div class="tag">Mindset — Tư duy</div>
+        <h2 class="zen" style="text-align: left;">AI Là Trợ Lý,<br>Không Phải Thay Thế</h2>
+        <ul class="zlist" style="max-width: 100%;">
+          <li>
+            <span class="ic">🧠</span>
+            <div><strong>Bạn là người ra quyết định</strong> — AI chỉ gợi ý, bạn chọn dùng hay không.</div>
+          </li>
+          <li>
+            <span class="ic">🤝</span>
+            <div><strong>AI sai thường xuyên</strong> — Luôn kiểm tra lại, đặc biệt với số liệu và sự kiện.</div>
+          </li>
+          <li>
+            <span class="ic">🚀</span>
+            <div><strong>AI khuếch đại bạn</strong> — Người giỏi dùng AI sẽ nhanh hơn 10× so với không dùng.</div>
+          </li>
+        </ul>
+      </div>
+      <div class="split-img">
+        <img src="img/ai-human-collab.png" alt="AI Human Collaboration" class="slide-img">
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>13 / 32</span></div>
+  </div>
+
+  <!-- S8: SKILLSET -->
+  <div class="slide zen-center warm">
+    <div class="tag">Skillset — Kỹ năng</div>
+    <h2 class="zen">Kỹ Năng Số 1:<br>"Biết Hỏi Đúng Câu"</h2>
+    <div class="gold-line"></div>
+    <div class="grid g2" style="max-width: 900px; margin: 0 auto; margin-top: 24px;">
+      <div class="card no-bar" style="border-left: 3px solid var(--red); text-align: center;">
+        <h4 style="color: var(--red);">✕ Prompt yếu</h4>
+        <p style="font-size: 24px;">"Viết cho tôi một email"</p>
+      </div>
+      <div class="card no-bar" style="border-left: 3px solid var(--accent); text-align: center;">
+        <h4 style="color: var(--accent);">✓ Prompt mạnh</h4>
+        <p style="font-size: 24px;">"Viết email xin lỗi khách hàng về giao hàng trễ 2 ngày. Giọng chuyên nghiệp nhưng ấm áp. Dưới 100 từ. Kết thúc bằng cam kết cải thiện."</p>
+      </div>
+    </div>
+    <p class="body c" style="margin-top: 28px; font-size: 24px;"><strong>Công thức:</strong> Vai trò + Nhiệm vụ + Ngữ cảnh + Yêu cầu cụ thể + Giới hạn</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>14 / 32</span></div>
+  </div>
+
+  <!-- S11: TOOLSET -->
+  <div class="slide zen-center">
+    <div class="tag">Toolset — Công cụ</div>
+    <h2 class="zen">3 Công Cụ Miễn Phí<br>Dùng Ngay Hôm Nay</h2>
+    <div class="grid g3" style="max-width: 1100px;">
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 56px; margin-bottom: 12px;">💚</div>
+        <h4>ChatGPT</h4>
+        <p>OpenAI · Phổ biến nhất thế giới. Tiếng Việt tốt. App điện thoại + web.</p>
+        <p style="margin-top: 8px; font-size: 18px; color: var(--accent);"><strong>chat.openai.com</strong></p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 56px; margin-bottom: 12px;">🔵</div>
+        <h4>Google Gemini</h4>
+        <p>Google · Tích hợp sẵn trong Google Search, Gmail, Docs. Miễn phí.</p>
+        <p style="margin-top: 8px; font-size: 18px; color: var(--blue);"><strong>gemini.google.com</strong></p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 56px; margin-bottom: 12px;">⚡</div>
+        <h4>Grok (X/Twitter)</h4>
+        <p>xAI · Cập nhật tin tức nhanh. Sáng tạo, ít kiểm duyệt. Miễn phí trên X.</p>
+        <p style="margin-top: 8px; font-size: 18px; color: var(--ink-muted);"><strong>x.com/grok</strong></p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>15 / 32</span></div>
+  </div>
+
+  <!-- S10: DIVIDER — PRACTICAL -->
+  <div class="slide zen-center dark">
+    <div class="tag">Phần 2</div>
+    <h1 class="zen">5 Việc AI<br>Làm Được<br><em style="color: var(--gold);">Ngay Hôm Nay</em></h1>
+    <p class="body c">Mở app lên và thử ngay trong buổi họp.</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>16 / 32</span></div>
+  </div>
+
+  <!-- S11: USE CASE 1 & 2 -->
+  <div class="slide zen-center">
+    <div class="tag">Ứng dụng thực tế</div>
+    <h2 class="zen">Dùng Ngay Trên Điện Thoại</h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 20px auto 0;">
+      <div class="card no-bar" style="border-top: 3px solid var(--blue);">
+        <div style="font-size: 40px; margin-bottom: 10px;">✉️</div>
+        <h4>1. Viết & Sửa email, tin nhắn</h4>
+        <p>Paste email dài → AI tóm tắt 3 dòng<br>Viết email chuyên nghiệp trong 10 giây<br>Sửa lỗi chính tả tiếng Anh tự động</p>
+      </div>
+      <div class="card no-bar" style="border-top: 3px solid var(--accent);">
+        <div style="font-size: 40px; margin-bottom: 10px;">🌐</div>
+        <h4>2. Dịch thuật & Tóm tắt</h4>
+        <p>Chụp hình trang sách tiếng Anh → dịch ngay<br>Paste bài báo dài → tóm tắt 5 ý chính<br>So sánh 2 sản phẩm bằng bảng</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>17 / 32</span></div>
+  </div>
+
+  <!-- S12: USE CASE 3 & 4 & 5 -->
+  <div class="slide zen-center warm">
+    <div class="tag">Ứng dụng thực tế (tiếp)</div>
+    <h2 class="zen">Ai Cũng Làm Được</h2>
+    <div class="grid g3" style="max-width: 1100px; margin: 20px auto 0;">
+      <div class="card no-bar" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">💡</div>
+        <h4>3. Brainstorm ý tưởng</h4>
+        <p>"Cho tôi 10 ý tưởng content cho quán cà phê"</p>
+      </div>
+      <div class="card no-bar" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">📋</div>
+        <h4>4. Lập kế hoạch</h4>
+        <p>"Giúp tôi lên lịch tuần cho một bà mẹ bỉm sữa WFH"</p>
+      </div>
+      <div class="card no-bar" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">🎓</div>
+        <h4>5. Học & Giải đáp</h4>
+        <p>"Giải thích blockchain cho tôi như tôi 10 tuổi"</p>
+      </div>
+    </div>
+    <p class="body c" style="margin-top: 28px; font-weight: 600; color: var(--ink);"><em>💡 Mẹo: Thêm "bằng tiếng Việt" vào cuối câu lệnh nếu AI trả lời tiếng Anh.</em></p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>18 / 32</span></div>
+  </div>
+
+  <!-- S13: AI IN OFFICE -->
+  <div class="slide zen-center">
+    <div class="tag">AI văn phòng</div>
+    <h2 class="zen">AI Cho Dân Văn Phòng</h2>
+    <p class="body c" style="margin-bottom: 24px;">Những việc <strong>tốn thời gian nhất</strong> hàng ngày — AI xử lý trong vài giây:</p>
+    <ul class="zlist" style="margin: 0 auto;">
+      <li>
+        <span class="ic">📧</span>
+        <div><strong>Email & Báo cáo</strong> — "Tóm tắt email thread này thành 3 action items" / "Viết báo cáo tuần từ dữ liệu sau: [paste]"</div>
+      </li>
+      <li>
+        <span class="ic">📊</span>
+        <div><strong>Excel & Dữ liệu</strong> — "Viết công thức Excel để tính tổng doanh thu theo tháng" / "Phân tích bảng dữ liệu này, chỉ ra xu hướng chính"</div>
+      </li>
+      <li>
+        <span class="ic">📝</span>
+        <div><strong>Meeting Notes</strong> — "Tóm tắt cuộc họp thành phút họp: quyết định, người phụ trách, deadline"</div>
+      </li>
+      <li>
+        <span class="ic">🌍</span>
+        <div><strong>Dịch tài liệu</strong> — "Dịch file hợp đồng này sang tiếng Việt, giữ nguyên định dạng chuyên ngành pháp lý"</div>
+      </li>
+    </ul>
+    <div class="sf"><span>BOOKnBEYOND</span><span>19 / 32</span></div>
+  </div>
+
+  <!-- S14: AI IN BUSINESS -->
+  <div class="slide zen-center dark">
+    <div class="tag">AI kinh doanh</div>
+    <h2 class="zen">AI Cho Người Kinh Doanh</h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 20px auto 0;">
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">🔍</div>
+        <h4>Nghiên cứu thị trường</h4>
+        <p>"Phân tích thị trường trà sữa tại TP.HCM 2026: xu hướng, đối thủ, cơ hội"</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">📋</div>
+        <h4>Business Plan</h4>
+        <p>"Giúp lập kế hoạch kinh doanh quán cà phê vốn 500 triệu: chi phí, doanh thu dự kiến, break-even"</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">🤝</div>
+        <h4>Chăm sóc khách hàng</h4>
+        <p>"Viết 10 kịch bản trả lời khách hàng phàn nàn về giao hàng trễ, giọng thân thiện"</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">💰</div>
+        <h4>Định giá & Chiến lược</h4>
+        <p>"So sánh ưu nhược điểm 3 mô hình giá: freemium, subscription, one-time cho app học tiếng Anh"</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>20 / 32</span></div>
+  </div>
+
+  <!-- S15: AI IN MARKETING -->
+  <div class="slide zen-center warm">
+    <div class="tag">AI marketing</div>
+    <h2 class="zen">AI Cho Marketing</h2>
+    <p class="body c" style="margin-bottom: 24px;">Marketing là ngành <strong>ứng dụng AI nhiều nhất</strong> — vì AI rất giỏi tạo nội dung:</p>
+    <div class="grid g3" style="max-width: 1100px; margin: 0 auto;">
+      <div class="card no-bar" style="text-align: center; border-top: 3px solid var(--blue);">
+        <div style="font-size: 40px; margin-bottom: 10px;">✍️</div>
+        <h4>Content & Copywriting</h4>
+        <p>"Viết 5 caption Facebook cho sản phẩm [X], target phụ nữ 25-35, giọng trẻ trung"</p>
+      </div>
+      <div class="card no-bar" style="text-align: center; border-top: 3px solid var(--accent);">
+        <div style="font-size: 40px; margin-bottom: 10px;">🎯</div>
+        <h4>SEO & Từ khóa</h4>
+        <p>"Nghiên cứu 20 từ khóa SEO cho website bán mỹ phẩm organic tại Việt Nam"</p>
+      </div>
+      <div class="card no-bar" style="text-align: center; border-top: 3px solid var(--gold);">
+        <div style="font-size: 40px; margin-bottom: 10px;">📅</div>
+        <h4>Content Calendar</h4>
+        <p>"Lên lịch content 1 tháng cho fanpage cà phê: 3 bài/tuần, xen kẽ promo-giá trị-tương tác"</p>
+      </div>
+    </div>
+    <p class="body c" style="margin-top: 24px; font-size: 22px;"><strong>Tools bổ trợ:</strong> Canva AI (thiết kế), CapCut AI (video), Gamma (slide) — tất cả miễn phí</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>21 / 32</span></div>
+  </div>
+
+  <!-- S16: BEFORE/AFTER -->
+  <div class="slide zen-center">
+    <div class="tag">Case study thực tế</div>
+    <h2 class="zen">Trước & Sau Khi Dùng AI</h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 20px auto 0;">
+      <div class="card no-bar" style="border-left: 3px solid var(--red);">
+        <h4 style="color: var(--red);">❌ Trước</h4>
+        <ul style="font-size: 22px; color: var(--ink-soft); line-height: 2; padding-left: 20px;">
+          <li>Viết báo cáo tuần: <strong>2 tiếng</strong></li>
+          <li>Soạn 5 email khách hàng: <strong>45 phút</strong></li>
+          <li>Nghiên cứu đối thủ: <strong>nửa ngày</strong></li>
+          <li>Lên ý tưởng content: <strong>1 tiếng brainstorm</strong></li>
+          <li>Dịch tài liệu 10 trang: <strong>3 tiếng</strong></li>
+        </ul>
+      </div>
+      <div class="card no-bar" style="border-left: 3px solid var(--accent);">
+        <h4 style="color: var(--accent);">✅ Sau (với AI)</h4>
+        <ul style="font-size: 22px; color: var(--ink-soft); line-height: 2; padding-left: 20px;">
+          <li>Paste data → báo cáo: <strong>10 phút</strong></li>
+          <li>Prompt + chỉnh sửa: <strong>5 phút</strong></li>
+          <li>AI scan + tóm tắt: <strong>15 phút</strong></li>
+          <li>10 ý tưởng trong: <strong>30 giây</strong></li>
+          <li>AI dịch + review: <strong>20 phút</strong></li>
+        </ul>
+      </div>
+    </div>
+    <p class="body c" style="margin-top: 24px; font-size: 24px; color: var(--gold-warm);"><strong>Tiết kiệm trung bình: 60-80% thời gian cho công việc lặp lại</strong></p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>22 / 32</span></div>
+  </div>
+
+  <!-- S17: AI LIMITATIONS -->
+  <div class="slide zen-center dark">
+    <div class="tag">⚠️ Lưu ý quan trọng</div>
+    <h2 class="zen">AI Không Làm Được Gì?</h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 20px auto 0;">
+      <div class="card" style="border-top: 3px solid var(--accent);">
+        <h4 style="color: var(--accent);">✅ AI làm tốt</h4>
+        <ul style="font-size: 22px; color: rgba(255,255,255,0.6); line-height: 2; padding-left: 20px;">
+          <li>Viết nháp, brainstorm ý tưởng</li>
+          <li>Tóm tắt, dịch thuật, phân tích</li>
+          <li>Giải thích khái niệm phức tạp</li>
+          <li>Lên kế hoạch, lịch trình</li>
+          <li>Viết code, debug lỗi</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--red);">
+        <h4 style="color: var(--red);">❌ KHÔNG nên tin AI</h4>
+        <ul style="font-size: 22px; color: rgba(255,255,255,0.6); line-height: 2; padding-left: 20px;">
+          <li>Tư vấn y tế, pháp lý chính xác</li>
+          <li>Số liệu tài chính cụ thể</li>
+          <li>Sự kiện lịch sử chi tiết</li>
+          <li>Quyết định kinh doanh quan trọng</li>
+          <li>Thay thế chuyên gia thực thụ</li>
+        </ul>
+      </div>
+    </div>
+    <p class="body c" style="margin-top: 24px; font-size: 26px;"><em>Nguyên tắc vàng: <strong style="color: var(--gold);">AI draft, Human decide.</strong></em></p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>23 / 32</span></div>
+  </div>
+
+  <!-- S18: DIVIDER — INDUSTRY -->
+  <div class="slide zen-center dark">
+    <div class="tag">Phần 3</div>
+    <h1 class="zen">AI Trong<br>Các Ngành</h1>
+    <p class="body c">Ngành nào ứng dụng nhiều nhất? Số liệu nói gì?</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>24 / 32</span></div>
+  </div>
+
+  <!-- S19: INDUSTRY STATS -->
+  <div class="slide zen-center">
+    <div class="tag">Thống kê theo lĩnh vực</div>
+    <h2 class="zen">AI Adoption Theo Ngành</h2>
+    <p class="body c" style="margin-bottom: 24px;">Tỷ lệ doanh nghiệp đã ứng dụng AI theo lĩnh vực:</p>
+    <div class="grid g2" style="max-width: 1000px; margin: 0 auto;">
+      <div class="card no-bar" style="display: flex; align-items: center; gap: 20px;">
+        <div style="font-size: 44px;">💻</div>
+        <div><h4>IT & Công nghệ <span style="color: var(--gold); font-size: 28px;">~36%</span></h4><p>Tự động hóa, viết code, phân tích dữ liệu</p></div>
+      </div>
+      <div class="card no-bar" style="display: flex; align-items: center; gap: 20px;">
+        <div style="font-size: 44px;">📢</div>
+        <div><h4>Marketing & Sales <span style="color: var(--gold); font-size: 28px;">~36%</span></h4><p>Viết content, email marketing, phân tích khách hàng</p></div>
+      </div>
+      <div class="card no-bar" style="display: flex; align-items: center; gap: 20px;">
+        <div style="font-size: 44px;">🏥</div>
+        <div><h4>Y tế & Sức khỏe <span style="color: var(--gold); font-size: 28px;">~33%</span></h4><p>Chẩn đoán hình ảnh, phát hiện bệnh sớm, nghiên cứu thuốc</p></div>
+      </div>
+      <div class="card no-bar" style="display: flex; align-items: center; gap: 20px;">
+        <div style="font-size: 44px;">🏦</div>
+        <div><h4>Tài chính & Ngân hàng <span style="color: var(--gold); font-size: 28px;">~31%</span></h4><p>Phát hiện gian lận, chatbot CSKH, định giá rủi ro</p></div>
+      </div>
+      <div class="card no-bar" style="display: flex; align-items: center; gap: 20px;">
+        <div style="font-size: 44px;">🎓</div>
+        <div><h4>Giáo dục <span style="color: var(--gold); font-size: 28px;">~25%</span></h4><p>Cá nhân hóa học tập, chấm bài, trợ giảng AI</p></div>
+      </div>
+      <div class="card no-bar" style="display: flex; align-items: center; gap: 20px;">
+        <div style="font-size: 44px;">🏭</div>
+        <div><h4>Sản xuất <span style="color: var(--gold); font-size: 28px;">~12%</span></h4><p>Kiểm tra chất lượng, bảo trì dự đoán, tối ưu chuỗi cung ứng</p></div>
+      </div>
+    </div>
+    <div class="source">Nguồn: McKinsey Global Survey 2025, ElectroIQ</div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>25 / 32</span></div>
+  </div>
+
+  <!-- S20: GenAI GROWTH -->
+  <div class="slide zen-center warm">
+    <div class="tag">Tốc độ tăng trưởng</div>
+    <h2 class="zen">Generative AI Bùng Nổ</h2>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-number">33%</div>
+        <div class="stat-label">doanh nghiệp dùng GenAI năm 2023</div>
+      </div>
+      <div class="stat" style="position: relative;">
+        <div style="font-size: 64px; color: var(--gold); margin-bottom: 10px;">→</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">79%</div>
+        <div class="stat-label">doanh nghiệp dùng GenAI năm 2025</div>
+      </div>
+    </div>
+    <p class="body c" style="margin-top: 32px;">Chi tiêu toàn cầu cho AI: <strong style="color: var(--gold-warm); font-size: 36px;">$2.52 nghìn tỷ USD</strong> năm 2026</p>
+    <div class="source">Nguồn: Gartner 2026, McKinsey</div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>26 / 32</span></div>
+  </div>
+
+  <!-- S21: AI IN VIETNAM -->
+  <div class="slide zen-center">
+    <div class="tag">Tại Việt Nam</div>
+    <h2 class="zen">AI & Người Việt</h2>
+    <ul class="zlist" style="margin: 0 auto;">
+      <li>
+        <span class="ic">📱</span>
+        <div><strong>Việt Nam nằm trong top 10 quốc gia</strong> có tốc độ tăng trưởng người dùng AI nhanh nhất Đông Nam Á.</div>
+      </li>
+      <li>
+        <span class="ic">🏢</span>
+        <div><strong>Các lĩnh vực ứng dụng nổi bật:</strong> E-commerce (Shopee, Tiki), Fintech (MoMo, VNPay), Giáo dục (ELSA Speak), và Logistics.</div>
+      </li>
+      <li>
+        <span class="ic">💬</span>
+        <div><strong>ChatGPT hiểu tiếng Việt tốt</strong> — Gemini và Grok cũng hỗ trợ. Rào cản ngôn ngữ gần như không còn.</div>
+      </li>
+      <li>
+        <span class="ic">⚠️</span>
+        <div><strong>Thách thức:</strong> Khoảng cách digital giữa thành thị và nông thôn, thiếu đào tạo AI cơ bản cho người lớn tuổi.</div>
+      </li>
+    </ul>
+    <div class="sf"><span>BOOKnBEYOND</span><span>27 / 32</span></div>
+  </div>
+
+  <!-- S22: LEARNING PATH -->
+  <div class="slide zen-center warm">
+    <div class="tag">Phần 4 · Tư duy học tập</div>
+    <h2 class="zen">Mọi Ngách Ứng Dụng AI<br>Đều Bắt Đầu Từ Đây</h2>
+    <div class="gold-line"></div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 0; margin: 32px auto; max-width: 900px; flex-wrap: wrap;">
+      <div style="text-align: center; flex: 1; min-width: 140px;">
+        <div style="font-size: 56px; margin-bottom: 12px;">📚</div>
+        <h3 class="zen" style="font-size: 28px; margin-bottom: 4px;">HỌC</h3>
+        <p style="font-size: 20px; color: var(--ink-soft);">Tìm hiểu công cụ<br>& khái niệm cơ bản</p>
+      </div>
+      <div style="font-size: 40px; color: var(--gold); padding: 0 8px;">→</div>
+      <div style="text-align: center; flex: 1; min-width: 140px;">
+        <div style="font-size: 56px; margin-bottom: 12px;">🧪</div>
+        <h3 class="zen" style="font-size: 28px; margin-bottom: 4px;">THỬ</h3>
+        <p style="font-size: 20px; color: var(--ink-soft);">Thực hành với<br>bài toán thật của bạn</p>
+      </div>
+      <div style="font-size: 40px; color: var(--gold); padding: 0 8px;">→</div>
+      <div style="text-align: center; flex: 1; min-width: 140px;">
+        <div style="font-size: 56px; margin-bottom: 12px;">🚀</div>
+        <h3 class="zen" style="font-size: 28px; margin-bottom: 4px;">ÁP DỤNG</h3>
+        <p style="font-size: 20px; color: var(--ink-soft);">Đưa vào công việc<br>& cuộc sống hàng ngày</p>
+      </div>
+      <div style="font-size: 40px; color: var(--gold); padding: 0 8px;">→</div>
+      <div style="text-align: center; flex: 1; min-width: 140px;">
+        <div style="font-size: 56px; margin-bottom: 12px;">🔄</div>
+        <h3 class="zen" style="font-size: 28px; margin-bottom: 4px;">CHIA SẺ</h3>
+        <p style="font-size: 20px; color: var(--ink-soft);">Chia sẻ cho người khác<br>→ quay lại HỌC thêm</p>
+      </div>
+    </div>
+    <p class="body c" style="font-size: 24px; margin-top: 20px;"><em>Bạn không cần giỏi AI để bắt đầu.<br>Bạn cần <strong style="color: var(--gold-warm);">bắt đầu</strong> để giỏi AI.</em></p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>28 / 32</span></div>
+  </div>
+
+  <!-- S23: NOTEBOOKLM DEMO -->
+  <div class="slide zen-center">
+    <div class="tag">Demo · Công cụ học tập AI</div>
+    <h2 class="zen">NotebookLM<br><span style="font-size: 28px; font-weight: 400; color: var(--ink-soft);">Google — Miễn phí 100%</span></h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 20px auto 0;">
+      <div class="card no-bar" style="border-top: 3px solid var(--blue);">
+        <h4 style="color: var(--blue);">🧠 NotebookLM là gì?</h4>
+        <p>AI đọc sách <strong>cho bạn</strong>. Upload tài liệu → AI tóm tắt, trả lời câu hỏi, tạo podcast, flashcard từ nội dung <em>của chính bạn</em>.</p>
+        <p style="margin-top: 12px; font-size: 18px; color: var(--accent);"><strong>notebooklm.google.com</strong></p>
+      </div>
+      <div class="card no-bar" style="border-top: 3px solid var(--gold);">
+        <h4 style="color: var(--gold-warm);">✨ Tại sao nên bắt đầu từ đây?</h4>
+        <ul style="font-size: 20px; color: var(--ink-soft); line-height: 1.9; padding-left: 16px;">
+          <li>Upload sách/PDF → AI tóm tắt từng chương</li>
+          <li>Hỏi AI về nội dung sách bằng tiếng Việt</li>
+          <li>Tạo <strong>Audio Overview</strong> — podcast 2 người thảo luận</li>
+          <li>Học nhanh gấp <strong>10 lần</strong> đọc truyền thống</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 28px; padding: 16px 28px; background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.15); border-radius: 14px; display: inline-block;">
+      <p style="font-size: 22px; color: var(--blue);">🎬 <strong>Video demo:</strong> <a href="https://www.youtube.com/watch?v=Q0pAWZiV2GU" target="_blank" style="color: var(--blue); text-decoration: underline;">Xem cách tự học hiệu quả với AI →</a></p>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>29 / 32</span></div>
+  </div>
+
+  <!-- S24: CALL TO ACTION -->
+  <div class="slide zen-center dark">
+    <div class="tag" style="margin-bottom: 40px;">Bạn chọn gì?</div>
+    <div style="display: flex; gap: 40px; max-width: 1000px; margin: 0 auto; align-items: stretch;">
+      <div class="card no-bar" style="flex: 1; text-align: center; border: 2px solid rgba(255,255,255,0.08); padding: 40px; opacity: 0.5;">
+        <div style="font-size: 64px; margin-bottom: 20px;">🪑</div>
+        <h3 class="zen" style="font-size: 32px; color: rgba(255,255,255,0.4);">Đứng im</h3>
+        <p style="font-size: 22px; color: rgba(255,255,255,0.25); line-height: 1.7;">Chờ đợi mọi thứ rõ ràng hơn trong đầu mình.<br>Chờ ai đó dạy mình.<br>Chờ "đúng lúc."<br><br><em>"Tôi sẽ tìm hiểu sau..."</em></p>
+      </div>
+      <div style="display: flex; align-items: center; font-size: 36px; color: var(--gold); font-weight: 800;">hay</div>
+      <div class="card no-bar" style="flex: 1; text-align: center; border: 2px solid var(--gold); padding: 40px; box-shadow: 0 0 30px rgba(200,155,60,0.15);">
+        <div style="font-size: 64px; margin-bottom: 20px;">🚀</div>
+        <h3 class="zen" style="font-size: 32px; color: var(--gold);">HÀNH ĐỘNG NGAY</h3>
+        <p style="font-size: 22px; color: rgba(255,255,255,0.7); line-height: 1.7;">Bắt đầu bằng <strong style="color: var(--gold);">một công cụ học tập</strong>.<br>Mở NotebookLM.<br>Upload 1 cuốn sách.<br>Hỏi AI 1 câu.<br><br><strong style="color: var(--white);">Hôm nay. Ngay bây giờ.</strong></p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>30 / 32</span></div>
+  </div>
+
+  <!-- S25: DISCUSSION -->
+  <div class="slide zen-center dark">
+    <div class="tag">Thảo luận nhóm</div>
+    <h2 class="zen">Cùng Chia Sẻ</h2>
+    <div class="grid g2" style="max-width: 1000px; margin: 20px auto 0;">
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">1️⃣</div>
+        <p style="font-size: 26px;">Bạn đã từng sử dụng AI chưa? Trải nghiệm thế nào?</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">2️⃣</div>
+        <p style="font-size: 26px;">Trong công việc/cuộc sống, việc nào bạn muốn AI hỗ trợ nhất?</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">3️⃣</div>
+        <p style="font-size: 26px;">Điều gì khiến bạn lo ngại nhất về AI?</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 40px; margin-bottom: 10px;">4️⃣</div>
+        <p style="font-size: 26px;">Ngành nghề của bạn — AI sẽ thay đổi nó thế nào trong 3 năm?</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>31 / 32</span></div>
+  </div>
+
+  <!-- S26: CLOSING -->
+  <div class="slide zen-center warm">
+    <div style="font-size: 56px; margin-bottom: 28px;">🧭</div>
+    <h2 class="zen" style="max-width: 800px; margin: 0 auto 20px;">
+      AI không khó.<br>Khó là bạn<br><em style="color: var(--gold-warm);">chưa bắt đầu.</em>
+    </h2>
+    <div class="gold-line"></div>
+    <p class="body c" style="font-size: 24px; margin-bottom: 20px;">Hôm nay: Mở app → Hỏi 1 câu → Bắt đầu hành trình AI của bạn.</p>
+    <p class="small">BOOKnBEYOND · Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>32 / 32</span></div>
+  </div>
+
+</div>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="nav-arrows">
+  <button class="nav-btn" onclick="prevSlide()">←</button>
+  <button class="nav-btn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = ((n % slides.length) + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+  }
+  function nextSlide() { showSlide(current + 1); }
+  function prevSlide() { showSlide(current - 1); }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+    if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+  });
+  document.getElementById('progressBar').style.width = (1 / slides.length * 100) + '%';
+</script>
+</body>
+</html>

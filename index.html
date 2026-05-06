@@ -34,6 +34,7 @@
         <li><a href="#leaderboard">Xếp Hạng</a></li>
         <li><a href="#fund">Quỹ</a></li>
         <li><a href="#library">Thư Viện</a></li>
+        <li><a href="#reviews">Cảm Nhận</a></li>
         <li><a href="#rules">Nguyên Tắc</a></li>
         <li><a href="#links" class="nav-cta">Truy Cập Nhanh</a></li>
       </ul>
@@ -197,8 +198,95 @@
     </div>
   </section>
 
+  <!-- Reviews -->
+  <section class="section section-alt" id="reviews">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-icon">📝</span>
+        <h2>Cảm Nhận Về Sách</h2>
+      </div>
+      <div class="review-summary" id="reviewSummary">
+        <!-- Rendered by JS: avg rating + total reviews -->
+      </div>
+      <div class="review-grid" id="reviewGrid">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="review-actions">
+        <button class="btn btn-primary" id="writeReviewBtn" onclick="openReviewModal()">✍️ Viết Review</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Review Modal -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeReviewModal()" aria-label="Đóng">&times;</button>
+      <h3 class="modal-title">📝 Viết Cảm Nhận</h3>
+      <form id="reviewForm" onsubmit="return submitReview(event)">
+        <div class="form-group">
+          <label for="reviewBookSelect">Tên Sách</label>
+          <select id="reviewBookSelect" onchange="toggleCustomBook()" required>
+            <option value="" disabled>— Chọn quyển sách —</option>
+            <option value="Nexus: Lược sử của những mạng lưới thông tin">📖 Nexus: Lược sử của những mạng lưới thông tin</option>
+            <option value="Nhóm Chính Bắc (True North Groups)">📖 Nhóm Chính Bắc (True North Groups)</option>
+            <option value="Trò Chơi Vô Cực">📖 Trò Chơi Vô Cực</option>
+            <option value="Flow — Dòng Chảy">📖 Flow — Dòng Chảy</option>
+            <option value="Quản Lý Nghiệp">📖 Quản Lý Nghiệp</option>
+            <option value="Súng, Vi Trùng và Thép">📖 Súng, Vi Trùng và Thép</option>
+            <option value="The 4 Pillar Plan">📖 The 4 Pillar Plan</option>
+            <option value="Cuộc Chiến Vi Mạch">📖 Cuộc Chiến Vi Mạch</option>
+            <option value="Hồi Ký Lý Quang Diệu">📖 Hồi Ký Lý Quang Diệu</option>
+            <option value="_other">✏️ Sách khác (tự nhập)...</option>
+          </select>
+          <input type="text" id="reviewBookCustom" placeholder="Nhập tên sách..." style="display:none; margin-top:8px;">
+        </div>
+        
+        <div class="form-group">
+          <label for="reviewName">Tên bạn</label>
+          <input type="text" id="reviewName" placeholder="VD: Giang, Thông, Lương..." required>
+        </div>
+        
+        <div class="form-group">
+          <label>Đánh giá</label>
+          <div class="star-input" id="starInput">
+            <button type="button" class="star-btn" data-value="1">☆</button>
+            <button type="button" class="star-btn" data-value="2">☆</button>
+            <button type="button" class="star-btn" data-value="3">☆</button>
+            <button type="button" class="star-btn" data-value="4">☆</button>
+            <button type="button" class="star-btn" data-value="5">☆</button>
+          </div>
+          <input type="hidden" id="reviewRating" value="0">
+        </div>
+
+        <div class="form-group">
+          <label for="reviewInsight">💡 Bài học / Insight nổi bật nhất</label>
+          <input type="text" id="reviewInsight" placeholder="Một câu ngắn gọn về bài học sâu sắc nhất...">
+        </div>
+        
+        <div class="form-group">
+          <label for="reviewText">Cảm nhận chi tiết</label>
+          <textarea id="reviewText" rows="5" placeholder="Chia sẻ cảm nhận của bạn về quyển sách này..."></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">📋 Tạo Review & Copy</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="closeReviewModal()">Hủy</button>
+        </div>
+      </form>
+
+      <div class="review-output" id="reviewOutput" style="display:none;">
+        <label>Nội dung review (đã copy!):</label>
+        <textarea id="reviewOutputText" readonly rows="8"></textarea>
+        <div class="form-actions">
+          <button type="button" class="btn btn-primary" onclick="copyReviewText()">📋 Copy lại</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="closeReviewModal()">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Rules -->
-  <section class="section section-alt" id="rules">
+  <section class="section" id="rules">
     <div class="container">
       <div class="section-header">
         <span class="section-icon">⚖️</span>

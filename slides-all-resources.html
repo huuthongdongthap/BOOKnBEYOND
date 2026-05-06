@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12 Nguồn Lực — Nhóm Chính Bắc | Zen Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #faf8f5; --bg-warm: #f5f0e8; --ink: #1a1a1a; --ink-soft: #4a4a4a;
+      --ink-muted: #8a8a8a; --gold: #c89b3c; --gold-warm: #b8860b;
+      --accent: #2c5f2d; --accent-soft: rgba(44,95,45,0.08); --white: #ffffff;
+    }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); font-family: 'Be Vietnam Pro', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.7s ease, transform 0.7s ease; transform: translateY(16px); }
+    .slide.active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    /* Layout */
+    .zen-center { text-align: center; padding: 60px 100px 80px; }
+    .dark { background: var(--ink); color: var(--white); }
+    .warm { background: var(--bg-warm); }
+
+    /* Typography */
+    .tag { display: inline-block; font-size: 18px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-warm); font-weight: 600; margin-bottom: 20px; }
+    .dark .tag { color: var(--gold); }
+    h1.zen { font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+    h2.zen { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700; line-height: 1.2; margin-bottom: 16px; }
+    h3.zen { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+    .body { font-size: 28px; line-height: 1.7; color: var(--ink-soft); max-width: 800px; }
+    .body.c { margin: 0 auto; }
+    .dark .body { color: rgba(255,255,255,0.55); }
+    .dark h1.zen, .dark h2.zen, .dark h3.zen { color: var(--white); }
+    .small { font-size: 20px; color: var(--ink-muted); letter-spacing: 1px; }
+    .dark .small { color: rgba(255,255,255,0.35); }
+    .quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 42px; line-height: 1.5; max-width: 850px; margin: 0 auto; padding-left: 44px; border-left: 4px solid var(--gold); text-align: left; }
+    .quote cite { font-family: 'Be Vietnam Pro', sans-serif; font-style: normal; font-size: 22px; color: var(--ink-muted); margin-top: 16px; display: block; }
+
+    /* Cards */
+    .grid { display: grid; gap: 20px; margin-top: 32px; }
+    .g2 { grid-template-columns: repeat(2, 1fr); }
+    .g3 { grid-template-columns: repeat(3, 1fr); }
+    .g4 { grid-template-columns: repeat(4, 1fr); }
+    .card { background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 28px; position: relative; text-align: left; }
+    .card::after { content: ''; position: absolute; top: 0; left: 20px; right: 20px; height: 2px; background: var(--gold); border-radius: 2px; }
+    .card.no-bar::after { display: none; }
+    .card .num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 800; color: rgba(200,155,60,0.12); margin-bottom: 8px; }
+    .card h4 { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 22px; color: var(--ink-soft); line-height: 1.55; }
+    .dark .card { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+    .dark .card h4 { color: var(--white); }
+    .dark .card p { color: rgba(255,255,255,0.5); }
+    .dark .card .num { color: rgba(200,155,60,0.2); }
+
+    /* List */
+    .zlist { list-style: none; max-width: 900px; text-align: left; }
+    .zlist li { display: flex; align-items: flex-start; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 26px; line-height: 1.6; color: var(--ink-soft); }
+    .zlist li:last-child { border-bottom: none; }
+    .zlist .ic { flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: var(--accent-soft); border-radius: 10px; font-size: 28px; }
+    .zlist strong { color: var(--ink); font-weight: 700; }
+
+    /* Steps */
+    .steps { display: flex; gap: 16px; margin-top: 32px; }
+    .step { flex: 1; background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 28px 20px; text-align: center; }
+    .step .sn { width: 48px; height: 48px; border-radius: 50%; background: var(--gold); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; margin: 0 auto 12px; }
+    .step h4 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+    .step p { font-size: 22px; color: var(--ink-soft); line-height: 1.4; }
+    .dark .step { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08); }
+    .dark .step h4 { color: var(--white); }
+    .dark .step p { color: rgba(255,255,255,0.45); }
+
+    /* Divider */
+    .gold-line { width: 60px; height: 2px; background: var(--gold); margin: 24px auto; }
+
+    /* Footer & Nav */
+    .sf { position: absolute; bottom: 28px; left: 80px; right: 80px; display: flex; justify-content: space-between; font-size: 16px; color: var(--ink-muted); letter-spacing: 2px; z-index: 10; }
+    .dark .sf { color: rgba(255,255,255,0.25); }
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--gold); transition: width 0.5s ease; z-index: 100; }
+    .nav-arrows { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 100; }
+    .nav-btn { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); background: var(--white); color: var(--ink); font-size: 17px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .nav-btn:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    /* ═══ RESPONSIVE — Mobile / Phone Viewers ═══ */
+    @media (max-width: 768px) {
+      .zen-center { padding: 32px 24px 50px; }
+      h1.zen { font-size: 36px; }
+      h2.zen { font-size: 28px; }
+      h3.zen { font-size: 22px; }
+      .tag { font-size: 12px; letter-spacing: 3px; }
+      .body { font-size: 18px; }
+      .small { font-size: 14px; }
+      .quote { font-size: 22px; padding-left: 16px; }
+      .quote cite { font-size: 14px; }
+      .grid.g2, .grid.g3, .grid.g4 { grid-template-columns: 1fr; gap: 12px; }
+      .card { padding: 20px; }
+      .card h4 { font-size: 18px; }
+      .card p { font-size: 15px; }
+      .zlist li { font-size: 17px; gap: 14px; padding: 14px 0; }
+      .zlist .ic { width: 36px; height: 36px; font-size: 18px; }
+      .steps { flex-direction: column; gap: 10px; }
+      .step { padding: 16px 14px; }
+      .step h4 { font-size: 17px; }
+      .step p { font-size: 14px; }
+      .sf { left: 20px; right: 20px; font-size: 10px; bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- S1: TITLE -->
+  <div class="slide active zen-center warm">
+    <div class="tag">Nhóm Chính Bắc · True North Groups · Bill George</div>
+    <h1 class="zen">12 Nguồn Lực</h1>
+    <p class="body c" style="font-size: 24px;">Bộ công cụ thực hành để thành lập,<br>vận hành và duy trì nhóm bền vững.</p>
+    <div class="gold-line"></div>
+    <p class="small">tr. 191 – 259 · BOOKnBEYOND</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>01 / 20</span></div>
+  </div>
+
+  <!-- S2: OVERVIEW MAP -->
+  <div class="slide zen-center">
+    <div class="tag">Tổng quan</div>
+    <h2 class="zen">Bản Đồ 12 Nguồn Lực</h2>
+    <p class="body c" style="margin-bottom: 28px;">Tác giả chia thành <strong>3 nhóm chức năng</strong> phục vụ toàn bộ vòng đời của nhóm:</p>
+    <div class="grid g3" style="max-width: 1100px;">
+      <div class="card" style="border-top: 3px solid var(--accent);">
+        <h4 style="color: var(--accent);">🌱 Khởi tạo & Vận hành</h4>
+        <p><strong>NL 1–6:</strong> Chương trình, cuộc họp đầu tiên, cam kết, hình thức họp, nguyên tắc nền tảng.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--gold);">
+        <h4 style="color: var(--gold-warm);">⚙️ Điều hành & Đánh giá</h4>
+        <p><strong>NL 7–9:</strong> Hướng dẫn điều hành, khảo sát sự hài lòng, tổ chức khóa tu.</p>
+      </div>
+      <div class="card" style="border-top: 3px solid #6366f1;">
+        <h4 style="color: #6366f1;">🔄 Phát triển & Nghiên cứu</h4>
+        <p><strong>NL 10–12:</strong> Bổ sung thành viên, phản hồi, quá trình nghiên cứu.</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>02 / 20</span></div>
+  </div>
+
+  <!-- ═══ SECTION A: KHỞI TẠO ═══ -->
+  <div class="slide zen-center dark">
+    <div class="tag">Phần 1 · Nguồn lực 1–6</div>
+    <h1 class="zen">Khởi Tạo<br>& Vận Hành Nhóm</h1>
+    <p class="body c">Nền tảng cho 12 buổi họp đầu tiên.</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>03 / 20</span></div>
+  </div>
+
+  <!-- S4: NL1 -->
+  <div class="slide zen-center">
+    <div class="tag">Nguồn lực 1 · tr. 191–206 · Thanh</div>
+    <h2 class="zen">Chương Trình Cho Nhóm Mới<br><span style="font-size: 24px; font-weight: 400; color: var(--ink-soft);">Start-Up Curriculum — 12 chủ đề đầu tiên</span></h2>
+    <p class="body c" style="margin-bottom: 28px;">Bill George đề xuất lộ trình <strong>12 buổi họp đầu tiên</strong>, mỗi buổi một chủ đề giúp nhóm xây dựng nền tảng từ nông đến sâu:</p>
+    <div class="grid g4" style="max-width: 1100px;">
+      <div class="card"><div class="num">01</div><h4>Giới thiệu bản thân</h4><p>Câu chuyện cuộc đời và động lực tham gia nhóm.</p></div>
+      <div class="card"><div class="num">02</div><h4>Người ảnh hưởng</h4><p>Ai đã tác động lớn nhất đến con người bạn?</p></div>
+      <div class="card"><div class="num">03</div><h4>Chuỗi ngày quan trọng</h4><p>Những khoảnh khắc đã định hình giá trị cốt lõi.</p></div>
+      <div class="card"><div class="num">04</div><h4>"Lò luyện" (Crucibles)</h4><p>Thử thách lớn nhất và bài học rút ra.</p></div>
+      <div class="card"><div class="num">05</div><h4>Niềm tin & Giá trị</h4><p>Bạn sống theo nguyên tắc nào?</p></div>
+      <div class="card"><div class="num">06</div><h4>Điểm mạnh & Điểm yếu</h4><p>Tự đánh giá bản thân một cách trung thực.</p></div>
+      <div class="card"><div class="num">07</div><h4>Động lực bên trong</h4><p>Điều gì thúc đẩy bạn mỗi ngày?</p></div>
+      <div class="card"><div class="num">08</div><h4>Đội ngũ hỗ trợ</h4><p>Mạng lưới quan hệ nâng đỡ bạn phát triển.</p></div>
+      <div class="card"><div class="num">09</div><h4>Cuộc sống tích hợp</h4><p>Cân bằng sự nghiệp, gia đình và bản thân.</p></div>
+      <div class="card"><div class="num">10</div><h4>Phong cách lãnh đạo</h4><p>Bạn dẫn dắt theo cách riêng nào?</p></div>
+      <div class="card"><div class="num">11</div><h4>Mục đích sống</h4><p>Phương Bắc thật sự (True North) của bạn là gì?</p></div>
+      <div class="card"><div class="num">12</div><h4>Đánh giá & Cam kết</h4><p>Nhìn lại hành trình và hướng đi tiếp theo.</p></div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>04 / 20</span></div>
+  </div>
+
+  <!-- S5: NL2 -->
+  <div class="slide zen-center warm">
+    <div class="tag">Nguồn lực 2 · tr. 207–213 · Thanh</div>
+    <h2 class="zen">Ý Tưởng Mở Rộng<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Additional Program Ideas</span></h2>
+    <p class="body c" style="margin-bottom: 28px;">Sau 12 buổi nền tảng, tác giả gợi ý các chủ đề nâng cao để nhóm duy trì chiều sâu:</p>
+    <div class="grid g3" style="max-width: 900px; margin: 0 auto;">
+      <div class="card no-bar" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">📖</div><h4>Đọc sách cùng nhau</h4><p>Chọn một cuốn sách và thảo luận theo chương.</p></div>
+      <div class="card no-bar" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🎯</div><h4>Mục tiêu cá nhân</h4><p>Chia sẻ và theo dõi mục tiêu cho nhau mỗi quý.</p></div>
+      <div class="card no-bar" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🔥</div><h4>Chủ đề nóng</h4><p>Phân tích tình huống thực tế đang đối mặt.</p></div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>05 / 20</span></div>
+  </div>
+
+  <!-- S6: NL3 -->
+  <div class="slide zen-center">
+    <div class="tag">Nguồn lực 3 · tr. 213–215 · Thông</div>
+    <h2 class="zen">Cuộc Họp Đầu Tiên</h2>
+    <p class="body c" style="margin-bottom: 28px;">Buổi họp đầu tiên <strong>định hình văn hóa nhóm</strong> trong nhiều năm tới:</p>
+    <div class="steps" style="max-width: 1000px;">
+      <div class="step"><div class="sn">1</div><h4>Chào đón</h4><p>Giới thiệu bản thân & động lực tham gia.</p></div>
+      <div class="step"><div class="sn">2</div><h4>Xem xét nhóm</h4><p>Mục đích, quy mô, cách hình thành.</p></div>
+      <div class="step"><div class="sn">3</div><h4>Bản Cam Kết</h4><p>15–20 phút xây dựng Member Contract.</p></div>
+      <div class="step"><div class="sn">4</div><h4>Nguyên tắc</h4><p>Thống nhất bảo mật, lắng nghe, không phán xét.</p></div>
+      <div class="step"><div class="sn">5</div><h4>Chia sẻ đầu</h4><p>Mỗi người kể ngắn câu chuyện cuộc đời.</p></div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>06 / 20</span></div>
+  </div>
+
+  <!-- S7: NL4 -->
+  <div class="slide zen-center warm">
+    <div class="tag">Nguồn lực 4 · tr. 215–218 · Lương (Tuần 2)</div>
+    <h2 class="zen">Bản Cam Kết Thành Viên<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Member Contract</span></h2>
+    <div class="gold-line"></div>
+    <p class="body c" style="margin-bottom: 28px;">Hợp đồng tinh thần mà mọi thành viên ký kết, bao gồm:</p>
+    <ul class="zlist" style="margin: 0 auto;">
+      <li><span class="ic">🔒</span><div><strong>Bảo mật tuyệt đối</strong> — Không chia sẻ nội dung ra bên ngoài nhóm dưới bất kỳ hình thức nào.</div></li>
+      <li><span class="ic">📅</span><div><strong>Cam kết tham dự</strong> — Có mặt đều đặn, báo trước khi vắng và tôn trọng thời gian nhóm.</div></li>
+      <li><span class="ic">💎</span><div><strong>Trung thực & Cởi mở</strong> — Chia sẻ chân thành, dám lộ điểm yếu trong không gian an toàn.</div></li>
+      <li><span class="ic">🤝</span><div><strong>Tôn trọng & Không phán xét</strong> — Lắng nghe để thấu hiểu, không để sửa chữa hay đánh giá.</div></li>
+    </ul>
+    <div class="sf"><span>BOOKnBEYOND</span><span>07 / 20</span></div>
+  </div>
+
+  <!-- S8: NL5 -->
+  <div class="slide zen-center">
+    <div class="tag">Nguồn lực 5 · tr. 219–222 · Lương (Tuần 2)</div>
+    <h2 class="zen">Hình Thức Tổ Chức Cuộc Họp<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Meeting Formats</span></h2>
+    <p class="body c" style="margin-bottom: 28px;">Tác giả đề xuất các khung thời gian linh hoạt cho mỗi buổi họp:</p>
+    <div class="grid g3" style="max-width: 1000px;">
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 36px; margin-bottom: 10px;">⏱️</div>
+        <h4>Check-in<br><span style="font-weight: 400; font-size: 14px; color: var(--ink-muted);">15–20 phút</span></h4>
+        <p>Mỗi người chia sẻ ngắn trạng thái hiện tại. Xây kết nối nhanh.</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 36px; margin-bottom: 10px;">🎯</div>
+        <h4>Chia sẻ sâu<br><span style="font-weight: 400; font-size: 14px; color: var(--ink-muted);">60–90 phút</span></h4>
+        <p>1–2 thành viên trình bày chủ đề. Nhóm lắng nghe và phản hồi.</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 36px; margin-bottom: 10px;">📝</div>
+        <h4>Đóng lại<br><span style="font-weight: 400; font-size: 14px; color: var(--ink-muted);">10–15 phút</span></h4>
+        <p>Tóm tắt bài học, cam kết hành động cho tuần tiếp theo.</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>08 / 20</span></div>
+  </div>
+
+  <!-- S9: NL6 -->
+  <div class="slide zen-center dark">
+    <div class="tag">Nguồn lực 6 · tr. 222–224 · Lương (Tuần 2)</div>
+    <h2 class="zen">Nguyên Tắc Nền Tảng<br><span style="font-size: 22px; font-weight: 400; color: rgba(255,255,255,0.5);">Ground Rules for Group Discussions</span></h2>
+    <div class="gold-line"></div>
+    <div class="grid g3" style="max-width: 1000px; margin-top: 20px;">
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🔇</div><h4>Bảo mật</h4><p>"Điều gì nói ở đây, ở lại đây."</p></div>
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">👂</div><h4>Lắng nghe chủ động</h4><p>Hiện diện trọn vẹn, không cắt ngang.</p></div>
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🚫</div><h4>Không phán xét</h4><p>Góp ý xây dựng, không chỉ trích.</p></div>
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">⏰</div><h4>Tôn trọng thời gian</h4><p>Chia thời gian công bằng cho mọi người.</p></div>
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">💪</div><h4>Can đảm chia sẻ</h4><p>Dám lộ điểm yếu, dám nói sự thật.</p></div>
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🎁</div><h4>Cho đi trước</h4><p>Đóng góp bằng sự đồng cảm và năng lượng.</p></div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>09 / 20</span></div>
+  </div>
+
+  <!-- ═══ SECTION B: ĐIỀU HÀNH ═══ -->
+  <div class="slide zen-center dark">
+    <div class="tag">Phần 2 · Nguồn lực 7–9</div>
+    <h1 class="zen">Điều Hành<br>& Đánh Giá Nhóm</h1>
+    <p class="body c">Nghệ thuật dẫn dắt, lắng nghe và cải thiện.</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>10 / 20</span></div>
+  </div>
+
+  <!-- S11: NL7 -->
+  <div class="slide zen-center">
+    <div class="tag">Nguồn lực 7 · tr. 225–237 · Thông</div>
+    <h2 class="zen">Hướng Dẫn Điều Hành Nhóm<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Guide for Facilitating Groups</span></h2>
+    <p class="body c" style="margin-bottom: 24px;">Nguồn lực dài nhất (13 trang) — trái tim của phần thực hành:</p>
+    <div class="grid g3" style="max-width: 1000px;">
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🔄</div><h4>Luân phiên</h4><p>Thành viên thay phiên điều hành mỗi buổi.</p></div>
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🎯</div><h4>Cố định</h4><p>Một người dẫn dắt xuyên suốt.</p></div>
+      <div class="card" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🏛️</div><h4>Chuyên gia</h4><p>Mời facilitator chuyên nghiệp.</p></div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>11 / 20</span></div>
+  </div>
+
+  <!-- S12: NL7 — 4 vai trò -->
+  <div class="slide zen-center warm">
+    <div class="tag">Nguồn lực 7 · Vai trò của người điều hành</div>
+    <h2 class="zen">4 Trách Nhiệm Cốt Lõi</h2>
+    <ul class="zlist" style="margin: 0 auto;">
+      <li><span class="ic">🧭</span><div><strong>Dẫn dắt thảo luận</strong> — Bám sát chủ đề, phân bổ thời gian công bằng.</div></li>
+      <li><span class="ic">🛡️</span><div><strong>Bảo vệ không gian an toàn</strong> — Duy trì môi trường không phán xét.</div></li>
+      <li><span class="ic">📜</span><div><strong>Giữ vững Bản Cam Kết</strong> — Nhắc nhở nhóm tuân thủ hợp đồng vận hành.</div></li>
+      <li><span class="ic">💬</span><div><strong>Quản lý phản hồi</strong> — Hỗ trợ đóng góp ý kiến mà không ai cảm thấy bị tấn công.</div></li>
+    </ul>
+    <div class="sf"><span>BOOKnBEYOND</span><span>12 / 20</span></div>
+  </div>
+
+  <!-- S13: NL7 — Nhóm như tấm gương -->
+  <div class="slide zen-center dark">
+    <div class="tag" style="color: var(--gold);">Nguồn lực 7 · 4 Vai trò của Nhóm</div>
+    <h2 class="zen" style="max-width: 800px; margin: 0 auto 36px;">Nhóm Chính Bắc đóng<br><em>bốn vai trò</em> cho mỗi thành viên</h2>
+    <div class="steps" style="max-width: 900px;">
+      <div class="step"><div class="sn">1</div><h4>Tấm gương</h4><p>Phản chiếu để tự thấy mình rõ hơn.</p></div>
+      <div class="step"><div class="sn">2</div><h4>Người nói thật</h4><p>Phản hồi 360° trung thực.</p></div>
+      <div class="step"><div class="sn">3</div><h4>Người nuôi dưỡng</h4><p>Khích lệ khi gặp khó khăn.</p></div>
+      <div class="step"><div class="sn">4</div><h4>Cọc neo</h4><p>Giữ vững giá trị cốt lõi.</p></div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>13 / 20</span></div>
+  </div>
+
+  <!-- S14: NL8 -->
+  <div class="slide zen-center">
+    <div class="tag">Nguồn lực 8 · tr. 237–240 · GiangLe</div>
+    <h2 class="zen">Khảo Sát Sự Hài Lòng<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Member Satisfaction Survey</span></h2>
+    <p class="body c" style="margin-bottom: 28px;">Tác giả khuyên nên thực hiện khảo sát <strong>định kỳ hằng năm</strong> để "bắt mạch" sức khỏe nhóm:</p>
+    <div class="grid g2" style="max-width: 800px; margin: 0 auto;">
+      <div class="card no-bar" style="text-align: center; border-left: 3px solid var(--accent);">
+        <h4 style="color: var(--accent);">Nên hỏi</h4>
+        <p>"Nhóm có đáp ứng nhu cầu phát triển cá nhân của bạn không?"<br>"Bạn có cảm thấy an toàn để chia sẻ?"<br>"Buổi họp có ý nghĩa với bạn ở mức nào?"</p>
+      </div>
+      <div class="card no-bar" style="text-align: center; border-left: 3px solid #ef4444;">
+        <h4 style="color: #ef4444;">Dấu hiệu cảnh báo</h4>
+        <p>Nhóm trở thành <strong>nơi giao lưu xã hội</strong> thay vì phát triển chiều sâu. Thành viên ngại chia sẻ thật. Năng lượng buổi họp đi xuống.</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>14 / 20</span></div>
+  </div>
+
+  <!-- S15: NL9 -->
+  <div class="slide zen-center warm">
+    <div class="tag">Nguồn lực 9 · tr. 240–245 · GiangLe</div>
+    <h2 class="zen">Khóa Tu Nhóm<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Group Retreats</span></h2>
+    <div class="gold-line"></div>
+    <p class="body c" style="margin-bottom: 28px;">Dành cho những chủ đề <strong>"lớn"</strong> cần nhiều thời gian suy ngẫm hơn buổi họp thường:</p>
+    <div class="grid g3" style="max-width: 900px; margin: 0 auto;">
+      <div class="card no-bar" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">📋</div><h4>Chuẩn bị trước</h4><p>Mỗi thành viên có "bài tập" suy ngẫm cá nhân trước khi đến.</p></div>
+      <div class="card no-bar" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🏕️</div><h4>Không gian mới</h4><p>Đổi bối cảnh (ngoài trời, resort) để mở rộng tư duy.</p></div>
+      <div class="card no-bar" style="text-align: center;"><div style="font-size: 36px; margin-bottom: 10px;">🔍</div><h4>Đi sâu hơn</h4><p>Thảo luận mở rộng, thời lượng không giới hạn cứng.</p></div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>15 / 20</span></div>
+  </div>
+
+  <!-- ═══ SECTION C: PHÁT TRIỂN ═══ -->
+  <div class="slide zen-center dark">
+    <div class="tag">Phần 3 · Nguồn lực 10–12</div>
+    <h1 class="zen">Phát Triển<br>& Nghiên Cứu</h1>
+    <p class="body c">Mở rộng nhóm, phản hồi sâu và nền tảng khoa học.</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>16 / 20</span></div>
+  </div>
+
+  <!-- S17: NL10 -->
+  <div class="slide zen-center">
+    <div class="tag">Nguồn lực 10 · tr. 245–249 · GiangLe</div>
+    <h2 class="zen">Bổ Sung Thành Viên Mới<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Adding New Members</span></h2>
+    <p class="body c" style="margin-bottom: 28px;">Quy trình kết nạp thành viên mới mà <strong>không phá vỡ sự an toàn</strong> của nhóm:</p>
+    <div class="steps" style="max-width: 1000px;">
+      <div class="step"><div class="sn">1</div><h4>Đề cử</h4><p>Thành viên hiện tại giới thiệu ứng viên phù hợp.</p></div>
+      <div class="step"><div class="sn">2</div><h4>Đồng thuận</h4><p>Cả nhóm phải <strong>100% đồng ý</strong> trước khi mời.</p></div>
+      <div class="step"><div class="sn">3</div><h4>Thử nghiệm</h4><p>Ứng viên tham gia vài buổi trước khi chính thức.</p></div>
+      <div class="step"><div class="sn">4</div><h4>Cam kết</h4><p>Ký Bản Cam Kết và hiểu rõ nguyên tắc nhóm.</p></div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>17 / 20</span></div>
+  </div>
+
+  <!-- S18: NL11 -->
+  <div class="slide zen-center warm">
+    <div class="tag">Nguồn lực 11 · tr. 249–252 · Bảo</div>
+    <h2 class="zen">Đóng Góp & Tiếp Thu Phản Hồi<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Giving and Receiving Feedback</span></h2>
+    <div class="gold-line"></div>
+    <div class="grid g2" style="max-width: 800px; margin: 0 auto;">
+      <div class="card no-bar" style="border-left: 3px solid var(--accent);">
+        <h4 style="color: var(--accent);">Khi đóng góp</h4>
+        <p>Nói từ góc nhìn cá nhân: <em>"Tôi nhận thấy..."</em> thay vì <em>"Bạn luôn..."</em>. Tập trung vào hành vi, không phải con người. Đóng góp bằng sự đồng cảm.</p>
+      </div>
+      <div class="card no-bar" style="border-left: 3px solid var(--gold-warm);">
+        <h4 style="color: var(--gold-warm);">Khi tiếp nhận</h4>
+        <p>Lắng nghe trọn vẹn, không phản ứng phòng thủ ngay. Hỏi thêm để hiểu rõ. Xem phản hồi như một <strong>món quà</strong> giúp phát triển.</p>
+      </div>
+    </div>
+    <div class="sf"><span>BOOKnBEYOND</span><span>18 / 20</span></div>
+  </div>
+
+  <!-- S19: NL12 -->
+  <div class="slide zen-center">
+    <div class="tag">Nguồn lực 12 · tr. 252–259 · Bảo</div>
+    <h2 class="zen">Quá Trình Nghiên Cứu<br><span style="font-size: 22px; font-weight: 400; color: var(--ink-soft);">Research Process</span></h2>
+    <p class="body c" style="margin-bottom: 28px;">Nền tảng nghiên cứu khoa học mà Bill George và Doug Baker đã thực hiện để viết cuốn sách:</p>
+    <ul class="zlist" style="margin: 0 auto;">
+      <li><span class="ic">🔬</span><div><strong>Phỏng vấn chuyên sâu</strong> — Hàng trăm cuộc phỏng vấn với các nhà lãnh đạo và thành viên nhóm trên toàn thế giới.</div></li>
+      <li><span class="ic">📊</span><div><strong>Khảo sát định lượng</strong> — Đo lường hiệu quả thực tế của việc tham gia nhóm đối với sự phát triển lãnh đạo.</div></li>
+      <li><span class="ic">📚</span><div><strong>Tổng hợp lý thuyết</strong> — Kết hợp tâm lý học nhóm, phát triển lãnh đạo và trí tuệ cảm xúc thành hệ thống thực hành.</div></li>
+    </ul>
+    <div class="sf"><span>BOOKnBEYOND</span><span>19 / 20</span></div>
+  </div>
+
+  <!-- S20: CLOSING -->
+  <div class="slide zen-center warm">
+    <div style="font-size: 56px; margin-bottom: 28px;">🧭</div>
+    <h2 class="zen" style="max-width: 700px; margin: 0 auto 20px;">
+      12 nguồn lực.<br>Một mục đích duy nhất:<br><em style="color: var(--gold-warm);">Phát triển con người.</em>
+    </h2>
+    <div class="gold-line"></div>
+    <p class="small">Nhóm Chính Bắc · True North Groups · Bill George & Doug Baker</p>
+    <p class="small" style="margin-top: 10px;">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</p>
+    <div class="sf"><span>BOOKnBEYOND</span><span>20 / 20</span></div>
+  </div>
+
+</div>
+
+<div class="progress-bar" id="progressBar"></div>
+<div class="nav-arrows">
+  <button class="nav-btn" onclick="prevSlide()">←</button>
+  <button class="nav-btn" onclick="nextSlide()">→</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = ((n % slides.length) + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+  }
+  function nextSlide() { showSlide(current + 1); }
+  function prevSlide() { showSlide(current - 1); }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+    if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+    if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+  });
+  document.getElementById('progressBar').style.width = (1 / slides.length * 100) + '%';
+</script>
+</body>
+</html>

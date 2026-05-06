@@ -4,3 +4,9 @@ compatibility_date = "2025-01-01"
 
 [pages]
 build_output_dir = "."
+
+# KV Namespace for caching sheet data & reviews
+[[kv_namespaces]]
+binding = "BNB_CACHE"
+id = "bnb-cache-prod"
+preview_id = "bnb-cache-preview"

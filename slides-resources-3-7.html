@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nguồn lực 3 & 7 — Nhóm Chính Bắc | Zen Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════
+       ZEN PRESENTATION — True North Groups
+       Resources 3 & 7
+       Minimalism · Whitespace · One Idea
+       ═══════════════════════════════════ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #faf8f5;
+      --bg-warm: #f5f0e8;
+      --ink: #1a1a1a;
+      --ink-soft: #4a4a4a;
+      --ink-muted: #8a8a8a;
+      --gold: #c89b3c;
+      --gold-warm: #b8860b;
+      --accent: #2c5f2d;
+      --accent-soft: rgba(44,95,45,0.08);
+      --white: #ffffff;
+    }
+
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: var(--bg);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(20px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    /* ── Layout Types ── */
+    .zen-center { text-align: center; padding: 80px 120px; }
+    .zen-split { display: flex; align-items: stretch; padding: 0; }
+    .zen-split .left { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 80px 80px; }
+    .zen-split .right { flex: 1; position: relative; overflow: hidden; }
+    .zen-split .right img { width: 100%; height: 100%; object-fit: cover; }
+    .zen-full-image { position: relative; }
+    .zen-full-image .overlay {
+      position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      background: rgba(0,0,0,0.5); padding: 80px; text-align: center; color: var(--white);
+    }
+
+    /* ── Typography — Zen: Less is More ── */
+    .zen-tag {
+      display: inline-block; font-size: 18px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold-warm); font-weight: 600; margin-bottom: 24px;
+    }
+    .zen-h1 {
+      font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 800;
+      line-height: 1.1; margin-bottom: 24px; color: var(--ink);
+    }
+    .zen-h2 {
+      font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700;
+      line-height: 1.2; margin-bottom: 20px; color: var(--ink);
+    }
+    .zen-h3 {
+      font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 700;
+      line-height: 1.3; margin-bottom: 16px;
+    }
+    .zen-body { font-size: 28px; line-height: 1.7; color: var(--ink-soft); max-width: 800px; }
+    .zen-body.centered { margin: 0 auto; }
+    .zen-small { font-size: 20px; color: var(--ink-muted); letter-spacing: 1px; }
+    .zen-quote {
+      font-family: 'Playfair Display', serif; font-style: italic; font-size: 42px;
+      line-height: 1.5; color: var(--ink); max-width: 850px; position: relative;
+      padding-left: 44px; border-left: 4px solid var(--gold);
+    }
+    .zen-quote-attr { font-family: 'Be Vietnam Pro', sans-serif; font-style: normal; font-size: 22px; color: var(--ink-muted); margin-top: 20px; display: block; }
+
+    /* ── Minimal Cards ── */
+    .zen-card-grid { display: grid; gap: 32px; margin-top: 40px; }
+    .zen-card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .zen-card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .zen-card {
+      background: var(--white); border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px; padding: 40px; position: relative;
+    }
+    .zen-card::after {
+      content: ''; position: absolute; top: 0; left: 24px; right: 24px;
+      height: 2px; background: var(--gold); border-radius: 2px;
+    }
+    .zen-card-num {
+      font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 800;
+      color: rgba(200,155,60,0.15); margin-bottom: 12px;
+    }
+    .zen-card h4 { font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+    .zen-card p { font-size: 24px; color: var(--ink-soft); line-height: 1.6; }
+
+    /* ── Vertical List ── */
+    .zen-list { list-style: none; max-width: 900px; }
+    .zen-list li {
+      display: flex; align-items: flex-start; gap: 24px; padding: 22px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 26px; line-height: 1.6; color: var(--ink-soft);
+    }
+    .zen-list li:last-child { border-bottom: none; }
+    .zen-list .icon {
+      flex-shrink: 0; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center;
+      background: var(--accent-soft); border-radius: 12px; font-size: 28px;
+    }
+    .zen-list .num {
+      flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; background: var(--gold);
+      color: var(--white); display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 22px;
+    }
+    .zen-list strong { color: var(--ink); font-weight: 700; }
+
+    /* ── Divider Section ── */
+    .section-divider {
+      background: var(--ink); color: var(--white); text-align: center;
+      padding: 80px 120px;
+    }
+    .section-divider .zen-tag { color: var(--gold); }
+    .section-divider .zen-h1 { color: var(--white); }
+    .section-divider .zen-body { color: rgba(255,255,255,0.6); }
+
+    /* ── Step Flow (for NL7) ── */
+    .zen-steps { display: flex; gap: 20px; margin-top: 40px; }
+    .zen-step {
+      flex: 1; background: var(--white); border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 16px; padding: 32px 24px; text-align: center; position: relative;
+    }
+    .zen-step-num {
+      width: 48px; height: 48px; border-radius: 50%; background: var(--gold);
+      color: var(--white); display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 22px; margin: 0 auto 16px;
+    }
+    .zen-step h4 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .zen-step p { font-size: 22px; color: var(--ink-soft); line-height: 1.5; }
+
+    /* ── Footer ── */
+    .slide-footer {
+      position: absolute; bottom: 30px; left: 80px; right: 80px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 16px; color: var(--ink-muted); letter-spacing: 2px; z-index: 10;
+    }
+
+    /* ── Navigation ── */
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--gold); transition: width 0.5s ease; z-index: 100; }
+    .nav-arrows { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 100; }
+    .nav-btn {
+      width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1);
+      background: var(--white); color: var(--ink); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .nav-btn:hover { background: var(--gold); color: var(--white); border-color: var(--gold); }
+
+    /* ── Full-bleed dark slides ── */
+    .dark-slide { background: var(--ink); color: var(--white); }
+    .dark-slide .zen-body { color: rgba(255,255,255,0.6); }
+    .dark-slide .zen-small { color: rgba(255,255,255,0.4); }
+    .dark-slide .zen-h1, .dark-slide .zen-h2, .dark-slide .zen-h3 { color: var(--white); }
+    .dark-slide .slide-footer { color: rgba(255,255,255,0.3); }
+
+    /* ── Source Attribution Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    /* ═══ RESPONSIVE — Mobile / Phone Viewers ═══ */
+    @media (max-width: 768px) {
+      .zen-center { padding: 32px 24px 50px; }
+      .zen-h1 { font-size: 36px; }
+      .zen-h2 { font-size: 28px; }
+      .zen-h3 { font-size: 22px; }
+      .zen-body { font-size: 18px; }
+      .zen-quote { font-size: 22px; padding-left: 16px; }
+      .zen-quote-attr { font-size: 14px; }
+      .zen-tag { font-size: 12px; letter-spacing: 3px; }
+      .zen-small { font-size: 14px; }
+      .zen-card-grid.cols-3 { grid-template-columns: 1fr; gap: 12px; }
+      .zen-card-grid.cols-2 { grid-template-columns: 1fr; gap: 12px; }
+      .zen-card { padding: 20px; }
+      .zen-card h4 { font-size: 18px; }
+      .zen-card p { font-size: 15px; }
+      .zen-list li { font-size: 17px; gap: 14px; padding: 14px 0; }
+      .zen-list .icon, .zen-list .num { width: 36px; height: 36px; font-size: 16px; }
+      .zen-steps { flex-direction: column; gap: 10px; }
+      .zen-step { padding: 16px 14px; }
+      .zen-step h4 { font-size: 17px; }
+      .zen-step p { font-size: 14px; }
+      .slide-footer { left: 20px; right: 20px; font-size: 10px; bottom: 16px; }
+      .section-divider { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <!-- ══════════════════════════════════
+         SLIDE 1: TITLE — Full Zen
+         ══════════════════════════════════ -->
+    <div class="slide active zen-center">
+      <div class="zen-tag">Nhóm Chính Bắc · True North Groups</div>
+      <h1 class="zen-h1" style="max-width: 800px; margin: 0 auto 24px;">Nguồn lực 3 & 7</h1>
+      <p class="zen-body centered" style="font-size: 28px; color: var(--ink-soft);">
+        Cuộc Họp Đầu Tiên<br>& Hướng Dẫn Điều Hành Nhóm
+      </p>
+      <div style="width: 60px; height: 2px; background: var(--gold); margin: 40px auto 24px;"></div>
+      <p class="zen-small">Người trình bày: <strong style="color: var(--ink);">Thông</strong> · tr. 213–237</p>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>01 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 2: SECTION DIVIDER — NL3
+         ══════════════════════════════════ -->
+    <div class="slide zen-center section-divider dark-slide">
+      <div class="zen-tag">Nguồn lực 3</div>
+      <h1 class="zen-h1">Cuộc Họp Đầu Tiên<br>Của Nhóm</h1>
+      <p class="zen-body centered">tr. 213 – 215 · 3 trang</p>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>02 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 3: NL3 — Quote mở đầu
+         ══════════════════════════════════ -->
+    <div class="slide zen-center" style="background: var(--bg-warm);">
+      <blockquote class="zen-quote" style="margin: 0 auto;">
+        "Buổi họp đầu tiên sẽ định hình nên văn hóa của nhóm bạn trong nhiều năm tới. Hãy đầu tư thời gian cho nó."
+        <cite class="zen-quote-attr">— Bill George, True North Groups, tr. 213</cite>
+      </blockquote>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>03 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 4: NL3 — Agenda buổi họp đầu tiên 
+         ══════════════════════════════════ -->
+    <div class="slide zen-center">
+      <div class="zen-tag">Nguồn lực 3</div>
+      <h2 class="zen-h2">Chương Trình Buổi Họp Đầu Tiên</h2>
+      <ul class="zen-list" style="margin: 0 auto;">
+        <li>
+          <span class="num">1</span>
+          <div><strong>Chào đón & Giới thiệu</strong> — Mỗi thành viên tự giới thiệu và chia sẻ động lực tham gia nhóm.</div>
+        </li>
+        <li>
+          <span class="num">2</span>
+          <div><strong>Xem xét chi tiết nhóm</strong> — Thảo luận cách nhóm hình thành, mục đích và quy mô thành viên.</div>
+        </li>
+        <li>
+          <span class="num">3</span>
+          <div><strong>Thiết lập Bản Cam Kết</strong> — 15–20 phút xây dựng Bản Cam Kết Thành Viên (Member Contract).</div>
+        </li>
+        <li>
+          <span class="num">4</span>
+          <div><strong>Thống nhất nguyên tắc</strong> — Thiết lập nguyên tắc nền tảng: bảo mật, lắng nghe, không phán xét.</div>
+        </li>
+        <li>
+          <span class="num">5</span>
+          <div><strong>Chia sẻ đầu tiên</strong> — Mỗi người kể ngắn câu chuyện cuộc đời để bắt đầu kết nối.</div>
+        </li>
+      </ul>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>04 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 5: NL3 — Nền tảng Tin cậy
+         ══════════════════════════════════ -->
+    <div class="slide zen-center">
+      <div class="zen-tag">Nguồn lực 3 · Các cam kết nền tảng</div>
+      <div class="badge-source badge-expand">📌 Mở rộng — tham khảo NL4 & NL6</div>
+      <h2 class="zen-h2">5 Cam Kết Nền Tảng</h2>
+      <ul class="zen-list" style="margin: 0 auto;">
+        <li>
+          <span class="icon">🔒</span>
+          <div><strong>Bảo mật tuyệt đối</strong> — Mọi nội dung chia sẻ trong nhóm phải được giữ kín hoàn toàn.</div>
+        </li>
+        <li>
+          <span class="icon">🤝</span>
+          <div><strong>Tin tưởng & Cởi mở</strong> — Tạo không gian an toàn để chia sẻ thử thách, nỗi sợ và câu chuyện đời thật.</div>
+        </li>
+        <li>
+          <span class="icon">🪞</span>
+          <div><strong>Phản hồi không phán xét</strong> — Góp ý chân thành, có tính xây dựng nhưng không phê phán.</div>
+        </li>
+        <li>
+          <span class="icon">👂</span>
+          <div><strong>Lắng nghe sâu</strong> — Hoàn toàn hiện diện, tôn trọng khi người khác đang chia sẻ.</div>
+        </li>
+        <li>
+          <span class="icon">🔥</span>
+          <div><strong>Cam kết tham gia</strong> — Có mặt đều đặn, đóng góp năng lượng tích cực cho nhóm.</div>
+        </li>
+      </ul>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>05 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 6: NL3 — Chia sẻ Câu Chuyện Đời
+         ══════════════════════════════════ -->
+    <div class="slide zen-center" style="background: var(--bg-warm);">
+      <div class="zen-tag">Nguồn lực 3 · Các buổi họp tiếp theo</div>
+      <div class="badge-source badge-expand">📌 Mở rộng — tham khảo NL1 (12 chủ đề)</div>
+      <h2 class="zen-h2">Sau Buổi Đầu Tiên: Chia Sẻ Câu Chuyện Đời</h2>
+      <p class="zen-body centered" style="margin-bottom: 40px;">
+        Tác giả khuyên rằng những buổi họp tiếp theo nên khuyến khích kết nối sâu thông qua:
+      </p>
+      <div class="zen-card-grid cols-2" style="max-width: 800px; margin: 0 auto;">
+        <div class="zen-card">
+          <h4 style="color: var(--accent);">📖 Câu chuyện cuộc đời</h4>
+          <p>Chia sẻ về con người và trải nghiệm đã <strong>tác động lớn nhất</strong> đến cuộc sống.</p>
+        </div>
+        <div class="zen-card">
+          <h4 style="color: var(--accent);">🔥 Những "lò luyện" (Crucibles)</h4>
+          <p>Về sau, thảo luận những giai đoạn bạn đã <strong>"lạc đường"</strong> hoặc đi lệch khỏi giá trị cốt lõi.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>06 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 7: SECTION DIVIDER — NL7
+         ══════════════════════════════════ -->
+    <div class="slide zen-center section-divider dark-slide">
+      <div class="zen-tag">Nguồn lực 7</div>
+      <h1 class="zen-h1">Hướng Dẫn<br>Điều Hành Nhóm</h1>
+      <p class="zen-body centered">tr. 225 – 237 · 13 trang</p>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>07 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 8: NL7 — Quote
+         ══════════════════════════════════ -->
+    <div class="slide zen-center" style="background: var(--bg-warm);">
+      <blockquote class="zen-quote" style="margin: 0 auto;">
+        "Người điều hành không phải là giáo viên hay chuyên gia. Vai trò của họ là tạo ra không gian an toàn để mỗi thành viên tự khám phá chiều sâu bên trong mình."
+        <cite class="zen-quote-attr">— Bill George, True North Groups, tr. 225</cite>
+      </blockquote>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>08 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 9: NL7 — 3 Mô hình điều hành
+         ══════════════════════════════════ -->
+    <div class="slide zen-center">
+      <div class="zen-tag">Nguồn lực 7</div>
+      <h2 class="zen-h2">3 Mô Hình Điều Hành Nhóm</h2>
+      <p class="zen-body centered" style="margin-bottom: 40px;">Tác giả đề xuất nhóm có thể chọn một trong ba mô hình:</p>
+      <div class="zen-card-grid cols-3" style="max-width: 1100px;">
+        <div class="zen-card" style="text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🔄</div>
+          <h4>Luân phiên<br>(Peer Facilitators)</h4>
+          <p>Thành viên <strong>thay phiên</strong> nhau đảm nhận vai trò điều hành mỗi buổi.</p>
+        </div>
+        <div class="zen-card" style="text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🎯</div>
+          <h4>Cố định<br>(Permanent Facilitator)</h4>
+          <p>Một thành viên được chỉ định làm <strong>người điều hành xuyên suốt</strong>.</p>
+        </div>
+        <div class="zen-card" style="text-align: center;">
+          <div style="font-size: 48px; margin-bottom: 16px;">🏛️</div>
+          <h4>Chuyên nghiệp<br>(Professional Facilitator)</h4>
+          <p>Mời <strong>chuyên gia bên ngoài</strong> hỗ trợ, giám sát động lực nhóm.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>09 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 10: NL7 — Vai trò cốt lõi
+         ══════════════════════════════════ -->
+    <div class="slide zen-center">
+      <div class="zen-tag">Nguồn lực 7 · Trách nhiệm của Người Điều Hành</div>
+      <h2 class="zen-h2">4 Vai Trò Cốt Lõi</h2>
+      <ul class="zen-list" style="margin: 0 auto;">
+        <li>
+          <span class="icon">🧭</span>
+          <div><strong>Dẫn dắt thảo luận</strong> — Đảm bảo nhóm bám sát chủ đề và mọi thành viên có cơ hội chia sẻ công bằng ("air time").</div>
+        </li>
+        <li>
+          <span class="icon">🛡️</span>
+          <div><strong>Bảo vệ không gian an toàn</strong> — Duy trì môi trường không phán xét, tuân theo các nguyên tắc về bảo mật, chân thành và cởi mở.</div>
+        </li>
+        <li>
+          <span class="icon">📜</span>
+          <div><strong>Giữ vững Bản Cam Kết</strong> — Quản lý và nhắc nhở nhóm tuân thủ hợp đồng vận hành đã thống nhất.</div>
+        </li>
+        <li>
+          <span class="icon">💬</span>
+          <div><strong>Quản lý phản hồi</strong> — Hỗ trợ quá trình đóng góp/tiếp nhận ý kiến để thành viên nhận diện "điểm mù" mà không cảm thấy bị tấn công.</div>
+        </li>
+      </ul>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>10 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 11: NL7 — Lắng Nghe Sâu
+         ══════════════════════════════════ -->
+    <div class="slide zen-center" style="background: var(--bg-warm);">
+      <div class="zen-tag">Nguồn lực 7 · Kỹ năng then chốt</div>
+      <h2 class="zen-h2">Lắng Nghe Sâu<br><span style="font-size: 28px; font-weight: 400; color: var(--ink-soft);">(Deep Listening)</span></h2>
+      <div style="width: 60px; height: 2px; background: var(--gold); margin: 30px auto;"></div>
+      <p class="zen-body centered" style="max-width: 650px;">
+        Tác giả nhấn mạnh: thành viên cần chuyển từ <strong>cuộc trò chuyện bình thường</strong> sang <strong>lắng nghe thật sự</strong> — lắng nghe để <em>thấu hiểu và đồng hành</em>, chứ không phải để "sửa chữa" hay phê bình.
+      </p>
+      <div class="badge-source badge-example" style="margin-top: 24px;">💡 Ví dụ minh họa — không trích nguyên văn</div>
+      <div class="zen-card-grid cols-2" style="max-width: 700px; margin: 20px auto 0;">
+        <div class="zen-card" style="text-align: center; border-left: 3px solid #ef4444; border-top: none;">
+          <h4 style="color: #ef4444;">✕ Không phải</h4>
+          <p>"Tôi nghĩ bạn nên..."<br>"Vấn đề của bạn là..."</p>
+        </div>
+        <div class="zen-card" style="text-align: center; border-left: 3px solid var(--accent); border-top: none;">
+          <h4 style="color: var(--accent);">✓ Mà là</h4>
+          <p>"Tôi nghe bạn nói rằng..."<br>"Điều đó ảnh hưởng đến bạn thế nào?"</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>11 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 12: NL7 — Nhóm như Tấm Gương
+         ══════════════════════════════════ -->
+    <div class="slide zen-center dark-slide">
+      <div class="zen-tag" style="color: var(--gold);">Nguồn lực 7 · 4 Vai trò của Nhóm</div>
+      <div class="badge-source badge-expand">📌 Mở rộng — tham khảo chương chính của sách</div>
+      <h2 class="zen-h2" style="max-width: 900px; margin: 0 auto 50px;">
+        Nhóm Chính Bắc đóng <em>bốn vai trò</em><br>cho mỗi thành viên:
+      </h2>
+      <div class="zen-steps" style="max-width: 1000px;">
+        <div class="zen-step" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+          <div class="zen-step-num">1</div>
+          <h4 style="color: var(--white);">Tấm gương<br><span style="font-weight: 400; font-size: 14px; color: var(--gold);">Mirror</span></h4>
+          <p style="color: rgba(255,255,255,0.5);">Phản chiếu để bạn tự thấy chính mình rõ hơn.</p>
+        </div>
+        <div class="zen-step" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+          <div class="zen-step-num">2</div>
+          <h4 style="color: var(--white);">Người nói thật<br><span style="font-weight: 400; font-size: 14px; color: var(--gold);">Truth Teller</span></h4>
+          <p style="color: rgba(255,255,255,0.5);">Cung cấp sự thật 360° mà vị trí quyền lực hiếm khi mang lại.</p>
+        </div>
+        <div class="zen-step" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+          <div class="zen-step-num">3</div>
+          <h4 style="color: var(--white);">Người nuôi dưỡng<br><span style="font-weight: 400; font-size: 14px; color: var(--gold);">Nurturer</span></h4>
+          <p style="color: rgba(255,255,255,0.5);">Chăm sóc, khích lệ khi bạn gặp khó khăn.</p>
+        </div>
+        <div class="zen-step" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1);">
+          <div class="zen-step-num">4</div>
+          <h4 style="color: var(--white);">Cọc neo<br><span style="font-weight: 400; font-size: 14px; color: var(--gold);">Grounding Rod</span></h4>
+          <p style="color: rgba(255,255,255,0.5);">Giữ bạn vững chắc, không đi lệch giá trị cốt lõi.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>12 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 13: NL7 — Quy trình một buổi họp
+         ══════════════════════════════════ -->
+    <div class="slide zen-center">
+      <div class="zen-tag">Nguồn lực 7 · Gợi ý của tác giả</div>
+      <h2 class="zen-h2">Quy Trình Một Buổi Họp Điều Hành Tốt</h2>
+      <div class="zen-steps" style="max-width: 1100px; margin: 40px auto 0;">
+        <div class="zen-step">
+          <div class="zen-step-num">1</div>
+          <h4>Check-in</h4>
+          <p>Mỗi người chia sẻ ngắn gọn trạng thái hiện tại — "Hôm nay tôi đến đây với tâm trạng gì?"</p>
+        </div>
+        <div class="zen-step">
+          <div class="zen-step-num">2</div>
+          <h4>Chia sẻ sâu</h4>
+          <p>1–2 thành viên chia sẻ câu chuyện hoặc vấn đề thật sự quan trọng với họ.</p>
+        </div>
+        <div class="zen-step">
+          <div class="zen-step-num">3</div>
+          <h4>Phản hồi nhóm</h4>
+          <p>Cả nhóm đóng góp ý kiến — bằng sự đồng cảm, không phán xét.</p>
+        </div>
+        <div class="zen-step">
+          <div class="zen-step-num">4</div>
+          <h4>Đóng lại</h4>
+          <p>Tóm tắt bài học, cam kết hành động cá nhân trước buổi tiếp theo.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>13 / 14</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         SLIDE 14: CLOSING — Zen
+         ══════════════════════════════════ -->
+    <div class="slide zen-center" style="background: var(--bg-warm);">
+      <div style="font-size: 64px; margin-bottom: 32px;">🧭</div>
+      <h2 class="zen-h2" style="max-width: 700px; margin: 0 auto 24px;">
+        Điều hành giỏi<br>không phải nói nhiều.<br>Mà là <em>lắng nghe đúng</em>.
+      </h2>
+      <div style="width: 60px; height: 2px; background: var(--gold); margin: 30px auto;"></div>
+      <p class="zen-small">Nguồn lực 3 & 7 · Nhóm Chính Bắc · Bill George</p>
+      <p class="zen-small" style="margin-top: 12px;">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</p>
+      <div class="slide-footer">
+        <span>BOOKnBEYOND</span>
+        <span>14 / 14</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+
+    document.getElementById('progressBar').style.width = (1 / slides.length * 100) + '%';
+  </script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đề xuất Giải pháp Quản trị Web | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy-deep: #060a14;
+      --navy: #0a0e17;
+      --navy-light: #0d1321;
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --gold-dim: rgba(245,158,11,0.15);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --accent-green: #10b981;
+      --accent-blue: #3b82f6;
+      --accent-purple: #8b5cf6;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--navy-deep);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: var(--text);
+    }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 100px 90px;
+      background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 30%, var(--navy-light) 60%, var(--navy) 100%);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
+      transform: translateX(40px);
+    }
+
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-40px); }
+
+    .slide::before {
+      content: ''; position: absolute; top: -300px; left: 50%; transform: translateX(-50%);
+      width: 1000px; height: 1000px; background: radial-gradient(circle, rgba(245,158,11,0.06) 0%, transparent 70%); pointer-events: none;
+    }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: 'Playfair Display', serif; }
+
+    .slide-number { position: absolute; bottom: 30px; right: 50px; font-size: 16px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; }
+    .slide-brand { position: absolute; bottom: 30px; left: 50px; font-size: 16px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; text-transform: uppercase; }
+
+    .title-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: var(--gold-dim);
+      border: 1px solid rgba(245,158,11,0.3); border-radius: 50px; font-size: 18px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 40px;
+    }
+
+    .title-main {
+      font-size: 80px; font-weight: 900; line-height: 1.1; margin-bottom: 20px;
+      background: linear-gradient(135deg, #f1f5f9 30%, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .title-sub { font-size: 36px; font-weight: 300; color: var(--gold); margin-bottom: 50px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-header { margin-bottom: 50px; text-align: center; }
+    .content-tag { display: inline-block; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 14px; }
+    .content-title { font-size: 56px; font-weight: 800; line-height: 1.2; text-align: center; }
+    .content-body { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .content-body.triple { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      background: linear-gradient(135deg, rgba(26,34,52,0.8), rgba(17,24,39,0.8)); border: 1px solid rgba(245,158,11,0.15);
+      border-radius: 20px; padding: 36px; position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+    .card.no-top::before { display: none; }
+    .card-icon { font-size: 44px; margin-bottom: 16px; }
+    .card-title { font-size: 28px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+    .card-text { font-size: 24px; color: var(--text-muted); line-height: 1.7; }
+
+    .insight-list { list-style: none; text-align: left; max-width: 900px; margin: 0 auto; }
+    .insight-list li { display: flex; align-items: flex-start; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(245,158,11,0.1); font-size: 26px; line-height: 1.6; color: var(--text-muted); }
+    .insight-list li:last-child { border-bottom: none; }
+    .insight-list .num { flex-shrink: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--gold-dim); border: 1px solid rgba(245,158,11,0.3); border-radius: 12px; color: var(--gold); font-weight: 700; font-size: 22px; }
+    .insight-list strong { color: var(--text); font-weight: 600; }
+
+    .discussion-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
+    .discussion-card { background: linear-gradient(135deg, rgba(26,34,52,0.8), rgba(17,24,39,0.8)); border: 1px solid rgba(245,158,11,0.15); border-radius: 20px; padding: 32px; text-align: left; }
+    .discussion-card .q-num { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; background: var(--gold); color: var(--navy-deep); border-radius: 10px; font-weight: 800; font-size: 20px; margin-bottom: 16px; }
+    .discussion-card p { font-size: 24px; line-height: 1.6; color: var(--text); }
+
+    .takeaway-box { background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03)); border: 2px solid rgba(245,158,11,0.25); border-radius: 24px; padding: 50px; text-align: center; max-width: 900px; margin: 0 auto; }
+    .takeaway-box h3 { font-size: 42px; font-weight: 800; margin-bottom: 16px; }
+    .takeaway-box p { font-size: 26px; color: var(--text-muted); line-height: 1.7; }
+    .closing-brand { font-size: 68px; font-weight: 900; background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 20px; }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); transition: width 0.4s ease; z-index: 100; }
+    .nav-arrows { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 16px; z-index: 100; }
+    .nav-btn { width: 48px; height: 48px; border-radius: 14px; border: 1px solid rgba(245,158,11,0.3); background: rgba(10,14,23,0.8); color: var(--gold); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; backdrop-filter: blur(10px); }
+    .nav-btn:hover { background: rgba(245,158,11,0.15); border-color: var(--gold); }
+    .deco-compass { position: absolute; top: 30px; right: 50px; font-size: 28px; opacity: 0.4; z-index: 10; }
+
+    /* Split View CSS */
+    .split-view { display: flex; align-items: center; gap: 60px; width: 100%; text-align: left; }
+    .split-left { flex: 1.2; display: flex; flex-direction: column; justify-content: center; }
+    .split-right { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
+    .content-body.vertical { display: flex; flex-direction: column; gap: 12px; }
+    .card.compact { padding: 16px 24px; border-top: none; }
+    .card.compact .card-icon { font-size: 28px; margin-bottom: 4px; display: inline-block; }
+    .card.compact .card-title { font-size: 24px; margin-bottom: 4px; display: inline-block; margin-left: 10px; }
+    .card.compact .card-text { font-size: 20px; line-height: 1.4; }
+    .full-img { width: 100%; max-height: 55vh; object-fit: contain; border-radius: 16px; border: 1px solid rgba(245,158,11,0.2); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+    .content-header.left-aligned { text-align: left; margin-bottom: 20px; }
+    .content-header.left-aligned .content-title { text-align: left; font-size: 42px; line-height: 1.25; }
+
+    /* ═══ RESPONSIVE — Mobile / Phone Viewers ═══ */
+    @media (max-width: 768px) {
+      .slide { padding: 32px 24px 60px; }
+      .title-main { font-size: 36px; }
+      .title-sub { font-size: 20px; }
+      .title-badge { font-size: 12px; padding: 8px 16px; }
+      .content-title { font-size: 28px; }
+      .content-tag { font-size: 12px; }
+      .card-title { font-size: 18px; }
+      .card-text { font-size: 15px; }
+      .content-body { grid-template-columns: 1fr; gap: 16px; }
+      .content-body.triple { grid-template-columns: 1fr; }
+      .discussion-cards { grid-template-columns: 1fr; gap: 16px; }
+      .discussion-card p { font-size: 16px; }
+      .insight-list li { font-size: 17px; }
+      .takeaway-box { padding: 28px; }
+      .takeaway-box h3 { font-size: 24px; }
+      .takeaway-box p { font-size: 16px; }
+      .split-view { flex-direction: column; gap: 24px; }
+      .slide-number, .slide-brand { font-size: 10px; bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide active">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="title-badge">🚀 ĐỀ XUẤT NÂNG CẤP HỆ THỐNG</div>
+        <h1 class="title-main serif">Tích Hợp Chức Năng<br>Nhập Liệu Dữ Liệu Web</h1>
+        <p class="title-sub serif">BooknBeyond Hub Architecture</p>
+      </div>
+      <div class="slide-brand">BĐH BOOKnBEYOND</div>
+      <div class="slide-number">01 / 06</div>
+    </div>
+
+    <!-- SLIDE 2: CURRENT PROBLEM -->
+    <div class="slide">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header">
+            <div class="content-tag">khó khăn hiện tại</div>
+            <h2 class="content-title serif">Web Tĩnh (Static Site)</h2>
+          </div>
+          <div class="content-body">
+            <div class="card">
+              <div class="card-icon">🖥️</div>
+              <div class="card-title">1. Cơ chế đọc dữ liệu</div>
+              <p class="card-text">
+                Web hiện tại rất nhanh và xịn, nhưng load dữ liệu từ 1 file <code>config.json</code> nằm "cứng" trong mã nguồn (source code) của máy chủ.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon">⏳</div>
+              <div class="card-title">2. Nút thắt cập nhật (Bottleneck)</div>
+              <p class="card-text">
+                Mỗi khi cần thay tên Sách, đổi MC, hay cập nhật lịch học, trình duyệt web của thành viên <strong>không thể tự ghi đè lên máy chủ server</strong>. Đòi hỏi phải nhờ một Lập trình viên push code lại.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BĐH BOOKnBEYOND</div>
+      <div class="slide-number">02 / 06</div>
+    </div>
+
+    <!-- SLIDE 3: OPTION 1 -->
+    <div class="slide">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner split-view">
+        <div class="split-left">
+          <div class="content-header left-aligned">
+            <div class="content-tag" style="color: var(--accent-blue);">Giải pháp 1: Chuyên nghiệp</div>
+            <h2 class="content-title serif" style="text-align: left;">Xây Server Admin & Supabase DB</h2>
+          </div>
+          <div class="content-body vertical">
+            <div class="card compact" style="border-left: 4px solid var(--accent-blue);">
+              <div><span class="card-icon">🗄️</span><span class="card-title">Cơ chế</span></div>
+              <p class="card-text">Tạo Database xịn xò bằng Supabase (công nghệ Mekong ERP đang xài). Giao diện quản trị sẽ có Form Đăng Nhập, nhập thẳng vào Form, bấm "Lưu".</p>
+            </div>
+            <div class="card compact" style="border-left: 4px solid var(--accent-green);">
+              <div><span class="card-icon">✅</span><span class="card-title">Ưu điểm</span></div>
+              <p class="card-text">Tính bảo mật siêu cao. Decentralized admin (chia quyền User minh bạch). Là chuẩn mực kiến trúc cao nhất của một Web App.</p>
+            </div>
+            <div class="card compact" style="border-left: 4px solid #ef4444;">
+              <div><span class="card-icon">⚠️</span><span class="card-title">Rào cản</span></div>
+              <p class="card-text">Tốn thời gian xây dựng (setup Database Schema) và code UI Dashboard nhập liệu, quản lý phiên Đăng Nhập phức tạp.</p>
+            </div>
+          </div>
+        </div>
+        <div class="split-right">
+          <img src="assets/supabase-mock.png" alt="Supabase Demo" class="full-img">
+        </div>
+      </div>
+      <div class="slide-brand">BĐH BOOKnBEYOND</div>
+      <div class="slide-number">03 / 06</div>
+    </div>
+
+    <!-- SLIDE 4: OPTION 2 -->
+    <div class="slide">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner split-view">
+        <div class="split-left">
+          <div class="content-header left-aligned">
+            <div class="content-tag" style="color: var(--gold);">Giải pháp 2: Kiến trúc Low-code</div>
+            <h2 class="content-title serif" style="text-align: left;">Kết Nối Với Google Sheets</h2>
+          </div>
+          <div class="content-body vertical">
+            <div class="card compact" style="border-left: 4px solid var(--gold);">
+              <div><span class="card-icon">📊</span><span class="card-title">Cơ chế</span></div>
+              <p class="card-text">Biến file Báo cáo / Đăng ký Google Sheet thành Server! Web tự động gọi API lấy nội dung trên cột/dòng Excel để vẽ ra Poster & Web.</p>
+            </div>
+            <div class="card compact" style="border-left: 4px solid var(--accent-green);">
+              <div><span class="card-icon">✅</span><span class="card-title">Ưu điểm</span></div>
+              <p class="card-text">Bất kỳ ai trong BĐH biết dùng Excel đều là Admin! Vô sửa text trên Excel xong F5 Web sẽ update theo. Cực kì linh hoạt.</p>
+            </div>
+            <div class="card compact" style="border-left: 4px solid #ef4444;">
+              <div><span class="card-icon">⚠️</span><span class="card-title">Rào cản</span></div>
+              <p class="card-text">Tốc độ lấy API của Google đôi lúc sẽ có độ trễ nhỏ 1-2s lúc mới load. Dễ bị xoá nhầm cột/hàng nếu admin thao tác sai trên Google Sheet.</p>
+            </div>
+          </div>
+        </div>
+        <div class="split-right">
+          <img src="assets/sheets-mock.png" alt="Google Sheets Demo" class="full-img">
+        </div>
+      </div>
+      <div class="slide-brand">BĐH BOOKnBEYOND</div>
+      <div class="slide-number">04 / 06</div>
+    </div>
+
+    <!-- SLIDE 5: OPTION 3 -->
+    <div class="slide">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner split-view">
+        <div class="split-left">
+          <div class="content-header left-aligned">
+            <div class="content-tag" style="color: var(--accent-purple);">Giải pháp 3: Tối Ưu Native</div>
+            <h2 class="content-title serif" style="text-align: left;">Cloudflare KV / D1</h2>
+          </div>
+          <div class="content-body vertical">
+            <div class="card compact" style="border-left: 4px solid var(--accent-purple);">
+              <div><span class="card-icon">☁️</span><span class="card-title">Cơ chế</span></div>
+              <p class="card-text">Tận dụng hệ sinh thái Cloudflare đang host web. Bật tính năng KV Storage. Viết hàm Cloudflare Worker bắt lệnh lưu dữ liệu nội bộ.</p>
+            </div>
+            <div class="card compact" style="border-left: 4px solid var(--accent-green);">
+              <div><span class="card-icon">✅</span><span class="card-title">Ưu điểm</span></div>
+              <p class="card-text">Load siêu tốc độ vì nằm chung 1 Server (so với gọi ra ngoài như Supabase / Google). Miến phí tuyệt đối.</p>
+            </div>
+            <div class="card compact" style="border-left: 4px solid #ef4444;">
+              <div><span class="card-icon">⚠️</span><span class="card-title">Rào cản</span></div>
+              <p class="card-text">Như Giải pháp 1, vẫn phải tốn thời gian ngồi code Giao diện nhập liệu, nút Lưu, phân quyền người dùng trong CLB.</p>
+            </div>
+          </div>
+        </div>
+        <div class="split-right">
+          <img src="assets/cloudflare-mock.png" alt="Cloudflare KV Demo" class="full-img">
+        </div>
+      </div>
+      <div class="slide-brand">BĐH BOOKnBEYOND</div>
+      <div class="slide-number">05 / 06</div>
+    </div>
+
+    <!-- SLIDE 6: DISCUSSION -->
+    <div class="slide">
+      <div class="deco-compass">🧭</div>
+      <div class="slide-inner">
+        <div class="content-header">
+          <div class="content-tag">Thảo luận ban điều hành</div>
+          <h2 class="content-title serif">Lựa Chọn Hướng Đi Phù Hợp</h2>
+        </div>
+        <div class="discussion-cards" style="margin-top: 40px;">
+          <div class="discussion-card">
+            <div class="q-num">?</div>
+            <p style="font-weight: bold; color: var(--gold); margin-bottom: 10px;">Ưu tiên sự nhanh gọn hay chuyên nghiệp?</p>
+            <p>Nếu muốn ai cũng có thể linh động nhập liệu nhanh: <strong>Google Sheets</strong> là lựa chọn 100% chiến thắng.</p>
+          </div>
+          <div class="discussion-card">
+            <div class="q-num">?</div>
+            <p style="font-weight: bold; color: var(--accent-blue); margin-bottom: 10px;">Ai sẽ là người cập nhật hằng tuần?</p>
+            <p>Xây App Admin Supabase cần Admin phải nhớ User/Pass đăng nhập. Mọi người có sẵn sàng làm quen hệ thống mới chưa?</p>
+          </div>
+        </div>
+        
+        <div class="takeaway-box" style="margin-top: 50px; padding: 30px;">
+          <p style="font-size: 22px; font-weight: 700; color: #fff;">Quyết định để tối ưu hóa hệ thống BooknBeyond ngay hôm nay!</p>
+        </div>
+      </div>
+      <div class="slide-brand">BĐH BOOKnBEYOND</div>
+      <div class="slide-number">06 / 06</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+
+      const progress = ((current + 1) / slides.length) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
