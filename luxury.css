@@ -4,33 +4,33 @@
 
 /* 1. TYPOGRAPHY & COLOR VARIABLES */
 :root {
-  --bg-primary: #1f2937; /* Xám khói sang trọng */
-  --bg-secondary: #374151; /* z-1 */
-  --bg-card: #4b5563; /* z-2 */
-  --bg-card-hover: #6b7280; /* z-3 */
+  --bg-primary: #e6eee5; /* Light sage green */
+  --bg-secondary: #f3f7f1; /* Creamy white/green */
+  --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-card-hover: #ffffff;
   
-  --gold: #C5975B;
-  --gold-light: #E8C98A;
-  --gold-glow: rgba(201, 162, 0, 0.06);
-  --gold-glow-hover: rgba(201, 162, 0, 0.12);
-  --gold-gradient: linear-gradient(135deg, #C5975B 0%, #E8C98A 50%, #C5975B 100%);
+  --gold: #b28a50;
+  --gold-light: #d6b27a;
+  --gold-glow: rgba(178, 138, 80, 0.1);
+  --gold-glow-hover: rgba(178, 138, 80, 0.2);
+  --gold-gradient: linear-gradient(135deg, #a67c00 0%, #d4af37 50%, #8b6508 100%);
   
-  --text-primary: #f1f5f9;
-  --text-secondary: #cbd5e1;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
   --text-muted: #64748b;
   
-  --green: #10b981;
-  --red: #ef4444;
-  --blue: #3b82f6;
+  --green: #047857;
+  --red: #dc2626;
+  --blue: #2563eb;
 
-  --border-glass: rgba(255, 255, 255, 0.04);
+  --border-glass: rgba(0, 0, 0, 0.05);
   
-  --shadow-base: 0 4px 24px rgba(0,0,0,0.4);
-  --shadow-elevation: inset 0 1px 0 var(--gold-glow), 0 4px 24px rgba(0,0,0,0.6);
-  --shadow-elevation-hover: inset 0 1px 0 var(--gold-glow-hover), 0 12px 32px rgba(0,0,0,0.8);
+  --shadow-base: 0 4px 20px rgba(0,0,0,0.04);
+  --shadow-elevation: inset 0 1px 0 rgba(255,255,255,1), 0 8px 30px rgba(0,0,0,0.06);
+  --shadow-elevation-hover: inset 0 1px 0 rgba(255,255,255,1), 0 16px 40px rgba(0,0,0,0.1);
   
   /* Cursors */
-  cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" stroke="%23C5975B" stroke-width="1.5"/></svg>') 12 12, auto;
+  cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" stroke="%23b28a50" stroke-width="1.5"/></svg>') 12 12, auto;
 }
 
 body {
@@ -58,8 +58,8 @@ h1, h2, h3, .hero-title, .modal-title, .section-header h2 {
 
 /* Micro-details */
 ::selection {
-  background: rgba(197, 151, 91, 0.3);
-  color: #fff;
+  background: rgba(178, 138, 80, 0.3);
+  color: var(--text-primary);
 }
 
 ::-webkit-scrollbar {
@@ -74,7 +74,7 @@ h1, h2, h3, .hero-title, .modal-title, .section-header h2 {
 }
 
 a, button, .btn {
-  cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" stroke="%23C5975B" stroke-width="1.5" fill="rgba(197,151,91,0.2)"/></svg>') 12 12, pointer !important;
+  cursor: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" stroke="%23b28a50" stroke-width="1.5" fill="rgba(178,138,80,0.2)"/></svg>') 12 12, pointer !important;
 }
 
 /* Base Elevation Card */
@@ -117,14 +117,14 @@ a, button, .btn {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(197, 151, 91, 0.1) 0%, var(--bg-primary) 70%);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, #dde8da 50%, var(--bg-primary) 100%);
 }
 .hero-bg .line-art {
   position: absolute;
   inset: 0;
-  background-image: linear-gradient(var(--border-glass) 1px, transparent 1px), linear-gradient(90deg, var(--border-glass) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
   background-size: 100px 100px;
-  opacity: 0.05;
+  opacity: 0.5;
   mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 80%);
 }
 
@@ -444,15 +444,18 @@ a, button, .btn {
   text-align: center;
   margin-bottom: 32px;
 }
+/* 6. THƯ VIỆN SPINE VIEW */
 .library-shelf {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
+  padding: 20px;
+  background: #fdfdfc;
+  border-bottom: 8px solid #e2e8f0;
+  border-radius: 4px;
+  box-shadow: inset 0 10px 20px rgba(0,0,0,0.02);
+  min-height: 320px;
   align-items: flex-end;
-  padding: 24px;
-  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
-  border-bottom: 4px solid var(--bg-card-hover);
-  border-radius: 8px;
 }
 .shelf-month-marker {
   width: 100%;
@@ -609,7 +612,7 @@ textarea, input[type="text"], select {
 
 /* 7. NAVBAR OVERRIDES */
 .navbar {
-  background: rgba(19, 26, 38, 0.95) !important;
+  background: rgba(243, 247, 241, 0.85) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-glass) !important;
