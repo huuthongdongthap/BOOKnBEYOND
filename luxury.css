@@ -13,7 +13,7 @@
   --gold-light: #d69e3a;
   --gold-glow: rgba(184, 122, 31, 0.15);
   --gold-glow-hover: rgba(184, 122, 31, 0.3);
-  --gold-gradient: linear-gradient(135deg, #a66a00 0%, #e6a72e 50%, #8b5108 100%);
+  --gold-gradient: linear-gradient(135deg, #c8900a 0%, #e6a72e 40%, #d4960f 60%, #c8900a 100%);
   
   --text-primary: #0f172a; /* Deepest blue-black */
   --text-secondary: #334155;
@@ -158,11 +158,8 @@ a, button, .btn {
 
 .hero-title {
   font-size: clamp(2.8rem, 8vw, 5.5rem) !important;
-  background: var(--gold-gradient) !important;
-  background-size: 100% auto !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
+  color: #c8900a !important;
+  -webkit-text-fill-color: #c8900a !important;
   margin-bottom: 1.5rem;
   line-height: 1.1;
   animation: fadeInUp 0.6s ease 0.1s both !important;
@@ -757,16 +754,12 @@ textarea, input[type="text"], select {
   .fund-dashboard { grid-template-columns: 1fr !important; }
 }
 
-/* Navbar compact: prevent 2-line wrapping */
-.nav-links {
-  gap: 0 !important;
-}
+/* Navbar compact: balanced sizing */
 .nav-links a {
-  font-size: 0.78rem !important;
-  padding: 8px 8px !important;
+  font-size: 0.88rem !important;
+  padding: 8px 10px !important;
   white-space: nowrap;
 }
 .nav-cta {
   white-space: nowrap;
-  padding: 8px 16px !important;
 }
