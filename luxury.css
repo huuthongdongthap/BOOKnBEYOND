@@ -1,5 +1,5 @@
 /* ===========================
-   LUXURY DARK THEME OVERRIDES
+   LUXURY LIGHT SAGE THEME
    =========================== */
 
 /* 1. TYPOGRAPHY & COLOR VARIABLES */
@@ -157,12 +157,15 @@ a, button, .btn {
 }
 
 .hero-title {
-  font-size: clamp(4rem, 12vw, 8rem);
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: clamp(4rem, 12vw, 8rem) !important;
+  background: var(--gold-gradient) !important;
+  background-size: 100% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
   margin-bottom: 2rem;
   line-height: 1.1;
+  animation: fadeInUp 0.6s ease 0.1s both !important;
 }
 
 .hero-image {
@@ -283,9 +286,9 @@ a, button, .btn {
   transform: translateY(-4px);
   box-shadow: var(--shadow-elevation-hover);
 }
-.lb-top-card.rank-1 { height: 280px; background: linear-gradient(180deg, rgba(197,151,91,0.1) 0%, var(--bg-card) 100%); border-top-color: var(--gold); }
-.lb-top-card.rank-2 { height: 240px; }
-.lb-top-card.rank-3 { height: 220px; }
+.lb-top-card.rank-1 { min-height: 280px; }
+.lb-top-card.rank-2 { min-height: 240px; }
+.lb-top-card.rank-3 { min-height: 220px; }
 
 .lb-avatar {
   width: 64px;
@@ -554,12 +557,12 @@ a, button, .btn {
   position: relative;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: -2px 0 5px rgba(0,0,0,0.5), inset 2px 0 2px rgba(255,255,255,0.1);
+  box-shadow: -2px 0 5px rgba(0,0,0,0.15), inset 2px 0 2px rgba(255,255,255,0.2);
 }
 .book-spine:hover {
   transform: translateY(-12px) rotate(2deg);
   z-index: 10;
-  box-shadow: -5px 10px 15px rgba(0,0,0,0.6), inset 2px 0 2px rgba(255,255,255,0.2);
+  box-shadow: -5px 10px 20px rgba(0,0,0,0.2), inset 2px 0 2px rgba(255,255,255,0.3);
 }
 .spine-content {
   position: absolute;
@@ -669,9 +672,9 @@ a, button, .btn {
 
 /* Modal updates */
 .modal-card {
-  background: var(--bg-primary);
-  border: 1px solid var(--gold-glow);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.8);
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-glass);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.15);
 }
 textarea, input[type="text"], select {
   background: inset 0 2px 4px rgba(0,0,0,0.5);
@@ -708,4 +711,36 @@ textarea, input[type="text"], select {
 }
 .nav-toggle span {
   background-color: var(--text-primary);
+}
+
+/* Nav logo force gold for luxury feel */
+.nav-logo span {
+  color: var(--gold) !important;
+  -webkit-text-fill-color: var(--gold) !important;
+  font-size: 1.2rem;
+}
+
+/* Section-alt for light theme */
+.section-alt {
+  background: var(--bg-secondary) !important;
+}
+.section-alt::before {
+  background: linear-gradient(90deg, transparent, rgba(178, 138, 80, 0.15), rgba(178, 138, 80, 0.08), transparent) !important;
+}
+
+/* Leaderboard section highlight */
+#leaderboard {
+  background: linear-gradient(180deg, var(--bg-primary) 0%, #b8d4bb 50%, var(--bg-primary) 100%);
+}
+#leaderboard .section-header h2 {
+  font-size: 2.5rem;
+  color: var(--gold);
+}
+
+/* Responsive hero image */
+@media (max-width: 768px) {
+  .hero-image { max-width: 90%; }
+  .hero-title { font-size: clamp(2.5rem, 10vw, 5rem) !important; }
+  .leaderboard-top { flex-direction: column; align-items: center; }
+  .lb-top-card.rank-1 { transform: scale(1.05) translateY(0) !important; }
 }
