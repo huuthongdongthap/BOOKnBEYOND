@@ -147,7 +147,7 @@
   // ——————————————————————————
   function renderHero() {
     document.getElementById('clubName').textContent = CONFIG.clubName;
-    document.getElementById('clubSlogan').textContent = CONFIG.slogan;
+    // Removed document.getElementById('clubSlogan').textContent = CONFIG.slogan;
     document.getElementById('meetBtn').href = CONFIG.meetLink;
   }
 
