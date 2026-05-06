@@ -136,7 +136,7 @@
       { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
-    document.querySelectorAll('.section-header, .book-card, .schedule-card, .fund-overview, .fund-details, .library-card, .rules-grid, .links-grid').forEach(el => {
+    document.querySelectorAll('.section-header, .book-card, .schedule-card, .fund-overview, .fund-details, .library-card, .rules-grid, .links-grid, .review-actions, .review-masonry').forEach(el => {
       el.classList.add('fade-in');
       observer.observe(el);
     });

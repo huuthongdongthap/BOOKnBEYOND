@@ -565,20 +565,18 @@ a, button, .btn {
 }
 .spine-content {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  /* Make width = spine height (280px) and height = spine width (50-70px) */
-  width: 280px;
-  height: 100%;
-  /* Rotate around its center, then translate back */
-  transform: translate(-50%, -50%) rotate(-90deg);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
-  align-items: center; /* Centers horizontally in the spine */
-  justify-content: flex-start; /* Starts from bottom of the spine */
-  padding-left: 20px; /* Space from the bottom */
+  align-items: center; /* Centers horizontally across spine width */
+  justify-content: flex-start; /* Starts at the "top" of the rotated container */
+  padding-top: 20px; /* Becomes padding from the bottom after 180deg rotation */
+  writing-mode: vertical-rl; /* Text runs vertically */
+  transform: rotate(180deg); /* Flip it so it runs bottom-to-top */
   gap: 12px;
   color: rgba(255,255,255,0.95);
-  white-space: nowrap;
   box-sizing: border-box;
 }
 .spine-title {
