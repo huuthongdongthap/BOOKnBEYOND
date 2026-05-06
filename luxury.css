@@ -18,6 +18,10 @@
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e1;
   --text-muted: #64748b;
+  
+  --green: #10b981;
+  --red: #ef4444;
+  --blue: #3b82f6;
 
   --border-glass: rgba(255, 255, 255, 0.04);
   
@@ -605,10 +609,10 @@ textarea, input[type="text"], select {
 
 /* 7. NAVBAR OVERRIDES */
 .navbar {
-  background: rgba(19, 26, 38, 0.8);
+  background: rgba(19, 26, 38, 0.95) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass) !important;
 }
 .navbar.scrolled {
   box-shadow: var(--shadow-base);

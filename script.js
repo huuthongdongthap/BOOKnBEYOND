@@ -369,11 +369,7 @@
       const date = new Date(book.finishedDate + 'T00:00:00');
       const monthYear = !isNaN(date.getTime()) ? `Tháng ${date.getMonth() + 1}, ${date.getFullYear()}` : 'Chưa rõ';
       
-      if (monthYear !== currentMonthYear) {
-        if (i > 0) html += `<div class="shelf-divider"></div>`;
-        html += `<div class="shelf-month-marker">${monthYear}</div>`;
-        currentMonthYear = monthYear;
-      }
+      // Removed month marker to keep spines in a continuous horizontal shelf
 
       const colorPair = colors[i % colors.length];
       const hWidth = Math.floor(Math.random() * 15) + 40; // 40px - 55px
