@@ -169,12 +169,11 @@ a, button, .btn {
 
 .hero-image {
   margin: 0 auto 3rem auto;
-  max-width: 480px;
+  max-width: 320px;
   position: relative;
-  border-radius: 16px;
+  border-radius: 50%; /* Make it perfectly circular */
   overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-  border: 4px solid var(--bg-card);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15), 0 0 0 6px var(--bg-card); /* Thick ring around avatar */
 }
 .hero-cover-img {
   width: 100%;
