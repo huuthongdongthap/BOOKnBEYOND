@@ -3,35 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tuần 3 — Nhóm Chính Bắc | Bảo Bảo</title>
+  <title>Nexus · Tuần 3 — Sai Lầm & Quyết Định | BOOKnBEYOND</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --navy-deep: #060a14;
-      --navy: #0a0e17;
-      --navy-light: #0d1321;
-      --gold: #f59e0b;
-      --gold-light: #fbbf24;
-      --gold-dim: rgba(245,158,11,0.15);
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --accent-green: #10b981;
-      --accent-blue: #3b82f6;
-      --accent-purple: #8b5cf6;
+      --bg-primary: #cce0d0;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --green: #047857;
+      --green-light: #059669;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
     }
 
     html, body {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: var(--navy-deep);
-      font-family: 'Be Vietnam Pro', sans-serif;
-      color: var(--text);
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
     }
 
     /* ── Slide container ── */
@@ -49,11 +85,10 @@
       justify-content: center;
       align-items: center;
       padding: 60px 100px;
-      background: linear-gradient(180deg, var(--navy-deep) 0%, var(--navy) 30%, var(--navy-light) 60%, var(--navy) 100%);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.6s cubic-bezier(.4,0,.2,1), transform 0.6s cubic-bezier(.4,0,.2,1);
-      transform: translateX(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
     }
 
     .slide.active {
@@ -64,20 +99,7 @@
 
     .slide.exit {
       opacity: 0;
-      transform: translateX(-40px);
-    }
-
-    /* ── Background effects ── */
-    .slide::before {
-      content: '';
-      position: absolute;
-      top: -300px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1000px;
-      height: 1000px;
-      background: radial-gradient(circle, rgba(245,158,11,0.06) 0%, transparent 70%);
-      pointer-events: none;
+      transform: translateX(-30px);
     }
 
     .slide-inner {
@@ -89,26 +111,28 @@
     }
 
     /* ── Typography ── */
-    .serif { font-family: 'Playfair Display', serif; }
+    .serif { font-family: var(--font-display); }
 
     .slide-number {
       position: absolute;
-      bottom: 30px;
-      right: 50px;
+      bottom: 28px;
+      right: 48px;
       font-size: 14px;
       color: var(--text-dim);
       letter-spacing: 2px;
       z-index: 10;
+      font-weight: 500;
     }
 
     .slide-brand {
       position: absolute;
-      bottom: 30px;
-      left: 50px;
+      bottom: 28px;
+      left: 48px;
       font-size: 13px;
       color: var(--text-dim);
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       z-index: 10;
+      font-weight: 500;
     }
 
     /* ── Title slide ── */
@@ -116,42 +140,40 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 24px;
-      background: var(--gold-dim);
-      border: 1px solid rgba(245,158,11,0.3);
+      padding: 10px 28px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
       border-radius: 50px;
       font-size: 14px;
-      color: var(--gold);
-      letter-spacing: 3px;
+      color: var(--green);
+      letter-spacing: 2px;
       text-transform: uppercase;
-      font-weight: 600;
-      margin-bottom: 40px;
+      font-weight: 700;
+      margin-bottom: 36px;
     }
 
     .title-main {
-      font-size: 72px;
+      font-size: 68px;
       font-weight: 900;
-      line-height: 1.1;
+      line-height: 1.12;
       margin-bottom: 20px;
-      background: linear-gradient(135deg, #f1f5f9 30%, #94a3b8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text-primary);
     }
 
     .title-sub {
-      font-size: 32px;
-      font-weight: 300;
+      font-size: 30px;
+      font-weight: 400;
       color: var(--gold);
-      margin-bottom: 50px;
+      margin-bottom: 48px;
+      font-style: italic;
     }
 
     .title-meta {
       display: flex;
       justify-content: center;
-      gap: 40px;
-      font-size: 18px;
-      color: var(--text-muted);
+      gap: 36px;
+      font-size: 17px;
+      color: var(--text-secondary);
     }
 
     .title-meta span {
@@ -162,73 +184,65 @@
 
     /* ── Section header slides ── */
     .section-icon {
-      font-size: 80px;
-      margin-bottom: 30px;
-      filter: drop-shadow(0 0 40px rgba(245,158,11,0.3));
+      font-size: 72px;
+      margin-bottom: 28px;
     }
 
     .section-title {
-      font-size: 56px;
-      font-weight: 900;
+      font-size: 52px;
+      font-weight: 800;
       margin-bottom: 16px;
+      color: var(--text-primary);
     }
 
     .section-desc {
-      font-size: 22px;
-      color: var(--text-muted);
+      font-size: 21px;
+      color: var(--text-secondary);
       max-width: 700px;
       margin: 0 auto;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     /* ── Content slides ── */
-    .content-layout {
-      text-align: left;
-      width: 100%;
-    }
+    .content-layout { text-align: left; width: 100%; }
 
-    .content-header {
-      margin-bottom: 50px;
-    }
+    .content-header { margin-bottom: 44px; }
 
     .content-tag {
       display: inline-block;
-      font-size: 13px;
+      font-size: 12px;
       letter-spacing: 4px;
       text-transform: uppercase;
       color: var(--gold);
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .content-title {
-      font-size: 48px;
+      font-size: 44px;
       font-weight: 800;
       line-height: 1.2;
+      color: var(--text-primary);
     }
 
     .content-body {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 30px;
+      gap: 24px;
     }
 
-    .content-body.single {
-      grid-template-columns: 1fr;
-    }
-
-    .content-body.triple {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .content-body.triple { grid-template-columns: repeat(3, 1fr); }
+    .content-body.quad { grid-template-columns: repeat(2, 1fr); }
 
     /* ── Cards ── */
     .card {
-      background: linear-gradient(135deg, rgba(26,34,52,0.8), rgba(17,24,39,0.8));
-      border: 1px solid rgba(245,158,11,0.15);
-      border-radius: 20px;
-      padding: 36px;
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 18px;
+      padding: 32px;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02), 0 8px 20px rgba(0,0,0,0.04);
     }
 
     .card::before {
@@ -243,57 +257,57 @@
 
     .card.no-top::before { display: none; }
 
-    .card-icon {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
+    .card-icon { font-size: 36px; margin-bottom: 14px; }
 
     .card-title {
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
+      margin-bottom: 10px;
+      color: var(--text-primary);
     }
 
     .card-text {
-      font-size: 18px;
-      color: var(--text-muted);
+      font-size: 17px;
+      color: var(--text-secondary);
       line-height: 1.7;
     }
 
     /* ── Quote ── */
     .quote-block {
       position: relative;
-      padding: 50px 60px;
-      background: linear-gradient(135deg, rgba(26,34,52,0.6), rgba(17,24,39,0.6));
+      padding: 44px 56px;
+      background: var(--bg-card);
       border-left: 4px solid var(--gold);
-      border-radius: 0 20px 20px 0;
-      max-width: 900px;
+      border-radius: 0 18px 18px 0;
+      max-width: 880px;
       margin: 0 auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+      text-align: left;
     }
 
     .quote-mark {
       position: absolute;
-      top: 20px;
-      left: 30px;
-      font-size: 80px;
-      color: rgba(245,158,11,0.2);
-      font-family: 'Playfair Display', serif;
+      top: 16px;
+      left: 28px;
+      font-size: 72px;
+      color: var(--gold-glow);
+      font-family: var(--font-display);
       line-height: 1;
     }
 
     .quote-text {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 400;
       font-style: italic;
       line-height: 1.6;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       position: relative;
       z-index: 1;
+      color: var(--text-secondary);
     }
 
     .quote-author {
-      font-size: 18px;
+      font-size: 17px;
       color: var(--gold);
       font-weight: 600;
     }
@@ -302,236 +316,147 @@
     .insight-list {
       list-style: none;
       text-align: left;
-      max-width: 900px;
+      max-width: 880px;
       margin: 0 auto;
     }
 
     .insight-list li {
       display: flex;
       align-items: flex-start;
-      gap: 20px;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(245,158,11,0.1);
-      font-size: 22px;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      font-size: 21px;
       line-height: 1.6;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
     .insight-list li:last-child { border-bottom: none; }
 
     .insight-list .num {
       flex-shrink: 0;
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--gold-dim);
-      border: 1px solid rgba(245,158,11,0.3);
-      border-radius: 12px;
-      color: var(--gold);
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 11px;
+      color: var(--green);
       font-weight: 700;
-      font-size: 18px;
+      font-size: 17px;
     }
 
-    .insight-list strong {
-      color: var(--text);
-      font-weight: 600;
-    }
+    .insight-list strong { color: var(--text-primary); font-weight: 600; }
 
-    /* ── Highlight boxes ── */
+    /* ── Highlight ── */
     .highlight {
       display: inline-flex;
       align-items: center;
       gap: 8px;
       padding: 8px 20px;
-      background: var(--gold-dim);
+      background: var(--gold-glow);
       border-radius: 10px;
       color: var(--gold);
       font-weight: 600;
-      font-size: 16px;
-    }
-
-    /* ── Key takeaway box ── */
-    .takeaway-box {
-      background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.03));
-      border: 2px solid rgba(245,158,11,0.25);
-      border-radius: 24px;
-      padding: 50px;
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .takeaway-box .emoji { font-size: 60px; margin-bottom: 20px; }
-
-    .takeaway-box h3 {
-      font-size: 36px;
-      font-weight: 800;
-      margin-bottom: 16px;
-    }
-
-    .takeaway-box p {
-      font-size: 22px;
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    /* ── Progress bar (bottom) ── */
-    .progress-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--gold), var(--gold-light));
-      transition: width 0.4s ease;
-      z-index: 100;
-    }
-
-    /* ── Navigation arrows ── */
-    .nav-arrows {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 16px;
-      z-index: 100;
-    }
-
-    .nav-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      border: 1px solid rgba(245,158,11,0.3);
-      background: rgba(10,14,23,0.8);
-      color: var(--gold);
-      font-size: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      backdrop-filter: blur(10px);
-    }
-
-    .nav-btn:hover {
-      background: rgba(245,158,11,0.15);
-      border-color: var(--gold);
-    }
-
-    /* ── Decorative elements ── */
-    .deco-compass {
-      position: absolute;
-      top: 30px;
-      right: 50px;
-      font-size: 28px;
-      opacity: 0.4;
-      z-index: 10;
-    }
-
-    /* ── MC Agenda ── */
-    .agenda-grid {
-      display: grid;
-      grid-template-columns: 60px 1fr;
-      gap: 0;
-      text-align: left;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .agenda-time {
       font-size: 15px;
-      color: var(--gold);
-      font-weight: 600;
-      padding: 20px 0;
-      border-right: 2px solid rgba(245,158,11,0.2);
-      text-align: right;
-      padding-right: 24px;
     }
 
-    .agenda-item {
-      padding: 20px 0 20px 24px;
-      border-bottom: 1px solid rgba(245,158,11,0.08);
-    }
-
-    .agenda-item-title {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .agenda-item-desc {
-      font-size: 16px;
-      color: var(--text-dim);
-    }
-
-    .agenda-active .agenda-item-title {
-      color: var(--gold);
-    }
-
-    .agenda-active .agenda-time {
-      border-right-color: var(--gold);
-    }
-
-    /* ── Discussion prompt ── */
-    .discussion-cards {
+    /* ── Comparison ── */
+    .compare-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       gap: 24px;
       max-width: 1000px;
       margin: 0 auto;
-    }
-
-    .discussion-card {
-      background: linear-gradient(135deg, rgba(26,34,52,0.8), rgba(17,24,39,0.8));
-      border: 1px solid rgba(245,158,11,0.15);
-      border-radius: 20px;
-      padding: 32px;
       text-align: left;
     }
 
-    .discussion-card .q-num {
-      display: inline-flex;
-      width: 36px;
-      height: 36px;
+    .compare-col {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+
+    .compare-col.primary {
+      border-color: var(--green-border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(204,224,208,0.3));
+    }
+
+    .compare-col h4 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      background: var(--gold);
-      color: var(--navy-deep);
-      border-radius: 10px;
+      gap: 10px;
+      color: var(--text-primary);
+    }
+
+    .compare-col ul { list-style: none; }
+
+    .compare-col li {
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .compare-col li:last-child { border-bottom: none; }
+
+    /* ── Takeaway box ── */
+    .takeaway-box {
+      background: var(--bg-card);
+      border: 1px solid var(--green-border);
+      border-radius: 22px;
+      padding: 44px;
+      text-align: center;
+      max-width: 880px;
+      margin: 0 auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+
+    .takeaway-box .emoji { font-size: 56px; margin-bottom: 18px; }
+
+    .takeaway-box h3 {
+      font-size: 34px;
       font-weight: 800;
-      font-size: 16px;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+
+    .takeaway-box p {
+      font-size: 21px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Closing ── */
+    .closing-brand {
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--green);
       margin-bottom: 16px;
     }
 
-    .discussion-card p {
-      font-size: 20px;
-      line-height: 1.6;
-      color: var(--text);
-    }
-
-    /* ── Closing slide ── */
-    .closing-brand {
-      font-size: 60px;
-      font-weight: 900;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 20px;
-    }
-
     .closing-slogan {
-      font-size: 22px;
-      color: var(--text-muted);
+      font-size: 21px;
+      color: var(--gold);
       font-style: italic;
-      margin-bottom: 50px;
+      margin-bottom: 44px;
+      font-weight: 500;
     }
 
     .closing-info {
       display: flex;
-      gap: 30px;
+      gap: 28px;
       justify-content: center;
       flex-wrap: wrap;
     }
@@ -540,8 +465,154 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      font-size: 17px;
+      color: var(--text-secondary);
+    }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width 0.4s ease;
+      z-index: 100;
+    }
+
+    /* ── Navigation ── */
+    .nav-arrows {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 14px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: var(--bg-glass);
+      color: var(--text-primary);
       font-size: 18px;
-      color: var(--text-dim);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .nav-btn:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--green-border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    /* ── MC Agenda ── */
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .agenda-time {
+      font-size: 16px;
+      color: var(--gold);
+      font-weight: 600;
+      padding: 16px 0;
+      border-right: 2px solid var(--green-border);
+      text-align: right;
+      padding-right: 24px;
+    }
+
+    .agenda-item {
+      padding: 16px 0 16px 24px;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .agenda-item-title {
+      font-size: 21px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .agenda-item-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .agenda-active .agenda-item-title {
+      color: var(--green);
+    }
+
+    .agenda-active .agenda-time {
+      border-right-color: var(--green);
+    }
+
+    /* ── Discussion prompt ── */
+    .discussion-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .discussion-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 18px;
+      padding: 28px;
+      text-align: left;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+
+    .discussion-card .q-num {
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      background: var(--green);
+      color: #ffffff;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .discussion-card p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .slide { padding: 32px 24px; }
+      .title-main { font-size: 34px; }
+      .title-sub { font-size: 18px; }
+      .section-title { font-size: 28px; }
+      .content-title { font-size: 24px; }
+      .content-body, .content-body.triple, .discussion-cards {
+        grid-template-columns: 1fr;
+      }
+      .quote-text { font-size: 19px; }
+      .quote-block { padding: 28px 22px; }
+      .compare-grid {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+      .card { padding: 24px; }
     }
   </style>
 </head>
@@ -550,24 +621,22 @@
 
     <!-- ═══════ SLIDE 1: Title ═══════ -->
     <div class="slide active" id="slide-1">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
-        <div class="title-badge">📖 Nhóm Chính Bắc · Tuần 3</div>
-        <h1 class="title-main serif">Xáo Động, Hoạt Động<br>& Cải Tổ Nhóm</h1>
-        <p class="title-sub serif">Chương 5, 6, 7 · trang 133–190</p>
+        <div class="title-badge">📖 BOOKnBEYOND · Tuần 3 — Nexus</div>
+        <h1 class="title-main serif">Sai Lầm & Quyết Định</h1>
+        <p class="title-sub serif">Ảo tưởng hoàn hảo & Lược sử Dân chủ - Toàn trị · Chương 4, 5</p>
         <div class="title-meta">
-          <span>🎙️ MC: <strong style="color: var(--gold); margin-left: 6px;">Bảo Bảo</strong></span>
-          <span>📅 CN, 05/04/2026</span>
+          <span>🎙️ MC: <strong style="color: var(--green); margin-left: 6px;">Thanh Lương</strong></span>
+          <span>📅 CN, 24/05/2026</span>
           <span>🕐 05:15 – 07:15</span>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">01 / 11</div>
     </div>
 
     <!-- ═══════ SLIDE 2: MC Agenda ═══════ -->
     <div class="slide" id="slide-2">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
         <div class="content-layout">
           <div class="content-header" style="text-align: center;">
@@ -577,281 +646,247 @@
           <div class="agenda-grid">
             <div class="agenda-time">05:15</div>
             <div class="agenda-item">
-              <div class="agenda-item-title">🎙️ Khai mạc & Chào hỏi</div>
-              <div class="agenda-item-desc">MC: Bảo Bảo — Chuẩn bị tâm thế & Dẫn nhập</div>
+              <div class="agenda-item-title">🎙️ Nghi thức khai mạc & Chào hỏi</div>
+              <div class="agenda-item-desc">MC: Thanh Lương — Kết nối thành viên & Dẫn nhập</div>
             </div>
             <div class="agenda-time">05:25</div>
             <div class="agenda-item agenda-active">
-              <div class="agenda-item-title">📖 Phần 1 — Giangle</div>
-              <div class="agenda-item-desc">Chương 5: Xáo động (tr. 133–154)</div>
+              <div class="agenda-item-title">📖 Phần 1 — Chương 4: Sai Lầm</div>
+              <div class="agenda-item-desc">Ảo tưởng về sự không thể sai lầm & Cơ chế tự sửa sai (tr. 188 - 237)</div>
             </div>
-            <div class="agenda-time">05:45</div>
+            <div class="agenda-time">06:10</div>
             <div class="agenda-item agenda-active">
-              <div class="agenda-item-title">📖 Phần 2 — Giang</div>
-              <div class="agenda-item-desc">Chương 6: Hoạt động (tr. 155–176)</div>
+              <div class="agenda-item-title">📖 Phần 2 — Chương 5: Quyết Định</div>
+              <div class="agenda-item-desc">Lược sử về dân chủ và toàn trị (tr. 238 - 287)</div>
             </div>
-            <div class="agenda-time">06:05</div>
-            <div class="agenda-item agenda-active">
-              <div class="agenda-item-title">📖 Phần 3 — Lương</div>
-              <div class="agenda-item-desc">Chương 7: Cải tổ nhóm (tr. 177–190)</div>
-            </div>
-            <div class="agenda-time">06:25</div>
+            <div class="agenda-time">06:50</div>
             <div class="agenda-item">
-              <div class="agenda-item-title">💬 Thảo luận nhóm</div>
-              <div class="agenda-item-desc">Trao đổi những quy tắc và sự biến động trong nhóm</div>
+              <div class="agenda-item-title">💬 Thảo luận nhóm & Ứng dụng</div>
+              <div class="agenda-item-desc">Tranh biện về bong bóng thông tin & Vận hành Mekong CLI</div>
             </div>
-            <div class="agenda-time">07:00</div>
+            <div class="agenda-time">07:10</div>
             <div class="agenda-item">
               <div class="agenda-item-title">📌 Tổng kết & Hẹn tuần sau</div>
-              <div class="agenda-item-desc">Bài học thực tiễn — Nhắc lịch Tuần 4</div>
+              <div class="agenda-item-desc">Đúc kết thông điệp cốt lõi — MC tuần mới nhận nhiệm vụ</div>
             </div>
           </div>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">02 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 3: Chương 5 ═══════ -->
+    <!-- ═══════ SLIDE 3: Chapter 4 Intro ═══════ -->
     <div class="slide" id="slide-3">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
-        <div class="section-icon">⛈️</div>
-        <h2 class="section-title serif">Chương 5: Xáo Động</h2>
+        <div class="section-icon">🔍</div>
+        <h2 class="section-title serif">Chương 4: Sai Lầm</h2>
         <p class="section-desc">
-          <strong style="color: var(--gold);">Giai đoạn Storming — Từ xung đột đến gắn kết.</strong><br><br>
-          Bất kỳ nhóm nào cũng sẽ trải qua giai đoạn thử thách, mâu thuẫn. Đó là quá trình cần thiết để rèn dũa sự chân thật.
+          <strong style="color: var(--green);">Ảo Tưởng Về Sự Không Thể Sai Lầm (Infallibility)</strong><br><br>
+          Các thể chế luôn tìm cách khoác lên mình lớp áo hoàn hảo vô khuyết để dập tắt hoài nghi và duy trì trật tự. Nhưng chính cơ chế tự sửa sai mới là phao cứu sinh của sự tiến hóa.
         </p>
         <div style="margin-top: 30px;">
-          <span class="highlight">📄 trang 133–154 · 23 trang</span>
+          <span class="highlight">📄 trang 188–237 · Bản tiếng Việt</span>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">03 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 4: Nội dung Chương 5 ═══════ -->
+    <!-- ═══════ SLIDE 4: Self-Correction vs Dogma ═══════ -->
     <div class="slide" id="slide-4">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
         <div class="content-layout">
           <div class="content-header" style="text-align: center;">
-            <div class="content-tag">tóm tắt ý chính</div>
-            <h2 class="content-title serif" style="text-align: center;">Đối mặt với xáo động</h2>
+            <div class="content-tag">Cơ chế thông tin</div>
+            <h2 class="content-title serif" style="text-align: center;">Sức Mạnh Của Sự Hoài Nghi</h2>
           </div>
-          <div class="content-body triple">
-            <div class="card">
-              <div class="card-icon">🌪️</div>
-              <div class="card-title">Xung đột là tất yếu</div>
-              <p class="card-text">
-                Xáo động không phải là dấu hiệu thất bại, mà là bước trưởng thành. Khi lớp vỏ lịch sự nhường chỗ cho sự thật, mâu thuẫn sẽ nảy sinh.
-              </p>
+          <div class="compare-grid">
+            <div class="compare-col">
+              <h4>🛡️ Mạng lưới Giáo điều</h4>
+              <ul>
+                <li>❌ Tự nhận mình <strong>không thể sai lầm</strong> để củng cố tính chính danh của quyền lực.</li>
+                <li>❌ Xem phản biện và hoài nghi là tội lỗi hoặc sự phản bội nghiêm trọng.</li>
+                <li>❌ Lỗi hệ thống tích tụ liên tục không được khắc phục, dẫn đến thảm họa dây chuyền sụp đổ.</li>
+              </ul>
             </div>
-            <div class="card">
-              <div class="card-icon">🛡️</div>
-              <div class="card-title">Kiểm soát phòng thủ</div>
-              <p class="card-text">
-                Thành viên có xu hướng "phòng thủ" hoặc muốn thể hiện cái tôi. Nhóm cần kỹ năng lắng nghe và không phán xét để phá vỡ rào cản này.
-              </p>
-            </div>
-            <div class="card">
-              <div class="card-icon">🤝</div>
-              <div class="card-title">Xây dựng niềm tin</div>
-              <p class="card-text">
-                Trải qua xung đột và giải quyết thành công sẽ nâng mức độ tin cậy giữa các thành viên lên tầm cao mới, hướng đến sự gắn kết.
-              </p>
+            <div class="compare-col primary">
+              <h4>🔍 Mạng lưới Tự sửa sai</h4>
+              <ul>
+                <li>✅ Thừa nhận bản tính <strong>dễ phạm sai sót</strong> của con người và hệ thống.</li>
+                <li>✅ Xây dựng các thiết chế độc lập (báo chí, khoa học phản bác, tòa án) để tìm lỗi.</li>
+                <li>✅ Sửa sai liên tục để học hỏi, thích nghi nhanh chóng với biến đổi thực tế.</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">04 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 5: Chương 6 ═══════ -->
+    <!-- ═══════ SLIDE 5: Original Quote ═══════ -->
     <div class="slide" id="slide-5">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
-        <div class="section-icon">⚙️</div>
-        <h2 class="section-title serif">Chương 6: Hoạt Động</h2>
-        <p class="section-desc">
-          <strong style="color: var(--gold);">Giai đoạn Performing — Sức mạnh của không gian an toàn.</strong><br><br>
-          Thiết lập thói quen và cách tương tác để nhóm hoạt động một cách sâu sắc, thực chất và bền vững.
-        </p>
-        <div style="margin-top: 30px;">
-          <span class="highlight">📄 trang 155–176 · 23 trang</span>
+        <div class="content-tag" style="text-align: center; display: block; margin-bottom: 28px;">Trích dẫn nguyên tác</div>
+        <div class="quote-block">
+          <div class="quote-mark serif">"</div>
+          <p class="quote-text serif">
+            Sức mạnh của khoa học không nằm ở chỗ nó không bao giờ phạm sai lầm, mà nằm ở khả năng tự sửa sai... Tương tự, sức mạnh của dân chủ không nằm ở việc đưa ra những quyết định hoàn hảo, mà là ở chỗ nó cho phép phản biện công khai để sửa chữa những quyết định sai lầm.
+          </p>
+          <div class="quote-author">— Yuval Noah Harari, Nexus, tr. 201</div>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">05 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 6: Nội dung Chương 6 ═══════ -->
+    <!-- ═══════ SLIDE 6: Case Study Example ═══════ -->
     <div class="slide" id="slide-6">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
         <div class="content-layout">
           <div class="content-header" style="text-align: center;">
-            <div class="content-tag">tóm tắt ý chính</div>
-            <h2 class="content-title serif" style="text-align: center;">Vận hành không gian an toàn</h2>
+            <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+            <h2 class="content-title serif" style="text-align: center;">Thảm Họa Báo Cáo "Hoàn Hảo"</h2>
           </div>
-          <ul class="insight-list">
-            <li>
-              <span class="num">1</span>
-              <span><strong>Tạo dựng nhịp điệu</strong> — Các buổi họp có tính chu kỳ, nhất quán trong tổ chức và quy tắc.</span>
-            </li>
-            <li>
-              <span class="num">2</span>
-              <span><strong>Nghệ thuật lắng nghe</strong> — Lắng nghe sâu (deep listening) thay vì chen ngang hay chỉ đưa ra lời khuyên bề mặt.</span>
-            </li>
-            <li>
-              <span class="num">3</span>
-              <span><strong>Sự tổn thương (Vulnerability)</strong> — Nhóm chỉ thực sự hiệu quả khi mỗi người dám thể hiện điểm yếu của mình.</span>
-            </li>
-            <li>
-              <span class="num">4</span>
-              <span><strong>Hỗ trợ vô điều kiện</strong> — Cam kết luôn có mặt trong thời khắc khó khăn của thành viên khác.</span>
-            </li>
-          </ul>
+          <div class="takeaway-box" style="margin-bottom: 36px;">
+            <h3 class="serif" style="color: var(--gold); font-size: 26px;">Sự trừng phạt tạo ra lời nói dối</h3>
+            <p style="font-size: 19px;">
+              Trong một doanh nghiệp gia đình trị độc đoán, nhân sự cấp dưới vì sợ bị trừng phạt đã ngụy tạo số liệu báo cáo đẹp mắt gửi lên trên. Lãnh đạo cấp cao tin tưởng mù quáng vào dữ liệu hoàn hảo này để ra quyết định đầu tư hàng triệu USD. Khi thảm họa ập đến, toàn bộ hệ thống sụp đổ vì thiếu một "kênh phản biện" độc lập, an toàn để tự sửa sai ngay từ đầu.
+            </p>
+          </div>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">06 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 7: Chương 7 ═══════ -->
+    <!-- ═══════ SLIDE 7: Chapter 5 Intro ═══════ -->
     <div class="slide" id="slide-7">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
-        <div class="section-icon">🔄</div>
-        <h2 class="section-title serif">Chương 7: Cải Tổ Nhóm</h2>
+        <div class="section-icon">⚖️</div>
+        <h2 class="section-title serif">Chương 5: Quyết Định</h2>
         <p class="section-desc">
-          <strong style="color: var(--gold);">Giai đoạn Reforming — Làm mới và vượt qua sự trì trệ.</strong><br><br>
-          Khi nào nhóm cần nạp lại năng lượng? Làm sao đối mặt với việc có người ra đi và chào đón người mới?
+          <strong style="color: var(--gold);">Lược Sử Về Dân Chủ Và Toàn Trị</strong><br><br>
+          Dân chủ và Toàn trị không chỉ là các triết lý chính trị. Nhìn dưới góc độ thông tin, chúng là hai phương án thiết kế mạng lưới thông tin hoàn toàn khác nhau để đưa ra quyết định.
         </p>
         <div style="margin-top: 30px;">
-          <span class="highlight">📄 trang 177–190 · 15 trang</span>
+          <span class="highlight">📄 trang 238–287 · Bản tiếng Việt</span>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">07 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 8: Nội dung Chương 7 ═══════ -->
+    <!-- ═══════ SLIDE 8: Democratic vs Totalitarian Networks ═══════ -->
     <div class="slide" id="slide-8">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
         <div class="content-layout">
           <div class="content-header" style="text-align: center;">
-            <div class="content-tag">tóm tắt ý chính</div>
-            <h2 class="content-title serif" style="text-align: center;">Chuyển giao và tái cơ cấu</h2>
+            <div class="content-tag">Kiến trúc mạng lưới</div>
+            <h2 class="content-title serif" style="text-align: center;">Mạng Lưới Phân Tán vs Tập Trung</h2>
           </div>
-          <div class="content-body">
-            <div class="card">
-              <div class="card-icon">📉</div>
-              <div class="card-title">Nhận diện sự trì trệ</div>
-              <p class="card-text">
-                Giai đoạn các cuộc nói chuyện trở nên bề mặt, mọi người mất đi năng lượng ban đầu. Đây là lúc cần đánh giá và "cải tổ" lại nhóm.
-              </p>
+          <div class="compare-grid">
+            <div class="compare-col primary">
+              <h4>🏛️ Mạng Lưới Dân Chủ (Phân tán)</h4>
+              <ul>
+                <li>✅ Luồng thông tin đa chiều, tự do truyền thông và tranh biện.</li>
+                <li>✅ Có nhiều trung tâm kiểm chứng độc lập (tự trị địa phương, tam quyền phân lập).</li>
+                <li>✅ Khả năng phát hiện sai sót nhanh nhờ cơ chế phản hồi từ dưới lên.</li>
+              </ul>
             </div>
-            <div class="card">
-              <div class="card-icon">🔄</div>
-              <div class="card-title">Thay đổi thành viên</div>
-              <p class="card-text">
-                Xử lý mượt mà khi một thành viên muốn dừng chân, đồng thời có quy trình cẩn thận, đồng thuận khi nạp thêm năng lượng từ thành viên mới.
-              </p>
+            <div class="compare-col">
+              <h4>👁️ Mạng Lưới Toàn Trị (Tập trung)</h4>
+              <ul>
+                <li>❌ Luồng thông tin một chiều tuyệt đối từ trên xuống, kiểm duyệt gắt gao.</li>
+                <li>❌ Tập trung quyền lực xử lý thông tin vào một đầu mối trung tâm duy nhất.</li>
+                <li>❌ Dễ rơi vào trạng thái "hộp đen", bưng bít sai lầm đến khi hệ thống tự sụp đổ.</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">08 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 9: Mở rộng: Ứng dụng thực tế ═══════ -->
+    <!-- ═══════ SLIDE 9: Social Media & Polarization (Expanded) ═══════ -->
     <div class="slide" id="slide-9">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
         <div class="content-layout">
           <div class="content-header" style="text-align: center;">
-            <div class="content-tag">mở rộng</div>
-            <h2 class="content-title serif" style="text-align: center;">[Mở Rộng] Ứng Dụng Cho BOOKnBEYOND</h2>
+            <div class="badge-source badge-expand">📌 Mở rộng — Tham khảo Chương 9 & Thực trạng Thuật toán MXH</div>
+            <h2 class="content-title serif" style="text-align: center;">Thuật Toán Phá Hủy Cấu Trúc Dân Chủ</h2>
           </div>
-          <div class="content-body triple">
-            <div class="card no-top" style="border-top: 3px solid var(--gold);">
-              <div class="card-title" style="color: var(--gold);">Đối diện Xung Đột</div>
-              <p class="card-text" style="font-size: 16px;">
-                Thay vì tránh né khác biệt trong quan điểm hoặc quy tắc phạt, chúng ta có thể làm rõ kỳ vọng chung.
+          <div class="content-body" style="margin-top: 28px;">
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">🌀</div>
+              <div class="card-title">Vòng Lặp Tương Tác Cực Đoan</div>
+              <p class="card-text">
+                Các thuật toán (Facebook, TikTok) tối đa hóa tương tác để bán quảng cáo bằng cách đẩy thông tin giật gân, thù ghét, chia rẽ, tạo nên các bong bóng bộ tộc cực đoan.
               </p>
             </div>
-            <div class="card no-top" style="border-top: 3px solid var(--accent-blue);">
-              <div class="card-title" style="color: var(--accent-blue);">Duy trì Hoạt Động</div>
-              <p class="card-text" style="font-size: 16px;">
-                Luân phiên MC và chia sẻ là nền tảng tốt. Cần đẩy sâu thêm vào việc kết nối ngoài lề giới hạn sách.
-              </p>
-            </div>
-            <div class="card no-top" style="border-top: 3px solid var(--accent-green);">
-              <div class="card-title" style="color: var(--accent-green);">Sẵn sàng Cải Tổ</div>
-              <p class="card-text" style="font-size: 16px;">
-                Linh hoạt nếu thành viên bận hoặc cần cập nhật luật mới, không để sự nhàm chán làm giảm động lực.
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">⚡</div>
+              <div class="card-title">Triệt Tiêu Đối Thoại Lành Mạnh</div>
+              <p class="card-text">
+                Khi xã hội bị phân cực sâu sắc, khả năng lắng nghe và tự sửa sai tập thể bị tê liệt. Sự tranh biện văn minh nhường chỗ cho các cuộc tấn công bầy đàn trực tuyến.
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">09 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 10: Thảo luận ═══════ -->
+    <!-- ═══════ SLIDE 10: Discussion Prompts ═══════ -->
     <div class="slide" id="slide-10">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
         <div class="content-header" style="text-align: center;">
-          <div class="content-tag">💬 thảo luận nhóm</div>
-          <h2 class="content-title serif" style="text-align: center;">Câu hỏi suy ngẫm</h2>
+          <div class="content-tag">💬 Thảo luận nhóm</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Tranh Biện & Suy Ngẫm</h2>
         </div>
         <div class="discussion-cards" style="margin-top: 40px;">
           <div class="discussion-card">
             <div class="q-num">1</div>
-            <p>Nhóm chúng ta đã trải qua "Xáo động" chưa? Nếu có, biểu hiện đó là gì?</p>
+            <p>Làm cách nào chúng ta có thể thiết lập **cơ chế tự sửa sai (Self-Correction)** trong chính quy trình làm việc hàng ngày của nhóm hoặc dự án của bạn?</p>
           </div>
           <div class="discussion-card">
             <div class="q-num">2</div>
-            <p>Làm cách nào để bạn dám bộc lộ "điểm yếu" hoặc sai lầm của mình tốt hơn trong tổ chức?</p>
+            <p>Nhìn từ góc độ thông tin, tổ chức của bạn đang vận hành theo kiểu **phân tán (Dân chủ)** hay **tập trung (Toàn trị)**? Điểm nghẽn nằm ở đâu?</p>
           </div>
           <div class="discussion-card">
             <div class="q-num">3</div>
-            <p>Làm sao để biết khi nào một nhóm đang đi vào trạng thái trì trệ và cần "Cải tổ"?</p>
+            <p>Có giải pháp thực tiễn nào để cá nhân chúng ta thoát khỏi các **bong bóng thông tin cực đoan** do thuật toán mạng xã hội áp đặt?</p>
           </div>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">10 / 11</div>
     </div>
 
-    <!-- ═══════ SLIDE 11: Closing ═══════ -->
+    <!-- ═══════ SLIDE 11: Closing Takeaway ═══════ -->
     <div class="slide" id="slide-11">
-      <div class="deco-compass">🧭</div>
       <div class="slide-inner">
-        <div style="font-size: 80px; margin-bottom: 30px;">🧭</div>
-        <div class="closing-brand serif">Nhóm Chính Bắc</div>
+        <div style="font-size: 72px; margin-bottom: 28px;">🧭</div>
+        <div class="closing-brand serif">Book & Beyond</div>
         <div class="closing-slogan">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</div>
 
-        <div class="takeaway-box" style="margin-bottom: 40px;">
-          <h3 class="serif" style="color: var(--gold); font-size: 28px;">💡 Bài học cốt lõi</h3>
-          <p style="font-size: 20px;">
-            Một tập thể vững mạnh không phải là không có cãi vã, mà là biết đi qua xung đột để gắn bó, duy trì sâu sắc và không ngại cải tổ để trưởng thành.
+        <div class="takeaway-box" style="margin-bottom: 36px;">
+          <h3 class="serif" style="color: var(--green); font-size: 26px;">💡 Bài học cốt lõi Tuần 3</h3>
+          <p style="font-size: 19px;">
+            Sức mạnh bền vững nhất của một hệ thống thông tin không nằm ở sự ảo tưởng hoàn hảo vô khuyết, mà nằm ở một <strong>cấu trúc cởi mở, minh bạch và có khả năng tự sửa sai</strong>. Hãy luôn nuôi dưỡng tinh thần hoài nghi lành mạnh để không ngừng tiến hóa.
           </p>
         </div>
 
         <div class="closing-info">
-          <span>📅 Tuần sau: CN, 12/04/2026</span>
-          <span>🎙️ MC: Thanh Lương</span>
-          <span>📖 Nguồn lực 1, 2, 10, 11, 12</span>
+          <span>📅 Tuần sau: CN, 31/05/2026</span>
+          <span>🎙️ MC: Bảo Bảo</span>
+          <span>📖 Chương 6, 7, 8 (tr. 288 - 342)</span>
         </div>
       </div>
-      <div class="slide-brand">NHÓM CHÍNH BẮC — BOOK CLUB</div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
       <div class="slide-number">11 / 11</div>
     </div>
 
@@ -871,13 +906,16 @@
     let current = 0;
 
     function showSlide(n) {
-      slides[current].classList.remove('active');
-      slides[current].classList.add('exit');
-      setTimeout(() => slides[current].classList.remove('exit'), 600);
-
+      const oldIndex = current;
+      slides[oldIndex].classList.remove('active');
+      slides[oldIndex].classList.add('exit');
+      setTimeout(() => {
+        slides[oldIndex].classList.remove('exit');
+      }, 600);
+      
       current = ((n % slides.length) + slides.length) % slides.length;
       slides[current].classList.add('active');
-
+      
       // Update progress bar
       const progress = ((current + 1) / slides.length) * 100;
       document.getElementById('progressBar').style.width = progress + '%';
