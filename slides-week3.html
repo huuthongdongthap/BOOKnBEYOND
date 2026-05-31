@@ -559,59 +559,17 @@
       border-right-color: var(--green);
     }
 
-    /* ── Discussion prompt ── */
-    .discussion-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .discussion-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(0,0,0,0.05);
-      border-radius: 18px;
-      padding: 28px;
-      text-align: left;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-    }
-
-    .discussion-card .q-num {
-      display: inline-flex;
-      width: 36px;
-      height: 36px;
-      align-items: center;
-      justify-content: center;
-      background: var(--green);
-      color: #ffffff;
-      border-radius: 10px;
-      font-weight: 800;
-      font-size: 16px;
-      margin-bottom: 16px;
-    }
-
-    .discussion-card p {
-      font-size: 18px;
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
-
     @media (max-width: 768px) {
       .slide { padding: 32px 24px; }
       .title-main { font-size: 34px; }
       .title-sub { font-size: 18px; }
       .section-title { font-size: 28px; }
       .content-title { font-size: 24px; }
-      .content-body, .content-body.triple, .discussion-cards {
+      .content-body, .content-body.triple, .compare-grid {
         grid-template-columns: 1fr;
       }
       .quote-text { font-size: 19px; }
       .quote-block { padding: 28px 22px; }
-      .compare-grid {
-        grid-template-columns: 1fr;
-        flex-direction: column;
-      }
       .card { padding: 24px; }
     }
   </style>
@@ -632,7 +590,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">01 / 13</div>
+      <div class="slide-number">01 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 2: MC Agenda ═══════ -->
@@ -666,8 +624,8 @@
             </div>
             <div class="agenda-time">06:25</div>
             <div class="agenda-item">
-              <div class="agenda-item-title">💬 Thảo luận nhóm & Ứng dụng</div>
-              <div class="agenda-item-desc">Tranh biện về bong bóng thông tin & Cách khắc phục hộp đen thông tin</div>
+              <div class="agenda-item-title">💬 Thảo luận & Đúc kết Chương 5</div>
+              <div class="agenda-item-desc">Mở rộng bài học thực tiễn & Tranh luận các câu hỏi gợi mở</div>
             </div>
             <div class="agenda-time">07:10</div>
             <div class="agenda-item">
@@ -678,7 +636,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">02 / 13</div>
+      <div class="slide-number">02 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 3: Part 1 Section Intro (GiangLe) ═══════ -->
@@ -688,14 +646,14 @@
         <h2 class="section-title serif">Phần 1 — GiangLe</h2>
         <p class="section-desc">
           <strong style="color: var(--green);">Mạng Lưới Thông Tin & Quyết Định</strong><br><br>
-          Nhìn từ lý thuyết mạng lưới, Dân chủ và Chuyên chế không chỉ là các hệ thống chính trị đối lập. Chúng là hai giải pháp khác nhau hoàn toàn trong việc thiết kế mạng lưới thông tin để ra quyết định xã hội.
+          Nhìn từ lý thuyết mạng lưới, Dân chủ và Chuyên chế không chỉ là hai ý thức hệ chính trị đối lập. Chúng là hai giải pháp khác nhau hoàn toàn trong việc thiết kế mạng lưới thông tin để ra quyết định xã hội.
         </p>
         <div style="margin-top: 30px;">
           <span class="highlight">📄 trang 164–189 · Bản tiếng Việt</span>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">03 / 13</div>
+      <div class="slide-number">03 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 4: Architecture of Networks ═══════ -->
@@ -727,7 +685,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">04 / 13</div>
+      <div class="slide-number">04 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 5: Part 2 Section Intro (Giang) ═══════ -->
@@ -744,7 +702,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">05 / 13</div>
+      <div class="slide-number">05 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 6: Totalitarian Distortion (Original) ═══════ -->
@@ -760,7 +718,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">06 / 13</div>
+      <div class="slide-number">06 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 7: Case Study Example ═══════ -->
@@ -780,7 +738,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">07 / 13</div>
+      <div class="slide-number">07 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 8: Part 3 Section Intro (Nhi) ═══════ -->
@@ -789,7 +747,7 @@
         <div class="section-icon">🥀</div>
         <h2 class="section-title serif">Phần 3 — Nhi</h2>
         <p class="section-desc">
-          <strong style="color: var(--green);">Sức Mạnh & Sự Mong Manh Của Dân Chủ</strong><br><br>
+          <strong style="color: var(--green);">Sức Mạng & Sự Mong Manh Của Dân Chủ</strong><br><br>
           Mạng lưới dân chủ sở hữu cơ chế tự sửa sai độc nhất vô nhị nhờ chấp nhận sự hỗn loạn, nhưng nó lại mang một điểm yếu chí mạng nằm ở lòng tin giữa các nút mạng.
         </p>
         <div style="margin-top: 30px;">
@@ -797,7 +755,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">08 / 13</div>
+      <div class="slide-number">08 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 9: Self-Correction & Fragility (Original) ═══════ -->
@@ -827,7 +785,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">09 / 13</div>
+      <div class="slide-number">09 / 12</div>
     </div>
 
     <!-- ═══════ SLIDE 10: Social Media & Polarization (Expanded) ═══════ -->
@@ -857,55 +815,64 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">10 / 13</div>
+      <div class="slide-number">10 / 12</div>
     </div>
 
-    <!-- ═══════ SLIDE 11: Discussion Prompts ═══════ -->
+    <!-- ═══════ SLIDE 11: Expanded Questions & Lessons (Merged) ═══════ -->
     <div class="slide" id="slide-11">
       <div class="slide-inner">
-        <div class="content-header" style="text-align: center;">
-          <div class="content-tag">💬 Thảo luận nhóm</div>
-          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Tranh Biện & Suy Ngẫm</h2>
-        </div>
-        <div class="discussion-cards" style="margin-top: 40px;">
-          <div class="discussion-card">
-            <div class="q-num">1</div>
-            <p>Làm cách nào chúng ta có thể thiết lập **cơ chế tự sửa sai (Self-Correction)** trong chính doanh nghiệp hay công việc của bạn để tránh bị rơi vào "hộp đen thông tin"?</p>
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center; margin-bottom: 30px;">
+            <div class="badge-source badge-expand">📌 Mở rộng — Câu hỏi & Bài học Chương 5</div>
+            <h2 class="content-title serif" style="text-align: center;">Đúc Kết & Suy Ngẫm</h2>
           </div>
-          <div class="discussion-card">
-            <div class="q-num">2</div>
-            <p>Nhìn từ góc độ thông tin, tổ chức của bạn đang vận hành theo kiểu **phân tán (Dân chủ)** hay **tập trung (Chuyên chế)**? Điểm nghẽn nằm ở đâu?</p>
-          </div>
-          <div class="discussion-card">
-            <div class="q-num">3</div>
-            <p>Có giải pháp thực tiễn nào để cá nhân chúng ta tự bảo vệ **lòng tin và thực tại chung (shared reality)** trước các tin tức phân cực trên MXH?</p>
+          <div class="compare-grid" style="max-width: 1100px; gap: 30px;">
+            <!-- Column 1: Core Lessons -->
+            <div class="compare-col primary" style="padding: 24px;">
+              <h4 style="color: var(--green); font-size: 20px; margin-bottom: 12px; font-family: var(--font-body); display: flex; align-items: center; gap: 8px;">💡 Bài học cốt lõi</h4>
+              <ul class="insight-list" style="max-width: 100%;">
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                  <span style="color: var(--green); font-weight: bold;">•</span>
+                  <span><strong>Sức mạnh tự sửa sai:</strong> Quyết định sáng suốt không đến từ ảo tưởng hoàn hảo, mà đến từ một mạng lưới cởi mở, minh bạch và có khả năng tự sửa lỗi liên tục.</span>
+                </li>
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                  <span style="color: var(--green); font-weight: bold;">•</span>
+                  <span><strong>Nguy cơ hộp đen:</strong> Quản trị bằng trừng phạt ý kiến trái chiều sẽ triệt tiêu phản hồi thật, cô lập lãnh đạo trong "thực tại ảo" do cấp dưới thêu dệt.</span>
+                </li>
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: none;">
+                  <span style="color: var(--green); font-weight: bold;">•</span>
+                  <span><strong>Lòng tin mạng lưới:</strong> Lòng tin và thực tại chung (shared reality) là sinh mệnh của cấu trúc dân chủ; thiếu chúng, mạng lưới sẽ tự sụp đổ.</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Column 2: Discussion Questions -->
+            <div class="compare-col" style="padding: 24px;">
+              <h4 style="color: var(--gold); font-size: 20px; margin-bottom: 12px; font-family: var(--font-body); display: flex; align-items: center; gap: 8px;">💬 Câu hỏi mở rộng</h4>
+              <ul class="insight-list" style="max-width: 100%;">
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                  <span class="num" style="width: 28px; height: 28px; font-size: 13px; border-radius: 6px; background: var(--gold-glow); border-color: rgba(184,122,31,0.2); color: var(--gold);">1</span>
+                  <span>Làm cách nào thiết lập **cơ chế tự sửa sai (Self-Correction)** trong doanh nghiệp của bạn để tránh rơi vào "hộp đen thông tin"?</span>
+                </li>
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                  <span class="num" style="width: 28px; height: 28px; font-size: 13px; border-radius: 6px; background: var(--gold-glow); border-color: rgba(184,122,31,0.2); color: var(--gold);">2</span>
+                  <span>Tổ chức của bạn đang nghiêng về cấu trúc **phân tán (Dân chủ)** hay **tập trung (Toàn trị)**? Điểm nghẽn lớn nhất nằm ở đâu?</span>
+                </li>
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: none;">
+                  <span class="num" style="width: 28px; height: 28px; font-size: 13px; border-radius: 6px; background: var(--gold-glow); border-color: rgba(184,122,31,0.2); color: var(--gold);">3</span>
+                  <span>Làm thế nào để bảo vệ **thực tại chung** và lòng tin trước thuật toán gây phân cực sâu sắc của mạng xã hội hiện nay?</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">11 / 13</div>
+      <div class="slide-number">11 / 12</div>
     </div>
 
-    <!-- ═══════ SLIDE 12: Closing Takeaway ═══════ -->
+    <!-- ═══════ SLIDE 12: Transition Week 4 ═══════ -->
     <div class="slide" id="slide-12">
-      <div class="slide-inner">
-        <div style="font-size: 72px; margin-bottom: 28px;">🧭</div>
-        <div class="closing-brand serif">Book & Beyond</div>
-        <div class="closing-slogan">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</div>
-
-        <div class="takeaway-box" style="margin-bottom: 36px;">
-          <h3 class="serif" style="color: var(--green); font-size: 26px;">💡 Bài học cốt lõi Tuần 3</h3>
-          <p style="font-size: 19px;">
-            Quyết định bền vững nhất không đến từ một trung tâm quyền lực độc tôn tự xưng không bao giờ sai lầm, mà đến từ một <strong>mạng lưới thông tin phân tán, cởi mở, minh bạch và có khả năng tự sửa sai</strong>. Sự hoài nghi lành mạnh và đối thoại cởi mở chính là sinh mệnh của sự tiến hóa.
-          </p>
-        </div>
-      </div>
-      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">12 / 13</div>
-    </div>
-
-    <!-- ═══════ SLIDE 13: Transition Week 4 ═══════ -->
-    <div class="slide" id="slide-13">
       <div class="slide-inner">
         <div style="font-size: 80px; margin-bottom: 30px;">📅</div>
         <h2 class="section-title serif" style="color: var(--green); margin-bottom: 12px;">Tuần Tiếp Theo — Tuần 4</h2>
@@ -919,7 +886,7 @@
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
-      <div class="slide-number">13 / 13</div>
+      <div class="slide-number">12 / 12</div>
     </div>
 
   </div>
