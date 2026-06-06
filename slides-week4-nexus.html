@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus · Chương 2 — Câu Chuyện | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #cce0d0;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --green: #047857;
+      --green-light: #059669;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── Slide container ── */
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 100px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    .slide-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1200px;
+      text-align: center;
+    }
+
+    /* ── Typography ── */
+    .serif { font-family: var(--font-display); }
+
+    .slide-number {
+      position: absolute;
+      bottom: 28px;
+      right: 48px;
+      font-size: 14px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      z-index: 10;
+      font-weight: 500;
+    }
+
+    .slide-brand {
+      position: absolute;
+      bottom: 28px;
+      left: 48px;
+      font-size: 13px;
+      color: var(--text-dim);
+      letter-spacing: 1.5px;
+      z-index: 10;
+      font-weight: 500;
+    }
+
+    /* ── Title slide ── */
+    .title-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 28px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 50px;
+      font-size: 14px;
+      color: var(--green);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 36px;
+    }
+
+    .title-main {
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.12;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+
+    .title-sub {
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--gold);
+      margin-bottom: 48px;
+      font-style: italic;
+    }
+
+    .title-meta {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      font-size: 17px;
+      color: var(--text-secondary);
+    }
+
+    .title-meta span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Section header slides ── */
+    .section-icon {
+      font-size: 72px;
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 52px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .section-desc {
+      font-size: 21px;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── Content slides ── */
+    .content-layout { text-align: left; width: 100%; }
+
+    .content-header { margin-bottom: 44px; }
+
+    .content-tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .content-title {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .content-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .content-body.triple { grid-template-columns: repeat(3, 1fr); }
+    .content-body.quad { grid-template-columns: repeat(2, 1fr); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 18px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02), 0 8px 20px rgba(0,0,0,0.04);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+
+    .card.no-top::before { display: none; }
+
+    .card-icon { font-size: 36px; margin-bottom: 14px; }
+
+    .card-title {
+      font-size: 21px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .card-text {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Quote ── */
+    .quote-block {
+      position: relative;
+      padding: 44px 56px;
+      background: var(--bg-card);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 18px 18px 0;
+      max-width: 880px;
+      margin: 0 auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+      text-align: left;
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: 16px;
+      left: 28px;
+      font-size: 72px;
+      color: var(--gold-glow);
+      font-family: var(--font-display);
+      line-height: 1;
+    }
+
+    .quote-text {
+      font-size: 30px;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+      color: var(--text-secondary);
+    }
+
+    .quote-author {
+      font-size: 17px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ── Lists ── */
+    .insight-list {
+      list-style: none;
+      text-align: left;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .insight-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      font-size: 21px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .insight-list li:last-child { border-bottom: none; }
+
+    .insight-list .num {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 11px;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .insight-list strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ── Highlight ── */
+    .highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: var(--gold-glow);
+      border-radius: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    /* ── Comparison ── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .compare-col {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+
+    .compare-col.primary {
+      border-color: var(--green-border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(204,224,208,0.3));
+    }
+
+    .compare-col h4 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-primary);
+    }
+
+    .compare-col ul { list-style: none; }
+
+    .compare-col li {
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .compare-col li:last-child { border-bottom: none; }
+
+    /* ── Three realities ── */
+    .reality-row {
+      display: flex;
+      gap: 18px;
+      max-width: 1100px;
+      margin: 0 auto;
+      justify-content: center;
+    }
+
+    .reality-card {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 18px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .reality-card.featured {
+      border-color: var(--green-border);
+      background: linear-gradient(180deg, rgba(255,255,255,1), rgba(204,224,208,0.35));
+      box-shadow: 0 4px 24px rgba(4,120,87,0.06);
+    }
+
+    .reality-card .emoji { font-size: 44px; margin-bottom: 14px; }
+
+    .reality-card h4 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--green);
+    }
+
+    .reality-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .reality-card .examples {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.04);
+      font-size: 13px;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* ── Takeaway box ── */
+    .takeaway-box {
+      background: var(--bg-card);
+      border: 1px solid var(--green-border);
+      border-radius: 22px;
+      padding: 44px;
+      text-align: center;
+      max-width: 880px;
+      margin: 0 auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+
+    .takeaway-box .emoji { font-size: 56px; margin-bottom: 18px; }
+
+    .takeaway-box h3 {
+      font-size: 34px;
+      font-weight: 800;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+
+    .takeaway-box p {
+      font-size: 21px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Discussion ── */
+    .discussion-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .discussion-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 18px;
+      padding: 28px;
+      text-align: left;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+    }
+
+    .discussion-card .q-num {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      background: var(--green);
+      color: #fff;
+      border-radius: 9px;
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .discussion-card p {
+      font-size: 19px;
+      line-height: 1.6;
+      color: var(--text-primary);
+    }
+
+    /* ── Closing ── */
+    .closing-brand {
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .closing-slogan {
+      font-size: 21px;
+      color: var(--gold);
+      font-style: italic;
+      margin-bottom: 44px;
+      font-weight: 500;
+    }
+
+    .closing-info {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .closing-info span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      color: var(--text-secondary);
+    }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width 0.4s ease;
+      z-index: 100;
+    }
+
+    /* ── Navigation ── */
+    .nav-arrows {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 14px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: var(--bg-glass);
+      color: var(--text-primary);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .nav-btn:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--green-border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    /* ── Mở rộng tag ── */
+    .expansion-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      background: var(--gold-glow);
+      border: 1px solid rgba(184,122,31,0.2);
+      border-radius: 50px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .slide { padding: 32px 24px; }
+      .title-main { font-size: 34px; }
+      .title-sub { font-size: 18px; }
+      .section-title { font-size: 28px; }
+      .content-title { font-size: 24px; }
+      .content-body, .content-body.triple {
+        grid-template-columns: 1fr;
+      }
+      .quote-text { font-size: 19px; }
+      .quote-block { padding: 28px 22px; }
+      .compare-grid, .discussion-cards, .reality-row {
+        grid-template-columns: 1fr;
+        flex-direction: column;
+      }
+      .card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <!-- ═══════ SLIDE 1: Title ═══════ -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📖 BOOKnBEYOND · Tuần 1 — Nexus</div>
+        <h1 class="title-main serif">Những Câu Chuyện Kể</h1>
+        <p class="title-sub serif">Kết nối không giới hạn · Chương 2</p>
+        <div class="title-meta">
+          <span>🎙️ MC: <strong style="color: var(--green); margin-left: 6px;">Thanh Thao Thức</strong></span>
+          <span>📅 CN, 10/05/2026</span>
+          <span>🕐 05:15 – 07:15</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">01 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 2: Chapter Overview ═══════ -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="section-icon">📜</div>
+        <h2 class="section-title serif">Chương 2 — Những Câu Chuyện Kể</h2>
+        <p class="section-desc">
+          <strong style="color: var(--green);">Stories: Unlimited Connections</strong><br><br>
+          Harari lập luận: thứ giúp <em>Homo sapiens</em> thống trị hành tinh không phải trí thông minh cá nhân, mà là khả năng <strong>kể chuyện</strong> — tạo ra thực tại tưởng tượng để hàng triệu người lạ cùng hợp tác.
+        </p>
+        <div style="margin-top: 28px;">
+          <span class="highlight">📄 trang 93–142 · ~50 trang</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">02 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 3: Quote Then Chốt ═══════ -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-tag" style="text-align: center; display: block; margin-bottom: 28px;">💡 Ý tưởng then chốt</div>
+        <div class="quote-block">
+          <div class="quote-mark serif">"</div>
+          <p class="quote-text serif">
+            Điều biến loài người thành bá chủ hành tinh không phải khả năng suy nghĩ cá nhân, mà là khả năng suy nghĩ <strong style="color: var(--green);">cùng nhau</strong> với số lượng lớn — thông qua những câu chuyện chung.
+          </p>
+          <div class="quote-author">— Yuval Noah Harari, Nexus, Chương 2</div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">03 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 4: 3 Tầng Thực Tại ═══════ -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">nền tảng triết học</div>
+            <h2 class="content-title serif" style="text-align: center;">Ba tầng thực tại</h2>
+            <p style="font-size: 17px; color: var(--text-secondary); margin-top: 10px;">
+              Harari phân biệt 3 loại thực tại để giải thích sức mạnh của câu chuyện
+            </p>
+          </div>
+          <div class="reality-row">
+            <div class="reality-card">
+              <div class="emoji">🌳</div>
+              <h4>Khách quan</h4>
+              <p>Tồn tại độc lập với niềm tin con người</p>
+              <div class="examples">Cây cối · sông ngòi · vi khuẩn · núi lửa</div>
+            </div>
+            <div class="reality-card">
+              <div class="emoji">😣</div>
+              <h4>Chủ quan</h4>
+              <p>Tồn tại trong tâm trí một cá nhân</p>
+              <div class="examples">Nỗi đau · niềm vui · ký ức · cảm xúc</div>
+            </div>
+            <div class="reality-card featured">
+              <div class="emoji">🤝</div>
+              <h4>Liên chủ quan</h4>
+              <p>Tồn tại vì nhiều người cùng tin</p>
+              <div class="examples">Tiền tệ · quốc gia · luật pháp · tôn giáo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">04 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 5: Người vs Thú ═══════ -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">so sánh then chốt</div>
+            <h2 class="content-title serif" style="text-align: center;">Tại sao tinh tinh không xây được nhà thờ?</h2>
+          </div>
+          <div class="compare-grid">
+            <div class="compare-col">
+              <h4>🐒 Động vật</h4>
+              <ul>
+                <li>✅ Hợp tác dựa trên <strong>quen biết cá nhân</strong></li>
+                <li>✅ Nhóm tối đa ~50–150 cá thể</li>
+                <li>✅ Giao tiếp về thực tại khách quan</li>
+                <li>❌ Không hợp tác được với kẻ lạ</li>
+                <li>❌ Không có thực tại liên chủ quan</li>
+              </ul>
+            </div>
+            <div class="compare-col primary">
+              <h4>🧠 Con người (Sapiens)</h4>
+              <ul>
+                <li>✅ Hợp tác dựa trên <strong>câu chuyện chung</strong></li>
+                <li>✅ Hàng triệu người lạ cùng hợp tác</li>
+                <li>✅ Giao tiếp về thứ <strong>không tồn tại</strong></li>
+                <li>✅ Tạo ra thực tại liên chủ quan</li>
+                <li>✅ Linh hoạt thay đổi câu chuyện để thích nghi</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">05 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 6: Sức Mạnh ═══════ -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">cơ chế cốt lõi</div>
+            <h2 class="content-title serif" style="text-align: center;">Sức mạnh của câu chuyện</h2>
+          </div>
+          <ul class="insight-list">
+            <li>
+              <span class="num">1</span>
+              <span><strong>Hợp tác quy mô lớn</strong> — Một câu chuyện chung cho phép hàng triệu người lạ cùng làm việc hướng tới một mục tiêu</span>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <span><strong>Trật tự xã hội</strong> — Luật pháp, đạo đức, phong tục đều là những câu chuyện được tập thể chấp nhận</span>
+            </li>
+            <li>
+              <span class="num">3</span>
+              <span><strong>Thích nghi nhanh</strong> — Khác với gene mất hàng nghìn năm tiến hóa, câu chuyện có thể thay đổi trong một thế hệ</span>
+            </li>
+            <li>
+              <span class="num">4</span>
+              <span><strong>Xây dựng văn minh</strong> — Kim tự tháp, Vạn Lý Trường Thành, Internet... tất cả bắt đầu từ một câu chuyện</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">06 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 7: Mặt Tối ═══════ -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">con dao hai lưỡi</div>
+            <h2 class="content-title serif" style="text-align: center;">Mặt tối của câu chuyện</h2>
+          </div>
+          <div class="content-body">
+            <div class="card">
+              <div class="card-icon">✨</div>
+              <div class="card-title">Sức mạnh kiến tạo</div>
+              <p class="card-text">
+                Cùng một cơ chế — niềm tin tập thể — đã xây nên những kỳ quan: nhà thờ Đức Bà, tuyên ngôn nhân quyền, hệ thống y tế toàn cầu...
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon">⚠️</div>
+              <div class="card-title">Sức mạnh hủy diệt</div>
+              <p class="card-text">
+                ...và cũng chính cơ chế đó đã tạo ra thập tự chinh, săn phù thủy, chủ nghĩa phát xít, diệt chủng — những thảm kịch xây trên câu chuyện sai lầm.
+              </p>
+            </div>
+          </div>
+          <p style="text-align: center; margin-top: 28px; font-size: 18px; color: var(--text-secondary); max-width: 780px; margin-left: auto; margin-right: auto;">
+            ⚡ Vấn đề không phải là "có nên tin vào câu chuyện không", mà là <strong style="color: var(--green);">câu chuyện đó dẫn ta đến đâu</strong>.
+          </p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">07 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 8: Ví Dụ Lịch Sử ═══════ -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">minh họa lịch sử</div>
+            <h2 class="content-title serif" style="text-align: center;">Những câu chuyện thay đổi thế giới</h2>
+          </div>
+          <div class="content-body triple">
+            <div class="card">
+              <div class="card-icon">💰</div>
+              <div class="card-title">Tiền tệ</div>
+              <p class="card-text">
+                Tờ 500.000đ chỉ là giấy — nhưng vì hàng chục triệu người Việt <strong>cùng tin</strong>, nó có giá trị thật. Đây là câu chuyện liên chủ quan thành công nhất lịch sử.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon">🏛️</div>
+              <div class="card-title">Quốc gia</div>
+              <p class="card-text">
+                Việt Nam không phải thực thể sinh học — nó là một <strong>câu chuyện</strong> mà 100 triệu người cùng kể. Biên giới, quốc kỳ, quốc ca là biểu tượng của câu chuyện đó.
+              </p>
+            </div>
+            <div class="card">
+              <div class="card-icon">⚖️</div>
+              <div class="card-title">Nhân quyền</div>
+              <p class="card-text">
+                "Con người sinh ra có quyền bình đẳng" không phải sự thật sinh học — đó là một <strong>câu chuyện đẹp</strong> nhân loại chọn để tin, và nhờ đó thay đổi xã hội.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">08 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 9: Ứng Dụng Cho Nhóm ═══════ -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="expansion-tag">🔮 Mở rộng & Ứng dụng</div>
+            <h2 class="content-title serif" style="text-align: center;">Bài học cho Book & Beyond</h2>
+          </div>
+          <div class="content-body">
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">📚</div>
+              <div class="card-title">Nhóm đọc sách = một câu chuyện chung</div>
+              <p class="card-text">
+                Book & Beyond tồn tại vì chúng ta <strong>cùng tin</strong> vào câu chuyện: "Đọc sách + chia sẻ + ứng dụng = phát triển". Không có niềm tin chung này, nhóm chỉ là những người lạ trong Google Meet.
+              </p>
+            </div>
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">🔄</div>
+              <div class="card-title">Câu chuyện cần được kể lại</div>
+              <p class="card-text">
+                Mỗi tuần gặp nhau chính là hành động <strong>tái kể</strong> câu chuyện chung. Nếu ngừng kể — câu chuyện chết, nhóm tan. Nghi thức 05:15 sáng Chủ Nhật là "chất keo" giữ câu chuyện sống.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">09 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 10: Ứng Dụng Tiếp ═══════ -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="expansion-tag">🔮 Mở rộng & Ứng dụng</div>
+            <h2 class="content-title serif" style="text-align: center;">Chúng ta đang kể câu chuyện gì?</h2>
+          </div>
+          <div class="content-body triple" style="margin-top: 28px;">
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">✅</div>
+              <div class="card-title">Câu chuyện hiện tại</div>
+              <p class="card-text" style="font-size: 16px;">
+                "Mỗi tuần dậy sớm đọc sách, chia sẻ và phát triển cùng nhau" — câu chuyện đẹp và có ích.
+              </p>
+            </div>
+            <div class="card no-top" style="border-color: rgba(184,122,31,0.15);">
+              <div class="card-icon">🔍</div>
+              <div class="card-title">Câu hỏi kiểm tra</div>
+              <p class="card-text" style="font-size: 16px;">
+                Câu chuyện nhóm mình có đang dẫn mọi người đi đúng hướng? Hay chỉ là thói quen gặp mặt?
+              </p>
+            </div>
+            <div class="card no-top" style="border-color: rgba(184,122,31,0.2);">
+              <div class="card-icon">🚀</div>
+              <div class="card-title">Nâng cấp câu chuyện</div>
+              <p class="card-text" style="font-size: 16px;">
+                Từ "CLB đọc sách" → "Nhóm Chính Bắc đồng hành phát triển". Câu chuyện càng mạnh, nhóm càng bền.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">10 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 11: Discussion ═══════ -->
+    <div class="slide" id="slide-11">
+      <div class="slide-inner">
+        <div class="content-header" style="text-align: center;">
+          <div class="content-tag">💬 thảo luận nhóm</div>
+          <h2 class="content-title serif" style="text-align: center;">Cùng suy ngẫm</h2>
+        </div>
+        <div class="discussion-cards" style="margin-top: 36px;">
+          <div class="discussion-card">
+            <div class="q-num">1</div>
+            <p>Theo bạn, <strong>câu chuyện liên chủ quan nào</strong> đang chi phối cuộc sống bạn nhiều nhất?</p>
+          </div>
+          <div class="discussion-card">
+            <div class="q-num">2</div>
+            <p>Bạn có đang tin vào một <strong>câu chuyện có hại</strong> không? Làm sao để nhận ra và thay đổi?</p>
+          </div>
+          <div class="discussion-card">
+            <div class="q-num">3</div>
+            <p>Nếu Book & Beyond là một "câu chuyện liên chủ quan", <strong>bạn muốn câu chuyện đó thành hình hài gì</strong> trong 1 năm tới?</p>
+          </div>
+          <div class="discussion-card">
+            <div class="q-num">4</div>
+            <p>Khi AI có thể tạo ra những câu chuyện thuyết phục hơn con người, <strong>làm sao ta phân biệt được</strong> câu chuyện nào nên tin?</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">11 / 12</div>
+    </div>
+
+    <!-- ═══════ SLIDE 12: Closing ═══════ -->
+    <div class="slide" id="slide-12">
+      <div class="slide-inner">
+        <div style="font-size: 72px; margin-bottom: 28px;">📖</div>
+        <div class="closing-brand serif">Book & Beyond</div>
+        <div class="closing-slogan">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</div>
+
+        <div class="takeaway-box" style="margin-bottom: 36px;">
+          <h3 class="serif" style="color: var(--green); font-size: 26px;">💡 Bài học cốt lõi</h3>
+          <p style="font-size: 19px;">
+            Sức mạnh lớn nhất của loài người không nằm ở trí tuệ cá nhân, mà ở khả năng cùng tin vào những câu chuyện chung. Hãy chọn câu chuyện của mình một cách có ý thức — vì câu chuyện bạn tin hôm nay sẽ định hình thế giới bạn sống ngày mai.
+          </p>
+        </div>
+
+        <div class="closing-info">
+          <span>📅 Tuần sau: CN, 17/05/2026</span>
+          <span>📖 Chương 3: Tài Liệu</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">12 / 12</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>

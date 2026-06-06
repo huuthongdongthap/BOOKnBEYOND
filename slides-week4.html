@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus · Tuần 4 — Máy Tính & Mạng Lưới Giám Sát | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #cce0d0;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --green: #047857;
+      --green-light: #059669;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    /* ── Slide container ── */
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 100px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    .slide-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1200px;
+      text-align: center;
+    }
+
+    /* ── Typography ── */
+    .serif { font-family: var(--font-display); }
+
+    .slide-number {
+      position: absolute;
+      bottom: 28px;
+      right: 48px;
+      font-size: 14px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      z-index: 10;
+      font-weight: 500;
+    }
+
+    .slide-brand {
+      position: absolute;
+      bottom: 28px;
+      left: 48px;
+      font-size: 13px;
+      color: var(--text-dim);
+      letter-spacing: 1.5px;
+      z-index: 10;
+      font-weight: 500;
+    }
+
+    /* ── Title slide ── */
+    .title-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 28px;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 50px;
+      font-size: 14px;
+      color: var(--green);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 36px;
+    }
+
+    .title-main {
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.12;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+
+    .title-sub {
+      font-size: 30px;
+      font-weight: 400;
+      color: var(--gold);
+      margin-bottom: 48px;
+      font-style: italic;
+    }
+
+    .title-meta {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      font-size: 17px;
+      color: var(--text-secondary);
+    }
+
+    .title-meta span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Section header slides ── */
+    .section-icon {
+      font-size: 72px;
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 52px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+
+    .section-desc {
+      font-size: 21px;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── Content slides ── */
+    .content-layout { text-align: left; width: 100%; }
+
+    .content-header { margin-bottom: 44px; }
+
+    .content-tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .content-title {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .content-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .content-body.triple { grid-template-columns: repeat(3, 1fr); }
+    .content-body.quad { grid-template-columns: repeat(2, 1fr); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 18px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02), 0 8px 20px rgba(0,0,0,0.04);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+
+    .card.no-top::before { display: none; }
+
+    .card-icon { font-size: 36px; margin-bottom: 14px; }
+
+    .card-title {
+      font-size: 21px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .card-text {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Quote ── */
+    .quote-block {
+      position: relative;
+      padding: 44px 56px;
+      background: var(--bg-card);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 18px 18px 0;
+      max-width: 880px;
+      margin: 0 auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+      text-align: left;
+    }
+
+    .quote-mark {
+      position: absolute;
+      top: 16px;
+      left: 28px;
+      font-size: 72px;
+      color: var(--gold-glow);
+      font-family: var(--font-display);
+      line-height: 1;
+    }
+
+    .quote-text {
+      font-size: 28px;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+      color: var(--text-secondary);
+    }
+
+    .quote-author {
+      font-size: 17px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* ── Lists ── */
+    .insight-list {
+      list-style: none;
+      text-align: left;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .insight-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      font-size: 21px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .insight-list li:last-child { border-bottom: none; }
+
+    .insight-list .num {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 11px;
+      color: var(--green);
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .insight-list strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ── Highlight ── */
+    .highlight {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: var(--gold-glow);
+      border-radius: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    /* ── Comparison ── */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .compare-col {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.04);
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+
+    .compare-col.primary {
+      border-color: var(--green-border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(204,224,208,0.3));
+    }
+
+    .compare-col h4 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-primary);
+    }
+
+    .compare-col ul { list-style: none; }
+
+    .compare-col li {
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .compare-col li:last-child { border-bottom: none; }
+
+    /* ── Takeaway box ── */
+    .takeaway-box {
+      background: var(--bg-card);
+      border: 1px solid var(--green-border);
+      border-radius: 22px;
+      padding: 44px;
+      text-align: center;
+      max-width: 880px;
+      margin: 0 auto;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+
+    .takeaway-box .emoji { font-size: 56px; margin-bottom: 18px; }
+
+    .takeaway-box h3 {
+      font-size: 34px;
+      font-weight: 800;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+    }
+
+    .takeaway-box p {
+      font-size: 21px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── Closing ── */
+    .closing-brand {
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    .closing-slogan {
+      font-size: 21px;
+      color: var(--gold);
+      font-style: italic;
+      margin-bottom: 44px;
+      font-weight: 500;
+    }
+
+    .closing-info {
+      display: flex;
+      gap: 28px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .closing-info span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      color: var(--text-secondary);
+    }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--gold));
+      transition: width 0.4s ease;
+      z-index: 100;
+    }
+
+    /* ── Navigation ── */
+    .nav-arrows {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 14px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: var(--bg-glass);
+      color: var(--text-primary);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .nav-btn:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--green-border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    /* ── MC Agenda ── */
+    .agenda-grid {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      text-align: left;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .agenda-time {
+      font-size: 16px;
+      color: var(--gold);
+      font-weight: 600;
+      padding: 16px 0;
+      border-right: 2px solid var(--green-border);
+      text-align: right;
+      padding-right: 24px;
+    }
+
+    .agenda-item {
+      padding: 16px 0 16px 24px;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .agenda-item-title {
+      font-size: 21px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+
+    .agenda-item-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .agenda-active .agenda-item-title {
+      color: var(--green);
+    }
+
+    .agenda-active .agenda-time {
+      border-right-color: var(--green);
+    }
+
+    /* ── Discussion card ── */
+    .discussion-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .discussion-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 18px;
+      padding: 28px;
+      text-align: left;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+    }
+
+    .discussion-card .q-num {
+      display: inline-flex;
+      width: 36px;
+      height: 36px;
+      align-items: center;
+      justify-content: center;
+      background: var(--green);
+      color: #ffffff;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .discussion-card p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 768px) {
+      .slide { padding: 32px 24px; }
+      .title-main { font-size: 34px; }
+      .title-sub { font-size: 18px; }
+      .section-title { font-size: 28px; }
+      .content-title { font-size: 24px; }
+      .content-body, .content-body.triple, .compare-grid, .discussion-cards {
+        grid-template-columns: 1fr;
+      }
+      .quote-text { font-size: 19px; }
+      .quote-block { padding: 28px 22px; }
+      .card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+
+    <!-- ═══════ SLIDE 1: Title ═══════ -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📖 BOOKnBEYOND · Tuần 4 — Nexus</div>
+        <h1 class="title-main serif">Không Ngơi Nghỉ</h1>
+        <p class="title-sub serif">Mạng lưới luôn giám sát · Chương 7 (tr. 286–314)</p>
+        <div class="title-meta">
+          <span>🎙️ MC: <strong style="color: var(--green); margin-left: 6px;">Giang Già Giặn (Ms.)</strong></span>
+          <span>📅 CN, 07/06/2026</span>
+          <span>🕐 05:15 – 07:15</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">01 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 2: MC Agenda ═══════ -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">chương trình buổi chia sẻ</div>
+            <h2 class="content-title serif" style="text-align: center;">Lịch Trình Tuần 4</h2>
+          </div>
+          <div class="agenda-grid">
+            <div class="agenda-time">05:15</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">🎙️ Nghi thức khai mạc & Chào hỏi</div>
+              <div class="agenda-item-desc">MC: Giang Già Giặn (Ms.) — Kết nối thành viên & Dẫn nhập</div>
+            </div>
+            <div class="agenda-time">05:25</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">📖 Phần 1 — Chương 6 (Thanh & Giang)</div>
+              <div class="agenda-item-desc">Những thành viên mới: Máy tính khác máy in như thế nào? (tr. 243 - 285)</div>
+            </div>
+            <div class="agenda-time">06:15</div>
+            <div class="agenda-item agenda-active">
+              <div class="agenda-item-title">📖 Phần 2 — Chương 7 (Thông)</div>
+              <div class="agenda-item-desc">Không ngơi nghỉ: Mạng lưới luôn giám sát (tr. 286 - 314)</div>
+            </div>
+            <div class="agenda-time">06:45</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">💬 Thảo luận nhóm & Ứng dụng</div>
+              <div class="agenda-item-desc">Đánh giá cơ chế giám sát tự động trong quản trị dự án & AI Agents</div>
+            </div>
+            <div class="agenda-time">07:10</div>
+            <div class="agenda-item">
+              <div class="agenda-item-title">📌 Tổng kết & Hẹn tuần sau</div>
+              <div class="agenda-item-desc">MC tuần mới nhận nhiệm vụ — Tuần 5 (MC: Lương Lưu Luyến)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">02 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 3: Chapter 7 Intro ═══════ -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="section-icon">👁️‍🗨️</div>
+        <h2 class="section-title serif">Chương 7: Không Ngơi Nghỉ</h2>
+        <p class="section-desc">
+          <strong style="color: var(--green);">Mạng Lưới Luôn Giám Sát (The Always-On Network)</strong><br><br>
+          Sự khác biệt lớn nhất của AI so với mọi công nghệ trong lịch sử chính là khả năng giám sát không giới hạn: nó không bao giờ ngủ, không bao giờ mệt mỏi và có thể theo dõi mọi cá nhân 24/7.
+        </p>
+        <div style="margin-top: 30px;">
+          <span class="highlight">📄 trang 286–314 · Bản tiếng Việt</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">03 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 4: East Germany Stasi vs AI (Original) ═══════ -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">So sánh lịch sử</div>
+            <h2 class="content-title serif" style="text-align: center;">Giới Hạn Vật Lý Của Toàn Trị Cổ Điển</h2>
+          </div>
+          <div class="compare-grid">
+            <div class="compare-col">
+              <h4>🇩🇩 Cơ Quan Stasi (Đông Đức cũ)</h4>
+              <ul>
+                <li>❌ Cần lực lượng khổng lồ: 90.000 điệp viên và 170.000 mật báo viên.</li>
+                <li>❌ Giới hạn logistics: Chỉ có thể nghe lén và phân tích tối đa vài nghìn mục tiêu cùng lúc.</li>
+                <li>❌ Hàng triệu cuộn băng bị bỏ xó vì không đủ nhân lực để nghe và ghi chép (<span style="color: var(--gold); font-weight: 500;">tr. 289</span>).</li>
+              </ul>
+            </div>
+            <div class="compare-col primary">
+              <h4>🤖 Hệ Thống Giám Sát AI</h4>
+              <ul>
+                <li>✅ Chi phí logistics tiệm cận bằng 0: Không cần hàng triệu điệp viên con người.</li>
+                <li>✅ Theo dõi 100% dân số: Smartphone, camera và AI tự động phân tích dữ liệu 24/7.</li>
+                <li>✅ AI tự chủ xử lý, phân loại hành vi và chủ động cảnh báo sự khác biệt ngay lập tức (<span style="color: var(--gold); font-weight: 500;">tr. 291</span>).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">04 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 5: The Always-On Danger (Original) ═══════ -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-tag" style="text-align: center; display: block; margin-bottom: 28px;">Trích dẫn nguyên tác</div>
+        <div class="quote-block">
+          <div class="quote-mark serif">"</div>
+          <p class="quote-text serif">
+            Các chế độ chuyên chế trong quá khứ luôn bị hạn chế bởi sự thiếu hụt nhân lực xử lý thông tin. Nhưng AI thì khác — nó là một thực thể phi sinh học, không ngơi nghỉ, có thể phân tích hành vi của hàng triệu con người cùng một lúc và dự báo trước mọi nguy cơ chống đối.
+          </p>
+          <div class="quote-author">— Yuval Noah Harari, Nexus, tr. 302</div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">05 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 6: Elimination of Privacy (Original) ═══════ -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="content-tag">Bản chất kiểm soát</div>
+            <h2 class="content-title serif" style="text-align: center;">Sự Xóa Nhoà Biên Giới Tư Nhân</h2>
+          </div>
+          <div class="content-body" style="margin-top: 28px;">
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">🧠</div>
+              <div class="card-title">Giám sát từ bên trong (Internal Surveillance)</div>
+              <p class="card-text">
+                Giám sát thế hệ mới không chỉ dừng ở hành động vật lý bên ngoài. Bằng việc đo nhịp tim qua smartwatch, theo dõi chuyển động mắt trên màn hình, AI có thể đọc vị cảm xúc và suy nghĩ sâu kín nhất của bạn (<span style="color: var(--gold); font-weight: 500;">tr. 305</span>).
+              </p>
+            </div>
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">⛓️</div>
+              <div class="card-title">Mất khả năng sửa sai chủ động</div>
+              <p class="card-text">
+                Khi mọi phản hồi nhỏ nhất đều bị theo dõi, con người sẽ tự động điều chỉnh hành vi để chiều lòng hệ thống. Mạng lưới triệt tiêu hoàn toàn các nút có tư duy phản biện độc lập, khiến lỗi hệ thống lớn không bao giờ được sửa đổi (<span style="color: var(--gold); font-weight: 500;">tr. 312</span>).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">06 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 7: Case Study Example ═══════ -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+            <h2 class="content-title serif" style="text-align: center;">Nỗi Ám Ảnh Về "Chỉ Số Hoạt Động"</h2>
+          </div>
+          <div class="takeaway-box" style="margin-bottom: 36px;">
+            <h3 class="serif" style="color: var(--gold); font-size: 26px;">Nhân viên công nghệ bị kiểm soát bởi thuật toán</h3>
+            <p style="font-size: 19px;">
+              Một tập đoàn công nghệ lớn lắp đặt camera AI giám sát chuyển động mắt và phần mềm đo tần suất gõ phím của kỹ sư. Để đạt điểm số hiệu suất hoàn hảo, nhân viên không dám rời mắt khỏi màn hình hay dừng lại suy tư. Họ đối phó bằng cách cài đặt công cụ mô phỏng gõ phím giả. Hệ thống ghi nhận hiệu suất cực cao, nhưng chất lượng mã nguồn thực tế giảm mạnh và không ai dám đề xuất giải pháp sáng tạo mới.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">07 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 8: Expanded Application (Expanded) ═══════ -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center;">
+            <div class="badge-source badge-expand">📌 Mở rộng — Ứng dụng giám sát tự động trong kỷ nguyên AI Agents</div>
+            <h2 class="content-title serif" style="text-align: center;">Bẫy Giám Sát Của Quản Trị Hệ Thống Số</h2>
+          </div>
+          <div class="content-body" style="margin-top: 28px;">
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">⚡</div>
+              <div class="card-title">Mặt trái của tự động hóa hoàn toàn</div>
+              <p class="card-text">
+                Việc theo dõi quá mức mọi biến động (Slack, GitHub, JIRA) qua bot tự động vô tình biến doanh nghiệp thành một bộ máy quan liêu số. Nó tạo ra áp lực tâm lý nặng nề và làm xói mòn lòng tin nội bộ của đội ngũ.
+              </p>
+            </div>
+            <div class="card no-top" style="border-color: var(--green-border);">
+              <div class="card-icon">🔄</div>
+              <div class="card-title">Kiến trúc tin cậy thay vì giám sát</div>
+              <p class="card-text">
+                Hệ thống Mekong CLI ưu tiên thiết kế cơ chế **Verify** độc lập và khách quan đối với kết quả đầu ra (Outputs), thay vì giám sát hành vi liên tục của các Agent hay Kỹ sư trong suốt quá trình làm việc.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">08 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 9: Core Lessons & Expanded Questions ═══════ -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-header" style="text-align: center; margin-bottom: 30px;">
+            <div class="badge-source badge-expand">📌 Mở rộng — Câu hỏi & Bài học Chương 7</div>
+            <h2 class="content-title serif" style="text-align: center;">Đúc Kết & Suy Ngẫm</h2>
+          </div>
+          <div class="compare-grid" style="max-width: 1100px; gap: 30px;">
+            <!-- Column 1: Core Lessons -->
+            <div class="compare-col primary" style="padding: 24px;">
+              <h4 style="color: var(--green); font-size: 20px; margin-bottom: 12px; font-family: var(--font-body); display: flex; align-items: center; gap: 8px;">💡 Bài học cốt lõi</h4>
+              <ul class="insight-list" style="max-width: 100%;">
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                  <span style="color: var(--green); font-weight: bold;">•</span>
+                  <span><strong>Bẫy giám sát:</strong> AI loại bỏ rào cản vật lý của việc giám sát, mở đường cho một nhà nước/tổ chức toàn trị hoàn hảo về mặt công nghệ.</span>
+                </li>
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                  <span style="color: var(--green); font-weight: bold;">•</span>
+                  <span><strong>Tự bóp nghẹt:</strong> Giám sát 24/7 triệt tiêu tính sáng tạo và lòng tin. Con người sẽ tự kiểm duyệt suy nghĩ và hành động để an toàn.</span>
+                </li>
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: none;">
+                  <span style="color: var(--green); font-weight: bold;">•</span>
+                  <span><strong>Quản trị kết quả:</strong> Tổ chức bền vững cần dựa trên cơ chế đánh giá kết quả độc lập thay vì kiểm soát chi tiết hành vi.</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Column 2: Discussion Questions -->
+            <div class="compare-col" style="padding: 24px;">
+              <h4 style="color: var(--gold); font-size: 20px; margin-bottom: 12px; font-family: var(--font-body); display: flex; align-items: center; gap: 8px;">💬 Câu hỏi mở rộng</h4>
+              <ul class="insight-list" style="max-width: 100%;">
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                  <span class="num" style="width: 28px; height: 28px; font-size: 13px; border-radius: 6px; background: var(--gold-glow); border-color: rgba(184,122,31,0.2); color: var(--gold);">1</span>
+                  <span>Làm sao để cân bằng giữa nhu cầu quản trị hiệu quả và quyền riêng tư, tự chủ sáng tạo của nhân sự trong thời đại số?</span>
+                </li>
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                  <span class="num" style="width: 28px; height: 28px; font-size: 13px; border-radius: 6px; background: var(--gold-glow); border-color: rgba(184,122,31,0.2); color: var(--gold);">2</span>
+                  <span>Chúng ta có đang vô tình nộp mình cho các thuật toán "không ngơi nghỉ" của MXH hay các công cụ làm việc hay không?</span>
+                </li>
+                <li style="font-size: 16px; padding: 10px 0; display: flex; align-items: flex-start; gap: 10px; border-bottom: none;">
+                  <span class="num" style="width: 28px; height: 28px; font-size: 13px; border-radius: 6px; background: var(--gold-glow); border-color: rgba(184,122,31,0.2); color: var(--gold);">3</span>
+                  <span>Làm thế nào để xây dựng một văn hóa tôn trọng "sự hoài nghi lành mạnh" trong một tổ chức vận hành tự động bằng công nghệ?</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">09 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 10: Closing Takeaway ═══════ -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div style="font-size: 72px; margin-bottom: 28px;">🧭</div>
+        <div class="closing-brand serif">Book & Beyond</div>
+        <div class="closing-slogan">Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa</div>
+
+        <div class="takeaway-box" style="margin-bottom: 36px;">
+          <h3 class="serif" style="color: var(--green); font-size: 26px;">💡 Bài học cốt lõi Tuần 4</h3>
+          <p style="font-size: 19px;">
+            Mối đe dọa của các mạng lưới "không ngơi nghỉ" không chỉ là việc chúng ta bị theo dõi, mà là chúng ta dần **mất đi tư duy phản biện độc lập** để sửa sai. Hệ thống hoàn hảo nhất là hệ thống bảo vệ các tiếng nói hoài nghi lành mạnh để liên tục thích nghi.
+          </p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">10 / 11</div>
+    </div>
+
+    <!-- ═══════ SLIDE 11: Transition Week 5 ═══════ -->
+    <div class="slide" id="slide-11">
+      <div class="slide-inner">
+        <div style="font-size: 80px; margin-bottom: 30px;">📅</div>
+        <h2 class="section-title serif" style="color: var(--green); margin-bottom: 12px;">Tuần Tiếp Theo — Tuần 5</h2>
+        <p class="section-desc" style="max-width: 800px; margin-bottom: 40px;">
+          Tuần tới chúng ta sẽ thảo luận về sự bất toàn của các mạng lưới thông tin tự động và chủ nghĩa chuyên chế của thuật toán.
+        </p>
+        <div class="closing-info">
+          <span>📅 Tuần sau: CN, 14/06/2026</span>
+          <span>🎙️ MC: Lương Lưu Luyến</span>
+          <span>📖 Chương 8 & Chương 10 (tr. 315 - 430)</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND — NHÓM CHÍNH BẮC</div>
+      <div class="slide-number">11 / 11</div>
+    </div>
+
+  </div>
+
+  <!-- Progress bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Nav arrows -->
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function showSlide(n) {
+      const oldIndex = current;
+      slides[oldIndex].classList.remove('active');
+      slides[oldIndex].classList.add('exit');
+      setTimeout(() => {
+        slides[oldIndex].classList.remove('exit');
+      }, 600);
+      
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      
+      // Update progress bar
+      const progress = ((current + 1) / slides.length) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        nextSlide();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+        e.preventDefault();
+        prevSlide();
+      }
+      // Press 'f' for fullscreen
+      if (e.key === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    });
+
+    // Touch/swipe
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? nextSlide() : prevSlide();
+      }
+    });
+
+    // Init progress
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
