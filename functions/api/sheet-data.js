@@ -146,16 +146,19 @@ function buildSchedule(chapters) {
   for (const ch of chapters) {
     if (ch.isReview) continue;
     
-    // Check if this row defines a new week (column E has "Tuần X - DD/MM" or "Tuần X - DD/MM MC: Name")
+    // Check if this row defines a new week (column E has "Tuần X - DD/MM" or "Tuần X - DD/Mon")
     if (ch.weekInfo && ch.weekInfo.includes('Tuần')) {
-      const weekMatch = ch.weekInfo.match(/Tuần\s*(\d+)\s*[-–]\s*(\d{1,2}\/\d{1,2})/i);
+      // Support both numeric months (12/07) and English month names (12/Jul)
+      const monthNames = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12' };
+      const weekMatch = ch.weekInfo.match(/Tuần\s*(\d+)\s*[-–]\s*(\d{1,2})\/(\w+)/i);
       const mcMatch = ch.weekInfo.match(/MC[:\s]+(.+)/i);
       
       if (weekMatch) {
         const weekNum = parseInt(weekMatch[1]);
-        const dateParts = weekMatch[2].split('/');
-        const day = dateParts[0].padStart(2, '0');
-        const month = dateParts[1].padStart(2, '0');
+        const day = weekMatch[2].padStart(2, '0');
+        const monthRaw = weekMatch[3];
+        // Support both "07" and "Jul" formats
+        const month = monthRaw.length <= 2 ? monthRaw.padStart(2, '0') : (monthNames[monthRaw.toLowerCase().slice(0, 3)] || '01');
         const year = new Date().getFullYear();
         const dateStr = `${year}-${month}-${day}`;
         
@@ -480,6 +483,16 @@ export async function onRequestGet(context) {
         };
         schedule = buildSchedule(chapters);
         members = extractMembers(chapters);
+        
+        // Derive startDate/endDate from schedule if not in metadata
+        if (!currentBook.startDate && schedule.length > 0) {
+          const firstWeek = schedule.find(w => !w.isBreak);
+          if (firstWeek) currentBook.startDate = firstWeek.date;
+        }
+        if (!currentBook.endDate && schedule.length > 0) {
+          const lastWeek = [...schedule].reverse().find(w => !w.isBreak);
+          if (lastWeek) currentBook.endDate = lastWeek.date;
+        }
       } else {
         // Sheet is empty — use seed data
         const isZeroToOne = currentBookTab.toLowerCase().includes('zero') || currentBookTab.toLowerCase().includes('one');
