@@ -581,6 +581,7 @@ async function fetchLibrary() {
     { title: 'The 4 Pillar Plan', author: 'Dr. Rangan Chatterjee', finishedDate: '2025-10-20', rating: 4.0, topInsight: 'Sức khỏe dựa trên 4 trụ cột: Thư giãn, Ăn uống, Vận động, Giấc ngủ.' },
     { title: 'Cuộc Chiến Vi Mạch', author: 'Chris Miller', finishedDate: '2025-11-25', rating: 4.5, topInsight: 'Chip bán dẫn là tài nguyên chiến lược quan trọng nhất thế kỷ 21.' },
     { title: 'Hồi Ký Lý Quang Diệu', author: 'Lý Quang Diệu', finishedDate: '2025-12-30', rating: 5.0, topInsight: 'Sự sống còn của một quốc gia nhỏ phụ thuộc vào kỷ luật và tầm nhìn xa của lãnh đạo.' },
-    { title: 'Nhóm Chính Bắc', author: 'Bill George', finishedDate: '2026-04-26', rating: 0, topInsight: 'True North Groups — Xây dựng nhóm phát triển bản thân có kỷ luật.' }
+    { title: 'Nhóm Chính Bắc', author: 'Bill George', finishedDate: '2026-04-26', rating: 4.5, topInsight: 'True North Groups — Xây dựng nhóm phát triển bản thân có kỷ luật.' },
+    { title: 'Nexus', author: 'Yuval Noah Harari', finishedDate: '2026-06-28', rating: 4.7, topInsight: 'Thông tin không phải là sự thật, thông tin chỉ là nguyên liệu xây dựng mạng lưới kết nối.' }
   ];
 }
