@@ -13,7 +13,7 @@ export async function onRequestGet(context) {
 
   try {
     if (env.BNB_CACHE) {
-      await env.BNB_CACHE.delete('sheet-data-v1');
+      await env.BNB_CACHE.delete('sheet-data-v2');
     }
     return new Response(JSON.stringify({
       ok: true,

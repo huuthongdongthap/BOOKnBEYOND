@@ -322,6 +322,95 @@ function getNexusSeedData() {
   return { currentBook, schedule, allSections };
 }
 
+// — Zero to One Seed Data —
+function getZeroToOneSeedData() {
+  const startDate = '2026-07-12';
+
+  const allSections = [
+    { chapter: 'Lời mở đầu: Không đến Một', fromPage: '7', pageCount: '13 trang' },
+    { chapter: '1. Thách thức của tương lai', fromPage: '11', pageCount: '9 trang' },
+    { chapter: '2. Tiệc tùng thả cửa', fromPage: '20', pageCount: '15 trang' },
+    { chapter: '3. Tất cả những công ty hạnh phúc đều khác biệt', fromPage: '35', pageCount: '17 trang' },
+    { chapter: '4. Hệ tư tưởng cạnh tranh', fromPage: '52', pageCount: '13 trang' },
+    { chapter: '5. Lợi thế của kẻ đến sau cùng', fromPage: '65', pageCount: '20 trang' },
+    { chapter: '6. Bạn không phải là một tấm vé số', fromPage: '85', pageCount: '33 trang' },
+    { chapter: '7. Chạy theo đồng tiền', fromPage: '118', pageCount: '14 trang' },
+    { chapter: '8. Bí mật', fromPage: '132', pageCount: '20 trang' },
+    { chapter: '9. Nền tảng', fromPage: '152', pageCount: '15 trang' },
+    { chapter: '10. Cơ chế của mafia', fromPage: '167', pageCount: '11 trang' },
+    { chapter: '11. Nếu bạn tạo ra sản phẩm, khách hàng sẽ tới?', fromPage: '178', pageCount: '21 trang' },
+    { chapter: '12. Con người và máy móc', fromPage: '199', pageCount: '17 trang' },
+    { chapter: '13. Xu hướng doanh nghiệp xanh', fromPage: '216', pageCount: '27 trang' },
+    { chapter: '14. Nghịch lý của nhà sáng lập', fromPage: '243', pageCount: '22 trang' },
+    { chapter: 'Kết luận: Đình trệ hay Khác biệt?', fromPage: '265', pageCount: '6 trang' }
+  ];
+
+  const weekPlan = [
+    { sections: [0, 1, 2, 3], label: 'Lời mở đầu & Chương 1 — Chương 3' },
+    { sections: [4, 5, 6], label: 'Chương 4 — Chương 6' },
+    { sections: [7, 8, 9], label: 'Chương 7 — Chương 9' },
+    { sections: [10, 11, 12], label: 'Chương 10 — Chương 12' },
+    { sections: [13, 14, 15], label: 'Chương 13 — Kết luận' },
+    { sections: [], label: 'REVIEW & TỔNG KẾT toàn bộ sách', isReviewWeek: true }
+  ];
+
+  const schedule = [];
+  let currentDate = new Date(startDate);
+  let weekNum = 0;
+
+  for (const week of weekPlan) {
+    weekNum++;
+    const dateStr = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+
+    if (week.sections.length === 0 && !week.isReviewWeek) {
+      schedule.push({
+        week: weekNum,
+        date: dateStr,
+        mc: '',
+        sharers: [],
+        isBreak: true,
+        label: '🔋 TUẦN NGHỈ — Đọc trước & ôn lại'
+      });
+    } else {
+      const sharers = week.sections.map(idx => ({
+        name: '',
+        chapter: allSections[idx].chapter + ` (tr.${allSections[idx].fromPage}, ${allSections[idx].pageCount})`
+      }));
+
+      if (week.isReviewWeek) {
+        sharers.push({
+          name: '',
+          chapter: 'REVIEW & TỔNG KẾT toàn bộ sách Không đến Một'
+        });
+      }
+
+      schedule.push({
+        week: weekNum,
+        date: dateStr,
+        mc: '',
+        sharers,
+        label: week.label,
+        isReviewWeek: week.isReviewWeek || false
+      });
+    }
+
+    currentDate.setDate(currentDate.getDate() + 7);
+  }
+
+  const currentBook = {
+    title: 'Không đến Một: Bài học về khởi nghiệp, hay Cách xây dựng tương lai',
+    author: 'Peter Thiel & Blake Masters',
+    originalTitle: 'Zero to One: Notes on Startups, or How to Build the Future',
+    cover: 'assets/cover-zero-to-one.png',
+    totalChapters: 14,
+    totalPages: 274,
+    startDate: startDate,
+    endDate: '2026-08-16'
+  };
+
+  return { currentBook, schedule };
+}
+
 // — Main handler —
 export async function onRequestGet(context) {
   const { env } = context;
@@ -342,7 +431,7 @@ export async function onRequestGet(context) {
 
     // Fetch CONFIG tab
     const sheetConfig = await fetchConfigTab();
-    const currentBookTab = sheetConfig.currentBook || 'Nexus';
+    const currentBookTab = sheetConfig.currentBook || 'ZeroToOne';
     
     // Fetch current book tab
     let bookCSV, bookRows, metadata, chapters, currentBook, schedule, members;
@@ -363,37 +452,46 @@ export async function onRequestGet(context) {
       const hasChapterData = chapters.filter(c => !c.isReview).length > 0;
       
       if (hasChapterData) {
-        // Use sheet data — with Nexus defaults when metadata rows are missing
-        const nexusDefaults = bookName.toLowerCase().includes('nexus') ? {
+        // Use sheet data — with Nexus/ZeroToOne defaults when metadata rows are missing
+        const isZeroToOne = bookName.toLowerCase().includes('zero') || bookName.toLowerCase().includes('one');
+        const bookDefaults = isZeroToOne ? {
+          title: 'Không đến Một: Bài học về khởi nghiệp, hay Cách xây dựng tương lai',
+          author: 'Peter Thiel & Blake Masters',
+          originalTitle: 'Zero to One: Notes on Startups, or How to Build the Future',
+          cover: 'assets/cover-zero-to-one.png',
+          totalPages: 274
+        } : {
           title: 'Nexus: Lược sử của những mạng lưới thông tin',
           author: 'Yuval Noah Harari',
           originalTitle: 'Nexus: A Brief History of Information Networks from the Stone Age to AI',
           cover: 'assets/cover-nexus.jpg',
           totalPages: 552
-        } : {};
+        };
 
         currentBook = {
-          title: metadata._title || nexusDefaults.title || bookName,
-          author: metadata._author || nexusDefaults.author || '',
-          originalTitle: metadata._originalTitle || nexusDefaults.originalTitle || '',
-          cover: metadata._cover || nexusDefaults.cover || 'assets/cover-nexus.jpg',
+          title: metadata._title || bookDefaults.title || bookName,
+          author: metadata._author || bookDefaults.author || '',
+          originalTitle: metadata._originalTitle || bookDefaults.originalTitle || '',
+          cover: metadata._cover || bookDefaults.cover || 'assets/cover-nexus.jpg',
           totalChapters: chapters.filter(c => !c.isReview).length,
-          totalPages: parseInt(metadata._totalPages) || nexusDefaults.totalPages || 0,
+          totalPages: parseInt(metadata._totalPages) || bookDefaults.totalPages || 0,
           startDate: metadata._startDate || '',
           endDate: metadata._endDate || ''
         };
         schedule = buildSchedule(chapters);
         members = extractMembers(chapters);
       } else {
-        // Sheet is empty — use seed data for Nexus
-        const seed = getNexusSeedData();
+        // Sheet is empty — use seed data
+        const isZeroToOne = currentBookTab.toLowerCase().includes('zero') || currentBookTab.toLowerCase().includes('one');
+        const seed = isZeroToOne ? getZeroToOneSeedData() : getNexusSeedData();
         currentBook = seed.currentBook;
         schedule = seed.schedule;
         members = [];
       }
     } catch {
       // Sheet fetch failed — use seed data
-      const seed = getNexusSeedData();
+      const isZeroToOne = currentBookTab.toLowerCase().includes('zero') || currentBookTab.toLowerCase().includes('one');
+      const seed = isZeroToOne ? getZeroToOneSeedData() : getNexusSeedData();
       currentBook = seed.currentBook;
       schedule = seed.schedule;
       members = [];

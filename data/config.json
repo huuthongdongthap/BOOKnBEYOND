@@ -10,66 +10,74 @@
   "sheetsLink": "https://docs.google.com/spreadsheets/d/18JVy2EqdRsJDf_tzDfsqX-jE5I6gos8sWBVzcK06tRU/edit?pli=1&gid=0#gid=0",
 
   "currentBook": {
-    "title": "Nhóm Chính Bắc",
-    "author": "Bill George",
-    "originalTitle": "True North Groups",
-    "cover": "assets/cover-chinh-bac.png",
-    "totalChapters": 7,
-    "totalPages": 253,
-    "startDate": "2026-03-15",
-    "endDate": "2026-04-26"
+    "title": "Không đến Một",
+    "author": "Peter Thiel & Blake Masters",
+    "originalTitle": "Zero to One",
+    "cover": "assets/cover-zero-to-one.png",
+    "totalChapters": 14,
+    "totalPages": 274,
+    "startDate": "2026-07-12",
+    "endDate": "2026-08-16"
   },
 
   "schedule": [
     {
       "week": 1,
-      "date": "2026-03-15",
-      "mc": "Thông Phan",
+      "date": "2026-07-12",
+      "mc": "",
       "sharers": [
-        { "name": "Giangle", "chapter": "Lời giới thiệu + Lời nói đầu + Giới thiệu: Tìm kiếm chiều sâu và sự gần gũi trong cuộc sống (tr.7–39, 17 trang)" },
-        { "name": "Thanh", "chapter": "Chương 1: Nhóm Chính Bắc (tr.41–58, 27 trang)" },
-        { "name": "Thông", "chapter": "Chương 2: Phát triển bản thân và nâng cao năng lực lãnh đạo (tr.59–74, 17 trang)" }
+        { "name": "", "chapter": "Lời mở đầu: Không đến Một (tr.7, 13 trang)" },
+        { "name": "", "chapter": "1. Thách thức của tương lai (tr.11, 9 trang)" },
+        { "name": "", "chapter": "2. Tiệc tùng thả cửa (tr.20, 15 trang)" },
+        { "name": "", "chapter": "3. Tất cả những công ty hạnh phúc đều khác biệt (tr.35, 17 trang)" }
       ]
     },
     {
       "week": 2,
-      "date": "2026-03-22",
-      "mc": "GiangLe",
+      "date": "2026-07-19",
+      "mc": "",
       "sharers": [
-        { "name": "Ms Giang", "chapter": "Chương 3: Thành lập nhóm (tr.75–112, 39 trang)" },
-        { "name": "Bảo", "chapter": "Chương 4: Thiết lập nguyên tắc (tr.113–132, 21 trang)" },
-        { "name": "Lương", "chapter": "Nguồn lực 4: Bản cam kết thành viên + NL5: Hình thức tổ chức cuộc họp + NL6: Nguyên tắc nền tảng (tr.215–224, 13 trang)" }
+        { "name": "", "chapter": "4. Hệ tư tưởng cạnh tranh (tr.52, 13 trang)" },
+        { "name": "", "chapter": "5. Lợi thế của kẻ đến sau cùng (tr.65, 20 trang)" },
+        { "name": "", "chapter": "6. Bạn không phải là một tấm vé số (tr.85, 33 trang)" }
       ]
     },
     {
       "week": 3,
-      "date": "2026-04-05",
-      "mc": "Bảo Bảo",
+      "date": "2026-07-26",
+      "mc": "",
       "sharers": [
-        { "name": "Giangle", "chapter": "Chương 5: Xáo động (tr.133–154, 23 trang)" },
-        { "name": "Giang", "chapter": "Chương 6: Hoạt động (tr.155–176, 23 trang)" },
-        { "name": "Lương", "chapter": "Chương 7: Cải tổ nhóm (tr.177–190, 15 trang)" }
+        { "name": "", "chapter": "7. Chạy theo đồng tiền (tr.118, 14 trang)" },
+        { "name": "", "chapter": "8. Bí mật (tr.132, 20 trang)" },
+        { "name": "", "chapter": "9. Nền tảng (tr.152, 15 trang)" }
       ]
     },
     {
       "week": 4,
-      "date": "2026-04-12",
-      "mc": "Thanh Lương",
+      "date": "2026-08-02",
+      "mc": "",
       "sharers": [
-        { "name": "Thanh", "chapter": "Nguồn lực 1: Chương trình cho nhóm mới thành lập — 12 chủ đề đầu tiên (tr.191–206, 17 trang)" },
-        { "name": "Thanh", "chapter": "Nguồn lực 2: Các ý tưởng khác về chương trình hoạt động (tr.207–213, 7 trang)" },
-        { "name": "GiangLe", "chapter": "Nguồn lực 10: Bổ sung thành viên mới vào nhóm (tr.245–249, 5 trang)" },
-        { "name": "Bảo", "chapter": "Nguồn lực 11: Đóng góp và tiếp thu ý kiến phản hồi + NL12: Quá trình nghiên cứu (tr.249–259, 12 trang)" }
+        { "name": "", "chapter": "10. Cơ chế của mafia (tr.167, 11 trang)" },
+        { "name": "", "chapter": "11. Nếu bạn tạo ra sản phẩm, khách hàng sẽ tới? (tr.178, 21 trang)" },
+        { "name": "", "chapter": "12. Con người và máy móc (tr.199, 17 trang)" }
+      ]
+    },
+    {
+      "week": 5,
+      "date": "2026-08-09",
+      "mc": "",
+      "sharers": [
+        { "name": "", "chapter": "13. Xu hướng doanh nghiệp xanh (tr.216, 27 trang)" },
+        { "name": "", "chapter": "14. Nghịch lý của nhà sáng lập (tr.243, 22 trang)" },
+        { "name": "", "chapter": "Kết luận: Đình trệ hay Khác biệt? (tr.265, 6 trang)" }
       ]
     },
     {
       "week": 6,
-      "date": "2026-04-26",
-      "mc": "Cả nhóm",
+      "date": "2026-08-16",
+      "mc": "",
       "sharers": [
-        { "name": "Cả nhóm", "chapter": "REVIEW & TỔNG KẾT toàn bộ sách Nhóm Chính Bắc" },
-        { "name": "", "chapter": "Rút bài học ứng dụng cá nhân" },
-        { "name": "", "chapter": "Bình chọn sách tiếp theo" }
+        { "name": "", "chapter": "REVIEW & TỔNG KẾT toàn bộ sách Không đến Một" }
       ]
     }
   ],
@@ -146,6 +154,20 @@
       "finishedDate": "2025-12-30",
       "rating": 5.0,
       "topInsight": "Sự sống còn của một quốc gia nhỏ phụ thuộc vào kỷ luật và tầm nhìn xa của lãnh đạo."
+    },
+    {
+      "title": "Nhóm Chính Bắc",
+      "author": "Bill George",
+      "finishedDate": "2026-04-26",
+      "rating": 4.5,
+      "topInsight": "True North Groups — Xây dựng nhóm phát triển bản thân có kỷ luật."
+    },
+    {
+      "title": "Nexus",
+      "author": "Yuval Noah Harari",
+      "finishedDate": "2026-06-28",
+      "rating": 4.7,
+      "topInsight": "Thông tin không phải là sự thật, thông tin chỉ là nguyên liệu xây dựng mạng lưới kết nối."
     }
   ],
 
