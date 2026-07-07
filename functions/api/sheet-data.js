@@ -404,7 +404,7 @@ function getZeroToOneSeedData() {
     title: 'Không đến Một: Bài học về khởi nghiệp, hay Cách xây dựng tương lai',
     author: 'Peter Thiel & Blake Masters',
     originalTitle: 'Zero to One: Notes on Startups, or How to Build the Future',
-    cover: 'assets/cover-zero-to-one.png',
+    cover: 'assets/cover-zero-to-one.jpg',
     totalChapters: 14,
     totalPages: 274,
     startDate: startDate,
@@ -461,7 +461,7 @@ export async function onRequestGet(context) {
           title: 'Không đến Một: Bài học về khởi nghiệp, hay Cách xây dựng tương lai',
           author: 'Peter Thiel & Blake Masters',
           originalTitle: 'Zero to One: Notes on Startups, or How to Build the Future',
-          cover: 'assets/cover-zero-to-one.png',
+          cover: 'assets/cover-zero-to-one.jpg',
           totalPages: 274
         } : {
           title: 'Nexus: Lược sử của những mạng lưới thông tin',

@@ -17,7 +17,7 @@ Thêm các dòng cấu hình metadata ở đầu sheet (hàng 1 đến hàng 6):
 | `_title` | `Không đến Một: Bài học về khởi nghiệp, hay Cách xây dựng tương lai` |
 | `_author` | `Peter Thiel & Blake Masters` |
 | `_originalTitle` | `Zero to One: Notes on Startups, or How to Build the Future` |
-| `_cover` | `assets/cover-zero-to-one.png` |
+| `_cover` | `assets/cover-zero-to-one.jpg` |
 | `_startDate` | `2026-07-12` |
 | `_endDate` | `2026-08-16` |
 
