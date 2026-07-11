@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to One · Chương 3 — Tất Cả Những Công Ty Hạnh Phúc Đều Khác Biệt | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #e8edf5;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-bg: rgba(37,99,235,0.06);
+      --blue-border: rgba(37,99,235,0.15);
+      --blue-dark: #1e40af;
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.06);
+      --red-border: rgba(220,38,38,0.15);
+
+      --green: #047857;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02; pointer-events: none; z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Content Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-30px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number { position: absolute; bottom: 28px; right: 48px; font-size: 14px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500; }
+    .slide-brand { position: absolute; bottom: 28px; left: 48px; font-size: 13px; color: var(--text-dim); letter-spacing: 1.5px; z-index: 10; font-weight: 500; }
+
+    .title-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 28px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 14px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 36px; }
+    .title-main { font-size: 56px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: var(--text-primary); }
+    .title-sub { font-size: 26px; font-weight: 400; color: var(--blue); margin-bottom: 48px; font-style: italic; }
+    .title-meta { display: flex; justify-content: center; gap: 36px; font-size: 17px; color: var(--text-secondary); }
+    .title-meta span { display: flex; align-items: center; gap: 8px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-tag { display: inline-block; padding: 6px 18px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+    .content-tag.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+    .content-tag.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+    .content-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 32px; }
+    .content-body.dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .content-body.triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .card { background: var(--bg-card); border-radius: 16px; padding: 28px; border-top: 3px solid var(--blue); transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .card.no-top { border-top: 1px solid #e2e8f0; }
+    .card.red-top { border-top-color: var(--red); }
+    .card.green-top { border-top-color: var(--green); }
+    .card.gold-top { border-top-color: var(--gold); }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .card-text { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+    .card-text small { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .quote-block { background: var(--bg-card); border-radius: 20px; padding: 48px 56px; border-left: 4px solid var(--blue); position: relative; }
+    .quote-block::before { content: '\201C'; position: absolute; top: 16px; left: 20px; font-family: var(--font-display); font-size: 80px; color: var(--blue); opacity: 0.15; }
+    .quote-text { font-size: 28px; line-height: 1.5; color: var(--text-primary); font-style: italic; margin-bottom: 20px; }
+    .quote-author { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+    .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; }
+    .compare-table th { padding: 18px 24px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .compare-table td { padding: 16px 24px; font-size: 16px; line-height: 1.6; }
+    .compare-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .col-monopoly { background: rgba(37,99,235,0.08); color: var(--blue-dark); }
+    .col-compete { background: rgba(220,38,38,0.08); color: var(--red); }
+
+    .vs-layout { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: start; }
+    .vs-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--text-primary); color: white; font-weight: 900; font-size: 20px; margin: 60px auto 0; }
+
+    .num-highlight { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .num-label { font-size: 15px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .closing-brand { font-size: 48px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; }
+    .closing-slogan { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 48px; }
+    .closing-info { display: flex; justify-content: center; gap: 36px; font-size: 16px; color: var(--text-secondary); }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light)); transition: width 0.4s ease; z-index: 100; }
+
+    .nav-arrows { position: fixed; bottom: 50%; right: 24px; transform: translateY(50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-glass); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; font-size: 18px; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: var(--bg-glass-hover); transform: scale(1.1); }
+
+    .hl { color: var(--blue); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-gold { color: var(--gold); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📘 ZERO TO ONE · CHƯƠNG 3</div>
+        <h1 class="title-main serif">Tất Cả Những Công Ty<br>Hạnh Phúc Đều Khác Biệt</h1>
+        <p class="title-sub serif">All Happy Companies Are Different</p>
+        <div class="title-meta">
+          <span>📖 Peter Thiel & Blake Masters</span>
+          <span>📄 tr. 35 — 51</span>
+          <span>📅 12/07/2026 · Tuần 1</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">1 / 12</div>
+    </div>
+
+    <!-- SLIDE 2: Tolstoy Quote -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Mở đầu chương</div>
+          <h2 class="content-title serif">Đảo Ngược Tolstoy</h2>
+          <div class="quote-block" style="margin-bottom: 32px;">
+            <p class="quote-text serif">"Mọi gia đình hạnh phúc đều giống nhau; mỗi gia đình bất hạnh thì bất hạnh theo kiểu riêng."</p>
+            <p class="quote-author">— Leo Tolstoy, Anna Karenina</p>
+          </div>
+          <div class="card no-top" style="text-align: center; padding: 24px 48px;">
+            <p class="card-text" style="font-size: 20px; line-height: 1.7;">
+              Thiel lật ngược: <span class="hl">Trong kinh doanh, điều ngược lại mới đúng.</span><br>
+              Mọi công ty thất bại đều giống nhau — <span class="hl-red">chúng không thoát được cạnh tranh</span>.<br>
+              Mỗi công ty thành công đều khác biệt — vì nó <span class="hl">giải quyết một vấn đề duy nhất</span> mà không ai khác làm được.
+            </p>
+            <p class="card-text"><small>— tr. 35</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">2 / 12</div>
+    </div>
+
+    <!-- SLIDE 3: Tạo giá trị vs Chiếm giá trị -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Khái niệm cốt lõi</div>
+          <h2 class="content-title serif">Tạo Giá Trị ≠ Chiếm Giữ Giá Trị</h2>
+          <div class="content-body dual">
+            <div class="card">
+              <div class="card-icon">✈️</div>
+              <div class="card-title">Ngành hàng không Mỹ</div>
+              <div class="card-text">
+                Phục vụ hàng triệu hành khách, doanh thu <span class="hl">hàng trăm tỷ USD</span> mỗi năm.<br><br>
+                Nhưng năm 2012, trung bình chỉ lãi <span class="hl-red">37 cent / hành khách</span>.<br><br>
+                <small>Tạo giá trị cực lớn, nhưng chiếm giữ gần bằng 0. — tr. 36</small>
+              </div>
+            </div>
+            <div class="card green-top">
+              <div class="card-icon">🔍</div>
+              <div class="card-title">Google</div>
+              <div class="card-text">
+                Doanh thu ít hơn toàn ngành hàng không, nhưng giữ lại <span class="hl-green">21% lợi nhuận</span>.<br><br>
+                Lợi nhuận gấp <span class="hl-green">hơn 100 lần</span> toàn bộ ngành hàng không cộng lại.<br><br>
+                <small>Tạo ít giá trị hơn, nhưng chiếm giữ nhiều hơn gấp bội. — tr. 36</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">3 / 12</div>
+    </div>
+
+    <!-- SLIDE 4: Comparison table -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Hai mô hình kinh doanh</div>
+          <h2 class="content-title serif">Cạnh Tranh Hoàn Hảo vs. Độc Quyền</h2>
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th style="width: 25%; background: #f1f5f9;">Tiêu chí</th>
+                <th class="col-compete" style="width: 37.5%;">🔴 Cạnh tranh hoàn hảo</th>
+                <th class="col-monopoly" style="width: 37.5%;">🔵 Độc quyền sáng tạo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="font-weight: 600;">Sản phẩm</td><td>Giống nhau, không khác biệt</td><td>Duy nhất, không ai sao chép được</td></tr>
+              <tr><td style="font-weight: 600;">Quyền định giá</td><td>Không có — thị trường quyết định</td><td>Hoàn toàn — tự đặt giá</td></tr>
+              <tr><td style="font-weight: 600;">Lợi nhuận</td><td><span class="hl-red">Tiến về 0</span></td><td><span class="hl">Cao bền vững</span></td></tr>
+              <tr><td style="font-weight: 600;">Trọng tâm</td><td>Sống sót qua ngày</td><td>Đổi mới dài hạn</td></tr>
+              <tr><td style="font-weight: 600;">Kết cục</td><td>Chiến tranh giá, tự hủy diệt</td><td>Tạo thị trường mới, thống trị</td></tr>
+            </tbody>
+          </table>
+          <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); font-style: italic;">— Tổng hợp từ tr. 36–39</p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">4 / 12</div>
+    </div>
+
+    <!-- SLIDE 5: Những lời nói dối -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag red">Cảnh báo</div>
+          <h2 class="content-title serif">Những Lời Nói Dối Về Cạnh Tranh</h2>
+          <p class="card-text" style="font-size: 18px; margin-bottom: 28px; color: var(--text-secondary);">
+            Thiel chỉ ra rằng cả công ty độc quyền lẫn công ty cạnh tranh đều <span class="hl-red">nói dối</span> về vị thế thật của mình — nhưng theo hai hướng ngược nhau.
+          </p>
+          <div class="content-body dual">
+            <div class="card red-top">
+              <div class="card-icon">🎭</div>
+              <div class="card-title">Độc quyền nói dối: "Tôi nhỏ lắm"</div>
+              <div class="card-text">
+                Để tránh bị chính phủ giám sát, doanh nghiệp độc quyền <span class="hl-red">phóng đại thị trường</span> mà nó tham gia.<br><br>
+                Google không nói mình thống trị "tìm kiếm" — mà tự gọi là "công ty công nghệ" cạnh tranh trong một thị trường khổng lồ.
+                <br><br><small>— tr. 40–41</small>
+              </div>
+            </div>
+            <div class="card gold-top">
+              <div class="card-icon">🪞</div>
+              <div class="card-title">Cạnh tranh nói dối: "Tôi đặc biệt"</div>
+              <div class="card-text">
+                Ngược lại, công ty đang chật vật sẽ <span class="hl-gold">thu hẹp thị trường</span> để tự nhận mình là "duy nhất".<br><br>
+                "Nhà hàng ẩm thực Anh kết hợp không khí Santa Monica duy nhất thành phố" — nghe đặc biệt, nhưng thực tế chỉ là thêm một quán ăn.
+                <br><br><small>— tr. 42–43</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">5 / 12</div>
+    </div>
+
+    <!-- SLIDE 6: Google VS -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Case study</div>
+          <h2 class="content-title serif">Google — Bậc Thầy Ngụy Trang</h2>
+          <div class="vs-layout">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">🔍</div>
+              <div class="card-title">Thị trường thật</div>
+              <div class="num-highlight">68%</div>
+              <div class="num-label">thị phần tìm kiếm</div>
+              <p class="card-text" style="margin-top: 16px;">Trong thị trường "công cụ tìm kiếm", Google <span class="hl">gần như là tay chơi duy nhất</span>.<br><small>— tr. 41</small></p>
+            </div>
+            <div><div class="vs-badge">VS</div></div>
+            <div class="card no-top" style="text-align: center;">
+              <div class="card-icon">💻</div>
+              <div class="card-title">Câu chuyện Google kể</div>
+              <div class="num-highlight" style="color: var(--text-muted);">~3%</div>
+              <div class="num-label">thị phần "công nghệ"</div>
+              <p class="card-text" style="margin-top: 16px;">Google tự định nghĩa mình là "công ty công nghệ" — cạnh tranh với Apple, Samsung, Microsoft...<br><small>— tr. 41</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">6 / 12</div>
+    </div>
+
+    <!-- SLIDE 7: Cạnh tranh phá hủy -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag red">Bài học cốt lõi</div>
+          <h2 class="content-title serif">Cạnh Tranh Phá Hủy Lợi Nhuận</h2>
+          <div class="content-body triple">
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">⚔️</div>
+              <div class="card-title">Chiến tranh giá</div>
+              <div class="card-text">Khi sản phẩm giống nhau, cách duy nhất để cạnh tranh là <span class="hl-red">hạ giá</span>. Lợi nhuận bị ép về 0.<br><small>— tr. 37</small></div>
+            </div>
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">🔄</div>
+              <div class="card-title">Vòng xoáy xuống đáy</div>
+              <div class="card-text">Ai cũng bắt chước nhau → không ai khác biệt → tất cả cùng chạy đua cắt giảm chi phí → <span class="hl-red">chất lượng sụt giảm</span>.<br><small>— tr. 38</small></div>
+            </div>
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">💀</div>
+              <div class="card-title">Sinh tồn thay vì đổi mới</div>
+              <div class="card-text">Công ty cạnh tranh dành toàn bộ năng lượng để <span class="hl-red">sống sót qua ngày</span>, không còn nguồn lực cho sáng tạo.<br><small>— tr. 38</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">7 / 12</div>
+    </div>
+
+    <!-- SLIDE 8: Độc quyền sáng tạo -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Giải pháp</div>
+          <h2 class="content-title serif">Độc Quyền Sáng Tạo — Con Đường Từ 0 Đến 1</h2>
+          <div class="quote-block" style="margin-bottom: 28px; border-left-color: var(--green);">
+            <p class="quote-text serif" style="font-size: 24px;">"Nếu bạn muốn tạo ra và chiếm giữ giá trị lâu dài, đừng xây dựng một doanh nghiệp hàng hóa không khác biệt."</p>
+            <p class="quote-author">— Peter Thiel, tr. 44</p>
+          </div>
+          <div class="content-body dual">
+            <div class="card green-top">
+              <div class="card-icon">🌟</div>
+              <div class="card-title">Độc quyền ≠ Xấu xa</div>
+              <div class="card-text">Thiel phân biệt "độc quyền sáng tạo" (creative monopoly) với kiểu độc quyền nhà nước.<br><br>Độc quyền sáng tạo nghĩa là bạn tạo ra thứ <span class="hl-green">tốt đến mức không ai cạnh tranh nổi</span>.<br><small>— tr. 45</small></div>
+            </div>
+            <div class="card green-top">
+              <div class="card-icon">🚀</div>
+              <div class="card-title">Động lực đổi mới</div>
+              <div class="card-text">Lợi nhuận từ độc quyền cho phép công ty <span class="hl-green">đầu tư vào R&D, tạo sản phẩm tốt hơn</span> → vòng lặp tích cực.<br><br>Đó là lý do Google có thể trả lương kỹ sư hậu hĩ và đầu tư vào xe tự lái.<br><small>— tr. 46</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">8 / 12</div>
+    </div>
+
+    <!-- SLIDE 9: VN Examples -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <h2 class="content-title serif">Áp Dụng Vào Thực Tế Việt Nam</h2>
+          <div class="content-body triple">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">☕</div>
+              <div class="card-title">Quán cà phê "giống nhau"</div>
+              <div class="card-text">Hàng trăm quán cà phê trên một con đường → cạnh tranh giá, khuyến mãi → <span class="hl-red">lợi nhuận mỏng</span>.<br><br>Đây là "cạnh tranh hoàn hảo" kiểu Thiel.</div>
+            </div>
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">🏭</div>
+              <div class="card-title">VinFast</div>
+              <div class="card-text">Tạo thương hiệu xe điện Việt Nam duy nhất → <span class="hl-green">không ai cạnh tranh trực tiếp</span> trong phân khúc "xe điện VN".<br><br>Một nỗ lực đi từ 0 → 1.</div>
+            </div>
+            <div class="card gold-top" style="text-align: center;">
+              <div class="card-icon">📱</div>
+              <div class="card-title">Viettel</div>
+              <div class="card-text">Khi ra nước ngoài, Viettel không cạnh tranh thị trường bão hòa mà chọn <span class="hl-gold">thị trường chưa ai phục vụ</span> (châu Phi, Đông Timor).<br><br>Tư duy "tìm thị trường 0".</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">9 / 12</div>
+    </div>
+
+    <!-- SLIDE 10: Bài học -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Đúc kết</div>
+          <h2 class="content-title serif">Bài Học Từ Chương 3</h2>
+          <div class="content-body dual">
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">1️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Cạnh tranh không phải dấu hiệu thị trường tốt</strong> — nó là dấu hiệu lợi nhuận sẽ bị ép về 0.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">2️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Hỏi "Thị trường nào mình thống trị?"</strong> thay vì "Thị trường nào đang hot?"</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">3️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Cẩn thận với "lời nói dối cạnh tranh"</strong> — cả khi mình tự nói dối bản thân về vị thế thật.</div></div>
+            </div>
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">4️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Mục tiêu: Tạo "độc quyền sáng tạo"</strong> — giải quyết vấn đề chưa ai giải được.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">5️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Tạo giá trị ≠ Chiếm giá trị</strong> — doanh nghiệp tốt phải làm được cả hai.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">6️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Thành công = Khác biệt</strong> — mỗi công ty hạnh phúc đều tìm ra "bí mật" riêng.</div></div>
+            </div>
+          </div>
+          <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); font-style: italic;">— Tổng hợp từ tr. 35–51</p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">10 / 12</div>
+    </div>
+
+    <!-- SLIDE 11: Discussion -->
+    <div class="slide" id="slide-11">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi thảo luận</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Thảo Luận</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: left; padding: 32px 40px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Trong công việc/ngành của bạn, bạn đang ở trạng thái <span class="hl">"cạnh tranh hoàn hảo"</span> hay <span class="hl-green">"độc quyền sáng tạo"</span>? Vì sao?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn có từng <span class="hl-red">"tự nói dối"</span> rằng mình đang ở vị thế độc đáo, trong khi thực tế đang cạnh tranh kiểu bầy đàn?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Nếu phải tìm một <span class="hl">"thị trường 0"</span> cho bản thân (cá nhân hoặc doanh nghiệp) — bạn sẽ chọn hướng nào?</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">11 / 12</div>
+    </div>
+
+    <!-- SLIDE 12: Closing -->
+    <div class="slide" id="slide-12">
+      <div class="slide-inner">
+        <h2 class="closing-brand serif">BOOKnBEYOND</h2>
+        <p class="closing-slogan serif">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 80px; margin-bottom: 30px;">📘</div>
+        <h3 class="serif" style="font-size: 26px; color: var(--text-primary); margin-bottom: 12px;">Không Đến Một — Chương 3</h3>
+        <p style="font-size: 20px; color: var(--blue); margin-bottom: 36px; font-style: italic;">Tất Cả Những Công Ty Hạnh Phúc Đều Khác Biệt</p>
+        <div class="closing-info">
+          <span>📅 12/07/2026 · Chủ nhật</span>
+          <span>⏰ 05:15 — 07:15</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">12 / 12</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
