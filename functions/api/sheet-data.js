@@ -595,6 +595,7 @@ async function fetchLibrary() {
     { title: 'Cuộc Chiến Vi Mạch', author: 'Chris Miller', finishedDate: '2025-11-25', rating: 4.5, topInsight: 'Chip bán dẫn là tài nguyên chiến lược quan trọng nhất thế kỷ 21.' },
     { title: 'Hồi Ký Lý Quang Diệu', author: 'Lý Quang Diệu', finishedDate: '2025-12-30', rating: 5.0, topInsight: 'Sự sống còn của một quốc gia nhỏ phụ thuộc vào kỷ luật và tầm nhìn xa của lãnh đạo.' },
     { title: 'Nhóm Chính Bắc', author: 'Bill George', finishedDate: '2026-04-26', rating: 4.5, topInsight: 'True North Groups — Xây dựng nhóm phát triển bản thân có kỷ luật.' },
-    { title: 'Nexus', author: 'Yuval Noah Harari', finishedDate: '2026-06-28', rating: 4.7, topInsight: 'Thông tin không phải là sự thật, thông tin chỉ là nguyên liệu xây dựng mạng lưới kết nối.' }
+    { title: 'Nexus', author: 'Yuval Noah Harari', finishedDate: '2026-06-28', rating: 4.7, topInsight: 'Thông tin không phải là sự thật, thông tin chỉ là nguyên liệu xây dựng mạng lưới kết nối.' },
+    { title: 'Không đến Một', author: 'Peter Thiel & Blake Masters', finishedDate: '', rating: 0, topInsight: 'Đang đọc — Mọi công ty thành công đều khác biệt vì giải quyết một vấn đề duy nhất.', status: 'reading' }
   ];
 }
