@@ -8,6 +8,14 @@ export async function onRequestGet(context) {
     if (reviews.length === 0) {
       reviews = [
         {
+          id: "0",
+          name: "Thông",
+          bookTitle: "Không đến Một",
+          rating: 5,
+          text: "Chương 3 thực sự mở mắt: mọi công ty thất bại đều giống nhau vì không thoát được cạnh tranh. Cách Thiel phân tích Google ngụy trang vị thế độc quyền rất thú vị. Áp dụng được ngay cho startup VN.",
+          date: new Date().toISOString()
+        },
+        {
           id: "1",
           name: "Thông",
           bookTitle: "Flow — Dòng Chảy",
