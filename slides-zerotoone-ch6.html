@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to One · Chương 6 — Bạn Không Phải Là Một Tấm Vé Số | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #e8edf5;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-bg: rgba(37,99,235,0.06);
+      --blue-border: rgba(37,99,235,0.15);
+      --blue-dark: #1e40af;
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.06);
+      --red-border: rgba(220,38,38,0.15);
+
+      --green: #047857;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02; pointer-events: none; z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Content Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-30px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number { position: absolute; bottom: 28px; right: 48px; font-size: 14px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500; }
+    .slide-brand { position: absolute; bottom: 28px; left: 48px; font-size: 13px; color: var(--text-dim); letter-spacing: 1.5px; z-index: 10; font-weight: 500; }
+
+    .title-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 28px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 14px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 36px; }
+    .title-main { font-size: 56px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: var(--text-primary); }
+    .title-sub { font-size: 26px; font-weight: 400; color: var(--blue); margin-bottom: 48px; font-style: italic; }
+    .title-meta { display: flex; justify-content: center; gap: 36px; font-size: 17px; color: var(--text-secondary); }
+    .title-meta span { display: flex; align-items: center; gap: 8px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-tag { display: inline-block; padding: 6px 18px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+    .content-tag.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+    .content-tag.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+    .content-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 32px; }
+    .content-body.dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .content-body.triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .card { background: var(--bg-card); border-radius: 16px; padding: 28px; border-top: 3px solid var(--blue); transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .card.no-top { border-top: 1px solid #e2e8f0; }
+    .card.red-top { border-top-color: var(--red); }
+    .card.green-top { border-top-color: var(--green); }
+    .card.gold-top { border-top-color: var(--gold); }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .card-text { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+    .card-text small { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .quote-block { background: var(--bg-card); border-radius: 20px; padding: 48px 56px; border-left: 4px solid var(--blue); position: relative; }
+    .quote-block::before { content: '\201C'; position: absolute; top: 16px; left: 20px; font-family: var(--font-display); font-size: 80px; color: var(--blue); opacity: 0.15; }
+    .quote-text { font-size: 28px; line-height: 1.5; color: var(--text-primary); font-style: italic; margin-bottom: 20px; }
+    .quote-author { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+    .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; }
+    .compare-table th { padding: 18px 24px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .compare-table td { padding: 16px 24px; font-size: 16px; line-height: 1.6; }
+    .compare-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .col-monopoly { background: rgba(37,99,235,0.08); color: var(--blue-dark); }
+    .col-compete { background: rgba(220,38,38,0.08); color: var(--red); }
+
+    .vs-layout { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: start; }
+    .vs-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--text-primary); color: white; font-weight: 900; font-size: 20px; margin: 60px auto 0; }
+
+    .num-highlight { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .num-label { font-size: 15px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .closing-brand { font-size: 48px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; }
+    .closing-slogan { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 48px; }
+    .closing-info { display: flex; justify-content: center; gap: 36px; font-size: 16px; color: var(--text-secondary); }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light)); transition: width 0.4s ease; z-index: 100; }
+
+    .nav-arrows { position: fixed; bottom: 50%; right: 24px; transform: translateY(50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-glass); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; font-size: 18px; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: var(--bg-glass-hover); transform: scale(1.1); }
+
+    .hl { color: var(--blue); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-gold { color: var(--gold); font-weight: 700; }
+    .hl-gray { color: var(--text-muted); font-weight: 700; }
+
+    /* Custom Matrix Grid for slide 4 */
+    .matrix-grid {
+      display: grid;
+      grid-template-columns: 120px 1fr 1fr;
+      grid-template-rows: auto 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+      height: 500px;
+    }
+    .matrix-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .matrix-cell {
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .matrix-cell:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+    .cell-title { font-size: 24px; font-weight: 800; margin-bottom: 16px; }
+    .cell-desc { font-size: 16px; line-height: 1.6; color: var(--text-secondary); }
+    
+    .cell-blue { background: var(--blue-bg); border: 2px solid var(--blue-border); }
+    .cell-blue .cell-title { color: var(--blue); }
+    
+    .cell-gold { background: var(--gold-glow); border: 2px solid rgba(184,122,31,0.2); }
+    .cell-gold .cell-title { color: var(--gold); }
+    
+    .cell-red { background: var(--red-bg); border: 2px solid var(--red-border); }
+    .cell-red .cell-title { color: var(--red); }
+    
+    .cell-gray { background: rgba(100,116,139,0.06); border: 2px solid rgba(100,116,139,0.15); }
+    .cell-gray .cell-title { color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title slide -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📘 ZERO TO ONE · CHƯƠNG 6</div>
+        <h1 class="title-main serif">Bạn Không Phải Là<br>Một Tấm Vé Số</h1>
+        <p class="title-sub serif">You Are Not a Lottery Ticket</p>
+        <div class="title-meta">
+          <span>📖 Peter Thiel & Blake Masters</span>
+          <span>📄 tr. 85 — 117</span>
+          <span>📅 19/07/2026 · Tuần 2</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">1 / 13</div>
+    </div>
+
+    <!-- SLIDE 2: Opening: May mắn hay Tài năng? -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Mở đầu</div>
+          <h2 class="content-title serif">Thành Công: May Mắn hay Tài Năng?</h2>
+          <div class="content-body dual">
+            <div class="card no-top">
+              <div class="card-icon">🎲</div>
+              <div class="card-title">Quan điểm: May Mắn</div>
+              <div class="card-text">
+                Malcolm Gladwell (tác giả <em>Outliers</em>) cho rằng thành công chủ yếu nhờ <span class="hl-gold">may mắn</span> và các lợi thế tình cờ.<br><br>
+                Tỷ phú Warren Buffett hay Bill Gates cũng thường nói họ may mắn khi sinh ra đúng thời, đúng chỗ.<br><br>
+                <small>— tr. 85-86</small>
+              </div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">🧠</div>
+              <div class="card-title">Quan điểm: Tài Năng</div>
+              <div class="card-text">
+                Ralph Waldo Emerson viết: <em>"Những người nông cạn tin vào may mắn, tin vào hoàn cảnh... Những người mạnh mẽ tin vào nhân quả."</em><br><br>
+                Thiel lập luận: Nếu thành công là trò may rủi, vậy làm sao giải thích những người thành công <span class="hl">liên tục</span>?<br><br>
+                <small>— tr. 86</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">2 / 13</div>
+    </div>
+
+    <!-- SLIDE 3: Serial entrepreneurs -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag green">Minh chứng</div>
+          <h2 class="content-title serif" style="text-align: center;">Những Nhà Khởi Nghiệp Liên Tiếp (Serial Entrepreneurs)</h2>
+          <div class="quote-block" style="margin-bottom: 36px; border-left: none; text-align: center; padding: 32px 48px;">
+            <p class="quote-text serif" style="font-size: 32px; line-height: 1.5;">"Nếu thành công chỉ là may mắn, thì những nhà khởi nghiệp liên tục<br><span class="hl" style="font-size: 36px;">sẽ không thể tồn tại.</span>"</p>
+            <p class="quote-author">— Peter Thiel, tr. 87</p>
+          </div>
+          <div class="content-body triple" style="text-align: left;">
+            <div class="card green-top">
+              <div class="card-title">Steve Jobs</div>
+              <div class="card-text">Sáng lập Apple, sau đó bị đuổi, sáng lập <strong>NeXT</strong> và <strong>Pixar</strong>, rồi quay lại cứu <strong>Apple</strong> trở thành công ty giá trị nhất thế giới.</div>
+            </div>
+            <div class="card green-top">
+              <div class="card-title">Elon Musk</div>
+              <div class="card-text">Sáng lập Zip2, sau đó là <strong>PayPal</strong>, rồi <strong>Tesla</strong>, <strong>SpaceX</strong>, SolarCity. Tỷ lệ may mắn liên tục ở mức này là bất khả thi.</div>
+            </div>
+            <div class="card green-top">
+              <div class="card-title">Jack Dorsey</div>
+              <div class="card-text">Đồng sáng lập <strong>Twitter</strong> và sau đó là <strong>Square</strong> (hiện là Block) - hai công ty tỷ đô ở hai lĩnh vực khác nhau.</div>
+            </div>
+          </div>
+          <p style="text-align: right; margin-top: 16px;"><small>— tr. 87-88</small></p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">3 / 13</div>
+    </div>
+
+    <!-- SLIDE 4: THE STAR SLIDE - 2x2 Matrix -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Góc nhìn cốt lõi</div>
+          <h2 class="content-title serif">Tương Lai: Bốn Góc Nhìn</h2>
+          
+          <div class="matrix-grid">
+            <!-- Header Row -->
+            <div></div> <!-- Empty top-left -->
+            <div class="matrix-header">Xác định (Definite)</div>
+            <div class="matrix-header">Mơ hồ (Indefinite)</div>
+            
+            <!-- Optimism Row -->
+            <div class="matrix-header" style="writing-mode: vertical-rl; transform: scale(-1); display: flex; align-items: center; justify-content: center;">Lạc quan</div>
+            
+            <div class="matrix-cell cell-blue">
+              <div class="cell-title">Lạc Quan Xác Định</div>
+              <div class="cell-desc">
+                Tương lai sẽ tốt đẹp hơn <strong>VÀ</strong> tôi biết cách làm điều đó thông qua kế hoạch rõ ràng.<br><br>
+                <em>Ví dụ: Mỹ 1950s-1960s</em>
+              </div>
+            </div>
+            
+            <div class="matrix-cell cell-gold">
+              <div class="cell-title">Lạc Quan Mơ Hồ</div>
+              <div class="cell-desc">
+                Tương lai sẽ tốt hơn <strong>NHƯNG</strong> tôi không biết chính xác thế nào, nên tôi không lên kế hoạch cụ thể.<br><br>
+                <em>Ví dụ: Mỹ từ 1982 đến nay</em>
+              </div>
+            </div>
+            
+            <!-- Pessimism Row -->
+            <div class="matrix-header" style="writing-mode: vertical-rl; transform: scale(-1); display: flex; align-items: center; justify-content: center;">Bi quan</div>
+            
+            <div class="matrix-cell cell-red">
+              <div class="cell-title">Bi Quan Xác Định</div>
+              <div class="cell-desc">
+                Tương lai sẽ tồi tệ hơn <strong>VÀ</strong> tôi biết rõ tại sao, nên tôi phải chuẩn bị sẵn sàng cho điều đó.<br><br>
+                <em>Ví dụ: Trung Quốc hiện tại</em>
+              </div>
+            </div>
+            
+            <div class="matrix-cell cell-gray">
+              <div class="cell-title">Bi Quan Mơ Hồ</div>
+              <div class="cell-desc">
+                Tương lai sẽ tồi tệ <strong>VÀ</strong> tôi chẳng thể làm gì, mọi thứ quá ngẫu nhiên và vượt tầm kiểm soát.<br><br>
+                <em>Ví dụ: Châu Âu từ 1970s</em>
+              </div>
+            </div>
+          </div>
+          
+          <p style="text-align: right; margin-top: 16px;"><small>— tr. 88-90</small></p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">4 / 13</div>
+    </div>
+
+    <!-- SLIDE 5: Lạc quan xác định -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Góc phần tư thứ nhất</div>
+          <h2 class="content-title serif" style="color: var(--blue);">Lạc Quan Xác Định (Definite Optimism)</h2>
+          <div class="content-body dual">
+            <div class="card no-top">
+              <div class="card-icon">🚀</div>
+              <div class="card-title">Mỹ Thập Niên 1950s - 1960s</div>
+              <div class="card-text">
+                Người dân Mỹ tin rằng tương lai sẽ tốt đẹp hơn nhiều, và họ thực hiện <span class="hl">những kế hoạch khổng lồ</span> để biến điều đó thành hiện thực.<br><br>
+                - Xây dựng hệ thống đường cao tốc liên bang<br>
+                - Đưa người lên Mặt Trăng (Dự án Apollo)<br>
+                - Xây dựng Đập Hoover, Cầu Cổng Vàng<br>
+                <small>— tr. 91-95</small>
+              </div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">🏗️</div>
+              <div class="card-title">Tư duy Kỹ Sư</div>
+              <div class="card-text">
+                Trọng tâm là <span class="hl">làm việc chăm chỉ và thiết kế cụ thể</span>. Không ai nghĩ thành công tự nhiên đến nhờ may mắn.<br><br>
+                Họ xây dựng những dự án cần nhiều năm, thậm chí nhiều thập kỷ để hoàn thành, với sự tự tin chắc chắn vào kết quả.<br>
+                <small>— tr. 92</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">5 / 13</div>
+    </div>
+
+    <!-- SLIDE 6: Lạc quan mơ hồ -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag" style="background: var(--gold-glow); border-color: rgba(184,122,31,0.2); color: var(--gold);">Góc phần tư thứ hai</div>
+          <h2 class="content-title serif" style="color: var(--gold);">Lạc Quan Mơ Hồ (Indefinite Optimism)</h2>
+          <div class="content-body dual">
+            <div class="card no-top">
+              <div class="card-icon">📈</div>
+              <div class="card-title">Mỹ Từ 1982 Đến Nay</div>
+              <div class="card-text">
+                Người ta vẫn kỳ vọng tương lai sẽ tốt đẹp hơn, nhưng không ai biết nó sẽ ra sao. Thay vì thiết kế một tương lai cụ thể, họ chờ đợi tương lai tự đến.<br><br>
+                Hệ quả: Sự trỗi dậy của ngành <span class="hl-gold">Tài chính</span> và <span class="hl-gold">Luật</span>.<br>
+                <small>— tr. 95-100</small>
+              </div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">💼</div>
+              <div class="card-title">Tư duy Ngân Hàng</div>
+              <div class="card-text">
+                Tối ưu hóa các hệ thống có sẵn thay vì tạo ra cái mới. Quản lý danh mục đầu tư đa dạng thay vì dồn sức xây dựng một công ty xuất chúng.<br><br>
+                <em>"Người lạc quan mơ hồ không lên kế hoạch dài hạn, họ chỉ cố gắng tăng tùy chọn (options) cho tương lai."</em><br>
+                <small>— tr. 96</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">6 / 13</div>
+    </div>
+
+    <!-- SLIDE 7: Bi quan xác định -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag red">Góc phần tư thứ ba</div>
+          <h2 class="content-title serif" style="color: var(--red);">Bi Quan Xác Định (Definite Pessimism)</h2>
+          <div class="card no-top" style="max-width: 900px; margin: 0 auto;">
+            <div class="card-icon" style="text-align: center;">🇨🇳</div>
+            <div class="card-title" style="text-align: center;">Trung Quốc Hiện Tại</div>
+            <div class="card-text" style="font-size: 18px; line-height: 1.8;">
+              <p>Mặc dù nền kinh tế tăng trưởng nhanh, người dân và lãnh đạo hiểu rõ những thách thức khổng lồ phía trước: dân số già, cạn kiệt tài nguyên, bẫy thu nhập trung bình.</p>
+              <br>
+              <p>Họ <span class="hl-red">biết tương lai sẽ khó khăn</span>, nên họ <span class="hl-red">lên kế hoạch rất nghiêm ngặt</span> để đối phó:</p>
+              <ul style="margin-left: 24px; margin-top: 12px; margin-bottom: 12px;">
+                <li>Tỷ lệ tiết kiệm của người dân cực cao.</li>
+                <li>Chính phủ đề ra và thực thi các kế hoạch 5 năm chi tiết.</li>
+                <li>Xây dựng cơ sở hạ tầng ồ ạt để đón đầu.</li>
+              </ul>
+              <p><em>Sao chép (copy) phương Tây cũng là một chiến lược xác định: vì nó là cách chắc chắn nhất để tiến lên.</em></p>
+            </div>
+            <p style="text-align: right; margin-top: 16px;"><small>— tr. 100-102</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">7 / 13</div>
+    </div>
+
+    <!-- SLIDE 8: Thế giới mơ hồ -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag" style="background: rgba(100,116,139,0.06); border-color: rgba(100,116,139,0.15); color: var(--text-muted);">Sự thoái trào</div>
+          <h2 class="content-title serif">Khi Mọi Thứ Trở Nên Mơ Hồ</h2>
+          <div class="content-body triple">
+            <div class="card no-top">
+              <div class="card-icon">🏦</div>
+              <div class="card-title">Tài Chính Mơ Hồ</div>
+              <div class="card-text">Thay vì đầu tư tạo ra tài sản mới, tiền được dịch chuyển lòng vòng. Các ngân hàng đầu tư không biết làm gì với tiền nên đành trả cổ tức hoặc mua lại cổ phiếu.<br><small>— tr. 104-106</small></div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">🏛️</div>
+              <div class="card-title">Chính Trị Mơ Hồ</div>
+              <div class="card-text">Các chính trị gia quan tâm đến các cuộc thăm dò ý kiến (polls) hơn là các kế hoạch dài hạn. Chính phủ trở thành hệ thống phân phối bảo hiểm khổng lồ thay vì đầu tư cơ sở hạ tầng mới.<br><small>— tr. 106-107</small></div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">🧬</div>
+              <div class="card-title">Cuộc Sống Mơ Hồ</div>
+              <div class="card-text">Sinh học và khoa học chuyển từ việc "thiết kế" (như vật lý) sang việc "thống kê" — hy vọng tìm ra thuốc mới thông qua hàng triệu phép thử ngẫu nhiên thay vì hiểu rõ cơ chế.<br><small>— tr. 109-110</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">8 / 13</div>
+    </div>
+
+    <!-- SLIDE 9: Bẫy Toàn diện -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag red">Cảnh báo</div>
+          <h2 class="content-title serif" style="text-align: center;">Cái Bẫy Của Sự "Toàn Diện" (Well-Roundedness)</h2>
+          
+          <div class="quote-block" style="margin-bottom: 32px; border-left: none; text-align: center; padding: 24px 48px;">
+            <p class="quote-text serif" style="font-size: 26px;">"Thay vì theo đuổi sự tầm thường trên nhiều phương diện và gọi đó là sự toàn diện, một người có định hướng rõ ràng sẽ xác định <span class="hl-red">mục tiêu tốt nhất duy nhất</span> để làm và thực hiện nó."</p>
+            <p class="quote-author">— Peter Thiel, tr. 110-112</p>
+          </div>
+          
+          <div class="vs-layout" style="text-align: left; max-width: 1000px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: center;">
+              <div class="card-title">Cách tiếp cận Mơ Hồ</div>
+              <p class="card-text" style="margin-top: 16px;">
+                Học sinh Mỹ được khuyên xây dựng "hồ sơ toàn diện": chơi nhiều môn thể thao, tham gia nhiều CLB, điểm cao đều mọi môn.<br><br>
+                Mục đích: Giữ cho mọi <span class="hl-gold">cánh cửa luôn mở rộng</span> (tùy chọn).
+              </p>
+            </div>
+            <div><div class="vs-badge">VS</div></div>
+            <div class="card no-top" style="text-align: center;">
+              <div class="card-title">Cách tiếp cận Xác Định</div>
+              <p class="card-text" style="margin-top: 16px;">
+                Tập trung tối đa để xuất sắc ở <strong>một thứ duy nhất</strong>.<br><br>
+                Một doanh nghiệp hay một cá nhân vĩ đại không bao giờ giỏi đều mọi thứ, họ thống trị bằng cách <span class="hl">nổi bật tuyệt đối trong một ngách</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">9 / 13</div>
+    </div>
+
+    <!-- SLIDE 10: Steve Jobs -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Case study</div>
+          <h2 class="content-title serif">Steve Jobs — Người Lạc Quan Xác Định Tối Thượng</h2>
+          <div class="content-body dual">
+            <div class="card no-top">
+              <div class="card-icon">🍎</div>
+              <div class="card-title">Thiết Kế Định Hướng</div>
+              <div class="card-text">
+                Apple là biểu tượng của một công ty xác định.<br><br>
+                Steve Jobs không sử dụng focus groups (nhóm tập trung) để hỏi khách hàng muốn gì. Ông <span class="hl">tin tưởng vào tầm nhìn của bản thân</span> và thiết kế sản phẩm hoàn hảo theo tầm nhìn đó.<br>
+                <small>— tr. 112-113</small>
+              </div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">🎯</div>
+              <div class="card-title">Lựa Chọn Giới Hạn</div>
+              <div class="card-text">
+                Trái ngược với Microsoft cung cấp vô số tùy chọn và phiên bản, Apple <span class="hl">cắt giảm số lượng sản phẩm</span> xuống mức tối thiểu.<br><br>
+                Họ đặt cược lớn vào một vài sản phẩm thay vì dàn trải rủi ro. Đó là cách hành xử của những người có <span class="hl">kế hoạch rõ ràng</span>.<br>
+                <small>— tr. 114-115</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">10 / 13</div>
+    </div>
+
+    <!-- SLIDE 11: VN Examples -->
+    <div class="slide" id="slide-11">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <h2 class="content-title serif">Thực Tế Tại Việt Nam</h2>
+          <div class="content-body triple">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">🏫</div>
+              <div class="card-title">Bẫy "Học Thêm Mọi Môn"</div>
+              <div class="card-text">Phụ huynh cho con học toán, văn, tiếng Anh, bơi lội, đàn piano... để "phát triển toàn diện".<br><br>Hệ quả: <span class="hl-red">Trẻ giỏi đều nhưng không xuất sắc ở bất cứ điểm nào</span>.</div>
+            </div>
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">🔥</div>
+              <div class="card-title">Người Chọn Định Hướng</div>
+              <div class="card-text">Một cá nhân bỏ đại học (thứ an toàn mơ hồ) để dốc toàn lực học lập trình (kế hoạch xác định).<br><br>Chấp nhận đóng các "cửa" khác để dồn sức cho một cánh cửa duy nhất.</div>
+            </div>
+            <div class="card gold-top" style="text-align: center;">
+              <div class="card-icon">💼</div>
+              <div class="card-title">"Cứ Làm Ngân Hàng Cho Chắc"</div>
+              <div class="card-text">Nhiều sinh viên giỏi chọn ngành ngân hàng, tài chính, hoặc công chức không vì đam mê, mà vì đó là lựa chọn <span class="hl-gold">"an toàn và mơ hồ"</span>, mở ra nhiều đường lui.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">11 / 13</div>
+    </div>
+
+    <!-- SLIDE 12: Discussion -->
+    <div class="slide" id="slide-12">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi thảo luận</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Thảo Luận</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: left; padding: 32px 40px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn tự đánh giá mình thuộc nhóm nào: <span class="hl">Lạc quan xác định</span> hay <span class="hl-gold">Lạc quan mơ hồ</span>? Vì sao?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn có đang mắc kẹt trong cái bẫy <span class="hl-red">"phát triển toàn diện"</span> (giữ mọi cánh cửa mở) thay vì chọn một chuyên môn duy nhất để xuất sắc?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Làm thế nào để áp dụng tư duy "Thiết kế tương lai" thay vì phó mặc cho sự "may mắn"?</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">12 / 13</div>
+    </div>
+
+    <!-- SLIDE 13: Closing -->
+    <div class="slide" id="slide-13">
+      <div class="slide-inner">
+        <h2 class="closing-brand serif">BOOKnBEYOND</h2>
+        <p class="closing-slogan serif">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 80px; margin-bottom: 30px;">📘</div>
+        <h3 class="serif" style="font-size: 26px; color: var(--text-primary); margin-bottom: 12px;">Không Đến Một — Chương 6</h3>
+        <p style="font-size: 20px; color: var(--blue); margin-bottom: 36px; font-style: italic;">Bạn Không Phải Là Một Tấm Vé Số</p>
+        <div class="closing-info">
+          <span>📅 19/07/2026 · Chủ nhật</span>
+          <span>⏰ 05:15 — 07:15</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">13 / 13</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
