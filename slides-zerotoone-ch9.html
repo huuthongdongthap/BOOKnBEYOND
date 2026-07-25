@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to One · Chương 9 — Nền Tảng | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #e8edf5;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-bg: rgba(37,99,235,0.06);
+      --blue-border: rgba(37,99,235,0.15);
+      --blue-dark: #1e40af;
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.06);
+      --red-border: rgba(220,38,38,0.15);
+
+      --green: #047857;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02; pointer-events: none; z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Content Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-30px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number { position: absolute; bottom: 28px; right: 48px; font-size: 14px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500; }
+    .slide-brand { position: absolute; bottom: 28px; left: 48px; font-size: 13px; color: var(--text-dim); letter-spacing: 1.5px; z-index: 10; font-weight: 500; }
+
+    .title-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 28px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 14px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 36px; }
+    .title-main { font-size: 56px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: var(--text-primary); }
+    .title-sub { font-size: 26px; font-weight: 400; color: var(--blue); margin-bottom: 48px; font-style: italic; }
+    .title-meta { display: flex; justify-content: center; gap: 36px; font-size: 17px; color: var(--text-secondary); }
+    .title-meta span { display: flex; align-items: center; gap: 8px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-tag { display: inline-block; padding: 6px 18px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+    .content-tag.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+    .content-tag.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+    .content-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 32px; }
+    .content-body.dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .content-body.triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .card { background: var(--bg-card); border-radius: 16px; padding: 28px; border-top: 3px solid var(--blue); transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .card.no-top { border-top: 1px solid #e2e8f0; }
+    .card.red-top { border-top-color: var(--red); }
+    .card.green-top { border-top-color: var(--green); }
+    .card.gold-top { border-top-color: var(--gold); }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .card-text { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+    .card-text small { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .quote-block { background: var(--bg-card); border-radius: 20px; padding: 48px 56px; border-left: 4px solid var(--blue); position: relative; }
+    .quote-block::before { content: '\201C'; position: absolute; top: 16px; left: 20px; font-family: var(--font-display); font-size: 80px; color: var(--blue); opacity: 0.15; }
+    .quote-text { font-size: 28px; line-height: 1.5; color: var(--text-primary); font-style: italic; margin-bottom: 20px; }
+    .quote-author { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+    .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; }
+    .compare-table th { padding: 18px 24px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .compare-table td { padding: 16px 24px; font-size: 16px; line-height: 1.6; }
+    .compare-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .col-monopoly { background: rgba(37,99,235,0.08); color: var(--blue-dark); }
+    .col-compete { background: rgba(220,38,38,0.08); color: var(--red); }
+
+    .vs-layout { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: start; }
+    .vs-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--text-primary); color: white; font-weight: 900; font-size: 20px; margin: 60px auto 0; }
+
+    .num-highlight { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .num-label { font-size: 15px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .closing-brand { font-size: 48px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; }
+    .closing-slogan { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 48px; }
+    .closing-info { display: flex; justify-content: center; gap: 36px; font-size: 16px; color: var(--text-secondary); }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light)); transition: width 0.4s ease; z-index: 100; }
+
+    .nav-arrows { position: fixed; bottom: 50%; right: 24px; transform: translateY(50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-glass); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; font-size: 18px; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: var(--bg-glass-hover); transform: scale(1.1); }
+
+    .hl { color: var(--blue); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-gold { color: var(--gold); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📘 ZERO TO ONE · CHƯƠNG 9</div>
+        <h1 class="title-main serif">Nền Tảng</h1>
+        <p class="title-sub serif">Foundations</p>
+        <div class="title-meta">
+          <span>📖 Peter Thiel & Blake Masters</span>
+          <span>📄 tr. 152 — 166</span>
+          <span>📅 26/07/2026 · Tuần 3</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">1 / 11</div>
+    </div>
+
+    <!-- SLIDE 2: Định luật Thiel -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag red">Định luật Thiel</div>
+          <h2 class="content-title serif" style="text-align: center;">Khởi Đầu Sai, Không Thể Sửa</h2>
+          <div class="quote-block" style="margin-bottom: 36px; border-left: none; text-align: center; padding: 32px 48px;">
+            <p class="quote-text serif" style="font-size: 32px; line-height: 1.5;">"Một startup <span class="hl-red">hỏng từ nền tảng</span> thì không thể sửa được."</p>
+            <p class="quote-author">— Định luật Thiel, tr. 152</p>
+          </div>
+          <div class="card no-top" style="max-width: 800px; margin: 0 auto; padding: 28px 40px;">
+            <p class="card-text" style="font-size: 18px; line-height: 1.8; text-align: left;">
+              Những quyết định đầu tiên bạn đưa ra — chọn ai làm co-founder, phân chia cổ phần thế nào — sẽ đi theo công ty mãi mãi. <span class="hl">Nền tảng lỏng lẻo</span> sẽ dẫn đến sự sụp đổ khi công ty gặp khó khăn hoặc phát triển quá nhanh.
+            </p>
+            <p class="card-text" style="text-align: right;"><small>— tr. 152-153</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">2 / 11</div>
+    </div>
+
+    <!-- SLIDE 3: Founding Matrimony -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Đồng sáng lập</div>
+          <h2 class="content-title serif">Hôn Nhân Sáng Lập (Founding Matrimony)</h2>
+          <div class="content-body dual">
+            <div class="card">
+              <div class="card-icon">💍</div>
+              <div class="card-title">Chọn co-founder như chọn bạn đời</div>
+              <div class="card-text">
+                Khởi nghiệp cùng nhau giống như kết hôn. Khi những người đồng sáng lập mâu thuẫn gay gắt, <span class="hl-red">công ty chính là nạn nhân.</span><br><br>
+                <small>— tr. 153-154</small>
+              </div>
+            </div>
+            <div class="card green-top">
+              <div class="card-icon">🤝</div>
+              <div class="card-title">Cần có lịch sử chung</div>
+              <div class="card-text">
+                Không nên chọn co-founder chỉ qua networking hay quen biết sơ sài. Phải có <span class="hl-green">lịch sử làm việc chung (prehistory)</span> trước khi khởi nghiệp.<br><br>
+                <small>— tr. 155</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">3 / 11</div>
+    </div>
+
+    <!-- SLIDE 4: 3 Loại quyền lực -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag gold">Cấu trúc công ty</div>
+          <h2 class="content-title serif">Ba Loại Quyền Lực Trong Công Ty</h2>
+          <p class="card-text" style="font-size: 18px; margin-bottom: 24px; color: var(--text-secondary);">
+            Để tránh mâu thuẫn, công ty cần làm rõ ai có quyền gì. Sự chệch choáng (misalignment) giữa các nhóm này là nguyên nhân thất bại.
+          </p>
+          <div class="content-body triple">
+            <div class="card no-top" style="text-align: center;">
+              <div class="card-icon">📜</div>
+              <div class="card-title">Quyền Sở Hữu<br>(Ownership)</div>
+              <div class="card-text">Ai nắm giữ cổ phần hợp pháp của công ty?<br><br><span class="hl">Founders, Employees, Investors</span></div>
+            </div>
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">⚙️</div>
+              <div class="card-title">Quyền Vận Hành<br>(Possession)</div>
+              <div class="card-text">Ai trực tiếp điều hành công việc hàng ngày?<br><br><span class="hl-green">Managers, Employees</span></div>
+            </div>
+            <div class="card gold-top" style="text-align: center;">
+              <div class="card-icon">🎯</div>
+              <div class="card-title">Quyền Kiểm Soát<br>(Control)</div>
+              <div class="card-text">Ai quản trị, định hướng chiến lược?<br><br><span class="hl-gold">Board of Directors (HĐQT)</span></div>
+            </div>
+          </div>
+          <p style="text-align: right; margin-top: 16px; font-size: 14px; color: var(--text-muted); font-style: italic;">— tr. 156-159</p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">4 / 11</div>
+    </div>
+
+    <!-- SLIDE 5: Board of Directors -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Hội đồng quản trị</div>
+          <h2 class="content-title serif">Quy Tắc Hội Đồng Quản Trị Nhỏ</h2>
+          <div class="quote-block" style="margin-bottom: 32px;">
+            <p class="quote-text serif">"Ít hơn luôn luôn tốt hơn."</p>
+            <p class="quote-author">— Peter Thiel, tr. 160</p>
+          </div>
+          <div class="card no-top" style="text-align: center; padding: 24px 48px;">
+            <p class="card-text" style="font-size: 20px; line-height: 1.7;">
+              Hội đồng quản trị (Board of Directors) lý tưởng nhất là <span class="hl">3 người</span>, và <span class="hl-red">không bao giờ quá 5 người</span> (trừ các công ty đã lên sàn).<br><br>
+              Một HĐQT lớn sẽ không thể ra quyết định, trở nên chậm chạp và dễ xảy ra đấu đá nội bộ.
+            </p>
+            <p class="card-text"><small>— tr. 160-161</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">5 / 11</div>
+    </div>
+
+    <!-- SLIDE 6: On the bus -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Cam kết</div>
+          <h2 class="content-title serif">"Lên Xe Hoặc Xuống Xe" (On the Bus or Off the Bus)</h2>
+          <div class="card no-top" style="padding: 32px 40px;">
+            <p class="card-text" style="font-size: 20px; line-height: 1.8;">
+              <span class="hl-green">Mọi người trong startup phải làm việc toàn thời gian.</span><br><br>
+              Không có chuyện cố vấn (consultant) bán thời gian hay nhân viên làm việc từ xa mà không có cam kết trọn vẹn.<br><br>
+              Bất kỳ ai không được trả lương (bằng tiền mặt hoặc cổ phần) để cống hiến toàn thời gian đều sẽ bị lệch hướng với công ty theo thời gian.
+            </p>
+            <p class="card-text" style="text-align: right; margin-top: 16px;"><small>— tr. 161-163</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">6 / 11</div>
+    </div>
+
+    <!-- SLIDE 7: Lương & Cổ phần -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag gold">Đãi ngộ</div>
+          <h2 class="content-title serif">Lương Thấp + Equity = Sự Đồng Điệu (Alignment)</h2>
+          <div class="content-body dual">
+            <div class="card red-top">
+              <div class="card-icon">💰</div>
+              <div class="card-title">Mức lương CEO</div>
+              <div class="card-text">
+                CEO nhận lương cao sẽ cư xử như một chính trị gia hơn là người sáng lập.<br><br>
+                Thiel gợi ý CEO <span class="hl-red">không nên nhận quá $150,000/năm</span> ở giai đoạn đầu để làm gương về cam kết.<br><br>
+                <small>— tr. 163-164</small>
+              </div>
+            </div>
+            <div class="card gold-top">
+              <div class="card-icon">📈</div>
+              <div class="card-title">Quyền chọn cổ phần (Equity)</div>
+              <div class="card-text">
+                <span class="hl-gold">Lương thấp kết hợp với tỷ lệ cổ phần phù hợp</span> là cách tốt nhất để mọi người cùng hướng tới mục tiêu dài hạn: tăng trưởng giá trị công ty.<br><br>
+                <small>— tr. 165-166</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">7 / 11</div>
+    </div>
+
+    <!-- SLIDE 8: VN Examples -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <h2 class="content-title serif">Áp Dụng Vào Thực Tế Việt Nam</h2>
+          <div class="content-body dual">
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">⚔️</div>
+              <div class="card-title">Xung đột Co-founder startup Việt</div>
+              <div class="card-text">Nhiều startup VN tan rã vì rủ bạn bè khởi nghiệp lúc "chén chú chén anh" mà thiếu phân chia rõ vai trò (<span class="hl-red">misalignment giữa Ownership và Possession</span>).<br><br>Thường thiếu cơ chế vesting cổ phần, khi một người bỏ cuộc vẫn giữ nguyên % quyền sở hữu.</div>
+            </div>
+            <div class="card gold-top" style="text-align: center;">
+              <div class="card-icon">🏢</div>
+              <div class="card-title">Doanh nghiệp gia đình</div>
+              <div class="card-text">Rất phổ biến việc <span class="hl-gold">nhập nhằng giữa 3 quyền</span> (Sở hữu, Điều hành, Kiểm soát).<br><br>Gia đình vừa nắm cổ phần lớn nhất, vừa trực tiếp làm CEO, vừa lập Hội đồng quản trị nội bộ → dễ mắc sai lầm nếu không có tiếng nói khách quan.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">8 / 11</div>
+    </div>
+
+    <!-- SLIDE 9: Bài học -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Đúc kết</div>
+          <h2 class="content-title serif">Bài Học Từ Chương 9</h2>
+          <div class="content-body dual">
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">1️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Nền tảng lỏng lẻo không thể sửa:</strong> Mọi thứ từ co-founder đến cổ phần phải chuẩn ngay từ đầu.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">2️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Hôn nhân sáng lập:</strong> Cần quá khứ chung để vượt qua sóng gió, không chọn ngẫu nhiên.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">3️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Rõ ràng 3 quyền lực:</strong> Sở hữu (Owner) - Vận hành (Manager) - Kiểm soát (Board).</div></div>
+            </div>
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">4️⃣</span><div class="card-text" style="font-size: 17px;"><strong>HĐQT nhỏ:</strong> 3-5 người là tối ưu để ra quyết định nhanh.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">5️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Toàn thời gian:</strong> 100% cam kết (on the bus), hoặc không gì cả (off the bus).</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">6️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Đồng điệu mục tiêu:</strong> Lương thấp + Equity giúp mọi người cùng nhìn về dài hạn.</div></div>
+            </div>
+          </div>
+          <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); font-style: italic;">— Tổng hợp từ tr. 152–166</p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">9 / 11</div>
+    </div>
+
+    <!-- SLIDE 10: Discussion -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi thảo luận</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Thảo Luận</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: left; padding: 32px 40px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn đánh giá thế nào về triết lý <span class="hl-red">"CEO không nên nhận quá $150K/năm"</span> ở giai đoạn đầu? Điều này có khả thi ở môi trường VN không?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Nếu phải khởi nghiệp ngay ngày mai, bạn có sẵn <span class="hl">"lịch sử làm việc chung"</span> với ai đủ tin cậy để làm co-founder chưa?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn nghĩ gì về quy tắc <span class="hl-green">"toàn thời gian 100% hoặc không gì cả"</span>? Có chỗ nào cho các cố vấn (advisors) hay part-time?</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">10 / 11</div>
+    </div>
+
+    <!-- SLIDE 11: Closing -->
+    <div class="slide" id="slide-11">
+      <div class="slide-inner">
+        <h2 class="closing-brand serif">BOOKnBEYOND</h2>
+        <p class="closing-slogan serif">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 80px; margin-bottom: 30px;">📘</div>
+        <h3 class="serif" style="font-size: 26px; color: var(--text-primary); margin-bottom: 12px;">Không Đến Một — Chương 9</h3>
+        <p style="font-size: 20px; color: var(--blue); margin-bottom: 36px; font-style: italic;">Nền Tảng</p>
+        <div class="closing-info">
+          <span>📅 26/07/2026 · Chủ nhật</span>
+          <span>⏰ 05:15 — 07:15</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">11 / 11</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>

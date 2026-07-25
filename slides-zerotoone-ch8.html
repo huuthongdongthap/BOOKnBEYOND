@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to One · Chương 8 — Bí Mật | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #e8edf5;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-bg: rgba(37,99,235,0.06);
+      --blue-border: rgba(37,99,235,0.15);
+      --blue-dark: #1e40af;
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.06);
+      --red-border: rgba(220,38,38,0.15);
+
+      --green: #047857;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02; pointer-events: none; z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Content Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-30px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number { position: absolute; bottom: 28px; right: 48px; font-size: 14px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500; }
+    .slide-brand { position: absolute; bottom: 28px; left: 48px; font-size: 13px; color: var(--text-dim); letter-spacing: 1.5px; z-index: 10; font-weight: 500; }
+
+    .title-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 28px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 14px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 36px; }
+    .title-main { font-size: 56px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: var(--text-primary); }
+    .title-sub { font-size: 26px; font-weight: 400; color: var(--blue); margin-bottom: 48px; font-style: italic; }
+    .title-meta { display: flex; justify-content: center; gap: 36px; font-size: 17px; color: var(--text-secondary); }
+    .title-meta span { display: flex; align-items: center; gap: 8px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-tag { display: inline-block; padding: 6px 18px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+    .content-tag.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+    .content-tag.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+    .content-tag.gold { background: var(--gold-glow); border: 1px solid var(--gold-light); color: var(--gold); }
+    .content-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 32px; }
+    .content-body.dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .content-body.triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .card { background: var(--bg-card); border-radius: 16px; padding: 28px; border-top: 3px solid var(--blue); transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .card.no-top { border-top: 1px solid #e2e8f0; }
+    .card.red-top { border-top-color: var(--red); }
+    .card.green-top { border-top-color: var(--green); }
+    .card.gold-top { border-top-color: var(--gold); }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .card-text { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+    .card-text small { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .quote-block { background: var(--bg-card); border-radius: 20px; padding: 48px 56px; border-left: 4px solid var(--blue); position: relative; }
+    .quote-block::before { content: '\201C'; position: absolute; top: 16px; left: 20px; font-family: var(--font-display); font-size: 80px; color: var(--blue); opacity: 0.15; }
+    .quote-text { font-size: 28px; line-height: 1.5; color: var(--text-primary); font-style: italic; margin-bottom: 20px; }
+    .quote-author { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+    .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; }
+    .compare-table th { padding: 18px 24px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .compare-table td { padding: 16px 24px; font-size: 16px; line-height: 1.6; }
+    .compare-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .col-monopoly { background: rgba(37,99,235,0.08); color: var(--blue-dark); }
+    .col-compete { background: rgba(220,38,38,0.08); color: var(--red); }
+
+    .vs-layout { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: start; }
+    .vs-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--text-primary); color: white; font-weight: 900; font-size: 20px; margin: 60px auto 0; }
+
+    .num-highlight { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .num-label { font-size: 15px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .closing-brand { font-size: 48px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; }
+    .closing-slogan { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 48px; }
+    .closing-info { display: flex; justify-content: center; gap: 36px; font-size: 16px; color: var(--text-secondary); }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light)); transition: width 0.4s ease; z-index: 100; }
+
+    .nav-arrows { position: fixed; bottom: 50%; right: 24px; transform: translateY(50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-glass); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; font-size: 18px; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: var(--bg-glass-hover); transform: scale(1.1); }
+
+    .hl { color: var(--blue); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-gold { color: var(--gold); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📘 ZERO TO ONE · CHƯƠNG 8</div>
+        <h1 class="title-main serif">Bí Mật</h1>
+        <p class="title-sub serif">Secrets</p>
+        <div class="title-meta">
+          <span>📖 Peter Thiel & Blake Masters</span>
+          <span>📄 tr. 132 — 151</span>
+          <span>📅 26/07/2026 · Tuần 3</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">1 / 10</div>
+    </div>
+
+    <!-- SLIDE 2: Bí mật = nền tảng công ty vĩ đại -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Khái niệm cốt lõi</div>
+          <h2 class="content-title serif">Bí Mật Của Sự Vĩ Đại</h2>
+          <div class="quote-block" style="margin-bottom: 36px;">
+            <p class="quote-text serif" style="font-size: 32px; line-height: 1.5;">"Mọi công ty vĩ đại đều được xây dựng trên<br><span class="hl" style="font-size: 36px;">một bí mật được giấu kín khỏi bên ngoài.</span>"</p>
+            <p class="quote-author">— Peter Thiel, tr. 134</p>
+          </div>
+          <div class="card no-top" style="max-width: 800px; margin: 0 auto; padding: 28px 40px;">
+            <p class="card-text" style="font-size: 18px; line-height: 1.8; text-align: left;">
+              Bí mật là một <span class="hl">sự thật quan trọng mà rất ít người đồng ý</span> (contrarian truth).<br><br>
+              Một doanh nghiệp vĩ đại luôn bắt đầu từ việc phát hiện ra một bí mật mà thế giới chưa nhận ra hoặc đang phớt lờ.
+            </p>
+            <p class="card-text" style="text-align: right;"><small>— tr. 132–134</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">2 / 10</div>
+    </div>
+
+    <!-- SLIDE 3: 4 xu hướng giết chết bí mật -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag red">Rào cản</div>
+          <h2 class="content-title serif">Tại Sao Xã Hội Ngừng Tin Vào Bí Mật?</h2>
+          <div class="content-body dual">
+            <div class="card red-top">
+              <div class="card-icon">🐢</div>
+              <div class="card-title">1. Incrementalism (Từng bước nhỏ)</div>
+              <div class="card-text">
+                Hệ thống giáo dục dạy chúng ta <span class="hl-red">tiến từng bước nhỏ một một cách thận trọng</span> thay vì tìm kiếm những bước nhảy vọt.<br>
+                <small>— tr. 135</small>
+              </div>
+            </div>
+            <div class="card red-top">
+              <div class="card-icon">😨</div>
+              <div class="card-title">2. Risk aversion (Sợ rủi ro)</div>
+              <div class="card-text">
+                Mọi người <span class="hl-red">sợ sai, sợ bị coi là lập dị</span>. Việc theo đuổi một bí mật đòi hỏi phải chấp nhận sự khác biệt và rủi ro bị cô lập.<br>
+                <small>— tr. 135</small>
+              </div>
+            </div>
+            <div class="card red-top">
+              <div class="card-icon">🛋️</div>
+              <div class="card-title">3. Complacency (Sự tự mãn)</div>
+              <div class="card-text">
+                Niềm tin rằng không còn bí mật nào nữa đồng nghĩa với việc <span class="hl-red">không cần phải cố gắng tìm kiếm</span>.<br>
+                <small>— tr. 135</small>
+              </div>
+            </div>
+            <div class="card red-top">
+              <div class="card-icon">🌍</div>
+              <div class="card-title">4. Flatness / Globalization</div>
+              <div class="card-text">
+                Toàn cầu hóa khiến ta nghĩ rằng: <span class="hl-red">"Nếu bí mật còn, ai đó đã tìm ra rồi."</span> Mọi thứ dường như đã được khám phá.<br>
+                <small>— tr. 135-140</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">3 / 10</div>
+    </div>
+
+    <!-- SLIDE 4: Hai loại bí mật -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Phân loại</div>
+          <h2 class="content-title serif">Hai Loại Bí Mật</h2>
+          <div class="content-body dual">
+            <div class="card green-top">
+              <div class="card-icon">🔬</div>
+              <div class="card-title">Bí mật về tự nhiên (Secrets of Nature)</div>
+              <div class="card-text" style="font-size: 18px;">
+                Những điều ẩn giấu trong vật lý, sinh học, vũ trụ.<br><br>
+                Để tìm ra, ta phải nghiên cứu những khía cạnh vật chất chưa được khám phá của thế giới.<br><br>
+                <small>— tr. 141-143</small>
+              </div>
+            </div>
+            <div class="card green-top">
+              <div class="card-icon">👥</div>
+              <div class="card-title">Bí mật về con người (Secrets about People)</div>
+              <div class="card-text" style="font-size: 18px;">
+                Những hành vi, nhu cầu ẩn sâu mà <span class="hl-green">con người không biết về bản thân họ</span>, hoặc họ che giấu.<br><br>
+                Ví dụ: Airbnb, Uber giải quyết những nhu cầu không được đáp ứng.<br><br>
+                <small>— tr. 141-143</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">4 / 10</div>
+    </div>
+
+    <!-- SLIDE 5: HP Case study -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Case study</div>
+          <h2 class="content-title serif">Hewlett-Packard (HP) — Câu Chuyện Cảnh Báo</h2>
+          <p class="card-text" style="font-size: 18px; margin-bottom: 28px;">HP từng là một cỗ máy phát minh, nhưng sau đó họ đã ngừng tìm kiếm bí mật mới.</p>
+          <div class="content-body triple">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">🚀</div>
+              <div class="card-title">Năm 1990</div>
+              <div class="num-highlight">$9B</div>
+              <div class="num-label">Giá trị vốn hóa</div>
+              <p class="card-text" style="margin-top: 16px;">Sở hữu các phát minh đột phá mới.<br><small>— tr. 144</small></p>
+            </div>
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">📈</div>
+              <div class="card-title">Năm 2000</div>
+              <div class="num-highlight">$135B</div>
+              <div class="num-label">Giá trị vốn hóa đỉnh cao</div>
+              <p class="card-text" style="margin-top: 16px;">Phần thưởng cho một thập kỷ đổi mới liên tục.<br><small>— tr. 145</small></p>
+            </div>
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">📉</div>
+              <div class="card-title">Năm 2012</div>
+              <div class="num-highlight hl-red">$23B</div>
+              <div class="num-label">Giá trị vốn hóa rơi tự do</div>
+              <p class="card-text" style="margin-top: 16px;">Bỏ tìm bí mật, rơi vào tranh giành quyền lực nội bộ.<br><small>— tr. 148</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">5 / 10</div>
+    </div>
+
+    <!-- SLIDE 6: Quy tắc vàng về bí mật -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag gold">Quy tắc vàng</div>
+          <h2 class="content-title serif">Làm Gì Khi Có Bí Mật?</h2>
+          <div class="quote-block" style="margin-bottom: 32px; border-left-color: var(--gold);">
+            <p class="quote-text serif">"Đừng kể bí mật cho tất cả mọi người. Chỉ chia sẻ với những người bạn cần họ để giúp bạn hiện thực hóa bí mật đó."</p>
+            <p class="quote-author">— Peter Thiel, tr. 150</p>
+          </div>
+          <div class="card gold-top" style="padding: 24px 48px; text-align: center;">
+            <p class="card-text" style="font-size: 20px; line-height: 1.7;">
+              Mỗi công ty vĩ đại là một <strong>âm mưu (conspiracy)</strong> thay đổi thế giới.<br>
+              Khi bạn chia sẻ bí mật của mình, người tiếp nhận trở thành đồng phạm trong âm mưu của bạn.
+            </p>
+            <p class="card-text"><small>— tr. 149-151</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">6 / 10</div>
+    </div>
+
+    <!-- SLIDE 7: VN Examples -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <h2 class="content-title serif">Bí Mật Về Con Người Tại Việt Nam</h2>
+          <div class="content-body dual">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">🏠</div>
+              <div class="card-title">Mô hình Airbnb tại VN (Luxstay)</div>
+              <div class="card-text">
+                Khai thác bí mật: Không chỉ khách du lịch cần chỗ ở, mà còn nhu cầu <span class="hl">staycation</span> của người trẻ thành thị muốn thay đổi không gian sống.<br><br>
+                Một nhu cầu ẩn mà khách sạn truyền thống không đáp ứng được.
+              </div>
+            </div>
+            <div class="card gold-top" style="text-align: center;">
+              <div class="card-icon">💳</div>
+              <div class="card-title">Thói quen thanh toán (Ví điện tử)</div>
+              <div class="card-text">
+                Bí mật: Người Việt không lười dùng thẻ thanh toán, mà họ <span class="hl-gold">không thích sự rườm rà</span>.<br><br>
+                Khi thanh toán QR code trở nên nhanh và tiện lợi hơn tiền mặt, hành vi thanh toán của người dùng thay đổi hàng loạt.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">7 / 10</div>
+    </div>
+
+    <!-- SLIDE 8: Key takeaways -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Đúc kết</div>
+          <h2 class="content-title serif">Bài Học Từ Chương 8</h2>
+          <div class="card no-top" style="padding: 32px 48px;">
+            <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px;">1️⃣</span><div class="card-text" style="font-size: 19px;"><strong>Mọi công ty vĩ đại đều bắt nguồn từ một bí mật.</strong> Hãy đi tìm một sự thật mà ít người đồng ý.</div></div>
+            <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px;">2️⃣</span><div class="card-text" style="font-size: 19px;"><strong>Đừng sợ bị coi là lập dị.</strong> Bạn phải tin rằng thế giới vẫn còn những giới hạn chưa được khám phá.</div></div>
+            <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px;">3️⃣</span><div class="card-text" style="font-size: 19px;"><strong>Khám phá bí mật về con người.</strong> Khởi nghiệp vĩ đại thường giải quyết những nhu cầu mà con người chưa nhận thức được.</div></div>
+            <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">4️⃣</span><div class="card-text" style="font-size: 19px;"><strong>Bí mật là một "âm mưu".</strong> Đừng nói cho tất cả, chỉ chia sẻ với nhóm cốt lõi của công ty bạn.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">8 / 10</div>
+    </div>
+
+    <!-- SLIDE 9: Discussion -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi thảo luận</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Thảo Luận</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: left; padding: 32px 40px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn có tin rằng trong lĩnh vực của mình vẫn còn những <span class="hl">"bí mật"</span> (những điều đúng nhưng ít người làm)?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn đã bao giờ phát hiện ra một sự thật nhưng lại e ngại <span class="hl-red">rủi ro bị cô lập</span> nên không dám thực hiện chưa?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Một "âm mưu" mà đội ngũ hoặc tổ chức của bạn đang theo đuổi hiện nay là gì?</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">9 / 10</div>
+    </div>
+
+    <!-- SLIDE 10: Closing -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <h2 class="closing-brand serif">BOOKnBEYOND</h2>
+        <p class="closing-slogan serif">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 80px; margin-bottom: 30px;">📘</div>
+        <h3 class="serif" style="font-size: 26px; color: var(--text-primary); margin-bottom: 12px;">Không Đến Một — Chương 8</h3>
+        <p style="font-size: 20px; color: var(--blue); margin-bottom: 36px; font-style: italic;">Bí Mật</p>
+        <div class="closing-info">
+          <span>📅 26/07/2026 · Chủ nhật</span>
+          <span>⏰ 05:15 — 07:15</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">10 / 10</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
