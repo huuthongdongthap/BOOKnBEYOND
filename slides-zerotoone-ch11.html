@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to One · Chương 11 — Nếu Bạn Tạo Ra Sản Phẩm, Khách Hàng Sẽ Tới? | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #e8edf5;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-bg: rgba(37,99,235,0.06);
+      --blue-border: rgba(37,99,235,0.15);
+      --blue-dark: #1e40af;
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.06);
+      --red-border: rgba(220,38,38,0.15);
+
+      --green: #047857;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02; pointer-events: none; z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Content Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-30px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number { position: absolute; bottom: 28px; right: 48px; font-size: 14px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500; }
+    .slide-brand { position: absolute; bottom: 28px; left: 48px; font-size: 13px; color: var(--text-dim); letter-spacing: 1.5px; z-index: 10; font-weight: 500; }
+
+    .title-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 28px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 14px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 36px; }
+    .title-main { font-size: 56px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: var(--text-primary); }
+    .title-sub { font-size: 26px; font-weight: 400; color: var(--blue); margin-bottom: 48px; font-style: italic; }
+    .title-meta { display: flex; justify-content: center; gap: 36px; font-size: 17px; color: var(--text-secondary); }
+    .title-meta span { display: flex; align-items: center; gap: 8px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-tag { display: inline-block; padding: 6px 18px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+    .content-tag.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+    .content-tag.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+    .content-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 32px; }
+    .content-body.dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .content-body.triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .card { background: var(--bg-card); border-radius: 16px; padding: 28px; border-top: 3px solid var(--blue); transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .card.no-top { border-top: 1px solid #e2e8f0; }
+    .card.red-top { border-top-color: var(--red); }
+    .card.green-top { border-top-color: var(--green); }
+    .card.gold-top { border-top-color: var(--gold); }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .card-text { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+    .card-text small { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .quote-block { background: var(--bg-card); border-radius: 20px; padding: 48px 56px; border-left: 4px solid var(--blue); position: relative; }
+    .quote-block::before { content: '\201C'; position: absolute; top: 16px; left: 20px; font-family: var(--font-display); font-size: 80px; color: var(--blue); opacity: 0.15; }
+    .quote-text { font-size: 28px; line-height: 1.5; color: var(--text-primary); font-style: italic; margin-bottom: 20px; }
+    .quote-author { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+    .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; }
+    .compare-table th { padding: 18px 24px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .compare-table td { padding: 16px 24px; font-size: 16px; line-height: 1.6; }
+    .compare-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .col-monopoly { background: rgba(37,99,235,0.08); color: var(--blue-dark); }
+    .col-compete { background: rgba(220,38,38,0.08); color: var(--red); }
+
+    .vs-layout { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: start; }
+    .vs-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--text-primary); color: white; font-weight: 900; font-size: 20px; margin: 60px auto 0; }
+
+    .num-highlight { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .num-label { font-size: 15px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .closing-brand { font-size: 48px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; }
+    .closing-slogan { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 48px; }
+    .closing-info { display: flex; justify-content: center; gap: 36px; font-size: 16px; color: var(--text-secondary); }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light)); transition: width 0.4s ease; z-index: 100; }
+
+    .nav-arrows { position: fixed; bottom: 50%; right: 24px; transform: translateY(50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-glass); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; font-size: 18px; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: var(--bg-glass-hover); transform: scale(1.1); }
+
+    .hl { color: var(--blue); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-gold { color: var(--gold); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📘 ZERO TO ONE · CHƯƠNG 11</div>
+        <h1 class="title-main serif">Nếu Bạn Tạo Ra Sản Phẩm,<br>Khách Hàng Sẽ Tới?</h1>
+        <p class="title-sub serif">If You Build It, Will They Come?</p>
+        <div class="title-meta">
+          <span>📖 Peter Thiel & Blake Masters</span>
+          <span>📄 tr. 178 — 198</span>
+          <span>📅 09/08/2026 · Tuần 4</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">1 / 12</div>
+    </div>
+
+    <!-- SLIDE 2: Distribution = Product -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag">Quan điểm cốt lõi</div>
+          <h2 class="content-title serif" style="text-align: center;">Phân Phối Quan Trọng Ngang Sản Phẩm</h2>
+          <div class="quote-block" style="margin-bottom: 36px; border-left: none; text-align: center; padding: 32px 48px;">
+            <p class="quote-text serif" style="font-size: 32px; line-height: 1.5;">"Nếu bạn phát minh ra một thứ gì đó mới mẻ nhưng lại không có một phương thức hiệu quả để bán nó, bạn có một doanh nghiệp <span class="hl-red" style="font-size: 36px;">tệ</span> — dù sản phẩm có tốt đến đâu."</p>
+            <p class="quote-author">— Peter Thiel, tr. 178</p>
+          </div>
+          <div class="card no-top" style="max-width: 800px; margin: 0 auto; padding: 28px 40px;">
+            <p class="card-text" style="font-size: 18px; line-height: 1.8; text-align: left;">
+              Nhiều người tin vào "If you build it, they will come" (Nếu bạn tạo ra sản phẩm, khách hàng sẽ tới).<br><br>
+              Thực tế: Khách hàng sẽ <span class="hl-red">không tự đến</span> nếu bạn không có kênh phân phối.
+            </p>
+            <p class="card-text" style="text-align: right;"><small>— tr. 178-180</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">2 / 12</div>
+    </div>
+
+    <!-- SLIDE 3: Nghệ thuật bán hàng ẩn -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Góc nhìn mới</div>
+          <h2 class="content-title serif">Nghệ Thuật Bán Hàng Ẩn</h2>
+          <div class="content-body dual">
+            <div class="card red-top">
+              <div class="card-icon">🤡</div>
+              <div class="card-title">Định kiến về Sales</div>
+              <div class="card-text">
+                Chúng ta thường có định kiến không tốt về người bán hàng vì nghĩ đến những salesman <span class="hl-red">vồn vã, ồn ào và lộ liễu</span>.<br><br>
+                Đó thực ra là những người bán hàng <strong>tệ</strong>.
+                <br><br><small>— tr. 180</small>
+              </div>
+            </div>
+            <div class="card green-top">
+              <div class="card-icon">🥷</div>
+              <div class="card-title">Bán hàng bậc thầy</div>
+              <div class="card-text">
+                Người bán hàng giỏi nhất là người <span class="hl-green">không giống một salesman</span>.<br><br>
+                Bán hàng là một nghệ thuật ẩn (hidden art). Nếu bạn nghĩ không có ai đang bán hàng cho bạn, thì <span class="hl">bạn chính là mục tiêu của một bậc thầy</span>.
+                <br><br><small>— tr. 181-182</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">3 / 12</div>
+    </div>
+
+    <!-- SLIDE 4: CLV vs CAC -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Chỉ số sinh tử</div>
+          <h2 class="content-title serif">Phương Trình Kinh Doanh: CLV &gt; CAC</h2>
+          <div class="vs-layout" style="grid-template-columns: 1fr 80px 1fr;">
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">💰</div>
+              <div class="card-title">CLV</div>
+              <div class="num-highlight" style="font-size: 48px; color: var(--green);">Customer Lifetime Value</div>
+              <div class="num-label">Giá Trị Vòng Đời Khách Hàng</div>
+              <p class="card-text" style="margin-top: 16px;">Tổng lợi nhuận ròng mà bạn kiếm được từ một khách hàng trong suốt thời gian họ sử dụng sản phẩm.<br><small>— tr. 183</small></p>
+            </div>
+            <div><div class="vs-badge" style="background: var(--blue);">&gt;</div></div>
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">💸</div>
+              <div class="card-title">CAC</div>
+              <div class="num-highlight" style="font-size: 48px; color: var(--red);">Customer Acquisition Cost</div>
+              <div class="num-label">Chi Phí Thu Hút Khách Hàng</div>
+              <p class="card-text" style="margin-top: 16px;">Số tiền trung bình bạn phải chi (marketing, sales) để có được một khách hàng mới.<br><small>— tr. 183</small></p>
+            </div>
+          </div>
+          <p class="card-text" style="text-align: center; margin-top: 24px; font-size: 20px;">Để sống sót, <span class="hl-green">CLV phải lớn hơn CAC rất nhiều</span>.</p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">4 / 12</div>
+    </div>
+
+    <!-- SLIDE 5: Phổ phân phối -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">4 kênh</div>
+          <h2 class="content-title serif">Phổ Phân Phối (Distribution Spectrum)</h2>
+          <div class="content-body dual" style="margin-bottom: 0;">
+            <div class="card no-top">
+              <div class="card-icon">👔</div>
+              <div class="card-title">Complex Sales (Bán phức tạp)</div>
+              <div class="card-text">
+                Hợp đồng 7-8 chữ số ($1M - $100M).<br>
+                CEO hoặc lãnh đạo trực tiếp đi bán.<br>
+                <small>VD: SpaceX, Palantir — tr. 185-186</small>
+              </div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">🤝</div>
+              <div class="card-title">Personal Sales (Bán cá nhân)</div>
+              <div class="card-text">
+                Sản phẩm giá $10K - $100K.<br>
+                Đội ngũ sales truyền thống xây dựng mối quan hệ.<br>
+                <small>VD: Box, ZocDoc — tr. 187-188</small>
+              </div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">📺</div>
+              <div class="card-title">Marketing & Advertising</div>
+              <div class="card-text">
+                Sản phẩm đại chúng giá thấp.<br>
+                Quảng cáo diện rộng trên TV, Internet.<br>
+                <small>VD: P&G, công ty tiêu dùng — tr. 189-190</small>
+              </div>
+            </div>
+            <div class="card no-top">
+              <div class="card-icon">🦠</div>
+              <div class="card-title">Viral Marketing</div>
+              <div class="card-text">
+                Sản phẩm rẻ hoặc miễn phí, chi phí CAC cực thấp.<br>
+                Người dùng hiện tại tự mời người dùng mới.<br>
+                <small>VD: PayPal, Facebook — tr. 190-191</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">5 / 12</div>
+    </div>
+
+    <!-- SLIDE 6: Dead Zone -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag red">Rủi ro</div>
+          <h2 class="content-title serif">The Dead Zone (Vùng Chết)</h2>
+          <div class="quote-block" style="margin-bottom: 32px; border-left-color: var(--red);">
+            <p class="quote-text serif">"Nhiều sản phẩm rơi vào một vùng chết ở giữa các chiến lược phân phối."</p>
+            <p class="quote-author">— Peter Thiel, tr. 186</p>
+          </div>
+          <div class="card red-top" style="text-align: center; padding: 24px 48px;">
+            <p class="card-text" style="font-size: 20px; line-height: 1.7;">
+              Các sản phẩm có giá khoảng <span class="hl-red">~$1,000</span> thường nằm trong <strong>Dead Zone</strong>:<br><br>
+              Quá đắt so với <strong>Marketing</strong>: Khách hàng không mua món hàng ngàn đô chỉ vì xem một quảng cáo.<br>
+              Quá rẻ cho <strong>Sales Team</strong>: Không đủ lợi nhuận biên để thuê nhân viên sales bán hàng cá nhân.
+            </p>
+            <p class="card-text" style="margin-top: 16px;"><small>— tr. 186-187</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">6 / 12</div>
+    </div>
+
+    <!-- SLIDE 7: Viral Marketing -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Case study</div>
+          <h2 class="content-title serif">Viral Marketing & PayPal</h2>
+          <div class="content-body dual">
+            <div class="card green-top">
+              <div class="card-icon">💸</div>
+              <div class="card-title">Chiến lược trả tiền cho người dùng</div>
+              <div class="card-text">
+                Tại PayPal, đội ngũ nhận ra quảng cáo banner không hiệu quả.<br><br>
+                Giải pháp: Trả cho khách hàng mới <span class="hl-green">$10</span> vì gia nhập, và trả thêm <span class="hl-green">$10</span> cho mỗi người bạn mà họ giới thiệu.<br><br>
+                <small>CAC khi đó chỉ là $20, cực kỳ hấp dẫn. — tr. 191</small>
+              </div>
+            </div>
+            <div class="card gold-top">
+              <div class="card-icon">📈</div>
+              <div class="card-title">Tăng trưởng theo cấp số nhân</div>
+              <div class="card-text">
+                Kết quả: Growth theo cấp số nhân (exponential growth). Lượng người dùng bùng nổ vì động lực tài chính mạnh mẽ.<br><br>
+                Điều này chứng minh sản phẩm không chỉ cần "viral" về tính năng mà đôi khi cần kích hoạt bằng tiền trực tiếp ở giai đoạn sớm.<br><br>
+                <small>— tr. 190-193</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">7 / 12</div>
+    </div>
+
+    <!-- SLIDE 8: Power Law of Distribution -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag">Quy luật cốt lõi</div>
+          <h2 class="content-title serif" style="text-align: center;">Quy Luật Lũy Thừa Của Phân Phối</h2>
+          <div class="card no-top" style="max-width: 800px; margin: 0 auto 32px auto; padding: 28px 40px; text-align: left;">
+            <p class="card-text" style="font-size: 20px; line-height: 1.8;">
+              <span class="hl">"Một kênh phân phối duy nhất thường vượt trội hơn tất cả các kênh khác."</span><br><br>
+              Các startup thường cố gắng thử mọi kênh phân phối cùng lúc. Nhưng kinh doanh không vận hành như vậy.<br>
+              Nếu bạn có <strong>một</strong> kênh phân phối hiệu quả, doanh nghiệp của bạn có nền tảng vững chắc.<br>
+              Nếu bạn thử nhiều kênh mà không cái nào thực sự "work", bạn thất bại.
+            </p>
+            <p class="card-text" style="text-align: right; margin-top: 16px;"><small>— tr. 193-195</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">8 / 12</div>
+    </div>
+
+    <!-- SLIDE 9: VN Examples -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <h2 class="content-title serif">Viral & Distribution Tại Việt Nam</h2>
+          <div class="content-body triple">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">🛵</div>
+              <div class="card-title">Grab Referral</div>
+              <div class="card-text">Giống hệt PayPal, Grab những ngày đầu tặng <span class="hl-green">mã giảm giá</span> cho cả người giới thiệu và người dùng mới.<br><br>Kết quả: Khách hàng tự đi quảng cáo cho Grab với tốc độ chóng mặt.</div>
+            </div>
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">📦</div>
+              <div class="card-title">Shopee Free Ship</div>
+              <div class="card-text">Freeship chính là <span class="hl">CAC (Customer Acquisition Cost)</span>. Shopee chấp nhận lỗ nặng phí ship để kéo người dùng và giết chết đối thủ trên kênh quảng cáo đại chúng.</div>
+            </div>
+            <div class="card gold-top" style="text-align: center;">
+              <div class="card-icon">🚚</div>
+              <div class="card-title">TikiNow</div>
+              <div class="card-text">Tiki dùng <span class="hl-gold">phân phối làm sản phẩm</span> — giao hàng 2h trở thành lợi thế cạnh tranh cốt lõi. Khách hàng đến với Tiki không chỉ vì hàng hóa, mà vì sự tin cậy của quá trình phân phối.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">9 / 12</div>
+    </div>
+
+    <!-- SLIDE 10: Bài học -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Đúc kết</div>
+          <h2 class="content-title serif">Bài Học Từ Chương 11</h2>
+          <div class="content-body dual">
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">1️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Sản phẩm tốt không tự bán:</strong> Phân phối (Distribution) quan trọng ngang bằng với chính sản phẩm.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">2️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Nghệ thuật bán hàng ẩn:</strong> Người bán hàng đỉnh cao không làm bạn cảm thấy mình đang bị bán hàng.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">3️⃣</span><div class="card-text" style="font-size: 17px;"><strong>CLV phải lớn hơn CAC:</strong> Đây là định luật sinh tồn của mọi doanh nghiệp.</div></div>
+            </div>
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">4️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Tránh xa Dead Zone:</strong> Cẩn thận với sản phẩm giá quanh mốc $1,000 — quá rẻ để nuôi đội sales, quá đắt để chạy quảng cáo.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">5️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Viral Marketing là chìa khóa:</strong> Hãy tìm cách biến người dùng thành người bán hàng (như PayPal đã làm).</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">6️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Quy luật lũy thừa của phân phối:</strong> Chỉ cần MỘT kênh phân phối thực sự hiệu quả là đủ.</div></div>
+            </div>
+          </div>
+          <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); font-style: italic;">— Tổng hợp từ tr. 178–198</p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">10 / 12</div>
+    </div>
+
+    <!-- SLIDE 11: Discussion -->
+    <div class="slide" id="slide-11">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi thảo luận</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Thảo Luận</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: left; padding: 32px 40px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn đã bao giờ tin vào <span class="hl-red">"sản phẩm tốt tự nó sẽ bán được"</span> và thất bại vì điều đó chưa?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Với sản phẩm của bạn hiện tại, đâu là <strong>MỘT</strong> kênh phân phối vượt trội (Power Law) nhất?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn có thể áp dụng chiến lược <span class="hl-green">viral giống PayPal</span> (trả phần thưởng trực tiếp cho người dùng) vào công việc kinh doanh của mình không?</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">11 / 12</div>
+    </div>
+
+    <!-- SLIDE 12: Closing -->
+    <div class="slide" id="slide-12">
+      <div class="slide-inner">
+        <h2 class="closing-brand serif">BOOKnBEYOND</h2>
+        <p class="closing-slogan serif">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 80px; margin-bottom: 30px;">📘</div>
+        <h3 class="serif" style="font-size: 26px; color: var(--text-primary); margin-bottom: 12px;">Không Đến Một — Chương 11</h3>
+        <p style="font-size: 20px; color: var(--blue); margin-bottom: 36px; font-style: italic;">Nếu Bạn Tạo Ra Sản Phẩm, Khách Hàng Sẽ Tới?</p>
+        <div class="closing-info">
+          <span>📅 09/08/2026 · Chủ nhật</span>
+          <span>⏰ 05:15 — 07:15</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">12 / 12</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
