@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to One · Chương 14 — Nghịch Lý Của Nhà Sáng Lập | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #e8edf5;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-bg: rgba(37,99,235,0.06);
+      --blue-border: rgba(37,99,235,0.15);
+      --blue-dark: #1e40af;
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.06);
+      --red-border: rgba(220,38,38,0.15);
+
+      --green: #047857;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02; pointer-events: none; z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Content Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-30px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number { position: absolute; bottom: 28px; right: 48px; font-size: 14px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500; }
+    .slide-brand { position: absolute; bottom: 28px; left: 48px; font-size: 13px; color: var(--text-dim); letter-spacing: 1.5px; z-index: 10; font-weight: 500; }
+
+    .title-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 28px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 14px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 36px; }
+    .title-main { font-size: 56px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: var(--text-primary); }
+    .title-sub { font-size: 26px; font-weight: 400; color: var(--blue); margin-bottom: 48px; font-style: italic; }
+    .title-meta { display: flex; justify-content: center; gap: 36px; font-size: 17px; color: var(--text-secondary); }
+    .title-meta span { display: flex; align-items: center; gap: 8px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-tag { display: inline-block; padding: 6px 18px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+    .content-tag.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+    .content-tag.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+    .content-tag.gold { background: rgba(184,122,31,0.06); border: 1px solid rgba(184,122,31,0.15); color: var(--gold); }
+    .content-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 32px; }
+    .content-body.dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .content-body.triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .card { background: var(--bg-card); border-radius: 16px; padding: 28px; border-top: 3px solid var(--blue); transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .card.no-top { border-top: 1px solid #e2e8f0; }
+    .card.red-top { border-top-color: var(--red); }
+    .card.green-top { border-top-color: var(--green); }
+    .card.gold-top { border-top-color: var(--gold); }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .card-text { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+    .card-text small { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .quote-block { background: var(--bg-card); border-radius: 20px; padding: 48px 56px; border-left: 4px solid var(--blue); position: relative; }
+    .quote-block::before { content: '\201C'; position: absolute; top: 16px; left: 20px; font-family: var(--font-display); font-size: 80px; color: var(--blue); opacity: 0.15; }
+    .quote-text { font-size: 28px; line-height: 1.5; color: var(--text-primary); font-style: italic; margin-bottom: 20px; }
+    .quote-author { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+    .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; }
+    .compare-table th { padding: 18px 24px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .compare-table td { padding: 16px 24px; font-size: 16px; line-height: 1.6; }
+    .compare-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+
+    .vs-layout { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: start; }
+    .vs-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--text-primary); color: white; font-weight: 900; font-size: 20px; margin: 60px auto 0; }
+
+    .num-highlight { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .num-label { font-size: 15px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .closing-brand { font-size: 48px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; }
+    .closing-slogan { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 48px; }
+    .closing-info { display: flex; justify-content: center; gap: 36px; font-size: 16px; color: var(--text-secondary); }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light)); transition: width 0.4s ease; z-index: 100; }
+
+    .nav-arrows { position: fixed; bottom: 50%; right: 24px; transform: translateY(50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-glass); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; font-size: 18px; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: var(--bg-glass-hover); transform: scale(1.1); }
+
+    .hl { color: var(--blue); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-gold { color: var(--gold); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📘 ZERO TO ONE · CHƯƠNG 14</div>
+        <h1 class="title-main serif">Nghịch Lý Của Nhà Sáng Lập</h1>
+        <p class="title-sub serif">The Founder's Paradox</p>
+        <div class="title-meta">
+          <span>📖 Peter Thiel & Blake Masters</span>
+          <span>📄 tr. 243 — 264</span>
+          <span>📅 16/08/2026 · Tuần 5</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">1 / 10</div>
+    </div>
+
+    <!-- SLIDE 2: Tính cách cực đoan -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag">Khái niệm cốt lõi</div>
+          <h2 class="content-title serif" style="text-align: center;">Tính Cách Cực Đoan Của Nhà Sáng Lập</h2>
+          <div class="quote-block" style="margin-bottom: 36px; border-left: none; text-align: center; padding: 32px 48px;">
+            <p class="quote-text serif" style="font-size: 28px; line-height: 1.5;">"Các nhà sáng lập không phải là người bình thường. Tính cách của họ thường phân bổ ở <span class="hl">hai đầu cực trị</span>, thay vì nằm ở giữa đường cong hình chuông."</p>
+            <p class="quote-author">— Peter Thiel, tr. 243</p>
+          </div>
+          <div class="card no-top" style="max-width: 800px; margin: 0 auto; padding: 28px 40px;">
+            <p class="card-text" style="font-size: 18px; line-height: 1.8; text-align: left;">
+              Hầu hết con người có các đặc điểm tính cách tuân theo phân phối chuẩn (normal distribution). Nhưng những nhà sáng lập thành công nhất thường <span class="hl-red">nằm ngoài phân phối</span> này. Họ có thể vô cùng xuất chúng nhưng cũng đi kèm với những khuyết điểm trầm trọng.
+            </p>
+            <p class="card-text" style="text-align: right;"><small>— tr. 243–246</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">2 / 10</div>
+    </div>
+
+    <!-- SLIDE 3: Nghịch lý đặc điểm đối lập -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Nghịch lý</div>
+          <h2 class="content-title serif">Những Đặc Điểm Đối Lập Tồn Tại Song Song</h2>
+          <p class="card-text" style="font-size: 18px; margin-bottom: 28px; color: var(--text-secondary);">
+            Thiel nhận thấy một hiện tượng kỳ lạ: các founder vĩ đại thường mang những đặc điểm <span class="hl">hoàn toàn trái ngược nhau cùng một lúc</span>.
+          </p>
+          <div class="content-body dual">
+            <div class="card">
+              <div class="card-icon">🎭</div>
+              <div class="card-title">Kẻ trong cuộc (Insider) & Kẻ ngoại đạo (Outsider)</div>
+              <div class="card-text">
+                Họ thường là những kẻ bị xã hội ruồng bỏ hoặc tự tách mình ra (outsider), nhưng lại nắm giữ quyền lực tối thượng và hiểu biết sâu sắc nhất bên trong đế chế của họ (insider).
+                <br><br><small>— tr. 246–249</small>
+              </div>
+            </div>
+            <div class="card gold-top">
+              <div class="card-icon">⚡</div>
+              <div class="card-title">Kỳ quặc & Quyến rũ</div>
+              <div class="card-text">
+                Họ có thể có những thói quen vô cùng lập dị, cáu kỉnh hoặc khó gần, nhưng đồng thời lại sở hữu "trường bóp méo thực tại" (reality distortion field) có sức hút mạnh mẽ thuyết phục người khác đi theo mình.
+                <br><br><small>— tr. 246–249</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">3 / 10</div>
+    </div>
+
+    <!-- SLIDE 4: Vật tế thần và Vua -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag gold">Quy luật xã hội</div>
+          <h2 class="content-title serif">Vật Tế Thần và Vị Vua</h2>
+          <div class="content-body dual">
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">🐐</div>
+              <div class="card-title">Vật tế thần (Scapegoat)</div>
+              <div class="card-text">
+                Khi công ty hoặc xã hội gặp khủng hoảng, đám đông luôn cần một người để đổ lỗi. Nhà sáng lập cực đoan trở thành bia đỡ đạn hoàn hảo và dễ bị <span class="hl-red">trừng phạt, ruồng bỏ</span>.
+                <br><br><small>— tr. 249–253</small>
+              </div>
+            </div>
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">👑</div>
+              <div class="card-title">Vị Vua (King)</div>
+              <div class="card-text">
+                Khi công ty tạo ra đột phá và chiến thắng rực rỡ, nhà sáng lập lại được tung hô lên tận mây xanh, được <span class="hl-green">tôn sùng gần như thần thánh</span>. Ranh giới giữa tội đồ và vị thần rất mong manh.
+                <br><br><small>— tr. 249–253</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">4 / 10</div>
+    </div>
+
+    <!-- SLIDE 5: Steve Jobs -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Case study</div>
+          <h2 class="content-title serif">Steve Jobs — Điển Hình Của Nghịch Lý</h2>
+          <div class="content-body triple">
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">🚪</div>
+              <div class="card-title">1985: Bị đuổi</div>
+              <div class="card-text">Từ người sáng lập được kỳ vọng, Jobs trở thành <span class="hl-red">vật tế thần</span> cho những khó khăn của Apple và bị chính hội đồng quản trị sa thải.<br><small>— tr. 253</small></div>
+            </div>
+            <div class="card gold-top" style="text-align: center;">
+              <div class="card-icon">🔙</div>
+              <div class="card-title">1997: Quay lại</div>
+              <div class="card-text">Khi Apple trên bờ vực phá sản, họ cần một đấng cứu thế. Jobs trở lại và dùng tầm nhìn cực đoan của mình để <span class="hl-gold">hồi sinh đế chế</span>.<br><small>— tr. 253</small></div>
+            </div>
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">🍎</div>
+              <div class="card-title">2011: Huyền thoại</div>
+              <div class="card-text">Khi mất, ông được tưởng nhớ như một <span class="hl-green">vị vua</span> vĩ đại nhất của giới công nghệ, một minh chứng cho sự tôn sùng tuyệt đối của xã hội.<br><small>— tr. 258</small></div>
+            </div>
+          </div>
+          <p style="text-align: center; margin-top: 24px; font-size: 16px; color: var(--text-secondary);">
+            <span class="hl">Bill Gates</span> cũng là một ví dụ tương tự: từ kẻ bị coi là "ác quỷ độc quyền" của Microsoft trở thành nhà từ thiện vĩ đại nhất thế giới. <small>(tr. 255–257)</small>
+          </p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">5 / 10</div>
+    </div>
+
+    <!-- SLIDE 6: Bảo vệ nhà sáng lập -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Chiến lược</div>
+          <h2 class="content-title serif">Bảo Vệ "Vị Vua" Của Công Ty</h2>
+          <div class="quote-block" style="margin-bottom: 28px; border-left-color: var(--green);">
+            <p class="quote-text serif" style="font-size: 24px;">"Bài học lớn nhất cho doanh nghiệp là chúng ta cần các nhà sáng lập. Nếu thiếu đi sự khác biệt, công ty sẽ mất đi khả năng vượt qua sự cạnh tranh khốc liệt."</p>
+            <p class="quote-author">— Peter Thiel, tr. 258</p>
+          </div>
+          <div class="card no-top" style="padding: 24px 48px;">
+            <p class="card-text" style="font-size: 18px; line-height: 1.7; text-align: left;">
+              <span style="font-size: 24px;">🛡️</span> <strong>Nhiệm vụ của tổ chức:</strong> Cần những founder cực đoan để dẫn dắt công ty tạo ra đột phá "từ 0 đến 1". Tuy nhiên, hội đồng quản trị và tổ chức cần <span class="hl-green">thiết lập hệ thống bảo vệ</span> để ngăn họ khỏi sự kiêu ngạo quá mức, đồng thời tránh biến họ thành nạn nhân của vòng xoáy tôn sùng/trừng phạt của truyền thông và xã hội.
+            </p>
+            <p class="card-text" style="text-align: right;"><small>— tr. 258–264</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">6 / 10</div>
+    </div>
+
+    <!-- SLIDE 7: VN Examples -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <h2 class="content-title serif">Thực Tế Tại Việt Nam</h2>
+          <div class="content-body dual">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">🔥</div>
+              <div class="card-title">Founder cực đoan & Tham vọng lớn</div>
+              <div class="card-text">
+                Nhiều nhà sáng lập ở Việt Nam nổi bật với tính cách quyết liệt, làm việc không mệt mỏi và luôn thúc đẩy những giới hạn mới. Sự "cực đoan" trong tiêu chuẩn giúp họ biến những startup nhỏ thành các tập đoàn công nghệ tỷ đô.
+              </div>
+            </div>
+            <div class="card red-top" style="text-align: center;">
+              <div class="card-icon">🌪️</div>
+              <div class="card-title">Văn hóa Tôn sùng & Đổ lỗi</div>
+              <div class="card-text">
+                Mạng xã hội Việt Nam thể hiện rất rõ nghịch lý "Vật tế thần và Vua". Khi một startup huy động vốn thành công, founder được tung hô như anh hùng. Nhưng khi dự án trục trặc, dư luận có thể quay lưng và chỉ trích họ vô cùng gay gắt.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">7 / 10</div>
+    </div>
+
+    <!-- SLIDE 8: Key takeaways -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Đúc kết</div>
+          <h2 class="content-title serif">Bài Học Từ Chương 14</h2>
+          <div class="card no-top" style="padding: 32px 40px; text-align: left;">
+            <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px;">1️⃣</span><div class="card-text" style="font-size: 18px;"><strong>Founder không hoàn hảo:</strong> Sự vĩ đại thường đi kèm với những tính cách lập dị, trái ngược và khó lường. Đừng trông đợi một nhà sáng lập "bình thường".</div></div>
+            <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px;">2️⃣</span><div class="card-text" style="font-size: 18px;"><strong>Định kiến đám đông:</strong> Xã hội thích đưa các founder lên đỉnh cao (Vua) và dìm họ xuống vực thẳm (Vật tế thần). Đừng quá chìm đắm vào ánh hào quang hay lời chỉ trích.</div></div>
+            <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">3️⃣</span><div class="card-text" style="font-size: 18px;"><strong>Cần cơ chế bảo vệ:</strong> Các nhà sáng lập tạo ra động lực "từ 0 đến 1", nhưng công ty cần cấu trúc quản trị vững vàng để giữ cho tầm nhìn của họ được thực thi an toàn và bền vững.</div></div>
+          </div>
+          <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); font-style: italic;">— Tổng hợp từ tr. 243–264</p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">8 / 10</div>
+    </div>
+
+    <!-- SLIDE 9: Discussion -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi thảo luận</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Thảo Luận</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: left; padding: 32px 40px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn có nghĩ rằng một người "bình thường, cân bằng" có thể trở thành một founder vĩ đại thay đổi thế giới không? Tại sao?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn đã bao giờ chứng kiến hiện tượng <span class="hl-red">"Vật tế thần"</span> hay <span class="hl-green">"Vị vua"</span> xảy ra trong công ty hay môi trường làm việc của mình chưa?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Làm thế nào để một tổ chức dung hòa được sự sáng tạo cực đoan của founder với nhu cầu quản trị chuyên nghiệp, ổn định?</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">9 / 10</div>
+    </div>
+
+    <!-- SLIDE 10: Closing -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <h2 class="closing-brand serif">BOOKnBEYOND</h2>
+        <p class="closing-slogan serif">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 80px; margin-bottom: 30px;">📘</div>
+        <h3 class="serif" style="font-size: 26px; color: var(--text-primary); margin-bottom: 12px;">Không Đến Một — Chương 14</h3>
+        <p style="font-size: 20px; color: var(--blue); margin-bottom: 36px; font-style: italic;">Nghịch Lý Của Nhà Sáng Lập</p>
+        <div class="closing-info">
+          <span>📅 16/08/2026 · Chủ nhật</span>
+          <span>⏰ 05:15 — 07:15</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">10 / 10</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>

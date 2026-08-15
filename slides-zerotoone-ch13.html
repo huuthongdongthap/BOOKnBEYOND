@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zero to One · Chương 13 — Xu Hướng Doanh Nghiệp Xanh | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #e8edf5;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-bg: rgba(37,99,235,0.06);
+      --blue-border: rgba(37,99,235,0.15);
+      --blue-dark: #1e40af;
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.06);
+      --red-border: rgba(220,38,38,0.15);
+
+      --green: #047857;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02; pointer-events: none; z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Content Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-30px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number { position: absolute; bottom: 28px; right: 48px; font-size: 14px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500; }
+    .slide-brand { position: absolute; bottom: 28px; left: 48px; font-size: 13px; color: var(--text-dim); letter-spacing: 1.5px; z-index: 10; font-weight: 500; }
+
+    .title-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 28px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 14px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 36px; }
+    .title-main { font-size: 56px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: var(--text-primary); }
+    .title-sub { font-size: 26px; font-weight: 400; color: var(--blue); margin-bottom: 48px; font-style: italic; }
+    .title-meta { display: flex; justify-content: center; gap: 36px; font-size: 17px; color: var(--text-secondary); }
+    .title-meta span { display: flex; align-items: center; gap: 8px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-tag { display: inline-block; padding: 6px 18px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+    .content-tag.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+    .content-tag.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+    .content-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 32px; }
+    .content-body.dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .content-body.triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .card { background: var(--bg-card); border-radius: 16px; padding: 28px; border-top: 3px solid var(--blue); transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .card.no-top { border-top: 1px solid #e2e8f0; }
+    .card.red-top { border-top-color: var(--red); }
+    .card.green-top { border-top-color: var(--green); }
+    .card.gold-top { border-top-color: var(--gold); }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .card-text { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+    .card-text small { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .quote-block { background: var(--bg-card); border-radius: 20px; padding: 48px 56px; border-left: 4px solid var(--blue); position: relative; }
+    .quote-block::before { content: '\201C'; position: absolute; top: 16px; left: 20px; font-family: var(--font-display); font-size: 80px; color: var(--blue); opacity: 0.15; }
+    .quote-text { font-size: 28px; line-height: 1.5; color: var(--text-primary); font-style: italic; margin-bottom: 20px; }
+    .quote-author { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+    .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; }
+    .compare-table th { padding: 18px 24px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .compare-table td { padding: 16px 24px; font-size: 16px; line-height: 1.6; }
+    .compare-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .col-monopoly { background: rgba(37,99,235,0.08); color: var(--blue-dark); }
+    .col-compete { background: rgba(220,38,38,0.08); color: var(--red); }
+
+    .vs-layout { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: start; }
+    .vs-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--text-primary); color: white; font-weight: 900; font-size: 20px; margin: 60px auto 0; }
+
+    .num-highlight { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .num-label { font-size: 15px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .closing-brand { font-size: 48px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; }
+    .closing-slogan { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 48px; }
+    .closing-info { display: flex; justify-content: center; gap: 36px; font-size: 16px; color: var(--text-secondary); }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light)); transition: width 0.4s ease; z-index: 100; }
+
+    .nav-arrows { position: fixed; bottom: 50%; right: 24px; transform: translateY(50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-glass); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; font-size: 18px; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: var(--bg-glass-hover); transform: scale(1.1); }
+
+    .hl { color: var(--blue); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-gold { color: var(--gold); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📘 ZERO TO ONE · CHƯƠNG 13</div>
+        <h1 class="title-main serif">Xu Hướng Doanh Nghiệp Xanh</h1>
+        <p class="title-sub serif">Seeing Green</p>
+        <div class="title-meta">
+          <span>📖 Peter Thiel & Blake Masters</span>
+          <span>📄 tr. 216 — 242</span>
+          <span>📅 16/08/2026 · Tuần 5</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">1 / 13</div>
+    </div>
+
+    <!-- SLIDE 2: Bong bóng cleantech -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag red">Bối cảnh</div>
+          <h2 class="content-title serif">Bong Bóng Công Nghệ Sạch (Cleantech)</h2>
+          <div class="content-body dual">
+            <div class="card red-top">
+              <div class="card-icon">💥</div>
+              <div class="card-title">Sự sụp đổ của một kỷ nguyên</div>
+              <div class="card-text">
+                Đầu thập niên 2000, hàng tỷ đô la đã được đổ vào năng lượng mặt trời, năng lượng gió và nhiên liệu sinh học.<br><br>
+                Hàng tá công ty khởi nghiệp nổi tiếng với các khoản trợ cấp khổng lồ, sau cùng lại đi đến con đường phá sản (như Solyndra).
+                <br><br><small>— tr. 216-220</small>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-icon">🤔</div>
+              <div class="card-title">Nguyên nhân từ đâu?</div>
+              <div class="card-text">
+                Hầu hết các công ty công nghệ sạch sụp đổ bởi vì họ đã <strong>bỏ qua một hoặc nhiều trong số 7 câu hỏi cơ bản</strong> về kinh doanh mà mọi doanh nghiệp đều phải trả lời.<br><br>
+                Họ bị cuốn vào "xu hướng" thay vì xây dựng giá trị cốt lõi vững chắc.
+                <br><br><small>— tr. 216-220</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">2 / 13</div>
+    </div>
+
+    <!-- SLIDE 3: 7 câu hỏi - tổng quan -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag">Cốt lõi</div>
+          <h2 class="content-title serif" style="text-align: center;">7 Câu Hỏi Mọi Doanh Nghiệp Phải Trả Lời</h2>
+          <div class="card no-top" style="max-width: 900px; margin: 0 auto; padding: 32px 48px; text-align: left;">
+            <p class="card-text" style="font-size: 18px; line-height: 1.8;">
+              <span class="hl">1. Kỹ thuật (Engineering):</span> Bạn có công nghệ đột phá 10x không?<br>
+              <span class="hl">2. Thời điểm (Timing):</span> Đây có phải là thời điểm phù hợp để bắt đầu?<br>
+              <span class="hl">3. Độc quyền (Monopoly):</span> Bạn có bắt đầu với thị phần lớn trong thị trường nhỏ?<br>
+              <span class="hl">4. Con người (People):</span> Đội ngũ của bạn có phù hợp không?<br>
+              <span class="hl">5. Phân phối (Distribution):</span> Bạn có cách để phân phối sản phẩm không?<br>
+              <span class="hl">6. Bền vững (Durability):</span> Vị thế có phòng thủ được trong 10-20 năm tới?<br>
+              <span class="hl">7. Bí mật (Secret):</span> Bạn có nhìn thấy cơ hội độc đáo mà người khác bỏ lỡ?
+            </p>
+            <p class="card-text" style="text-align: right; margin-top: 16px;"><small>— tr. 220-221</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">3 / 13</div>
+    </div>
+
+    <!-- SLIDE 4: Câu hỏi 1-2 -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Câu hỏi 1 & 2</div>
+          <h2 class="content-title serif">Kỹ Thuật & Thời Điểm</h2>
+          <div class="content-body dual">
+            <div class="card">
+              <div class="card-icon">⚙️</div>
+              <div class="card-title">1. Câu hỏi Kỹ thuật</div>
+              <div class="card-text">
+                Công nghệ của bạn có tạo ra <span class="hl">đột phá 10x</span> so với giải pháp hiện tại không?<br><br>
+                Cải tiến 20% là không đủ. Để độc quyền, công nghệ phải tốt hơn ít nhất 10 lần so với đối thủ gần nhất để người dùng thực sự thay đổi thói quen.
+                <br><br><small>— tr. 221-223</small>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-icon">⏳</div>
+              <div class="card-title">2. Câu hỏi Thời điểm</div>
+              <div class="card-text">
+                Đây có phải là lúc <span class="hl">phù hợp</span> để bắt đầu doanh nghiệp này?<br><br>
+                Nhiều công ty cleantech tin rằng thời đại năng lượng mặt trời đã đến, nhưng thực chất công nghệ của họ chưa đủ sẵn sàng hoặc thị trường chưa có nhu cầu bùng nổ thực sự.
+                <br><br><small>— tr. 223-225</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">4 / 13</div>
+    </div>
+
+    <!-- SLIDE 5: Câu hỏi 3-4 -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Câu hỏi 3 & 4</div>
+          <h2 class="content-title serif">Độc Quyền & Con Người</h2>
+          <div class="content-body dual">
+            <div class="card">
+              <div class="card-icon">👑</div>
+              <div class="card-title">3. Câu hỏi Độc quyền</div>
+              <div class="card-text">
+                Bạn có bắt đầu với một <span class="hl">thị phần lớn trong một thị trường nhỏ</span> không?<br><br>
+                Các công ty cleantech thường phạm sai lầm khi nhắm thẳng vào thị trường năng lượng khổng lồ hàng nghìn tỷ đô la, nơi họ trở thành một hạt cát và phải chịu sự cạnh tranh tàn khốc.
+                <br><br><small>— tr. 225-227</small>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-icon">👥</div>
+              <div class="card-title">4. Câu hỏi Con người</div>
+              <div class="card-text">
+                Bạn có một <span class="hl">đội ngũ phù hợp</span> không?<br><br>
+                Sự khác biệt giữa một đội ngũ kỹ sư xuất sắc và một nhóm các nhân viên bán hàng (salesmen) mặc vest. Ngành công nghệ yêu cầu người dẫn dắt am hiểu sâu về kỹ thuật, không chỉ giỏi huy động vốn.
+                <br><br><small>— tr. 227-229</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">5 / 13</div>
+    </div>
+
+    <!-- SLIDE 6: Câu hỏi 5-6 -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Câu hỏi 5 & 6</div>
+          <h2 class="content-title serif">Phân Phối & Bền Vững</h2>
+          <div class="content-body dual">
+            <div class="card">
+              <div class="card-icon">🚚</div>
+              <div class="card-title">5. Câu hỏi Phân phối</div>
+              <div class="card-text">
+                Bạn có <span class="hl">cách để phân phối</span> sản phẩm không?<br><br>
+                Sản phẩm tốt không tự bán được chính nó. Các startup cleantech đã bỏ qua chi phí và chiến lược thuyết phục khách hàng cài đặt hệ thống của họ, khiến họ thất bại ở khâu cuối cùng.
+                <br><br><small>— tr. 229-231</small>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-icon">🛡️</div>
+              <div class="card-title">6. Câu hỏi Bền vững</div>
+              <div class="card-text">
+                Vị thế thị trường của bạn có <span class="hl">phòng thủ được trong 10-20 năm tới</span>?<br><br>
+                Nhiều công ty mặt trời Mỹ không lường trước sự trỗi dậy của các nhà sản xuất Trung Quốc với chi phí rẻ hơn nhiều, phá vỡ hoàn toàn mọi dự phóng kinh doanh ban đầu.
+                <br><br><small>— tr. 231-233</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">6 / 13</div>
+    </div>
+
+    <!-- SLIDE 7: Câu hỏi 7 -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Câu hỏi 7</div>
+          <h2 class="content-title serif">Bí Mật (Secret)</h2>
+          <div class="card no-top" style="max-width: 800px; margin: 0 auto; padding: 32px 48px;">
+            <div class="card-icon" style="text-align: center; font-size: 48px;">🗝️</div>
+            <div class="card-title" style="text-align: center; font-size: 24px; margin-bottom: 24px;">Bạn có thấy một cơ hội duy nhất mà người khác bỏ lỡ?</div>
+            <p class="card-text" style="font-size: 18px; line-height: 1.8;">
+              Các công ty công nghệ sạch thường không có bí mật nào cả. Mọi người đều biết về biến đổi khí hậu và nhu cầu về năng lượng tái tạo. Đó là <span class="hl-red">những sự thật hiển nhiên (conventions)</span>.<br><br>
+              Để vĩ đại, bạn cần một <span class="hl-green">"bí mật"</span> — một sự thật quan trọng, một cách tiếp cận đột phá hoặc góc nhìn về thị trường mà phần còn lại của thế giới chưa nhận ra.
+            </p>
+            <p class="card-text" style="text-align: right; margin-top: 16px;"><small>— tr. 233-235</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">7 / 13</div>
+    </div>
+
+    <!-- SLIDE 8: Solyndra -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag red">Case Study Thất Bại</div>
+          <h2 class="content-title serif">Solyndra: Sự Sụp Đổ Của Một Biểu Tượng</h2>
+          <div class="content-body dual">
+            <div class="card red-top">
+              <div class="card-icon">📉</div>
+              <div class="card-title">Cải tiến nhỏ, rủi ro lớn</div>
+              <div class="card-text">
+                Solyndra sản xuất các tấm pin mặt trời hình trụ. Tuy nhiên, công nghệ của họ <span class="hl-red">không tạo ra bước nhảy vọt 10x</span> về hiệu suất hay chi phí, chỉ là cải tiến nhỏ.
+                <br><br><small>— tr. 235-238</small>
+              </div>
+            </div>
+            <div class="card red-top">
+              <div class="card-icon">⚔️</div>
+              <div class="card-title">Thiếu tính phòng thủ</div>
+              <div class="card-text">
+                Họ hoàn toàn bất lực và sụp đổ trước <span class="hl-red">sự cạnh tranh tàn khốc</span> từ các nhà sản xuất năng lượng mặt trời giá rẻ của Trung Quốc. Không có bí mật, không có độc quyền.
+                <br><br><small>— tr. 235-238</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">8 / 13</div>
+    </div>
+
+    <!-- SLIDE 9: Tesla -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Case Study Thành Công</div>
+          <h2 class="content-title serif">Tesla: Vượt Qua 7 Câu Hỏi</h2>
+          <div class="card no-top" style="padding: 24px 32px;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 15px;">
+              <div><strong>Kỹ thuật (10x):</strong> Công nghệ cốt lõi vượt trội để tạo ra chiếc xe điện tuyệt vời.</div>
+              <div><strong>Thời điểm:</strong> Tận dụng năm 2009 khi có khoản vay từ chính phủ.</div>
+              <div><strong>Độc quyền:</strong> Bắt đầu từ thị trường ngách rất nhỏ: xe thể thao điện cao cấp (Roadster).</div>
+              <div><strong>Con người:</strong> CEO là kỹ sư kiêm bán hàng xuất chúng; đội ngũ xuất sắc.</div>
+              <div><strong>Phân phối:</strong> Sở hữu toàn bộ chuỗi cung ứng và bán trực tiếp (không qua đại lý).</div>
+              <div><strong>Bền vững:</strong> Lợi thế thương hiệu vững chắc đi trước mọi đối thủ.</div>
+              <div style="grid-column: 1 / -1;"><strong>Bí mật:</strong> Nhận ra xe điện không chỉ để tiết kiệm năng lượng, mà có thể trở thành biểu tượng thời trang và hiệu suất.</div>
+            </div>
+            <p class="card-text" style="text-align: right; margin-top: 12px;"><small>— tr. 238-242</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">9 / 13</div>
+    </div>
+
+    <!-- SLIDE 10: VN Examples -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <h2 class="content-title serif">Startup Việt Nam Qua Lăng Kính 7 Câu Hỏi</h2>
+          <div class="content-body dual">
+            <div class="card gold-top">
+              <div class="card-icon">🏍️</div>
+              <div class="card-title">Dat Bike (Xe máy điện)</div>
+              <div class="card-text">
+                <strong>Độc quyền:</strong> Bắt đầu bằng thị trường ngách xe điện dáng thể thao/cổ điển.<br>
+                <strong>Phân phối:</strong> Bán trực tiếp qua online và một vài cửa hàng trải nghiệm.<br>
+                <strong>Kỹ thuật:</strong> Đang nỗ lực cải tiến công suất pin và sạc nhanh (hướng tới 10x so với xe điện truyền thống).
+              </div>
+            </div>
+            <div class="card gold-top">
+              <div class="card-icon">🌿</div>
+              <div class="card-title">Startup Ống hút sinh học</div>
+              <div class="card-text">
+                Nhiều dự án làm ống hút cỏ, tre, gạo.<br>
+                <strong>Rủi ro:</strong> Thường thiếu <strong>Bí mật</strong> (quá dễ sao chép) và thiếu <strong>Bền vững</strong> (dễ bị cạnh tranh giá từ TQ hoặc các xưởng khác).
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">10 / 13</div>
+    </div>
+
+    <!-- SLIDE 11: Bài học -->
+    <div class="slide" id="slide-11">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Đúc kết</div>
+          <h2 class="content-title serif">Bài Học Cốt Lõi Chương 13</h2>
+          <div class="content-body dual">
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">1️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Đừng làm vì xu hướng</strong> — "Xanh", "AI" hay "Cleantech" không phải là mô hình kinh doanh, nó chỉ là từ khóa.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">2️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Cải tiến 10x</strong> — Nếu công nghệ của bạn không tốt hơn gấp 10 lần, người dùng sẽ không đổi thói quen.</div></div>
+            </div>
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">3️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Trả lời 7 câu hỏi</strong> — Bất kỳ doanh nghiệp nào bỏ lỡ dù chỉ 1-2 câu hỏi cũng có nguy cơ sụp đổ cao.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">4️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Nắm giữ bí mật</strong> — Đừng giải quyết vấn đề mà ai cũng thấy. Hãy giải quyết vấn đề bằng cách mà không ai ngờ tới.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">11 / 13</div>
+    </div>
+
+    <!-- SLIDE 12: Discussion -->
+    <div class="slide" id="slide-12">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi thảo luận</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Thảo Luận</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: left; padding: 32px 40px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn có thể áp dụng <span class="hl">7 câu hỏi</span> của Thiel để đánh giá chính công ty hoặc dự án bạn đang làm không? Bạn đang yếu ở câu hỏi nào nhất?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Nhìn vào xu hướng <span class="hl-green">"AI" hiện tại</span>, theo bạn nó có giống với bong bóng Cleantech đầu thập niên 2000 không? Tại sao?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Để tạo ra một <span class="hl">cải tiến 10x</span> trong lĩnh vực của bạn, bạn cần thay đổi điều cốt lõi gì?</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">12 / 13</div>
+    </div>
+
+    <!-- SLIDE 13: Closing -->
+    <div class="slide" id="slide-13">
+      <div class="slide-inner">
+        <h2 class="closing-brand serif">BOOKnBEYOND</h2>
+        <p class="closing-slogan serif">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 80px; margin-bottom: 30px;">📘</div>
+        <h3 class="serif" style="font-size: 26px; color: var(--text-primary); margin-bottom: 12px;">Không Đến Một — Chương 13</h3>
+        <p style="font-size: 20px; color: var(--blue); margin-bottom: 36px; font-style: italic;">Xu Hướng Doanh Nghiệp Xanh</p>
+        <div class="closing-info">
+          <span>📅 16/08/2026 · Chủ nhật</span>
+          <span>⏰ 05:15 — 07:15</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · ZERO TO ONE</div>
+      <div class="slide-number">13 / 13</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
