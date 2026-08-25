@@ -16,71 +16,70 @@
     "translator": "Hải Âu — Phi Yên",
     "publisher": "NXB Thế Giới / Phương Nam Book",
     "cover": "assets/cover-metahuman.png",
-    "totalChapters": 15,
-    "totalPages": 368,
-    "startDate": "2026-08-31",
-    "endDate": "2026-10-12"
+    "totalChapters": 13,
+    "totalPages": 373,
+    "startDate": "2026-09-06",
+    "endDate": "2026-10-18"
   },
 
   "schedule": [
     {
       "week": 1,
-      "date": "2026-08-31",
+      "date": "2026-09-06",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "Phần 1 — Hiện thực ảo của cái tôi" },
-        { "name": "", "chapter": "Ch.1: Chúng ta bị mắc kẹt" },
-        { "name": "", "chapter": "Ch.2: Bản ngã tạo ra ảo giác" },
-        { "name": "", "chapter": "Ch.3-4: Con người tự động & Thực tại ảo của tâm trí" }
+        { "name": "", "chapter": "Lời nói đầu: Siêu Việt (tr.8-15, 8 trang)" },
+        { "name": "Giang", "chapter": "Tổng quan: Siêu nhân loại và lựa chọn cuộc đời (tr.16-42, 27 trang)" },
+        { "name": "", "chapter": "Phần 1 + Ch.1: Chúng ta vướng víu trong một ảo ảnh (tr.43-70, 27 trang)" }
       ]
     },
     {
       "week": 2,
-      "date": "2026-09-07",
+      "date": "2026-09-20",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "Phần 2 — Vấn đề nan giải về ý thức" },
-        { "name": "", "chapter": "Ch.5: Não bộ không tạo ra ý thức" },
-        { "name": "", "chapter": "Ch.6-7: Khoa học thần kinh & Ý thức vượt ngoài vật chất" },
-        { "name": "", "chapter": "Ch.8: Thực tại là sáng tạo của ý thức" }
+        { "name": "", "chapter": "2. Tôi tạo ra ảo ảnh (tr.71-91, 21 trang)" },
+        { "name": "", "chapter": "3. Tiềm năng của con người là vô hạn (tr.92-113, 22 trang)" },
+        { "name": "", "chapter": "4. Siêu hiện thực cho tự do tuyệt đối (tr.114-134, 21 trang)" }
       ]
     },
     {
       "week": 3,
-      "date": "2026-09-14",
+      "date": "2026-09-27",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "Phần 3 — Ý thức là nền tảng vũ trụ học" },
-        { "name": "", "chapter": "Ch.9-10: Siêu thực tại & Vũ trụ ý thức" },
-        { "name": "", "chapter": "Ch.11-12: Tự do khỏi ảo giác & Thức tỉnh" }
+        { "name": "", "chapter": "5. Tâm trí, cơ thể, não bộ và vũ trụ đều là ý thức biến đổi (tr.135-159, 25 trang)" },
+        { "name": "", "chapter": "6. Sự tồn tại và ý thức là một (tr.160-182, 23 trang)" },
+        { "name": "", "chapter": "Phần 2 + Ch.7: Trải nghiệm là tiên quyết (tr.183-203, 20 trang)" }
       ]
     },
     {
       "week": 4,
-      "date": "2026-09-21",
+      "date": "2026-10-04",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "Phần 4 — Cách thức tỉnh hằng ngày qua chánh niệm" },
-        { "name": "", "chapter": "Ch.13: Sống trong chánh niệm" },
-        { "name": "", "chapter": "Ch.14-15: Chuyển đổi human→metahuman & Con đường thức tỉnh" }
+        { "name": "", "chapter": "8. Vượt lên mọi giai thoại (tr.204-220, 17 trang)" },
+        { "name": "", "chapter": "9. Con đường trực tiếp (tr.221-242, 22 trang)" },
+        { "name": "", "chapter": "Phần 3 + Ch.10: Giải phóng cơ thể (tr.243-260, 17 trang)" }
       ]
     },
     {
       "week": 5,
-      "date": "2026-09-28",
+      "date": "2026-10-11",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "Chương trình 31 ngày thực hành (Ngày 1-10)" },
-        { "name": "", "chapter": "Chương trình 31 ngày thực hành (Ngày 11-20)" },
-        { "name": "", "chapter": "Chương trình 31 ngày thực hành (Ngày 21-31)" }
+        { "name": "Giang", "chapter": "11. Hồi sinh hoàn trí (tr.261-280, 20 trang)" },
+        { "name": "", "chapter": "12. Nhận thức không chọn lựa (tr.281-296, 16 trang)" },
+        { "name": "", "chapter": "13. Một cuộc đời (tr.297-312, 16 trang)" }
       ]
     },
     {
       "week": 6,
-      "date": "2026-10-05",
+      "date": "2026-10-18",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "REVIEW & TỔNG KẾT toàn bộ sách Siêu Nhân Loại" }
+        { "name": "", "chapter": "Một tháng thức tỉnh: 31 bài học của siêu nhân (tr.313-360, 48 trang)" },
+        { "name": "", "chapter": "Lời bạt (tr.361-373, 12 trang)" }
       ]
     }
   ],
