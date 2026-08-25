@@ -10,74 +10,77 @@
   "sheetsLink": "https://docs.google.com/spreadsheets/d/18JVy2EqdRsJDf_tzDfsqX-jE5I6gos8sWBVzcK06tRU/edit?pli=1&gid=0#gid=0",
 
   "currentBook": {
-    "title": "Không đến Một",
-    "author": "Peter Thiel & Blake Masters",
-    "originalTitle": "Zero to One",
-    "cover": "assets/cover-zero-to-one.jpg",
-    "totalChapters": 14,
-    "totalPages": 274,
-    "startDate": "2026-07-12",
-    "endDate": "2026-08-16"
+    "title": "Siêu Nhân Loại",
+    "author": "Deepak Chopra, M.D.",
+    "originalTitle": "MetaHuman: Unleashing Your Infinite Potential",
+    "translator": "Hải Âu — Phi Yên",
+    "publisher": "NXB Thế Giới / Phương Nam Book",
+    "cover": "assets/cover-metahuman.png",
+    "totalChapters": 15,
+    "totalPages": 368,
+    "startDate": "2026-08-31",
+    "endDate": "2026-10-12"
   },
 
   "schedule": [
     {
       "week": 1,
-      "date": "2026-07-12",
+      "date": "2026-08-31",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "Lời mở đầu: Không đến Một (tr.7, 13 trang)" },
-        { "name": "", "chapter": "1. Thách thức của tương lai (tr.11, 9 trang)" },
-        { "name": "", "chapter": "2. Tiệc tùng thả cửa (tr.20, 15 trang)" },
-        { "name": "", "chapter": "3. Tất cả những công ty hạnh phúc đều khác biệt (tr.35, 17 trang)" }
+        { "name": "", "chapter": "Phần 1 — Hiện thực ảo của cái tôi" },
+        { "name": "", "chapter": "Ch.1: Chúng ta bị mắc kẹt" },
+        { "name": "", "chapter": "Ch.2: Bản ngã tạo ra ảo giác" },
+        { "name": "", "chapter": "Ch.3-4: Con người tự động & Thực tại ảo của tâm trí" }
       ]
     },
     {
       "week": 2,
-      "date": "2026-07-19",
+      "date": "2026-09-07",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "4. Hệ tư tưởng cạnh tranh (tr.52, 13 trang)" },
-        { "name": "", "chapter": "5. Lợi thế của kẻ đến sau cùng (tr.65, 20 trang)" },
-        { "name": "", "chapter": "6. Bạn không phải là một tấm vé số (tr.85, 33 trang)" }
+        { "name": "", "chapter": "Phần 2 — Vấn đề nan giải về ý thức" },
+        { "name": "", "chapter": "Ch.5: Não bộ không tạo ra ý thức" },
+        { "name": "", "chapter": "Ch.6-7: Khoa học thần kinh & Ý thức vượt ngoài vật chất" },
+        { "name": "", "chapter": "Ch.8: Thực tại là sáng tạo của ý thức" }
       ]
     },
     {
       "week": 3,
-      "date": "2026-07-26",
+      "date": "2026-09-14",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "7. Chạy theo đồng tiền (tr.118, 14 trang)" },
-        { "name": "", "chapter": "8. Bí mật (tr.132, 20 trang)" },
-        { "name": "", "chapter": "9. Nền tảng (tr.152, 15 trang)" }
+        { "name": "", "chapter": "Phần 3 — Ý thức là nền tảng vũ trụ học" },
+        { "name": "", "chapter": "Ch.9-10: Siêu thực tại & Vũ trụ ý thức" },
+        { "name": "", "chapter": "Ch.11-12: Tự do khỏi ảo giác & Thức tỉnh" }
       ]
     },
     {
       "week": 4,
-      "date": "2026-08-02",
+      "date": "2026-09-21",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "10. Cơ chế của mafia (tr.167, 11 trang)" },
-        { "name": "", "chapter": "11. Nếu bạn tạo ra sản phẩm, khách hàng sẽ tới? (tr.178, 21 trang)" },
-        { "name": "", "chapter": "12. Con người và máy móc (tr.199, 17 trang)" }
+        { "name": "", "chapter": "Phần 4 — Cách thức tỉnh hằng ngày qua chánh niệm" },
+        { "name": "", "chapter": "Ch.13: Sống trong chánh niệm" },
+        { "name": "", "chapter": "Ch.14-15: Chuyển đổi human→metahuman & Con đường thức tỉnh" }
       ]
     },
     {
       "week": 5,
-      "date": "2026-08-09",
+      "date": "2026-09-28",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "13. Xu hướng doanh nghiệp xanh (tr.216, 27 trang)" },
-        { "name": "", "chapter": "14. Nghịch lý của nhà sáng lập (tr.243, 22 trang)" },
-        { "name": "", "chapter": "Kết luận: Đình trệ hay Khác biệt? (tr.265, 6 trang)" }
+        { "name": "", "chapter": "Chương trình 31 ngày thực hành (Ngày 1-10)" },
+        { "name": "", "chapter": "Chương trình 31 ngày thực hành (Ngày 11-20)" },
+        { "name": "", "chapter": "Chương trình 31 ngày thực hành (Ngày 21-31)" }
       ]
     },
     {
       "week": 6,
-      "date": "2026-08-16",
+      "date": "2026-10-05",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "REVIEW & TỔNG KẾT toàn bộ sách Không đến Một" }
+        { "name": "", "chapter": "REVIEW & TỔNG KẾT toàn bộ sách Siêu Nhân Loại" }
       ]
     }
   ],
@@ -172,9 +175,16 @@
     {
       "title": "Không đến Một",
       "author": "Peter Thiel & Blake Masters",
+      "finishedDate": "2026-08-16",
+      "rating": 4.6,
+      "topInsight": "Mọi công ty thành công đều khác biệt vì giải quyết một vấn đề duy nhất. Đi từ 0 đến 1, không phải từ 1 đến n."
+    },
+    {
+      "title": "Siêu Nhân Loại",
+      "author": "Deepak Chopra, M.D.",
       "finishedDate": "",
       "rating": 0,
-      "topInsight": "Đang đọc — Mọi công ty thành công đều khác biệt vì giải quyết một vấn đề duy nhất.",
+      "topInsight": "Đang đọc — Ý thức không bị giới hạn bởi não bộ, con người có tiềm năng vô hạn để thức tỉnh.",
       "status": "reading"
     }
   ],
