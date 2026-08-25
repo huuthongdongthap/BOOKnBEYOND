@@ -455,14 +455,21 @@ export async function onRequestGet(context) {
       const hasChapterData = chapters.filter(c => !c.isReview).length > 0;
       
       if (hasChapterData) {
-        // Use sheet data — with Nexus/ZeroToOne defaults when metadata rows are missing
+        // Use sheet data — with book-specific defaults when metadata rows are missing
         const isZeroToOne = bookName.toLowerCase().includes('zero') || bookName.toLowerCase().includes('one');
+        const isMetaHuman = bookName.toLowerCase().includes('meta') || bookName.toLowerCase().includes('siêu');
         const bookDefaults = isZeroToOne ? {
           title: 'Không đến Một: Bài học về khởi nghiệp, hay Cách xây dựng tương lai',
           author: 'Peter Thiel & Blake Masters',
           originalTitle: 'Zero to One: Notes on Startups, or How to Build the Future',
           cover: 'assets/cover-zero-to-one.jpg',
           totalPages: 274
+        } : isMetaHuman ? {
+          title: 'Siêu Nhân Loại: Mở Khóa Tiềm Năng Vô Hạn Trong Bạn',
+          author: 'Deepak Chopra, M.D.',
+          originalTitle: 'MetaHuman: Unleashing Your Infinite Potential',
+          cover: 'assets/cover-metahuman.png',
+          totalPages: 373
         } : {
           title: 'Nexus: Lược sử của những mạng lưới thông tin',
           author: 'Yuval Noah Harari',
@@ -475,7 +482,7 @@ export async function onRequestGet(context) {
           title: metadata._title || bookDefaults.title || bookName,
           author: metadata._author || bookDefaults.author || '',
           originalTitle: metadata._originalTitle || bookDefaults.originalTitle || '',
-          cover: metadata._cover || bookDefaults.cover || 'assets/cover-nexus.jpg',
+          cover: metadata._cover || bookDefaults.cover || '',
           totalChapters: chapters.filter(c => !c.isReview).length,
           totalPages: parseInt(metadata._totalPages) || bookDefaults.totalPages || 0,
           startDate: metadata._startDate || '',
@@ -596,6 +603,7 @@ async function fetchLibrary() {
     { title: 'Hồi Ký Lý Quang Diệu', author: 'Lý Quang Diệu', finishedDate: '2025-12-30', rating: 5.0, topInsight: 'Sự sống còn của một quốc gia nhỏ phụ thuộc vào kỷ luật và tầm nhìn xa của lãnh đạo.' },
     { title: 'Nhóm Chính Bắc', author: 'Bill George', finishedDate: '2026-04-26', rating: 4.5, topInsight: 'True North Groups — Xây dựng nhóm phát triển bản thân có kỷ luật.' },
     { title: 'Nexus', author: 'Yuval Noah Harari', finishedDate: '2026-06-28', rating: 4.7, topInsight: 'Thông tin không phải là sự thật, thông tin chỉ là nguyên liệu xây dựng mạng lưới kết nối.' },
-    { title: 'Không đến Một', author: 'Peter Thiel & Blake Masters', finishedDate: '', rating: 0, topInsight: 'Đang đọc — Mọi công ty thành công đều khác biệt vì giải quyết một vấn đề duy nhất.', status: 'reading' }
+    { title: 'Không đến Một', author: 'Peter Thiel & Blake Masters', finishedDate: '2026-08-16', rating: 4.6, topInsight: 'Mọi công ty thành công đều khác biệt vì giải quyết một vấn đề duy nhất. Đi từ 0 đến 1, không phải từ 1 đến n.' },
+    { title: 'Siêu Nhân Loại', author: 'Deepak Chopra, M.D.', finishedDate: '', rating: 0, topInsight: 'Đang đọc — Ý thức không bị giới hạn bởi não bộ, con người có tiềm năng vô hạn để thức tỉnh.', status: 'reading' }
   ];
 }
