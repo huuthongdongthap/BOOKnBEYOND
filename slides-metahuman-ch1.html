@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaHuman · Chương 1 — Chúng ta vướng víu trong một ảo ảnh | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #e8edf5;
+      --bg-card: rgba(255,255,255,0.94);
+      --bg-card-hover: #ffffff;
+      --bg-glass: rgba(255,255,255,0.7);
+      --bg-glass-hover: rgba(255,255,255,0.9);
+
+      --blue: #2563eb;
+      --blue-light: #3b82f6;
+      --blue-bg: rgba(37,99,235,0.06);
+      --blue-border: rgba(37,99,235,0.15);
+      --blue-dark: #1e40af;
+
+      --gold: #b87a1f;
+      --gold-light: #d69e3a;
+      --gold-glow: rgba(184,122,31,0.12);
+
+      --red: #dc2626;
+      --red-bg: rgba(220,38,38,0.06);
+      --red-border: rgba(220,38,38,0.15);
+
+      --green: #047857;
+      --green-bg: rgba(4,120,87,0.06);
+      --green-border: rgba(4,120,87,0.15);
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #8896ab;
+
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'Be Vietnam Pro', sans-serif;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--bg-primary);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.02; pointer-events: none; z-index: 9999;
+    }
+
+    /* ── BOOKnBEYOND Content Badges ── */
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    .badge-expand {
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+      color: #818cf8;
+    }
+    .badge-example {
+      background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3);
+      color: #f59e0b;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateX(30px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-30px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1200px; text-align: center; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number { position: absolute; bottom: 28px; right: 48px; font-size: 14px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500; }
+    .slide-brand { position: absolute; bottom: 28px; left: 48px; font-size: 13px; color: var(--text-dim); letter-spacing: 1.5px; z-index: 10; font-weight: 500; }
+
+    .title-badge { display: inline-flex; align-items: center; gap: 8px; padding: 10px 28px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 14px; color: var(--blue); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 36px; }
+    .title-main { font-size: 56px; font-weight: 900; line-height: 1.15; margin-bottom: 20px; color: var(--text-primary); }
+    .title-sub { font-size: 26px; font-weight: 400; color: var(--blue); margin-bottom: 48px; font-style: italic; }
+    .title-meta { display: flex; justify-content: center; gap: 36px; font-size: 17px; color: var(--text-secondary); }
+    .title-meta span { display: flex; align-items: center; gap: 8px; }
+
+    .content-layout { text-align: left; width: 100%; }
+    .content-tag { display: inline-block; padding: 6px 18px; background: var(--blue-bg); border: 1px solid var(--blue-border); border-radius: 50px; font-size: 13px; color: var(--blue); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; margin-bottom: 16px; }
+    .content-tag.red { background: var(--red-bg); border-color: var(--red-border); color: var(--red); }
+    .content-tag.green { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+    .content-title { font-size: 38px; font-weight: 800; line-height: 1.2; margin-bottom: 32px; }
+    .content-body.dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .content-body.triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    .card { background: var(--bg-card); border-radius: 16px; padding: 28px; border-top: 3px solid var(--blue); transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    .card.no-top { border-top: 1px solid #e2e8f0; }
+    .card.red-top { border-top-color: var(--red); }
+    .card.green-top { border-top-color: var(--green); }
+    .card.gold-top { border-top-color: var(--gold); }
+    .card-icon { font-size: 36px; margin-bottom: 12px; }
+    .card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+    .card-text { font-size: 16px; line-height: 1.65; color: var(--text-secondary); }
+    .card-text small { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .quote-block { background: var(--bg-card); border-radius: 20px; padding: 48px 56px; border-left: 4px solid var(--blue); position: relative; }
+    .quote-block::before { content: '\201C'; position: absolute; top: 16px; left: 20px; font-family: var(--font-display); font-size: 80px; color: var(--blue); opacity: 0.15; }
+    .quote-text { font-size: 28px; line-height: 1.5; color: var(--text-primary); font-style: italic; margin-bottom: 20px; }
+    .quote-author { font-size: 16px; color: var(--text-muted); font-weight: 600; }
+
+    .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; }
+    .compare-table th { padding: 18px 24px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .compare-table td { padding: 16px 24px; font-size: 16px; line-height: 1.6; }
+    .compare-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .col-monopoly { background: rgba(37,99,235,0.08); color: var(--blue-dark); }
+    .col-compete { background: rgba(220,38,38,0.08); color: var(--red); }
+
+    .vs-layout { display: grid; grid-template-columns: 1fr 80px 1fr; gap: 0; align-items: start; }
+    .vs-badge { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 50%; background: var(--text-primary); color: white; font-weight: 900; font-size: 20px; margin: 60px auto 0; }
+
+    .num-highlight { font-size: 56px; font-weight: 900; color: var(--blue); line-height: 1; margin-bottom: 8px; }
+    .num-label { font-size: 15px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    .closing-brand { font-size: 48px; font-weight: 900; color: var(--text-primary); margin-bottom: 16px; }
+    .closing-slogan { font-size: 22px; color: var(--blue); font-style: italic; margin-bottom: 48px; }
+    .closing-info { display: flex; justify-content: center; gap: 36px; font-size: 16px; color: var(--text-secondary); }
+
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--blue), var(--blue-light)); transition: width 0.4s ease; z-index: 100; }
+
+    .nav-arrows { position: fixed; bottom: 50%; right: 24px; transform: translateY(50%); display: flex; flex-direction: column; gap: 8px; z-index: 100; }
+    .nav-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-glass); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; font-size: 18px; color: var(--text-secondary); transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .nav-btn:hover { background: var(--bg-glass-hover); transform: scale(1.1); }
+
+    .hl { color: var(--blue); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-gold { color: var(--gold); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <div class="deck">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner">
+        <div class="title-badge">📘 CHƯƠNG 1</div>
+        <h1 class="title-main serif">Chúng ta vướng víu<br>trong một ảo ảnh</h1>
+        <p class="title-sub serif">Siêu Nhân Loại (MetaHuman)</p>
+        <div class="title-meta">
+          <span>📖 Deepak Chopra, M.D.</span>
+          <span>📄 tr. 44 — 70</span>
+          <span>📅 06/09/2026 · Tuần 1</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">1 / 12</div>
+    </div>
+
+    <!-- SLIDE 2: Thực tại ảo -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag">Mở đầu</div>
+          <h2 class="content-title serif" style="text-align: center;">Homo Sapiens & Thực Tại Ảo</h2>
+          <div class="card no-top" style="max-width: 800px; margin: 0 auto; padding: 40px 48px;">
+            <div class="card-icon" style="font-size: 56px; margin-bottom: 20px;">🌐</div>
+            <p class="card-text" style="font-size: 22px; line-height: 1.8;">
+              Loài người đã bước vào một <span class="hl">"thực tại ảo"</span> — nơi tâm trí tạo ra thế giới mà chúng ta vẫn gọi là thực. Những gì ta tin là khách quan lại chính là một hệ thống các diễn dịch chủ quan do tâm trí dựng lên.
+            </p>
+            <p class="card-text" style="text-align: right; margin-top: 24px;"><small>— tr. 44-48</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">2 / 12</div>
+    </div>
+
+    <!-- SLIDE 3: Dislocation -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag red">Đột phá</div>
+          <h2 class="content-title serif">Khoảnh Khắc "Dislocation"</h2>
+          <div class="quote-block" style="margin-bottom: 32px; border-left-color: var(--red);">
+            <p class="quote-text serif">Khủng hoảng cá nhân — cái chết, chấn thương, hoặc thảm họa — có thể phá vỡ ảo giác tạm thời.</p>
+          </div>
+          <div class="card red-top" style="text-align: center; padding: 24px 48px;">
+            <p class="card-text" style="font-size: 20px; line-height: 1.7;">
+              Sự rạn nứt này (dislocation) đẩy chúng ta ra khỏi kịch bản quen thuộc của tâm trí. Khi ảo giác vỡ, ta chợt nhận ra mình đang bị giam cầm trong những giới hạn tự tạo.
+            </p>
+            <p class="card-text"><small>— tr. 48-52</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">3 / 12</div>
+    </div>
+
+    <!-- SLIDE 4: Giác quan -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag">Nhận thức</div>
+          <h2 class="content-title serif">Giác Quan Lọc Thực Tại</h2>
+          <p class="card-text" style="font-size: 18px; margin-bottom: 28px; color: var(--text-secondary); text-align: center;">
+            Ta chỉ thấy một phần rất nhỏ của vũ trụ. Giác quan không phản ánh toàn bộ thực tại, mà <span class="hl">lọc bớt</span> nó.
+          </p>
+          <div class="content-body triple">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">👁️</div>
+              <div class="card-title">Tầm nhìn hẹp</div>
+              <div class="card-text">Mắt người chỉ nhận biết được một dải quang phổ điện từ cực kỳ nhỏ bé.<br><small>— tr. 52-56</small></div>
+            </div>
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">👂</div>
+              <div class="card-title">Âm thanh giới hạn</div>
+              <div class="card-text">Tai ta không nghe được tần số siêu âm hay hạ âm phong phú tồn tại xung quanh.<br><small>— tr. 52-56</small></div>
+            </div>
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">🧠</div>
+              <div class="card-title">Bộ lọc tâm trí</div>
+              <div class="card-text">Tâm trí loại bỏ các thông tin "không cần thiết" để giữ cho bức tranh ổn định.<br><small>— tr. 52-56</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">4 / 12</div>
+    </div>
+
+    <!-- SLIDE 5: Tâm trí tự động -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag gold">Cơ chế</div>
+          <h2 class="content-title serif">Tâm Trí Hoạt Động Tự Động</h2>
+          <div class="content-body dual">
+            <div class="card gold-top">
+              <div class="card-icon">⚙️</div>
+              <div class="card-title">Phản ứng tự phát</div>
+              <div class="card-text">
+                Chúng ta thường nghĩ mình làm chủ quyết định, nhưng thực tế, tâm trí đang phản ứng <span class="hl-gold">một cách tự động</span> theo thói quen và quá khứ.
+                <br><br><small>— tr. 56-60</small>
+              </div>
+            </div>
+            <div class="card gold-top">
+              <div class="card-icon">🌪️</div>
+              <div class="card-title">Dòng suy nghĩ không ngừng</div>
+              <div class="card-text">
+                Ta hầu như <span class="hl-red">không kiểm soát</span> được suy nghĩ và cảm xúc của mình. Chúng ùa đến theo phản xạ, duy trì ảo giác về một "cái tôi" liên tục.
+                <br><br><small>— tr. 56-60</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">5 / 12</div>
+    </div>
+
+    <!-- SLIDE 6: Bẫy ngôn ngữ -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag">Giới hạn</div>
+          <h2 class="content-title serif">Bẫy Ngôn Ngữ</h2>
+          <div class="card no-top" style="max-width: 800px; margin: 0 auto; padding: 40px 48px; border-top: 3px solid var(--blue);">
+            <div class="card-icon" style="font-size: 56px; margin-bottom: 20px;">🗣️</div>
+            <p class="card-text" style="font-size: 22px; line-height: 1.8;">
+              Ngôn ngữ định hình cách ta nghĩ về thực tại. Bằng cách dán nhãn mọi thứ, ngôn ngữ vô tình <span class="hl">giới hạn khả năng nhận thức</span> của ta về sự trọn vẹn và vô hạn của hiện hữu.
+            </p>
+            <p class="card-text" style="text-align: right; margin-top: 24px;"><small>— tr. 60-64</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">6 / 12</div>
+    </div>
+
+    <!-- SLIDE 7: KEY SLIDE -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="content-tag green" style="transform: scale(1.2); margin-bottom: 24px;">Bản chất cốt lõi</div>
+          <div class="quote-block" style="margin-top: 20px; border-left: none; padding: 60px 48px; background: linear-gradient(135deg, var(--green-bg), rgba(4,120,87,0.15)); border: 2px solid var(--green-border);">
+            <p class="quote-text serif" style="font-size: 48px; line-height: 1.4; color: var(--green); font-weight: 800;">
+              "Ta KHÔNG PHẢI là tâm trí.<br>Ta là <span style="text-decoration: underline;">ý thức</span> quan sát tâm trí."
+            </p>
+            <p class="quote-author" style="margin-top: 20px; font-size: 20px;">— Lối ra khỏi ảo ảnh (tr. 64-68)</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">7 / 12</div>
+    </div>
+
+    <!-- SLIDE 8: Bước đầu thức tỉnh -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Giải pháp</div>
+          <h2 class="content-title serif">Bước Đầu Thức Tỉnh</h2>
+          <div class="card green-top" style="text-align: center; padding: 48px;">
+            <div class="card-icon" style="font-size: 64px; margin-bottom: 24px;">🌅</div>
+            <p class="card-text" style="font-size: 24px; line-height: 1.8;">
+              Thức tỉnh bắt đầu khi ta <span class="hl-green">dừng đồng nhất</span> bản thân với câu chuyện mà bản ngã (ego) không ngừng kể lể. Hãy lùi lại và đóng vai trò người quan sát tĩnh lặng.
+            </p>
+            <p class="card-text" style="text-align: right; margin-top: 24px;"><small>— tr. 68-70</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">8 / 12</div>
+    </div>
+
+    <!-- SLIDE 9: VN Examples -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <h2 class="content-title serif">Áp Dụng: Chánh Niệm Tại Việt Nam</h2>
+          <div class="content-body triple">
+            <div class="card" style="text-align: center;">
+              <div class="card-icon">🪷</div>
+              <div class="card-title">Thiền Phật Giáo</div>
+              <div class="card-text">Định hướng cốt lõi của thiền tập là <span class="hl">tách rời</span> người quan sát khỏi những vọng niệm (suy nghĩ) không ngừng sinh diệt.</div>
+            </div>
+            <div class="card green-top" style="text-align: center;">
+              <div class="card-icon">🧘</div>
+              <div class="card-title">Chánh Niệm (Mindfulness)</div>
+              <div class="card-text">Quan sát hơi thở và sự vật đang diễn ra <span class="hl-green">ngay lúc này</span> mà không dán nhãn, không phán xét bằng ngôn ngữ.</div>
+            </div>
+            <div class="card gold-top" style="text-align: center;">
+              <div class="card-icon">🌱</div>
+              <div class="card-title">Thiền sư Thích Nhất Hạnh</div>
+              <div class="card-text">"Trở về với hiện tại" — <span class="hl-gold">đánh thức ý thức</span> thoát khỏi những câu chuyện tự động do tâm trí vẽ ra về quá khứ và tương lai.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">9 / 12</div>
+    </div>
+
+    <!-- SLIDE 10: Bài học -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div class="content-layout">
+          <div class="content-tag green">Đúc kết</div>
+          <h2 class="content-title serif">Bài Học Từ Chương 1</h2>
+          <div class="content-body dual">
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">1️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Ta đang sống trong thực tại ảo</strong> — được dựng lên bởi giác quan có hạn và tâm trí luôn diễn dịch.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">2️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Khủng hoảng là cơ hội</strong> — sự kiện bất ngờ có thể phá vỡ lớp vỏ bọc ảo giác.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">3️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Tâm trí vận hành tự động</strong> — đa số phản ứng của chúng ta là những phản xạ vô thức.</div></div>
+            </div>
+            <div class="card no-top" style="padding: 24px 28px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">4️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Cẩn trọng với ngôn ngữ</strong> — dán nhãn sẽ giới hạn cách ta cảm nhận bản chất vô hạn của thực tại.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 20px;"><span style="font-size: 28px;">5️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Bạn không phải là tâm trí</strong> — bạn là <em>ý thức</em> đang quan sát chính cái tâm trí đó.</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px;">6️⃣</span><div class="card-text" style="font-size: 17px;"><strong>Bước đầu tiên</strong> — ngừng đồng nhất mình với những câu chuyện mà bản ngã tự kể.</div></div>
+            </div>
+          </div>
+          <p style="text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-muted); font-style: italic;">— Tổng hợp từ tr. 44–70</p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">10 / 12</div>
+    </div>
+
+    <!-- SLIDE 11: Discussion -->
+    <div class="slide" id="slide-11">
+      <div class="slide-inner">
+        <div class="content-layout" style="text-align: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi thảo luận</div>
+          <h2 class="content-title serif" style="text-align: center;">Câu Hỏi Thảo Luận</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            <div class="card no-top" style="text-align: left; padding: 32px 40px;">
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Có khoảnh khắc "dislocation" nào trong quá khứ đã từng làm thay đổi hoàn toàn cách bạn nhìn nhận một vấn đề quen thuộc?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start; margin-bottom: 24px;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Bạn có thể nhận ra một <span class="hl-red">phản ứng tự động</span> nào của tâm trí mình thường lặp lại mỗi khi gặp áp lực không?</div></div>
+              <div style="display: flex; gap: 16px; align-items: start;"><span style="font-size: 28px; min-width: 36px;">💬</span><div class="card-text" style="font-size: 18px;">Làm thế nào để áp dụng thói quen lùi lại và trở thành <span class="hl-green">người quan sát tĩnh lặng</span> trong công việc hàng ngày?</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">11 / 12</div>
+    </div>
+
+    <!-- SLIDE 12: Closing -->
+    <div class="slide" id="slide-12">
+      <div class="slide-inner">
+        <h2 class="closing-brand serif">BOOKnBEYOND</h2>
+        <p class="closing-slogan serif">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 80px; margin-bottom: 30px;">📘</div>
+        <h3 class="serif" style="font-size: 26px; color: var(--text-primary); margin-bottom: 12px;">Siêu Nhân Loại — Chương 1</h3>
+        <p style="font-size: 20px; color: var(--blue); margin-bottom: 36px; font-style: italic;">Chúng ta vướng víu trong một ảo ảnh</p>
+        <div class="closing-info">
+          <span>📅 06/09/2026 · Tuần 1</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">12 / 12</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 600);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    });
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    document.addEventListener('touchend', (e) => {
+      if (Math.abs(touchStartX - e.changedTouches[0].screenX) > 50) {
+        touchStartX - e.changedTouches[0].screenX > 0 ? nextSlide() : prevSlide();
+      }
+    });
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
