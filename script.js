@@ -408,6 +408,7 @@
         html += `
           <div class="book-cover-card" onclick="window.location.href='book.html?id=${book.id}'">
             ${isReading ? '<div class="reading-badge">Đang đọc</div>' : ''}
+            ${book.driveLink ? `<a href="${book.driveLink}" target="_blank" rel="noopener" class="drive-link" onclick="event.stopPropagation()" title="Đọc sách trên Drive">📖</a>` : ''}
             <img src="${book.cover}" alt="${book.title}" loading="lazy">
             <div class="card-content">
               <h4>${book.title}</h4>
