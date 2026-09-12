@@ -404,17 +404,37 @@
       sortedBooks.forEach(book => {
         const isReading = book.status === 'reading';
         const starsHtml = book.rating > 0 ? getStars(book.rating) : 'Chưa xếp hạng';
+        const fileCount = (book.files && book.files.length) || 0;
+        
+        let fileActionHtml = '';
+        if (fileCount === 1) {
+          const f = book.files[0];
+          fileActionHtml = `
+            <a href="${f.url}" target="_blank" rel="noopener" class="cover-drive-overlay" onclick="event.stopPropagation()" title="Mở đọc ${f.title}">
+              📖 Đọc (${f.format})
+            </a>
+          `;
+        } else if (fileCount > 1) {
+          fileActionHtml = `
+            <a href="book.html?id=${book.id}#files" class="cover-drive-overlay multi-files" onclick="event.stopPropagation()" title="Sách gồm ${fileCount} phần">
+              📚 Chọn phần (${fileCount} file)
+            </a>
+          `;
+        } else if (book.driveFolder || book.driveLink) {
+          const link = book.driveFolder || book.driveLink;
+          fileActionHtml = `
+            <a href="${link}" target="_blank" rel="noopener" class="cover-drive-overlay" onclick="event.stopPropagation()" title="Mở thư mục Google Drive">
+              📁 Thư mục sách
+            </a>
+          `;
+        }
         
         html += `
           <div class="book-cover-card" onclick="window.location.href='book.html?id=${book.id}'">
             ${isReading ? '<div class="reading-badge">Đang đọc</div>' : ''}
             <div class="cover-img-wrap">
-              <img src="${book.cover}" alt="${book.title}" loading="lazy">
-              ${book.driveLink ? `
-                <a href="${book.driveLink}" target="_blank" rel="noopener" class="cover-drive-overlay" onclick="event.stopPropagation()" title="Đọc sách trên Google Drive">
-                  📖 Đọc sách (Drive)
-                </a>
-              ` : ''}
+              <img src="${book.cover}" alt="${book.title}" loading="lazy" decoding="async">
+              ${fileActionHtml}
             </div>
             <div class="card-content">
               <h4>${book.title}</h4>

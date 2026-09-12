@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="luxury.css?v=20260912v2">
+  <link rel="stylesheet" href="luxury.css?v=20260912v3">
   <style>
     :root {
       --bg-primary: #cce0d0;
@@ -226,6 +226,70 @@
       font-style: italic;
     }
 
+    /* Files Section */
+    .files-section {
+      margin-bottom: 50px;
+    }
+    .files-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .file-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      padding: 16px 20px;
+      text-decoration: none;
+      color: var(--text-primary);
+      border: 1px solid var(--border-glass);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      transition: all 0.25s ease;
+    }
+    .file-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: rgba(184, 122, 31, 0.4);
+    }
+    .file-card-icon {
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+    .file-card-info {
+      flex-grow: 1;
+    }
+    .file-card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+    .file-card-badge {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 500;
+    }
+    .btn-folder {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      text-decoration: none;
+      margin-top: 14px;
+      padding: 8px 16px;
+      background: rgba(0,0,0,0.03);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-folder:hover {
+      background: rgba(0,0,0,0.06);
+      color: var(--text-primary);
+    }
+
     /* Footer */
     .footer {
       text-align: center;
@@ -307,6 +371,48 @@
         slidesHtml = `<p class="empty-state">Chưa có bài trình bày cho cuốn sách này.</p>`;
       }
 
+      let filesHtml = '';
+      if (book.files && book.files.length > 0) {
+        let fileCards = book.files.map(f => `
+          <a href="${f.url}" target="_blank" rel="noopener" class="file-card">
+            <div class="file-card-icon">${f.format === 'DOCX' ? '📝' : '📄'}</div>
+            <div class="file-card-info">
+              <div class="file-card-title">${f.title}</div>
+              <div class="file-card-badge">${f.format} · Mở đọc trên trình duyệt ↗</div>
+            </div>
+          </a>
+        `).join('');
+        filesHtml = `
+          <div class="files-section" id="files">
+            <h2 class="section-title">📖 Tài Liệu Đọc Sách</h2>
+            <div class="files-grid">${fileCards}</div>
+            ${book.driveFolder ? `
+              <div style="margin-top: 14px;">
+                <a href="${book.driveFolder}" target="_blank" rel="noopener" class="btn-folder">📁 Mở toàn bộ thư mục Google Drive ↗</a>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      } else if (book.driveFolder || book.driveLink) {
+        const link = book.driveFolder || book.driveLink;
+        filesHtml = `
+          <div class="files-section" id="files">
+            <h2 class="section-title">📖 Tài Liệu Đọc Sách</h2>
+            <p style="color: var(--text-muted); margin-bottom: 12px;">Tài liệu đang được đồng bộ vào Google Drive.</p>
+            <a href="${link}" target="_blank" rel="noopener" class="btn-folder">📁 Mở thư mục Google Drive ↗</a>
+          </div>
+        `;
+      }
+
+      let readBtnHtml = '';
+      if (book.files && book.files.length === 1) {
+        readBtnHtml = `<a href="${book.files[0].url}" target="_blank" rel="noopener" class="btn-read">📖 Đọc sách (${book.files[0].format})</a>`;
+      } else if (book.files && book.files.length > 1) {
+        readBtnHtml = `<a href="#files" class="btn-read">📚 Chọn phần đọc (${book.files.length} file)</a>`;
+      } else if (book.driveLink) {
+        readBtnHtml = `<a href="${book.driveLink}" target="_blank" rel="noopener" class="btn-read">📁 Mở thư mục Google Drive</a>`;
+      }
+
       contentDiv.innerHTML = `
         <div class="book-hero">
           <img src="${book.cover}" alt="${book.title}" class="book-cover">
@@ -327,13 +433,15 @@
               ${tagsHtml}
             </div>
 
-            ${book.driveLink ? `<a href="${book.driveLink}" target="_blank" rel="noopener" class="btn-read">📖 Đọc sách trên Google Drive</a>` : ''}
+            ${readBtnHtml}
           </div>
         </div>
 
         <div class="insight-card">
           <p class="quote-text">${book.topInsight}</p>
         </div>
+
+        ${filesHtml}
 
         <div class="slides-section">
           <h2 class="section-title">📊 Bài Trình Bày</h2>

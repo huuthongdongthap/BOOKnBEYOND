@@ -849,6 +849,14 @@ textarea, input[type="text"], select {
   transform: scale(1.02);
 }
 
+.cover-drive-overlay.multi-files {
+  background: rgba(184, 122, 31, 0.92);
+}
+
+.cover-drive-overlay.multi-files:hover {
+  background: #9a6518;
+}
+
 .book-cover-card .card-content {
   padding: 16px;
   flex-grow: 1;
