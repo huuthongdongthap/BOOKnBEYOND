@@ -408,12 +408,21 @@
         html += `
           <div class="book-cover-card" onclick="window.location.href='book.html?id=${book.id}'">
             ${isReading ? '<div class="reading-badge">Đang đọc</div>' : ''}
-            ${book.driveLink ? `<a href="${book.driveLink}" target="_blank" rel="noopener" class="drive-link" onclick="event.stopPropagation()" title="Đọc sách trên Drive">📖</a>` : ''}
-            <img src="${book.cover}" alt="${book.title}" loading="lazy">
+            <div class="cover-img-wrap">
+              <img src="${book.cover}" alt="${book.title}" loading="lazy">
+              ${book.driveLink ? `
+                <a href="${book.driveLink}" target="_blank" rel="noopener" class="cover-drive-overlay" onclick="event.stopPropagation()" title="Đọc sách trên Google Drive">
+                  📖 Đọc sách (Drive)
+                </a>
+              ` : ''}
+            </div>
             <div class="card-content">
               <h4>${book.title}</h4>
-              <p>${book.author}</p>
+              <p class="card-author">${book.author}</p>
               <div class="stars">${starsHtml}</div>
+              <div class="card-actions">
+                <span class="btn-card-detail">Xem bài & slide →</span>
+              </div>
             </div>
           </div>
         `;
@@ -499,7 +508,7 @@
       html += '</div>';
       
       grid.innerHTML = html;
-      grid.className = 'library-shelf'; 
+      grid.className = 'library-shelf timeline-view';
     };
 
     // View Toggles
