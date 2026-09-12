@@ -343,13 +343,42 @@
     }).join('');
   }
 
-  function renderLibrary() {
+  async function renderLibrary() {
     const grid = document.getElementById('libraryGrid');
+    const statsContainer = document.getElementById('libraryStats');
     if (!grid) return;
 
-    if (!CONFIG.library || CONFIG.library.length === 0) {
+    let books = [];
+    try {
+      const response = await fetch('data/books.json');
+      books = await response.json();
+    } catch (error) {
+      console.error('Failed to load books:', error);
+      grid.innerHTML = '<div class="empty-state">Không thể tải danh sách sách.</div>';
+      return;
+    }
+
+    if (!books || books.length === 0) {
       grid.innerHTML = '<div class="empty-state">Chưa có cuốn sách nào được hoàn thành. Di sản bắt đầu từ hôm nay.</div>';
       return;
+    }
+
+    // Calculate stats
+    const totalBooks = books.length;
+    const totalPages = books.reduce((sum, b) => sum + (b.totalPages || 0), 0);
+    const ratedBooks = books.filter(b => b.rating > 0);
+    const avgRating = ratedBooks.length > 0 ? (ratedBooks.reduce((sum, b) => sum + b.rating, 0) / ratedBooks.length).toFixed(1) : 0;
+    
+    let earliestDateStr = '...';
+    const finishedDates = books.filter(b => b.finishedDate).map(b => new Date(b.finishedDate + 'T00:00:00'));
+    if (finishedDates.length > 0) {
+      const earliest = new Date(Math.min(...finishedDates));
+      const month = (earliest.getMonth() + 1).toString().padStart(2, '0');
+      earliestDateStr = `${month}/${earliest.getFullYear()}`;
+    }
+
+    if (statsContainer) {
+      statsContainer.innerHTML = `📚 ${totalBooks} cuốn sách &middot; 📄 ${totalPages.toLocaleString()} trang &middot; ⭐ TB ${avgRating} &middot; 🗓️ Từ ${earliestDateStr}`;
     }
 
     // Colors for spine gradient
@@ -362,54 +391,147 @@
       ['#1c1917', '#44403c']
     ];
 
-    let currentMonthYear = '';
-    let html = '';
+    // Functions to render specific views
+    const renderCoverView = () => {
+      // Sort newest first based on finishedDate
+      const sortedBooks = [...books].sort((a, b) => {
+        if (!a.finishedDate) return -1;
+        if (!b.finishedDate) return 1;
+        return new Date(b.finishedDate) - new Date(a.finishedDate);
+      });
 
-    CONFIG.library.forEach((book, i) => {
-      const date = new Date(book.finishedDate + 'T00:00:00');
-      const monthYear = !isNaN(date.getTime()) ? `Tháng ${date.getMonth() + 1}, ${date.getFullYear()}` : 'Chưa rõ';
-      
-      // Removed month marker to keep spines in a continuous horizontal shelf
-
-      const colorPair = colors[i % colors.length];
-      const hWidth = Math.floor(Math.random() * 20) + 50; // 50px - 70px
-
-      html += `
-        <div class="book-spine-group">
-          <div class="book-spine" style="width: ${hWidth}px; background: linear-gradient(180deg, ${colorPair[0]}, ${colorPair[1]});">
-            <div class="spine-content">
-              <span class="spine-title">${book.title}</span>
-              <span class="spine-author">${book.author}</span>
+      let html = '';
+      sortedBooks.forEach(book => {
+        const isReading = book.status === 'reading';
+        const starsHtml = book.rating > 0 ? getStars(book.rating) : 'Chưa xếp hạng';
+        
+        html += `
+          <div class="book-cover-card" onclick="window.location.href='book.html?id=${book.id}'">
+            ${isReading ? '<div class="reading-badge">Đang đọc</div>' : ''}
+            <img src="${book.cover}" alt="${book.title}" loading="lazy">
+            <div class="card-content">
+              <h4>${book.title}</h4>
+              <p>${book.author}</p>
+              <div class="stars">${starsHtml}</div>
             </div>
           </div>
-          <div class="book-spine-tooltip">
-            <strong>${book.title}</strong>
-            <div style="font-size:0.8rem; margin:4px 0; color:var(--gold);">${getStars(book.rating)}</div>
-            ${book.topInsight ? `<div style="font-style:italic; font-size:0.85rem; color:var(--text-secondary); margin-top:8px;">"${book.topInsight}"</div>` : ''}
-          </div>
-        </div>
-      `;
-    });
-
-    grid.innerHTML = html;
-
-    // View Toggle
-    const btnSpine = document.getElementById('btnSpineView');
-    const btnGrid = document.getElementById('btnGridView');
-    if (btnSpine && btnGrid) {
-      btnSpine.addEventListener('click', () => {
-        btnSpine.classList.add('active');
-        btnGrid.classList.remove('active');
-        grid.classList.add('spine-view');
-        grid.classList.remove('grid-view');
+        `;
       });
-      btnGrid.addEventListener('click', () => {
-        btnGrid.classList.add('active');
+      grid.innerHTML = html;
+      grid.className = 'library-shelf cover-view';
+    };
+
+    const renderSpineView = () => {
+      let html = '';
+      books.forEach((book, i) => {
+        const colorPair = colors[i % colors.length];
+        const hWidth = Math.floor(Math.random() * 20) + 50; // 50px - 70px
+        
+        html += `
+          <div class="book-spine-group" onclick="window.location.href='book.html?id=${book.id}'">
+            <div class="book-spine" style="width: ${hWidth}px; background: linear-gradient(180deg, ${colorPair[0]}, ${colorPair[1]});">
+              <div class="spine-content">
+                <span class="spine-title">${book.title}</span>
+                <span class="spine-author">${book.author}</span>
+              </div>
+            </div>
+            <div class="book-spine-tooltip">
+              <strong>${book.title}</strong>
+              <div style="font-size:0.8rem; margin:4px 0; color:var(--gold);">${getStars(book.rating)}</div>
+              ${book.topInsight ? `<div style="font-style:italic; font-size:0.85rem; color:var(--text-secondary); margin-top:8px;">"${book.topInsight}"</div>` : ''}
+            </div>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+      grid.className = 'library-shelf spine-view';
+    };
+
+    const renderTimelineView = () => {
+      // Group by year
+      const grouped = {};
+      const sortedBooks = [...books].sort((a, b) => {
+        if (!a.finishedDate) return -1;
+        if (!b.finishedDate) return 1;
+        return new Date(b.finishedDate) - new Date(a.finishedDate);
+      });
+
+      sortedBooks.forEach(book => {
+        let year = 'Đang đọc';
+        if (book.finishedDate) {
+          year = new Date(book.finishedDate).getFullYear().toString();
+        }
+        
+        if (!grouped[year]) grouped[year] = [];
+        grouped[year].push(book);
+      });
+
+      let html = '<div class="timeline-view">';
+      
+      const years = Object.keys(grouped).sort((a, b) => {
+        if (a === 'Đang đọc') return -1;
+        if (b === 'Đang đọc') return 1;
+        return parseInt(b) - parseInt(a);
+      });
+
+      years.forEach(year => {
+        html += `<div class="timeline-year">${year}</div>`;
+        grouped[year].forEach(book => {
+          const dateStr = book.finishedDate ? new Date(book.finishedDate).toLocaleDateString('vi-VN') : 'Đang tiến hành';
+          const isReading = book.status === 'reading';
+          const starsHtml = book.rating > 0 ? getStars(book.rating) : '';
+          
+          html += `
+            <div class="timeline-entry" onclick="window.location.href='book.html?id=${book.id}'">
+              <div class="timeline-entry-header">
+                <h4>${book.title} ${isReading ? '<span class="reading-badge" style="position:static; margin-left:8px; display:inline-block;">Đang đọc</span>' : ''}</h4>
+                <span class="timeline-date">${dateStr}</span>
+              </div>
+              <div class="timeline-entry-body">
+                <span class="timeline-author">${book.author}</span>
+                <span class="stars">${starsHtml}</span>
+              </div>
+            </div>
+          `;
+        });
+      });
+      html += '</div>';
+      
+      grid.innerHTML = html;
+      grid.className = 'library-shelf'; 
+    };
+
+    // View Toggles
+    const btnCover = document.getElementById('btnCoverView');
+    const btnSpine = document.getElementById('btnSpineView');
+    const btnTimeline = document.getElementById('btnTimelineView');
+    
+    if (btnCover && btnSpine && btnTimeline) {
+      const updateActiveBtn = (activeBtn) => {
+        btnCover.classList.remove('active');
         btnSpine.classList.remove('active');
-        grid.classList.add('grid-view');
-        grid.classList.remove('spine-view');
+        btnTimeline.classList.remove('active');
+        activeBtn.classList.add('active');
+      };
+
+      btnCover.addEventListener('click', () => {
+        updateActiveBtn(btnCover);
+        renderCoverView();
+      });
+      
+      btnSpine.addEventListener('click', () => {
+        updateActiveBtn(btnSpine);
+        renderSpineView();
+      });
+      
+      btnTimeline.addEventListener('click', () => {
+        updateActiveBtn(btnTimeline);
+        renderTimelineView();
       });
     }
+
+    // Default view
+    renderCoverView();
   }
 
   function renderRules() {

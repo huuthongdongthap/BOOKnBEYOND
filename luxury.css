@@ -758,3 +758,197 @@ textarea, input[type="text"], select {
 .nav-cta {
   white-space: nowrap;
 }
+
+/* 7. LIBRARY NEW VIEWS */
+.library-stats {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  background: var(--bg-card);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-glass);
+}
+
+.cover-view {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding: 20px 0;
+}
+
+.book-cover-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-elevation);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-glass);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.book-cover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.book-cover-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.book-cover-card .card-content {
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.book-cover-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.book-cover-card p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.book-cover-card .stars {
+  color: var(--gold);
+  font-size: 0.9rem;
+}
+
+.reading-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--success);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Timeline View */
+.timeline-view {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.timeline-view::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-glass);
+}
+
+.timeline-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin: 32px 0 16px 40px;
+  position: relative;
+}
+
+.timeline-year::before {
+  content: '';
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background: var(--bg-body);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+}
+
+.timeline-entry {
+  position: relative;
+  margin-left: 40px;
+  background: var(--bg-card);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-glass);
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.timeline-entry:hover {
+  transform: translateX(5px);
+  border-color: var(--gold);
+}
+
+.timeline-entry::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 24px;
+  width: 16px;
+  height: 2px;
+  background: var(--border-glass);
+}
+
+.timeline-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.timeline-entry-header h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.timeline-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.timeline-entry-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.timeline-author {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.timeline-entry .stars {
+  color: var(--gold);
+  font-size: 0.9rem;
+}
+
+/* Responsive for Cover View */
+@media (max-width: 1024px) {
+  .cover-view {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .cover-view {
+    grid-template-columns: 1fr;
+  }
+}
