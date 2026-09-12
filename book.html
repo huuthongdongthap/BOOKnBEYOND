@@ -138,6 +138,23 @@
       font-weight: 600;
       margin-bottom: 15px;
     }
+    .btn-read {
+      display: inline-block;
+      background: var(--gold);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+    .btn-read:hover {
+      background: #9a6518;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(184, 122, 31, 0.3);
+    }
 
     /* Top Insight */
     .insight-card {
@@ -309,6 +326,8 @@
             <div class="tags">
               ${tagsHtml}
             </div>
+
+            ${book.driveLink ? `<a href="${book.driveLink}" target="_blank" rel="noopener" class="btn-read">📖 Đọc sách</a>` : ''}
           </div>
         </div>
 
