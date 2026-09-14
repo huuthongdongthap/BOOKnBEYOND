@@ -101,6 +101,14 @@
       });
     });
 
+    // Close menu when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      if (links.classList.contains('open') && !links.contains(e.target) && !toggle.contains(e.target)) {
+        toggle.classList.remove('active');
+        links.classList.remove('open');
+      }
+    });
+
     // Scroll effect
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 50);
