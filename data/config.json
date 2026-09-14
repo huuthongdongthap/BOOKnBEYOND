@@ -2,13 +2,16 @@
   "clubName": "BOOKnBEYOND",
   "slogan": "Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa",
   "meetLink": "https://meet.google.com/onb-gepu-owa",
-  "meetTime": { "day": "Sunday", "start": "05:15", "end": "07:15" },
+  "meetTime": {
+    "day": "Sunday",
+    "start": "05:15",
+    "end": "07:15"
+  },
   "driveLink": "https://drive.google.com/drive/folders/1Y8xC8wfZTJ-mP5MGx4JolxpXzt4cut_h?usp=sharing",
   "registerFormLink": "https://docs.google.com/spreadsheets/d/18JVy2EqdRsJDf_tzDfsqX-jE5I6gos8sWBVzcK06tRU/edit?pli=1&gid=0#gid=0",
   "voteFormLink": "https://docs.google.com/forms/d/e/1FAIpQLSfBXm5uto3jFNqRw85xJDSFraRV1Z3JOs_lgh6dOPyV0uswrg/viewform?usp=sf_link",
   "zaloGroupLink": "https://zalo.me/g/ukcaaq228",
   "sheetsLink": "https://docs.google.com/spreadsheets/d/18JVy2EqdRsJDf_tzDfsqX-jE5I6gos8sWBVzcK06tRU/edit?pli=1&gid=0#gid=0",
-
   "currentBook": {
     "title": "Siêu Nhân Loại",
     "author": "Deepak Chopra, M.D.",
@@ -18,83 +21,191 @@
     "cover": "assets/cover-metahuman.png",
     "totalChapters": 13,
     "totalPages": 373,
-    "startDate": "2026-09-06",
-    "endDate": "2026-10-18"
+    "startDate": "2026-09-20",
+    "endDate": "2026-11-01"
   },
-
   "schedule": [
     {
       "week": 1,
-      "date": "2026-09-06",
+      "date": "2026-09-20",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "Lời nói đầu: Siêu Việt (tr.8-15, 8 trang)" },
-        { "name": "Giang", "chapter": "Tổng quan: Siêu nhân loại và lựa chọn cuộc đời (tr.16-42, 27 trang)" },
-        { "name": "", "chapter": "Phần 1 + Ch.1: Chúng ta vướng víu trong một ảo ảnh (tr.43-70, 27 trang)" }
+        {
+          "name": "Giang",
+          "chapter": "Lời nói đầu: Siêu Việt (tr.8-15, 8 trang)"
+        },
+        {
+          "name": "Giang",
+          "chapter": "Tổng quan: Siêu nhân loại và lựa chọn cuộc đời (tr.16-42, 27 trang)"
+        },
+        {
+          "name": "Hằng",
+          "chapter": "Phần 1: Bí mật của siêu hiện thực (tr.43, 1 trang)"
+        },
+        {
+          "name": "Thông",
+          "chapter": "1. Chúng ta vướng víu trong một ảo ảnh (tr.44-70, 27 trang)"
+        }
       ]
     },
     {
       "week": 2,
-      "date": "2026-09-20",
+      "date": "2026-09-27",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "2. Tôi tạo ra ảo ảnh (tr.71-91, 21 trang)" },
-        { "name": "", "chapter": "3. Tiềm năng của con người là vô hạn (tr.92-113, 22 trang)" },
-        { "name": "", "chapter": "4. Siêu hiện thực cho tự do tuyệt đối (tr.114-134, 21 trang)" }
+        {
+          "name": "Hằng",
+          "chapter": "2. Tôi tạo ra ảo ảnh (tr.71-91, 21 trang)"
+        },
+        {
+          "name": "Lương",
+          "chapter": "3. Tiềm năng của con người là vô hạn (tr.92-113, 22 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "4. Siêu hiện thực cho tự do tuyệt đối (tr.114-134, 21 trang)"
+        }
       ]
     },
     {
       "week": 3,
-      "date": "2026-09-27",
+      "date": "2026-10-04",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "5. Tâm trí, cơ thể, não bộ và vũ trụ đều là ý thức biến đổi (tr.135-159, 25 trang)" },
-        { "name": "", "chapter": "6. Sự tồn tại và ý thức là một (tr.160-182, 23 trang)" },
-        { "name": "", "chapter": "Phần 2 + Ch.7: Trải nghiệm là tiên quyết (tr.183-203, 20 trang)" }
+        {
+          "name": "",
+          "chapter": "5. Tâm trí, cơ thể, não bộ và vũ trụ đều là ý thức biến đổi (tr.135-159, 25 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "6. Sự tồn tại và ý thức là một (tr.160-182, 23 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "Phần 2: Thức tỉnh (tr.183, 1 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "7. Trải nghiệm là tiên quyết (tr.184-203, 20 trang)"
+        }
       ]
     },
     {
       "week": 4,
-      "date": "2026-10-04",
+      "date": "2026-10-18",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "8. Vượt lên mọi giai thoại (tr.204-220, 17 trang)" },
-        { "name": "", "chapter": "9. Con đường trực tiếp (tr.221-242, 22 trang)" },
-        { "name": "", "chapter": "Phần 3 + Ch.10: Giải phóng cơ thể (tr.243-260, 17 trang)" }
+        {
+          "name": "",
+          "chapter": "8. Vượt lên mọi giai thoại (tr.204-220, 17 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "9. Con đường trực tiếp (tr.221-242, 22 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "Phần 3: Trở thành siêu nhân (tr.243, 1 trang)"
+        },
+        {
+          "name": "Lương",
+          "chapter": "10. Giải phóng cơ thể (tr.244-260, 17 trang)"
+        }
       ]
     },
     {
       "week": 5,
-      "date": "2026-10-11",
+      "date": "2026-10-25",
       "mc": "",
       "sharers": [
-        { "name": "Giang", "chapter": "11. Hồi sinh hoàn trí (tr.261-280, 20 trang)" },
-        { "name": "", "chapter": "12. Nhận thức không chọn lựa (tr.281-296, 16 trang)" },
-        { "name": "", "chapter": "13. Một cuộc đời (tr.297-312, 16 trang)" }
+        {
+          "name": "Giang",
+          "chapter": "11. Hồi sinh hoàn trí (tr.261-280, 20 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "12. Nhận thức không chọn lựa (tr.281-296, 16 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "13. Một cuộc đời (tr.297-312, 16 trang)"
+        }
       ]
     },
     {
       "week": 6,
-      "date": "2026-10-18",
+      "date": "2026-11-01",
       "mc": "",
       "sharers": [
-        { "name": "", "chapter": "Một tháng thức tỉnh: 31 bài học của siêu nhân (tr.313-360, 48 trang)" },
-        { "name": "", "chapter": "Lời bạt (tr.361-373, 12 trang)" }
+        {
+          "name": "",
+          "chapter": "Một tháng thức tỉnh: 31 bài học của siêu nhân (tr.313-360, 48 trang)"
+        },
+        {
+          "name": "",
+          "chapter": "Lời bạt (tr.361-373, 12 trang)"
+        }
       ]
     }
   ],
-
   "members": [
-    { "name": "Giangle", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
-    { "name": "Thông Phan", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
-    { "name": "Thanh", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
-    { "name": "Giang", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
-    { "name": "Bảo", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
-    { "name": "Lương", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
-    { "name": "Thanh Lương", "points": 0, "shares": 0, "attendance": 0, "streak": 0 },
-    { "name": "Thanh Võ", "points": 0, "shares": 0, "attendance": 0, "streak": 0 }
+    {
+      "name": "Giangle",
+      "points": 0,
+      "shares": 0,
+      "attendance": 0,
+      "streak": 0
+    },
+    {
+      "name": "Thông Phan",
+      "points": 0,
+      "shares": 0,
+      "attendance": 0,
+      "streak": 0
+    },
+    {
+      "name": "Thanh",
+      "points": 0,
+      "shares": 0,
+      "attendance": 0,
+      "streak": 0
+    },
+    {
+      "name": "Giang",
+      "points": 0,
+      "shares": 0,
+      "attendance": 0,
+      "streak": 0
+    },
+    {
+      "name": "Bảo",
+      "points": 0,
+      "shares": 0,
+      "attendance": 0,
+      "streak": 0
+    },
+    {
+      "name": "Lương",
+      "points": 0,
+      "shares": 0,
+      "attendance": 0,
+      "streak": 0
+    },
+    {
+      "name": "Thanh Lương",
+      "points": 0,
+      "shares": 0,
+      "attendance": 0,
+      "streak": 0
+    },
+    {
+      "name": "Thanh Võ",
+      "points": 0,
+      "shares": 0,
+      "attendance": 0,
+      "streak": 0
+    }
   ],
-
   "fund": {
     "balance": 0,
     "monthlyFee": 200000,
@@ -102,11 +213,14 @@
       "income": 0,
       "expense": 0,
       "details": [
-        { "desc": "Chưa có giao dịch — chương trình bắt đầu 15/03", "amount": 0, "type": "income" }
+        {
+          "desc": "Chưa có giao dịch — chương trình bắt đầu 15/03",
+          "amount": 0,
+          "type": "income"
+        }
       ]
     }
   },
-
   "library": [
     {
       "title": "Trò Chơi Vô Cực",
@@ -187,27 +301,66 @@
       "status": "reading"
     }
   ],
-
   "rules": [
-    { "icon": "🗳️", "rule": "Chọn sách bằng vote hoặc cá nhân đề cử theo tuần tự" },
-    { "icon": "📅", "rule": "Mỗi cuốn sách đọc trong 4 tuần, đăng ký chương cá nhân" },
-    { "icon": "⏱️", "rule": "Chia sẻ nội dung tối đa 10 phút/người/tuần" },
-    { "icon": "🎙️", "rule": "MC luân phiên mỗi tuần" },
-    { "icon": "📝", "rule": "Khuyến khích viết đúc kết bài học và chia sẻ lên nhóm sau mỗi buổi Meet" },
-    { "icon": "👥", "rule": "Nhóm 1: Bạn bè — tuân thủ kỷ luật. Nhóm 2: Cần hỗ trợ — tham gia Meet ít nhất 1 lần/tháng" }
+    {
+      "icon": "🗳️",
+      "rule": "Chọn sách bằng vote hoặc cá nhân đề cử theo tuần tự"
+    },
+    {
+      "icon": "📅",
+      "rule": "Mỗi cuốn sách đọc trong 4 tuần, đăng ký chương cá nhân"
+    },
+    {
+      "icon": "⏱️",
+      "rule": "Chia sẻ nội dung tối đa 10 phút/người/tuần"
+    },
+    {
+      "icon": "🎙️",
+      "rule": "MC luân phiên mỗi tuần"
+    },
+    {
+      "icon": "📝",
+      "rule": "Khuyến khích viết đúc kết bài học và chia sẻ lên nhóm sau mỗi buổi Meet"
+    },
+    {
+      "icon": "👥",
+      "rule": "Nhóm 1: Bạn bè — tuân thủ kỷ luật. Nhóm 2: Cần hỗ trợ — tham gia Meet ít nhất 1 lần/tháng"
+    }
   ],
-
   "penalties": [
-    { "violation": "Đến trễ >15' không báo / Ngủ trong buổi", "amount": "20 hít đất/squat (quay video) hoặc 20K" },
-    { "violation": "Vắng không báo trước 12h / Không lý do", "amount": "Chạy 10km (24h) / 200 hít đất / 50K" },
-    { "violation": "Không chuẩn bị nội dung đã đăng ký", "amount": "Chạy 10km (24h) / 200 hít đất / 50K" },
-    { "violation": "Không tương tác @All / Không vote", "amount": "20 hít đất/squat hoặc 20K" }
+    {
+      "violation": "Đến trễ >15' không báo / Ngủ trong buổi",
+      "amount": "20 hít đất/squat (quay video) hoặc 20K"
+    },
+    {
+      "violation": "Vắng không báo trước 12h / Không lý do",
+      "amount": "Chạy 10km (24h) / 200 hít đất / 50K"
+    },
+    {
+      "violation": "Không chuẩn bị nội dung đã đăng ký",
+      "amount": "Chạy 10km (24h) / 200 hít đất / 50K"
+    },
+    {
+      "violation": "Không tương tác @All / Không vote",
+      "amount": "20 hít đất/squat hoặc 20K"
+    }
   ],
-
   "rewards": [
-    { "achievement": "Chia sẻ xuất sắc nhất tháng", "reward": "100.000đ + 🏅" },
-    { "achievement": "MC xuất sắc nhất quý", "reward": "200.000đ" },
-    { "achievement": "Tham dự 100% trong tháng", "reward": "Hoàn 50% phí" },
-    { "achievement": "Streak 16 tuần liên tục", "reward": "500.000đ 🔥" }
+    {
+      "achievement": "Chia sẻ xuất sắc nhất tháng",
+      "reward": "100.000đ + 🏅"
+    },
+    {
+      "achievement": "MC xuất sắc nhất quý",
+      "reward": "200.000đ"
+    },
+    {
+      "achievement": "Tham dự 100% trong tháng",
+      "reward": "Hoàn 50% phí"
+    },
+    {
+      "achievement": "Streak 16 tuần liên tục",
+      "reward": "500.000đ 🔥"
+    }
   ]
 }
