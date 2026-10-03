@@ -1114,3 +1114,95 @@ textarea, input[type="text"], select {
     margin: 0 auto;
   }
 }
+
+/* ── Direct Slide Links on Library Cards & Schedule ── */
+.card-slides-preview {
+  margin: 10px 0 6px 0;
+  padding: 8px 10px;
+  background: rgba(37, 99, 235, 0.05);
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  border-radius: 8px;
+  text-align: left;
+}
+.card-slides-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.slides-count-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1e40af;
+}
+.slides-view-all {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+.slides-view-all:hover {
+  color: var(--gold);
+}
+.card-slides-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.slide-quick-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: #ffffff;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  color: var(--text-primary);
+  border-radius: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+.slide-quick-chip:hover {
+  background: var(--blue, #2563eb);
+  color: #ffffff;
+  border-color: var(--blue, #2563eb);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+}
+.slide-quick-chip.more {
+  background: rgba(184, 122, 31, 0.1);
+  color: var(--gold);
+  border-color: rgba(184, 122, 31, 0.25);
+}
+.slide-quick-chip.more:hover {
+  background: var(--gold);
+  color: #ffffff;
+}
+
+/* Schedule Slide Link */
+.schedule-slide-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  margin-left: 6px;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  color: #1e40af;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+.schedule-slide-btn:hover {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+

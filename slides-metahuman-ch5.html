@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaHuman · Chương 5 — Tâm trí, cơ thể, não bộ và vũ trụ đều là ý thức biến đổi | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --md-sys-color-surface: #fbfaf8;
+      --md-sys-color-surface-dim: #f3f0ea;
+      --md-sys-color-surface-container: #ffffff;
+      --md-sys-color-surface-container-high: #f7f6f2;
+      --md-sys-color-outline-variant: rgba(15, 23, 42, 0.07);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+
+      --primary: #1e3a8a;
+      --primary-container: #eff6ff;
+      --primary-border: rgba(30, 58, 138, 0.16);
+
+      --badge-expand-bg: rgba(99, 102, 241, 0.08);
+      --badge-expand-border: rgba(99, 102, 241, 0.28);
+      --badge-expand-text: #6366f1;
+
+      --badge-example-bg: rgba(217, 119, 6, 0.08);
+      --badge-example-border: rgba(217, 119, 6, 0.28);
+      --badge-example-text: #d97706;
+
+      --md-shape-corner-md: 16px;
+      --md-shape-corner-lg: 24px;
+      --md-shape-corner-xl: 32px;
+      --md-shape-corner-full: 9999px;
+
+      --elevation-flat: 0 0 0 1px var(--md-sys-color-outline-variant);
+      --elevation-1: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02), 0 0 0 1px var(--md-sys-color-outline-variant);
+      --elevation-2: 0 8px 24px -4px rgba(15, 23, 42, 0.05), 0 2px 8px -2px rgba(15, 23, 42, 0.03), 0 0 0 1px var(--md-sys-color-outline-variant);
+      --motion-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: var(--md-sys-color-surface);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.022; pointer-events: none; z-index: 9999;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.5s var(--motion-standard), transform 0.5s var(--motion-standard);
+      transform: translateX(24px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-24px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1160px; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number {
+      position: absolute; bottom: 28px; right: 48px;
+      font-size: 13px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500;
+    }
+    .slide-brand {
+      position: absolute; bottom: 28px; left: 48px;
+      font-size: 12px; color: var(--text-dim); letter-spacing: 1.8px; z-index: 10; font-weight: 600; text-transform: uppercase;
+    }
+
+    .m3-chip-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .m3-chip {
+      display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 16px;
+      border-radius: var(--md-shape-corner-full); font-size: 13px; font-weight: 600;
+      letter-spacing: 0.8px; text-transform: uppercase; box-shadow: var(--elevation-flat);
+    }
+    .m3-chip-tag { background: var(--primary-container); color: var(--primary); border: 1px solid var(--primary-border); }
+
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: var(--md-shape-corner-full); font-size: 13px; font-weight: 600; letter-spacing: 0.3px;
+    }
+    .badge-expand { background: var(--badge-expand-bg); border: 1px solid var(--badge-expand-border); color: var(--badge-expand-text); }
+    .badge-example { background: var(--badge-example-bg); border: 1px solid var(--badge-example-border); color: var(--badge-example-text); }
+
+    .zen-card {
+      background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-lg);
+      padding: 36px 40px; box-shadow: var(--elevation-1);
+      transition: transform 0.28s var(--motion-standard), box-shadow 0.28s var(--motion-standard);
+      position: relative;
+    }
+    .zen-card:hover { transform: translateY(-2px); box-shadow: var(--elevation-2); }
+
+    .zen-quote-container {
+      background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-xl);
+      padding: 52px 60px; box-shadow: var(--elevation-1); border-left: 5px solid var(--primary);
+      position: relative; max-width: 960px; margin: 0 auto; text-align: left;
+    }
+    .zen-quote-container::before {
+      content: '\201C'; position: absolute; top: 14px; left: 24px;
+      font-family: var(--font-display); font-size: 88px; line-height: 1; color: var(--primary);
+      opacity: 0.12; pointer-events: none;
+    }
+    .zen-quote-text { font-size: 30px; line-height: 1.48; font-style: italic; color: var(--text-primary); margin-bottom: 22px; }
+    .zen-citation { font-size: 15px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+    .grid-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
+    .grid-quad { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; }
+
+    .zen-title { font-size: 38px; font-weight: 800; line-height: 1.22; margin-bottom: 28px; letter-spacing: -0.5px; }
+    .zen-card-title { font-size: 21px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+    .zen-card-body { font-size: 16px; line-height: 1.68; color: var(--text-secondary); }
+    .zen-card-body strong { color: var(--text-primary); }
+
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--primary); transition: width 0.3s var(--motion-standard); z-index: 1000; }
+    .nav-arrows { position: fixed; bottom: 24px; right: 120px; display: flex; gap: 8px; z-index: 100; }
+    .nav-btn {
+      width: 38px; height: 38px; border-radius: var(--md-shape-corner-full);
+      background: var(--md-sys-color-surface-container); border: 1px solid var(--md-sys-color-outline-variant);
+      box-shadow: var(--elevation-1); color: var(--text-secondary); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--motion-standard);
+    }
+    .nav-btn:hover { background: #ffffff; color: var(--primary); box-shadow: var(--elevation-2); transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+      .slide { padding: 40px 24px; }
+      .grid-dual, .grid-quad { grid-template-columns: 1fr; gap: 18px; }
+      .zen-title { font-size: 26px; margin-bottom: 20px; }
+      .zen-quote-container { padding: 32px 24px; }
+      .zen-quote-text { font-size: 22px; }
+      .slide-brand { left: 24px; bottom: 18px; }
+      .slide-number { right: 24px; bottom: 18px; }
+      .nav-arrows { right: 80px; bottom: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck">
+
+    <!-- SLIDE 1: Cover -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner" style="text-align: center;">
+        <div class="m3-chip-bar" style="justify-content: center;">
+          <span class="m3-chip m3-chip-tag">TUẦN 3 · KHÁM PHÁ BẢN THỂ</span>
+        </div>
+        <h1 class="serif" style="font-size: 52px; font-weight: 800; line-height: 1.18; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -0.5px;">
+          Tâm Trí, Cơ Thể, Não Bộ Và Vũ Trụ<br>Đều Là Ý Thức Biến Đổi
+        </h1>
+        <p class="serif" style="font-size: 22px; color: var(--primary); margin-bottom: 40px; font-style: italic;">
+          Chương 5 · Siêu Nhân Loại (MetaHuman) — Deepak Chopra, M.D.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 32px; font-size: 15px; color: var(--text-muted); font-weight: 500;">
+          <span>📅 Chủ nhật · 04/10/2026</span>
+          <span>📖 Phạm vi: tr. 135 – 159</span>
+          <span>🏛️ BOOKnBEYOND Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">1 / 9</div>
+    </div>
+
+    <!-- SLIDE 2: Core Koan -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CHƯƠNG 5 · ĐỊNH ĐỀ NỀN TẢNG</span>
+        </div>
+        <h2 class="zen-title serif">Ảo Tưởng Của Cỗ Máy Sinh Học</h2>
+        <div class="zen-quote-container">
+          <p class="zen-quote-text serif">
+            "Não bộ không hề sản sinh ra ý thức, cũng giống như chiếc radio không hề tạo ra bản nhạc mà nó thu nhận. Não bộ chỉ là thiết bị chuyển hóa trường ý thức vô hạn thành kinh nghiệm sống cá nhân."
+          </p>
+          <div class="zen-citation">
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 138
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">2 / 9</div>
+    </div>
+
+    <!-- SLIDE 3: Dual Paradigm Comparison -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CHUYỂN DỊCH NHẬN THỨC</span>
+        </div>
+        <h2 class="zen-title serif">Hai Góc Nhìn Về Vũ Trụ & Sự Sống</h2>
+        <div class="grid-dual">
+          <div class="zen-card" style="border-top: 4px solid var(--text-dim);">
+            <div class="zen-card-title">Góc Nhìn Duy Vật Cổ Điển</div>
+            <p class="zen-card-body">
+              Vật chất có trước, ngẫu nhiên hình thành các phân tử phức tạp sinh ra tế bào thần kinh, và cuối cùng não bộ tạo ra tư duy.<br><br>
+              <strong>Bế tắc:</strong> Khoa học chưa bao giờ giải thích được cơ chế làm sao các nguyên tử vô tri lại biến thành cảm xúc yêu thương hay nỗi đau.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 140–142</small>
+            </p>
+          </div>
+          <div class="zen-card" style="border-top: 4px solid var(--primary);">
+            <div class="zen-card-title" style="color: var(--primary);">Góc Nhìn MetaHuman</div>
+            <p class="zen-card-body">
+              Ý thức là thực tại gốc rễ nguyên thủy. Vật chất, cơ thể và các vì sao đều là trạng thái kết tinh và biến đổi của ý thức.<br><br>
+              <strong>Khai phóng:</strong> Con người không phải là sinh vật nhỏ nhoi trong vũ trụ rộng lớn, mà vũ trụ đang diễn ra bên trong trường nhận thức của bạn.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 12px;">— tr. 143–145</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">3 / 9</div>
+    </div>
+
+    <!-- SLIDE 4: 4 Dimensions of Modified Consciousness -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CẤU TRÚC THỐNG NHẤT</span>
+        </div>
+        <h2 class="zen-title serif">4 Dạng Thức Biến Đổi Của Ý Thức</h2>
+        <div class="grid-quad">
+          <div class="zen-card">
+            <div class="zen-card-title">1. Tâm Trí (Mind)</div>
+            <p class="zen-card-body">Ý thức biến đổi thành dòng chảy suy nghĩ, tưởng tượng, ký ức và các khái niệm trừu tượng.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 146</small></p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">2. Não Bộ (Brain)</div>
+            <p class="zen-card-body">Ý thức biểu hiện thành các xung điện thần kinh hóa học, đóng vai trò trạm điều phối tín hiệu.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 147</small></p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">3. Thể Xác (Body)</div>
+            <p class="zen-card-body">Ý thức cô đặc thành nhịp đập sinh học, cảm giác nóng lạnh, xúc giác và hơi thở tuần hoàn.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 148</small></p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">4. Vũ Trụ (Universe)</div>
+            <p class="zen-card-body">Ý thức phóng chiếu thành không gian, thời gian và thế giới vật lý mà các giác quan tiếp nhận.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 149</small></p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">4 / 9</div>
+    </div>
+
+    <!-- SLIDE 5: Observer Effect -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CƠ HỌC LƯỢNG TỬ & TÂM THỨC</span>
+        </div>
+        <h2 class="zen-title serif">Hiệu Ứng Người Quan Sát (Observer Effect)</h2>
+        <div class="zen-card" style="padding: 44px 48px;">
+          <div style="font-size: 20px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 24px;">
+            "Trong vật lý lượng tử, một hạt không tồn tại ở một vị trí xác định cho đến khi nó được đo đạc. Tương tự, toàn bộ thực tại xung quanh bạn chỉ là <strong>trường tiềm năng vô định</strong> cho đến khi nhận thức của bạn tương tác và định hình nó."
+          </div>
+          <div style="display: flex; gap: 32px; border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 20px;">
+            <div>
+              <strong style="color: var(--primary); font-size: 18px;">Người Quan Sát</strong>
+              <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">Tâm thức cá nhân</p>
+            </div>
+            <div style="color: var(--text-dim); font-size: 20px; align-self: center;">⇄</div>
+            <div>
+              <strong style="color: var(--primary); font-size: 18px;">Quá Trình Quan Sát</strong>
+              <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">Cảm nhận giác quan</p>
+            </div>
+            <div style="color: var(--text-dim); font-size: 20px; align-self: center;">⇄</div>
+            <div>
+              <strong style="color: var(--primary); font-size: 18px;">Đối Tượng Được Quan Sát</strong>
+              <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">Thế giới bên ngoài (tr. 152)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">5 / 9</div>
+    </div>
+
+    <!-- SLIDE 6: Qualia -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">BÍ ẨN CẢM NGHIỆM</span>
+        </div>
+        <h2 class="zen-title serif">Qualia — Thế Giới Không Tự Có Màu Sắc</h2>
+        <div class="zen-quote-container">
+          <p class="zen-quote-text serif" style="font-size: 27px;">
+            "Thế giới vật lý ngoài kia không có ánh sáng rực rỡ, không có tiếng đàn violin dìu dặt, cũng không có mùi hoa hồng thơm ngát. Tất cả những thứ đó chỉ là sóng điện từ và dao động không khí. Chính <em>Ý Thức</em> mới là họa sĩ tạo ra màu sắc và giai điệu."
+          </p>
+          <div class="zen-citation">
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 155
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">6 / 9</div>
+    </div>
+
+    <!-- SLIDE 7: Example Badge Slide (slide-design-rules.md compliant) -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+        </div>
+        <h2 class="zen-title serif">Y Học Tâm Thể: Khi Ý Thức Thay Đổi Tế Bào</h2>
+        <div class="grid-dual">
+          <div class="zen-card">
+            <div class="zen-card-title">Hiệu Ứng Giả Dược (Placebo)</div>
+            <p class="zen-card-body">
+              Khi bệnh nhân tin chắc rằng viên đường là thần dược, não bộ tự động giải phóng endorphin và kích hoạt hệ miễn dịch chữa lành tế bào.<br><br>
+              <strong>Ý nghĩa:</strong> Một ý nghĩ hay niềm tin (phi vật chất) trực tiếp tái cấu trúc phản ứng sinh hóa của cơ thể.
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">Stress Tâm Lý & Tế Bào</div>
+            <p class="zen-card-body">
+              Nỗi lo sợ vô hình về tương lai kích hoạt phản ứng co thắt mạch máu và làm ngắn telomere của nhiễm sắc thể.<br><br>
+              <strong>Ý nghĩa:</strong> Trạng thái của tâm trí không nằm tách biệt mà liên tục tạo hình cho cơ thể vật lý từng giây từng phút.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">7 / 9</div>
+    </div>
+
+    <!-- SLIDE 8: Expanded Discussion (slide-design-rules.md compliant) -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner" style="text-align: center;">
+        <div class="m3-chip-bar" style="justify-content: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi chiêm nghiệm cộng đồng</div>
+        </div>
+        <h2 class="zen-title serif" style="margin-bottom: 36px;">Đối Thoại Chiêm Nghiệm</h2>
+        <div class="zen-card" style="max-width: 860px; margin: 0 auto; text-align: left; padding: 40px 48px;">
+          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Nếu não bộ chỉ là chiếc máy thu nhận ý thức, điều đó giải phóng bạn như thế nào khỏi niềm tin rằng mình bị giam cầm trong những giới hạn thể xác?
+            </p>
+          </div>
+          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Bạn đã bao giờ trực tiếp cảm nhận một ý nghĩ tích cực hay tiêu cực ngay lập tức biến đổi trạng thái năng lượng trong cơ thể mình chưa?
+            </p>
+          </div>
+          <div style="display: flex; gap: 18px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Làm thế nào để ứng dụng góc nhìn <em>"Thế giới là ý thức đang chuyển động"</em> vào việc giữ bình tâm trước những biến động khó lường của công việc?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">8 / 9</div>
+    </div>
+
+    <!-- SLIDE 9: Closing -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner" style="text-align: center;">
+        <h2 class="serif" style="font-size: 44px; font-weight: 900; color: var(--text-primary); margin-bottom: 14px;">BOOKnBEYOND</h2>
+        <p class="serif" style="font-size: 18px; color: var(--primary); font-style: italic; margin-bottom: 32px;">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 64px; margin-bottom: 24px;">✨</div>
+        <h3 class="serif" style="font-size: 24px; color: var(--text-primary); margin-bottom: 8px;">Siêu Nhân Loại — Chương 5</h3>
+        <p style="font-size: 18px; color: var(--text-muted); margin-bottom: 36px; font-style: italic;">Tâm trí, cơ thể, não bộ và vũ trụ đều là ý thức biến đổi</p>
+        <div style="display: flex; justify-content: center; gap: 28px; font-size: 15px; color: var(--text-secondary); font-weight: 500;">
+          <span>📅 04/10/2026 · Tuần 3</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">9 / 9</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()" aria-label="Previous Slide">←</button>
+    <button class="nav-btn" onclick="nextSlide()" aria-label="Next Slide">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 500);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f' || e.key === 'F') {
+        !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen();
+      }
+    });
+
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      const diffX = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diffX) > 45) { diffX > 0 ? nextSlide() : prevSlide(); }
+    }, { passive: true });
+
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>

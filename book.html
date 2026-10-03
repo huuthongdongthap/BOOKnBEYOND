@@ -499,10 +499,12 @@
       `;
     }
 
-    fetch('data/books.json')
+    const cacheBuster = '?v=' + Date.now();
+    fetch('data/books.json' + cacheBuster)
       .then(res => res.json())
+      .catch(() => fetch('data/config.json' + cacheBuster).then(r => r.json()).then(c => c.library || []))
       .then(books => {
-        const book = books.find(b => b.id === bookId);
+        const book = (books || []).find(b => b.id === bookId || (b.title && b.title.toLowerCase().includes(bookId)));
         if (book) {
           renderBook(book);
         } else {

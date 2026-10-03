@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M3-Zen Slide Template | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ══════════════════════════════════════════════════════════════════════════
+       M3-ZEN DESIGN SYSTEM TOKENS (Material Design 3 × Zen Wabi-Sabi)
+       BOOKnBEYOND Presentation Standard
+       ══════════════════════════════════════════════════════════════════════════ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* ── Zen & M3 Surface Hierarchy (Washi Paper Palette) ── */
+      --md-sys-color-surface: #fbfaf8;
+      --md-sys-color-surface-dim: #f3f0ea;
+      --md-sys-color-surface-container-lowest: #ffffff;
+      --md-sys-color-surface-container: #ffffff;
+      --md-sys-color-surface-container-high: #f7f6f2;
+      --md-sys-color-outline-variant: rgba(15, 23, 42, 0.07);
+      --md-sys-color-outline: rgba(15, 23, 42, 0.14);
+
+      /* ── Typography Scale & Rhythms ── */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --text-primary: #0f172a;       /* Sâu lắng, tương phản tự nhiên */
+      --text-secondary: #334155;     /* Đọc dễ chịu, mềm mại */
+      --text-muted: #64748b;         /* Gợi mở, phụ trợ */
+      --text-dim: #94a3b8;           /* Chân trang, nhãn mờ */
+
+      /* ── Tonal Primary: Điểm Nhấn Trí Tuệ (Indigo / Deep Blue) ── */
+      --primary: #1e3a8a;
+      --primary-container: #eff6ff;
+      --primary-border: rgba(30, 58, 138, 0.16);
+
+      /* ── Tonal Secondary & Zen Accents ── */
+      --accent-forest: #047857;      /* Trầm ổn, sức sống tự nhiên */
+      --accent-forest-bg: rgba(4, 120, 87, 0.06);
+      --accent-forest-border: rgba(4, 120, 87, 0.18);
+
+      --accent-amber: #b45309;       /* Hổ phách, trực giác ấm */
+      --accent-amber-bg: rgba(180, 83, 9, 0.06);
+
+      /* ── BOOKnBEYOND Rule Badges (slide-design-rules.md) ── */
+      --badge-expand-bg: rgba(99, 102, 241, 0.08);
+      --badge-expand-border: rgba(99, 102, 241, 0.28);
+      --badge-expand-text: #6366f1;
+
+      --badge-example-bg: rgba(217, 119, 6, 0.08);
+      --badge-example-border: rgba(217, 119, 6, 0.28);
+      --badge-example-text: #d97706;
+
+      /* ── M3 Shapes (Corner Radii) ── */
+      --md-shape-corner-sm: 8px;
+      --md-shape-corner-md: 16px;
+      --md-shape-corner-lg: 24px;
+      --md-shape-corner-xl: 32px;
+      --md-shape-corner-full: 9999px;
+
+      /* ── Zen Elevation (Tonal Hairline & Subtle Ambient Glow) ── */
+      --elevation-flat: 0 0 0 1px var(--md-sys-color-outline-variant);
+      --elevation-1: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02), 0 0 0 1px var(--md-sys-color-outline-variant);
+      --elevation-2: 0 8px 24px -4px rgba(15, 23, 42, 0.05), 0 2px 8px -2px rgba(15, 23, 42, 0.03), 0 0 0 1px var(--md-sys-color-outline-variant);
+
+      /* ── M3 Fluid Transitions ── */
+      --motion-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--md-sys-color-surface);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Tinh tế Wabi-Sabi: Texture giấy mịn rất nhẹ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.022;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       SLIDE FRAMEWORK & ZEN PACING
+       ══════════════════════════════════════════════════════════════════════════ */
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 100px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s var(--motion-standard), transform 0.5s var(--motion-standard);
+      transform: translateX(24px);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-24px);
+    }
+
+    .slide-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1160px;
+    }
+
+    .serif {
+      font-family: var(--font-display);
+    }
+
+    .slide-number {
+      position: absolute;
+      bottom: 28px;
+      right: 48px;
+      font-size: 13px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+      z-index: 10;
+      font-weight: 500;
+    }
+
+    .slide-brand {
+      position: absolute;
+      bottom: 28px;
+      left: 48px;
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 1.8px;
+      z-index: 10;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       M3 ASSIST CHIPS & RULE-COMPLIANT BADGES
+       ══════════════════════════════════════════════════════════════════════════ */
+    .m3-chip-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .m3-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 32px;
+      padding: 0 16px;
+      border-radius: var(--md-shape-corner-full);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      box-shadow: var(--elevation-flat);
+    }
+
+    .m3-chip-tag {
+      background: var(--primary-container);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+    }
+
+    /* Badges Bắt Buộc theo slide-design-rules.md */
+    .badge-source {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 16px;
+      border-radius: var(--md-shape-corner-full);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .badge-expand {
+      background: var(--badge-expand-bg);
+      border: 1px solid var(--badge-expand-border);
+      color: var(--badge-expand-text);
+    }
+
+    .badge-example {
+      background: var(--badge-example-bg);
+      border: 1px solid var(--badge-example-border);
+      color: var(--badge-example-text);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       M3-ZEN CARDS & CONTAINERS
+       ══════════════════════════════════════════════════════════════════════════ */
+    .zen-card {
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-shape-corner-lg);
+      padding: 36px 40px;
+      box-shadow: var(--elevation-1);
+      transition: transform 0.28s var(--motion-standard), box-shadow 0.28s var(--motion-standard);
+      position: relative;
+    }
+
+    .zen-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--elevation-2);
+    }
+
+    .zen-quote-container {
+      background: var(--md-sys-color-surface-container);
+      border-radius: var(--md-shape-corner-xl);
+      padding: 56px 64px;
+      box-shadow: var(--elevation-1);
+      border-left: 5px solid var(--primary);
+      position: relative;
+      max-width: 960px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .zen-quote-container::before {
+      content: '\201C';
+      position: absolute;
+      top: 14px;
+      left: 24px;
+      font-family: var(--font-display);
+      font-size: 88px;
+      line-height: 1;
+      color: var(--primary);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .zen-quote-text {
+      font-size: 32px;
+      line-height: 1.45;
+      font-style: italic;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+    }
+
+    .zen-citation {
+      font-size: 15px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       LAYOUT GRID TYPES
+       ══════════════════════════════════════════════════════════════════════════ */
+    .grid-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 16px;
+    }
+
+    .grid-triple {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .zen-title {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 32px;
+      letter-spacing: -0.5px;
+    }
+
+    .zen-title.center {
+      text-align: center;
+    }
+
+    .zen-card-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .zen-card-body {
+      font-size: 16px;
+      line-height: 1.68;
+      color: var(--text-secondary);
+    }
+
+    .zen-card-body strong {
+      color: var(--text-primary);
+    }
+
+    /* Number / Step Indicator */
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--md-shape-corner-full);
+      background: var(--primary-container);
+      color: var(--primary);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* Controls & Navigation */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--primary);
+      transition: width 0.3s var(--motion-standard);
+      z-index: 1000;
+    }
+
+    .nav-arrows {
+      position: fixed;
+      bottom: 24px;
+      right: 120px;
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+
+    .nav-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: var(--md-shape-corner-full);
+      background: var(--md-sys-color-surface-container);
+      border: 1px solid var(--md-sys-color-outline-variant);
+      box-shadow: var(--elevation-1);
+      color: var(--text-secondary);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s var(--motion-standard);
+    }
+
+    .nav-btn:hover {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: var(--elevation-2);
+      transform: translateY(-1px);
+    }
+
+    /* ══════════════════════════════════════════════════════════════════════════
+       RESPONSIVE ADAPTATION (Mobile UX)
+       ══════════════════════════════════════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .slide {
+        padding: 40px 24px;
+      }
+      .grid-dual, .grid-triple {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .zen-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+      .zen-quote-container {
+        padding: 32px 28px;
+      }
+      .zen-quote-text {
+        font-size: 22px;
+      }
+      .slide-brand {
+        left: 24px;
+        bottom: 18px;
+      }
+      .slide-number {
+        right: 24px;
+        bottom: 18px;
+      }
+      .nav-arrows {
+        right: 80px;
+        bottom: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck">
+
+    <!-- ══════════════════════════════════════════════════════════════════════════
+         ARCHETYPE 1: ZEN HERO / COVER SLIDE
+         ══════════════════════════════════════════════════════════════════════════ -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner" style="text-align: center;">
+        <div class="m3-chip-bar" style="justify-content: center;">
+          <span class="m3-chip m3-chip-tag">TUẦN 2 · KHÁM PHÁ Ý THỨC</span>
+        </div>
+        <h1 class="serif" style="font-size: 58px; font-weight: 800; line-height: 1.15; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -1px;">
+          Tôi Tạo Ra Ảo Ảnh
+        </h1>
+        <p class="serif" style="font-size: 24px; color: var(--primary); margin-bottom: 44px; font-style: italic;">
+          Siêu Nhân Loại (MetaHuman) — Deepak Chopra, M.D.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 32px; font-size: 15px; color: var(--text-muted); font-weight: 500;">
+          <span>📅 Chủ nhật · 27/09/2026</span>
+          <span>📖 Phạm vi: tr. 71 – 91</span>
+          <span>🏛️ BOOKnBEYOND Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">1 / 5</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════════
+         ARCHETYPE 2: SINGLE KOAN / CORE INSIGHT (Tối giản tuyệt đối, 1 ý/slide)
+         ══════════════════════════════════════════════════════════════════════════ -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CHƯƠNG 2 · TRỌNG TÂM</span>
+        </div>
+        <h2 class="zen-title serif">Bản Chất Của Ảo Ảnh Cá Nhân</h2>
+        <div class="zen-quote-container">
+          <p class="zen-quote-text serif">
+            "Bạn không hề sống trong một thế giới khách quan đang diễn ra xung quanh. Bạn đang sống trong sự kiến tạo chủ quan do chính thói quen nhận thức của bạn vẽ nên."
+          </p>
+          <div class="zen-citation">
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 74
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">2 / 5</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════════
+         ARCHETYPE 3: DUAL CLARITY (Yin-Yang, 2 thái cực cân bằng)
+         ══════════════════════════════════════════════════════════════════════════ -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">ĐỐI CHIẾU NHẬN THỨC</span>
+        </div>
+        <h2 class="zen-title serif">Hai Tầng Thực Tại</h2>
+        <div class="grid-dual">
+          <div class="zen-card" style="border-top: 4px solid var(--text-dim);">
+            <div class="zen-card-title">
+              <span>Ảo Tưởng Cố Hữu</span>
+            </div>
+            <p class="zen-card-body">
+              Tin rằng thế giới bên ngoài là độc lập, cố định và điều khiển tâm trạng của ta.<br><br>
+              <strong>Hệ quả:</strong> Con người trở thành nạn nhân thụ động của hoàn cảnh và phản ứng theo quán tính vô thức.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 76</small>
+            </p>
+          </div>
+          <div class="zen-card" style="border-top: 4px solid var(--primary);">
+            <div class="zen-card-title" style="color: var(--primary);">
+              <span>Thực Tại Tỉnh Thức</span>
+            </div>
+            <p class="zen-card-body">
+              Nhận diện chính tâm trí là nơi tạo hình trải nghiệm. Thay đổi góc nhìn nghĩa là thay đổi toàn bộ thực tại.<br><br>
+              <strong>Hệ quả:</strong> Trở về vị thế người sáng tạo tự do (MetaHuman), vượt thoát chiếc lồng bản ngã.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 12px;">— tr. 82</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">3 / 5</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════════
+         ARCHETYPE 4: MINDFUL FRAMEWORK (Tiến trình 3 bước tĩnh lặng)
+         ══════════════════════════════════════════════════════════════════════════ -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">TIẾN TRÌNH THỰC HÀNH</span>
+        </div>
+        <h2 class="zen-title serif">3 Bước Hóa Giải Ảo Ảnh Tâm Trí</h2>
+        <div class="grid-triple">
+          <div class="zen-card">
+            <div class="zen-card-title">
+              <span class="step-number">1</span>
+              <span>Dừng Lại (Pause)</span>
+            </div>
+            <p class="zen-card-body">
+              Tạo khoảng dừng ngay khi một cảm xúc tiêu cực hoặc phán xét tự động khởi sinh trong tâm trí.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 14px;">— tr. 85</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">
+              <span class="step-number">2</span>
+              <span>Quan Sát (Witness)</span>
+            </div>
+            <p class="zen-card-body">
+              Không đồng hóa bản thân với cảm xúc. Nhận biết mình là nhân chứng thuần khiết đang nhìn cảm xúc trôi qua.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 14px;">— tr. 88</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">
+              <span class="step-number">3</span>
+              <span>Hiện Hữu (Be)</span>
+            </div>
+            <p class="zen-card-body">
+              Trở về khoảnh khắc hiện tại không vướng bận, giải phóng không gian nhận thức vô hạn.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 14px;">— tr. 90</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">4 / 5</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════════════════
+         ARCHETYPE 5: SANGHA DIALOGUE (Chiêm nghiệm & Thảo luận)
+         (Bắt buộc gắn Badge chuẩn slide-design-rules.md)
+         ══════════════════════════════════════════════════════════════════════════ -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner" style="text-align: center;">
+        <div class="m3-chip-bar" style="justify-content: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi chiêm nghiệm cộng đồng</div>
+        </div>
+        <h2 class="zen-title serif" style="margin-bottom: 36px;">Đối Thoại Cùng Tác Phẩm</h2>
+        <div class="zen-card" style="max-width: 860px; margin: 0 auto; text-align: left; padding: 40px 48px;">
+          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Đâu là một "câu chuyện giả định" quen thuộc về bản thân mà bạn nhận thấy mình thường vô thức lặp đi lặp lại?
+            </p>
+          </div>
+          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Khi một tình huống bất như ý xuất hiện trong công việc, làm thế nào để kích hoạt khoảng dừng <strong>(Pause)</strong> trước khi phản ứng?
+            </p>
+          </div>
+          <div style="display: flex; gap: 18px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Trạng thái <em>"Người quan sát tĩnh lặng"</em> mang lại giá trị thực tế gì cho khả năng ra quyết định lãnh đạo?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">5 / 5</div>
+    </div>
+
+  </div>
+
+  <!-- Progress Bar Top -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Minimal Navigation Arrows -->
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()" aria-label="Previous Slide">←</button>
+    <button class="nav-btn" onclick="nextSlide()" aria-label="Next Slide">→</button>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════════════
+       ZEN MOTION CONTROLLER
+       ══════════════════════════════════════════════════════════════════════════ -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 500);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        nextSlide();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+        e.preventDefault();
+        prevSlide();
+      }
+      if (e.key === 'f' || e.key === 'F') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    });
+
+    // Touch Swipe Navigation for Mobile & Tablets
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      const diffX = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diffX) > 45) {
+        diffX > 0 ? nextSlide() : prevSlide();
+      }
+    }, { passive: true });
+
+    // Initialize progress bar
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>

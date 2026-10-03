@@ -19,10 +19,37 @@
     "translator": "Hải Âu — Phi Yên",
     "publisher": "NXB Thế Giới / Phương Nam Book",
     "cover": "assets/cover-metahuman.png",
+    "id": "metahuman",
     "totalChapters": 13,
     "totalPages": 373,
     "startDate": "2026-09-20",
-    "endDate": "2026-11-01"
+    "endDate": "2026-11-01",
+    "slides": [
+      {
+        "file": "slides-metahuman-intro.html",
+        "label": "Lời Nói Đầu: Siêu Việt"
+      },
+      {
+        "file": "slides-metahuman-overview.html",
+        "label": "Tổng Quan: Siêu Nhân Loại Và Lựa Chọn Cuộc Đời"
+      },
+      {
+        "file": "slides-metahuman-ch1.html",
+        "label": "Ch.1: Chúng Ta Vướng Víu Trong Một Ảo Ảnh"
+      },
+      {
+        "file": "slides-metahuman-ch5.html",
+        "label": "Ch.5: Tâm Trí, Cơ Thể, Não Bộ Và Vũ Trụ Đều Là Ý Thức Biến Đổi"
+      },
+      {
+        "file": "slides-metahuman-ch6.html",
+        "label": "Ch.6: Sự Tồn Tại Và Ý Thức Là Một"
+      },
+      {
+        "file": "slides-metahuman-ch7.html",
+        "label": "Phần 2 & Ch.7: Thức Tỉnh & Trải Nghiệm Là Tiên Quyết"
+      }
+    ]
   },
   "schedule": [
     {
@@ -286,19 +313,44 @@
       "topInsight": "Thông tin không phải là sự thật, thông tin chỉ là nguyên liệu xây dựng mạng lưới kết nối."
     },
     {
+      "id": "zero-to-one",
       "title": "Không đến Một",
       "author": "Peter Thiel & Blake Masters",
       "finishedDate": "2026-08-16",
       "rating": 4.6,
-      "topInsight": "Mọi công ty thành công đều khác biệt vì giải quyết một vấn đề duy nhất. Đi từ 0 đến 1, không phải từ 1 đến n."
+      "topInsight": "Mọi công ty thành công đều khác biệt vì giải quyết một vấn đề duy nhất. Đi từ 0 đến 1, không phải từ 1 đến n.",
+      "slides": [
+        { "file": "slides-zerotoone-ch3.html", "label": "Ch.3: Tất Cả Những Công Ty Hạnh Phúc Đều Khác Biệt" },
+        { "file": "slides-zerotoone-ch4.html", "label": "Ch.4: Hệ Tư Tưởng Cạnh Tranh" },
+        { "file": "slides-zerotoone-ch5.html", "label": "Ch.5: Lợi Thế Của Kẻ Đến Sau Cùng" },
+        { "file": "slides-zerotoone-ch6.html", "label": "Ch.6: Bạn Không Phải Là Một Tấm Vé Số" },
+        { "file": "slides-zerotoone-ch7.html", "label": "Ch.7: Chạy Theo Đồng Tiền" },
+        { "file": "slides-zerotoone-ch8.html", "label": "Ch.8: Bí Mật" },
+        { "file": "slides-zerotoone-ch9.html", "label": "Ch.9: Nền Tảng" },
+        { "file": "slides-zerotoone-ch10.html", "label": "Ch.10: Cơ Chế Của Mafia" },
+        { "file": "slides-zerotoone-ch11.html", "label": "Ch.11: Nếu Bạn Tạo Ra Sản Phẩm, Khách Hàng Sẽ Tới?" },
+        { "file": "slides-zerotoone-ch12.html", "label": "Ch.12: Con Người Và Máy Móc" },
+        { "file": "slides-zerotoone-ch13.html", "label": "Ch.13: Xu Hướng Doanh Nghiệp Xanh" },
+        { "file": "slides-zerotoone-ch14.html", "label": "Ch.14: Nghịch Lý Của Nhà Sáng Lập" },
+        { "file": "slides-zerotoone-conclusion.html", "label": "Kết Luận: Đình Trệ Hay Khác Biệt?" }
+      ]
     },
     {
+      "id": "metahuman",
       "title": "Siêu Nhân Loại",
       "author": "Deepak Chopra, M.D.",
       "finishedDate": "",
       "rating": 0,
       "topInsight": "Đang đọc — Ý thức không bị giới hạn bởi não bộ, con người có tiềm năng vô hạn để thức tỉnh.",
-      "status": "reading"
+      "status": "reading",
+      "slides": [
+        { "file": "slides-metahuman-intro.html", "label": "Lời Nói Đầu: Siêu Việt" },
+        { "file": "slides-metahuman-overview.html", "label": "Tổng Quan: Siêu Nhân Loại Và Lựa Chọn Cuộc Đời" },
+        { "file": "slides-metahuman-ch1.html", "label": "Ch.1: Chúng Ta Vướng Víu Trong Một Ảo Ảnh" },
+        { "file": "slides-metahuman-ch5.html", "label": "Ch.5: Tâm Trí, Cơ Thể, Não Bộ Và Vũ Trụ Đều Là Ý Thức Biến Đổi" },
+        { "file": "slides-metahuman-ch6.html", "label": "Ch.6: Sự Tồn Tại Và Ý Thức Là Một" },
+        { "file": "slides-metahuman-ch7.html", "label": "Phần 2 & Ch.7: Thức Tỉnh & Trải Nghiệm Là Tiên Quyết" }
+      ]
     }
   ],
   "rules": [

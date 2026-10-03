@@ -195,6 +195,27 @@
     const now = new Date();
     now.setHours(0, 0, 0, 0);
 
+    // Slide mapping helper for schedule chapters
+    const slideMapping = {
+      'lời nói đầu': 'slides-metahuman-intro.html',
+      'siêu việt': 'slides-metahuman-intro.html',
+      'tổng quan': 'slides-metahuman-overview.html',
+      'chúng ta vướng víu': 'slides-metahuman-ch1.html',
+      'tâm trí, cơ thể': 'slides-metahuman-ch5.html',
+      'sự tồn tại và ý thức': 'slides-metahuman-ch6.html',
+      'thức tỉnh': 'slides-metahuman-ch7.html',
+      'trải nghiệm là tiên quyết': 'slides-metahuman-ch7.html'
+    };
+
+    const getChapterSlide = (text) => {
+      if (!text) return null;
+      const lower = text.toLowerCase();
+      for (const [key, file] of Object.entries(slideMapping)) {
+        if (lower.includes(key)) return file;
+      }
+      return null;
+    };
+
     grid.innerHTML = CONFIG.schedule.map(week => {
       const weekDate = new Date(week.date + 'T00:00:00');
       const nextWeek = new Date(weekDate);
@@ -232,15 +253,19 @@
           ${labelHtml}
           <div class="schedule-mc">🎙️ MC: <strong>${mcDisplay}</strong></div>
           <div class="schedule-sharers">
-            ${week.sharers.filter(s => s.name || s.chapter).map((s, i) => `
-              <div class="sharer-item">
-                <span class="sharer-index">${i + 1}</span>
-                <div class="sharer-info">
-                  <div class="sharer-name">${capitalizeViName(s.name) || '<span style="color:var(--text-muted); font-style:italic;">Chờ đăng ký</span>'}</div>
-                  <div class="sharer-chapter">${s.chapter}</div>
+            ${week.sharers.filter(s => s.name || s.chapter).map((s, i) => {
+              const slideFile = getChapterSlide(s.chapter);
+              const slideBtn = slideFile ? `<a href="${slideFile}" target="_blank" rel="noopener" class="schedule-slide-btn" onclick="event.stopPropagation()" title="Mở slide bài giảng">📊 Xem Slide</a>` : '';
+              return `
+                <div class="sharer-item">
+                  <span class="sharer-index">${i + 1}</span>
+                  <div class="sharer-info">
+                    <div class="sharer-name">${capitalizeViName(s.name) || '<span style="color:var(--text-muted); font-style:italic;">Chờ đăng ký</span>'}</div>
+                    <div class="sharer-chapter">${s.chapter} ${slideBtn}</div>
+                  </div>
                 </div>
-              </div>
-            `).join('')}
+              `;
+            }).join('')}
           </div>
         </div>
       `;
@@ -358,12 +383,11 @@
 
     let books = [];
     try {
-      const response = await fetch('data/books.json');
+      const response = await fetch('data/books.json?v=' + Date.now());
       books = await response.json();
     } catch (error) {
-      console.error('Failed to load books:', error);
-      grid.innerHTML = '<div class="empty-state">Không thể tải danh sách sách.</div>';
-      return;
+      console.warn('Failed to load data/books.json, falling back to CONFIG.library:', error);
+      books = CONFIG.library || [];
     }
 
     if (!books || books.length === 0) {
@@ -436,6 +460,25 @@
             </a>
           `;
         }
+
+        // Direct Slide Chips on Library Card
+        let slidePreviewHtml = '';
+        if (book.slides && book.slides.length > 0) {
+          slidePreviewHtml = `
+            <div class="card-slides-preview" onclick="event.stopPropagation()">
+              <div class="card-slides-header">
+                <span class="slides-count-label">📊 ${book.slides.length} slide bài giảng:</span>
+                <a href="book.html?id=${book.id}#slides" class="slides-view-all">Tất cả →</a>
+              </div>
+              <div class="card-slides-list">
+                ${book.slides.map(s => {
+                  const shortLabel = s.label.replace(/^Chương\s+/i, 'Ch.').replace(/^Ch\.\s*/i, 'Ch.').split(':')[0].trim();
+                  return `<a href="${s.file}" target="_blank" rel="noopener" class="slide-quick-chip" title="${s.label}">${shortLabel}</a>`;
+                }).join('')}
+              </div>
+            </div>
+          `;
+        }
         
         html += `
           <div class="book-cover-card" onclick="window.location.href='book.html?id=${book.id}'">
@@ -448,8 +491,9 @@
               <h4>${book.title}</h4>
               <p class="card-author">${book.author}</p>
               <div class="stars">${starsHtml}</div>
+              ${slidePreviewHtml}
               <div class="card-actions">
-                <span class="btn-card-detail">Xem bài & slide →</span>
+                <span class="btn-card-detail">Xem chi tiết & slide →</span>
               </div>
             </div>
           </div>
@@ -519,6 +563,20 @@
           const isReading = book.status === 'reading';
           const starsHtml = book.rating > 0 ? getStars(book.rating) : '';
           
+          let timelineSlidesHtml = '';
+          if (book.slides && book.slides.length > 0) {
+            timelineSlidesHtml = `
+              <div class="card-slides-list" style="margin-top: 8px;" onclick="event.stopPropagation()">
+                <span class="slides-count-label" style="display:inline-block; margin-right:4px;">📊 ${book.slides.length} slide:</span>
+                ${book.slides.slice(-4).map(s => {
+                  const shortLabel = s.label.replace(/^Chương\s+/i, 'Ch.').replace(/^Ch\.\s*/i, 'Ch.').split(':')[0].trim();
+                  return `<a href="${s.file}" target="_blank" rel="noopener" class="slide-quick-chip" title="${s.label}">${shortLabel}</a>`;
+                }).join('')}
+                ${book.slides.length > 4 ? `<a href="book.html?id=${book.id}#slides" class="slide-quick-chip more" title="Xem tất cả">+${book.slides.length - 4}</a>` : ''}
+              </div>
+            `;
+          }
+
           html += `
             <div class="timeline-entry" onclick="window.location.href='book.html?id=${book.id}'">
               <div class="timeline-entry-header">
@@ -529,6 +587,7 @@
                 <span class="timeline-author">${book.author}</span>
                 <span class="stars">${starsHtml}</span>
               </div>
+              ${timelineSlidesHtml}
             </div>
           `;
         });

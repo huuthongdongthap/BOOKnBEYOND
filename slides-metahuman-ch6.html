@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaHuman · Chương 6 — Sự tồn tại và ý thức là một | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --md-sys-color-surface: #fbfaf8;
+      --md-sys-color-surface-dim: #f3f0ea;
+      --md-sys-color-surface-container: #ffffff;
+      --md-sys-color-surface-container-high: #f7f6f2;
+      --md-sys-color-outline-variant: rgba(15, 23, 42, 0.07);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+
+      --primary: #1e3a8a;
+      --primary-container: #eff6ff;
+      --primary-border: rgba(30, 58, 138, 0.16);
+
+      --badge-expand-bg: rgba(99, 102, 241, 0.08);
+      --badge-expand-border: rgba(99, 102, 241, 0.28);
+      --badge-expand-text: #6366f1;
+
+      --badge-example-bg: rgba(217, 119, 6, 0.08);
+      --badge-example-border: rgba(217, 119, 6, 0.28);
+      --badge-example-text: #d97706;
+
+      --md-shape-corner-md: 16px;
+      --md-shape-corner-lg: 24px;
+      --md-shape-corner-xl: 32px;
+      --md-shape-corner-full: 9999px;
+
+      --elevation-flat: 0 0 0 1px var(--md-sys-color-outline-variant);
+      --elevation-1: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02), 0 0 0 1px var(--md-sys-color-outline-variant);
+      --elevation-2: 0 8px 24px -4px rgba(15, 23, 42, 0.05), 0 2px 8px -2px rgba(15, 23, 42, 0.03), 0 0 0 1px var(--md-sys-color-outline-variant);
+      --motion-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: var(--md-sys-color-surface);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.022; pointer-events: none; z-index: 9999;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.5s var(--motion-standard), transform 0.5s var(--motion-standard);
+      transform: translateX(24px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-24px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1160px; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number {
+      position: absolute; bottom: 28px; right: 48px;
+      font-size: 13px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500;
+    }
+    .slide-brand {
+      position: absolute; bottom: 28px; left: 48px;
+      font-size: 12px; color: var(--text-dim); letter-spacing: 1.8px; z-index: 10; font-weight: 600; text-transform: uppercase;
+    }
+
+    .m3-chip-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .m3-chip {
+      display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 16px;
+      border-radius: var(--md-shape-corner-full); font-size: 13px; font-weight: 600;
+      letter-spacing: 0.8px; text-transform: uppercase; box-shadow: var(--elevation-flat);
+    }
+    .m3-chip-tag { background: var(--primary-container); color: var(--primary); border: 1px solid var(--primary-border); }
+
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: var(--md-shape-corner-full); font-size: 13px; font-weight: 600; letter-spacing: 0.3px;
+    }
+    .badge-expand { background: var(--badge-expand-bg); border: 1px solid var(--badge-expand-border); color: var(--badge-expand-text); }
+    .badge-example { background: var(--badge-example-bg); border: 1px solid var(--badge-example-border); color: var(--badge-example-text); }
+
+    .zen-card {
+      background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-lg);
+      padding: 36px 40px; box-shadow: var(--elevation-1);
+      transition: transform 0.28s var(--motion-standard), box-shadow 0.28s var(--motion-standard);
+      position: relative;
+    }
+    .zen-card:hover { transform: translateY(-2px); box-shadow: var(--elevation-2); }
+
+    .zen-quote-container {
+      background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-xl);
+      padding: 52px 60px; box-shadow: var(--elevation-1); border-left: 5px solid var(--primary);
+      position: relative; max-width: 960px; margin: 0 auto; text-align: left;
+    }
+    .zen-quote-container::before {
+      content: '\201C'; position: absolute; top: 14px; left: 24px;
+      font-family: var(--font-display); font-size: 88px; line-height: 1; color: var(--primary);
+      opacity: 0.12; pointer-events: none;
+    }
+    .zen-quote-text { font-size: 30px; line-height: 1.48; font-style: italic; color: var(--text-primary); margin-bottom: 22px; }
+    .zen-citation { font-size: 15px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+    .grid-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
+
+    .zen-title { font-size: 38px; font-weight: 800; line-height: 1.22; margin-bottom: 28px; letter-spacing: -0.5px; }
+    .zen-card-title { font-size: 21px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+    .zen-card-body { font-size: 16px; line-height: 1.68; color: var(--text-secondary); }
+    .zen-card-body strong { color: var(--text-primary); }
+
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--primary); transition: width 0.3s var(--motion-standard); z-index: 1000; }
+    .nav-arrows { position: fixed; bottom: 24px; right: 120px; display: flex; gap: 8px; z-index: 100; }
+    .nav-btn {
+      width: 38px; height: 38px; border-radius: var(--md-shape-corner-full);
+      background: var(--md-sys-color-surface-container); border: 1px solid var(--md-sys-color-outline-variant);
+      box-shadow: var(--elevation-1); color: var(--text-secondary); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--motion-standard);
+    }
+    .nav-btn:hover { background: #ffffff; color: var(--primary); box-shadow: var(--elevation-2); transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+      .slide { padding: 40px 24px; }
+      .grid-dual { grid-template-columns: 1fr; gap: 18px; }
+      .zen-title { font-size: 26px; margin-bottom: 20px; }
+      .zen-quote-container { padding: 32px 24px; }
+      .zen-quote-text { font-size: 22px; }
+      .slide-brand { left: 24px; bottom: 18px; }
+      .slide-number { right: 24px; bottom: 18px; }
+      .nav-arrows { right: 80px; bottom: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck">
+
+    <!-- SLIDE 1: Cover -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner" style="text-align: center;">
+        <div class="m3-chip-bar" style="justify-content: center;">
+          <span class="m3-chip m3-chip-tag">TUẦN 3 · CHƯƠNG 6</span>
+        </div>
+        <h1 class="serif" style="font-size: 54px; font-weight: 800; line-height: 1.18; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -0.5px;">
+          Sự Tồn Tại Và Ý Thức Là Một
+        </h1>
+        <p class="serif" style="font-size: 24px; color: var(--primary); margin-bottom: 40px; font-style: italic;">
+          Existence and Consciousness Are One — Deepak Chopra, M.D.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 32px; font-size: 15px; color: var(--text-muted); font-weight: 500;">
+          <span>📅 Chủ nhật · 04/10/2026</span>
+          <span>📖 Phạm vi: tr. 160 – 182</span>
+          <span>🏛️ BOOKnBEYOND Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">1 / 9</div>
+    </div>
+
+    <!-- SLIDE 2: Core Koan -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CHƯƠNG 6 · CHÂN LÝ HIỆN HỮU</span>
+        </div>
+        <h2 class="zen-title serif">Bản Thể Tự Nhiên Không Cần Nỗ Lực</h2>
+        <div class="zen-quote-container">
+          <p class="zen-quote-text serif">
+            "Bạn không cần phải làm bất cứ điều gì để 'tồn tại', và bạn cũng không cần cố gắng để 'nhận biết'. Tồn tại và Ý thức là một thực tại duy nhất, tự nhiên, luôn hiện hữu trước mọi suy nghĩ hay danh xưng."
+          </p>
+          <div class="zen-citation">
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 162
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">2 / 9</div>
+    </div>
+
+    <!-- SLIDE 3: "I Am" vs "I Am This/That" -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">PHÂN ĐỊNH BẢN THỂ</span>
+        </div>
+        <h2 class="zen-title serif">"Ta Là" Đối Chiếu Với "Ta Là Ai Đó"</h2>
+        <div class="grid-dual">
+          <div class="zen-card" style="border-top: 4px solid var(--primary);">
+            <div class="zen-card-title" style="color: var(--primary);">"Ta Là" (Pure "I Am")</div>
+            <p class="zen-card-body">
+              Ý thức thuần túy, sự hiện hữu nguyên khôi chưa bị pha tạp bởi bất kỳ nhãn dán, chức vụ, hay thành bại nào.<br><br>
+              <strong>Đặc tính:</strong> Vĩnh hằng, không thay đổi, bình an tự tại, không phụ thuộc vào khen chê của thế giới.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 12px;">— tr. 164–166</small>
+            </p>
+          </div>
+          <div class="zen-card" style="border-top: 4px solid var(--text-dim);">
+            <div class="zen-card-title">"Ta Là + Nhãn Dán" (The Ego Story)</div>
+            <p class="zen-card-body">
+              "Tôi là giám đốc", "Tôi là người kém may mắn", "Tôi đang lo lắng"... Bản ngã đồng nhất mình với các vai diễn xã hội.<br><br>
+              <strong>Hệ quả:</strong> Liên tục bất an, sợ mất mát địa vị, luôn phải gồng mình bảo vệ một danh tính giả tạo.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 167–169</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">3 / 9</div>
+    </div>
+
+    <!-- SLIDE 4: Sky & Clouds Analogy -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">ẨN DỤ BẦU TRỜI</span>
+        </div>
+        <h2 class="zen-title serif">Ý Thức Là Bầu Trời, Suy Nghĩ Là Mây</h2>
+        <div class="zen-card" style="padding: 42px 48px;">
+          <p class="zen-card-body" style="font-size: 18px; margin-bottom: 24px;">
+            "Ý thức của bạn giống như bầu trời quang đãng vô tận. Cơn giận, nỗi sợ, sự nghi ngờ hay niềm hân hoan chỉ là những đám mây giông hay mây trắng trôi ngang qua."
+          </p>
+          <div class="grid-dual" style="margin-top: 0;">
+            <div style="background: var(--md-sys-color-surface-dim); padding: 20px 24px; border-radius: var(--md-shape-corner-md);">
+              <strong style="color: var(--text-primary); font-size: 16px;">Những Đám Mây (Tâm Trí)</strong>
+              <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Sinh ra rồi tan biến, liên tục biến động, không có thực thể lâu dài (tr. 171).</p>
+            </div>
+            <div style="background: var(--primary-container); padding: 20px 24px; border-radius: var(--md-shape-corner-md);">
+              <strong style="color: var(--primary); font-size: 16px;">Bầu Trời (Ý Thức Bản Thể)</strong>
+              <p style="font-size: 14px; color: var(--primary); margin-top: 8px;">Dù bão tố dữ dội đến đâu, bầu trời vẫn hoàn toàn thanh tịnh, không hề bị tổn thương (tr. 173).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">4 / 9</div>
+    </div>
+
+    <!-- SLIDE 5: Conquering Fear of Nothingness -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">GIẢI MÃ NỖI SỢ</span>
+        </div>
+        <h2 class="zen-title serif">Hư Vô Không Phải Là Sự Trống Rỗng</h2>
+        <div class="zen-quote-container">
+          <p class="zen-quote-text serif" style="font-size: 28px;">
+            "Con người sợ cái chết và sự hư vô bởi họ tưởng rằng không có suy nghĩ nghĩa là biến mất. Nhưng 'khoảng trống' giữa hai suy nghĩ không phải sự hư vô vô nghĩa — đó chính là nguồn cội của mọi sáng tạo và sự sống."
+          </p>
+          <div class="zen-citation">
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 176
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">5 / 9</div>
+    </div>
+
+    <!-- SLIDE 6: Oneness -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">TÍNH NHẤT THỂ</span>
+        </div>
+        <h2 class="zen-title serif">Sự Tách Biệt Chỉ Là Một Thỏa Ước Ngôn Ngữ</h2>
+        <div class="grid-dual">
+          <div class="zen-card">
+            <div class="zen-card-title">Cái Bẫy Của Ngôn Ngữ</div>
+            <p class="zen-card-body">
+              Chúng ta đặt tên cho từng cái cây, hòn đá, ngọn núi và con người, rồi lầm tưởng chúng hoàn toàn cô lập với nhau.<br><br>
+              <strong>Thực tế:</strong> Giống như những con sóng riêng lẻ trên mặt biển, mỗi con sóng đều có hình dáng khác nhau nhưng bản chất đều là đại dương.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 179</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">Trải Nghiệm Đồng Nhất (Oneness)</div>
+            <p class="zen-card-body">
+              Khi buông bỏ sự phán xét và nhãn dán, bạn nhận ra người đối diện và bạn cùng đang thở chung một bầu khí quyển, cùng chung một trường ý thức.<br><br>
+              <strong>Hệ quả:</strong> Lòng trắc ẩn và sự thấu cảm không còn là nghĩa vụ đạo đức mà là sự thật hiển nhiên.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 12px;">— tr. 182</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">6 / 9</div>
+    </div>
+
+    <!-- SLIDE 7: Example Badge Slide (slide-design-rules.md compliant) -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+        </div>
+        <h2 class="zen-title serif">Khủng Hoảng Danh Tính Khi Vỡ Chiếc Vỏ Bản Ngã</h2>
+        <div class="zen-card" style="padding: 38px 44px;">
+          <div class="zen-card-title" style="margin-bottom: 16px;">Tình Huống: Doanh Nhân Thành Đạt Đối Mặt Biến Cố</div>
+          <p class="zen-card-body" style="font-size: 16px; line-height: 1.7;">
+            Một nhà sáng lập dành 15 năm xây dựng công ty và coi "chức danh CEO" là toàn bộ giá trị sống của mình. Khi công ty gặp khủng hoảng và phải rời vị trí, người ấy rơi vào trầm cảm nặng nề: <em>"Nếu không còn là giám đốc, tôi là ai?"</em><br><br>
+            <strong>Góc nhìn MetaHuman:</strong> Cơn khủng hoảng xảy ra vì người ấy đã nhầm lẫn giữa <em>"vai diễn"</em> và <em>"người diễn viên"</em>. Bạn không phải là chức danh, thu nhập hay thành quả. Bạn là sự hiện hữu tỉnh thức đang trải nghiệm vai diễn đó. Khi thấu hiểu chân lý này, sự tự do tuyệt đối sẽ trở lại.
+          </p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">7 / 9</div>
+    </div>
+
+    <!-- SLIDE 8: Expanded Discussion (slide-design-rules.md compliant) -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner" style="text-align: center;">
+        <div class="m3-chip-bar" style="justify-content: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi chiêm nghiệm cộng đồng</div>
+        </div>
+        <h2 class="zen-title serif" style="margin-bottom: 36px;">Đối Thoại Chiêm Nghiệm</h2>
+        <div class="zen-card" style="max-width: 860px; margin: 0 auto; text-align: left; padding: 40px 48px;">
+          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Nếu bạn buông bỏ tất cả các danh xưng nghề nghiệp, học vấn và vai trò xã hội, điều gì còn lại chân thật nhất bên trong bạn?
+            </p>
+          </div>
+          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Làm thế nào để duy trì nhận thức <em>"Ý thức là bầu trời tĩnh lặng"</em> khi phải đối diện với những cơn giông bão cảm xúc trong đời sống hàng ngày?
+            </p>
+          </div>
+          <div style="display: flex; gap: 18px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Trạng thái nhận biết <em>"Sự tồn tại và ý thức là một"</em> thay đổi cách bạn đối xử với những người có quan điểm trái ngược với mình như thế nào?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">8 / 9</div>
+    </div>
+
+    <!-- SLIDE 9: Closing -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner" style="text-align: center;">
+        <h2 class="serif" style="font-size: 44px; font-weight: 900; color: var(--text-primary); margin-bottom: 14px;">BOOKnBEYOND</h2>
+        <p class="serif" style="font-size: 18px; color: var(--primary); font-style: italic; margin-bottom: 32px;">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 64px; margin-bottom: 24px;">🕊️</div>
+        <h3 class="serif" style="font-size: 24px; color: var(--text-primary); margin-bottom: 8px;">Siêu Nhân Loại — Chương 6</h3>
+        <p style="font-size: 18px; color: var(--text-muted); margin-bottom: 36px; font-style: italic;">Sự tồn tại và ý thức là một</p>
+        <div style="display: flex; justify-content: center; gap: 28px; font-size: 15px; color: var(--text-secondary); font-weight: 500;">
+          <span>📅 04/10/2026 · Tuần 3</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">9 / 9</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()" aria-label="Previous Slide">←</button>
+    <button class="nav-btn" onclick="nextSlide()" aria-label="Next Slide">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 500);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f' || e.key === 'F') {
+        !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen();
+      }
+    });
+
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      const diffX = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diffX) > 45) { diffX > 0 ? nextSlide() : prevSlide(); }
+    }, { passive: true });
+
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
