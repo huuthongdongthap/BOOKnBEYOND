@@ -104,7 +104,7 @@
 
     .zen-card {
       background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-lg);
-      padding: 36px 40px; box-shadow: var(--elevation-1);
+      padding: 32px 36px; box-shadow: var(--elevation-1);
       transition: transform 0.28s var(--motion-standard), box-shadow 0.28s var(--motion-standard);
       position: relative;
     }
@@ -112,23 +112,31 @@
 
     .zen-quote-container {
       background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-xl);
-      padding: 52px 60px; box-shadow: var(--elevation-1); border-left: 5px solid var(--primary);
+      padding: 44px 52px; box-shadow: var(--elevation-1); border-left: 5px solid var(--primary);
       position: relative; max-width: 960px; margin: 0 auto; text-align: left;
     }
     .zen-quote-container::before {
-      content: '\201C'; position: absolute; top: 14px; left: 24px;
-      font-family: var(--font-display); font-size: 88px; line-height: 1; color: var(--primary);
+      content: '\201C'; position: absolute; top: 12px; left: 20px;
+      font-family: var(--font-display); font-size: 80px; line-height: 1; color: var(--primary);
       opacity: 0.12; pointer-events: none;
     }
-    .zen-quote-text { font-size: 30px; line-height: 1.48; font-style: italic; color: var(--text-primary); margin-bottom: 22px; }
-    .zen-citation { font-size: 15px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+    .zen-quote-text { font-size: 26px; line-height: 1.5; font-style: italic; color: var(--text-primary); margin-bottom: 20px; }
+    .zen-citation { font-size: 14px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
 
-    .grid-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
+    .grid-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 14px; }
 
-    .zen-title { font-size: 38px; font-weight: 800; line-height: 1.22; margin-bottom: 28px; letter-spacing: -0.5px; }
-    .zen-card-title { font-size: 21px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
-    .zen-card-body { font-size: 16px; line-height: 1.68; color: var(--text-secondary); }
+    .zen-title { font-size: 34px; font-weight: 800; line-height: 1.24; margin-bottom: 22px; letter-spacing: -0.4px; }
+    .zen-card-title { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+    .zen-card-body { font-size: 15.5px; line-height: 1.68; color: var(--text-secondary); }
     .zen-card-body strong { color: var(--text-primary); }
+
+    .evidence-point {
+      margin-top: 10px; padding: 10px 14px;
+      background: var(--md-sys-color-surface-dim); border-radius: 10px; font-size: 14px; line-height: 1.55;
+    }
+    .evidence-point.highlight {
+      background: var(--primary-container); border: 1px solid var(--primary-border); color: var(--primary);
+    }
 
     .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--primary); transition: width 0.3s var(--motion-standard); z-index: 1000; }
     .nav-arrows { position: fixed; bottom: 24px; right: 120px; display: flex; gap: 8px; z-index: 100; }
@@ -142,10 +150,10 @@
 
     @media (max-width: 900px) {
       .slide { padding: 40px 24px; }
-      .grid-dual { grid-template-columns: 1fr; gap: 18px; }
-      .zen-title { font-size: 26px; margin-bottom: 20px; }
-      .zen-quote-container { padding: 32px 24px; }
-      .zen-quote-text { font-size: 22px; }
+      .grid-dual { grid-template-columns: 1fr; gap: 16px; }
+      .zen-title { font-size: 24px; margin-bottom: 16px; }
+      .zen-quote-container { padding: 28px 20px; }
+      .zen-quote-text { font-size: 20px; }
       .slide-brand { left: 24px; bottom: 18px; }
       .slide-number { right: 24px; bottom: 18px; }
       .nav-arrows { right: 80px; bottom: 14px; }
@@ -162,215 +170,280 @@
         <div class="m3-chip-bar" style="justify-content: center;">
           <span class="m3-chip m3-chip-tag">TUẦN 3 · CHƯƠNG 6</span>
         </div>
-        <h1 class="serif" style="font-size: 54px; font-weight: 800; line-height: 1.18; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -0.5px;">
+        <h1 class="serif" style="font-size: 52px; font-weight: 800; line-height: 1.18; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -0.5px;">
           Sự Tồn Tại Và Ý Thức Là Một
         </h1>
-        <p class="serif" style="font-size: 24px; color: var(--primary); margin-bottom: 40px; font-style: italic;">
-          Existence and Consciousness Are One — Deepak Chopra, M.D.
+        <p class="serif" style="font-size: 22px; color: var(--primary); margin-bottom: 36px; font-style: italic;">
+          Existence and Consciousness Are the Same — Deepak Chopra, M.D.
         </p>
         <div style="display: flex; justify-content: center; gap: 32px; font-size: 15px; color: var(--text-muted); font-weight: 500;">
           <span>📅 Chủ nhật · 04/10/2026</span>
-          <span>📖 Phạm vi: tr. 160 – 182</span>
+          <span>📖 Phạm vi: tr. 160 – 182 (23 trang)</span>
           <span>🏛️ BOOKnBEYOND Club</span>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">1 / 9</div>
+      <div class="slide-number">1 / 10</div>
     </div>
 
-    <!-- SLIDE 2: Core Koan -->
+    <!-- SLIDE 2: Core Axiom -->
     <div class="slide" id="slide-2">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">CHƯƠNG 6 · CHÂN LÝ HIỆN HỮU</span>
+          <span class="m3-chip m3-chip-tag">CHƯƠNG 6 · ĐỊNH ĐỀ NỀN TẢNG</span>
         </div>
-        <h2 class="zen-title serif">Bản Thể Tự Nhiên Không Cần Nỗ Lực</h2>
+        <h2 class="zen-title serif">Sự Tồn Tại Bất Khả Phân Khỏi Nhận Thức</h2>
         <div class="zen-quote-container">
           <p class="zen-quote-text serif">
-            "Bạn không cần phải làm bất cứ điều gì để 'tồn tại', và bạn cũng không cần cố gắng để 'nhận biết'. Tồn tại và Ý thức là một thực tại duy nhất, tự nhiên, luôn hiện hữu trước mọi suy nghĩ hay danh xưng."
+            "Không thể có một thứ gì đó 'tồn tại' mà lại hoàn toàn nằm ngoài mọi khả năng nhận biết. Bất cứ điều gì bạn tuyên bố là có thực—từ một hạt hạ nguyên tử đến một thiên hà—đều phải xuất hiện trong trường nhận thức. Tồn tại và Ý thức không phải hai thực thể rời rạc ghép lại; chúng là hai tên gọi của cùng một thực tại tối hậu."
           </p>
           <div class="zen-citation">
-            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 162
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 160–162
+          </div>
+        </div>
+        <div style="margin-top: 24px; display: flex; justify-content: center; gap: 20px;">
+          <div class="evidence-point highlight" style="max-width: 860px; text-align: center; font-size: 15px;">
+            🔑 <strong>Chân lý cốt lõi:</strong> Chúng ta không "sở hữu" ý thức như một phụ kiện sinh học; chúng ta <em>chính là</em> ý thức đang trải nghiệm sự tồn tại.
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">2 / 9</div>
+      <div class="slide-number">2 / 10</div>
     </div>
 
-    <!-- SLIDE 3: "I Am" vs "I Am This/That" -->
+    <!-- SLIDE 3: Hard Problem of Consciousness -->
     <div class="slide" id="slide-3">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">PHÂN ĐỊNH BẢN THỂ</span>
+          <span class="m3-chip m3-chip-tag">LUẬN ĐIỂM 1 · BẢN CHẤT VẬT CHẤT</span>
         </div>
-        <h2 class="zen-title serif">"Ta Là" Đối Chiếu Với "Ta Là Ai Đó"</h2>
+        <h2 class="zen-title serif">Nguyên Tử Vô Tri Học Cách Suy Nghĩ Từ Khi Nào?</h2>
         <div class="grid-dual">
-          <div class="zen-card" style="border-top: 4px solid var(--primary);">
-            <div class="zen-card-title" style="color: var(--primary);">"Ta Là" (Pure "I Am")</div>
+          <div class="zen-card" style="border-top: 4px solid var(--text-dim);">
+            <div class="zen-card-title">1. Bế Tắc Của Thuyết Duy Vật (Physicalism)</div>
             <p class="zen-card-body">
-              Ý thức thuần túy, sự hiện hữu nguyên khôi chưa bị pha tạp bởi bất kỳ nhãn dán, chức vụ, hay thành bại nào.<br><br>
-              <strong>Đặc tính:</strong> Vĩnh hằng, không thay đổi, bình an tự tại, không phụ thuộc vào khen chê của thế giới.<br>
-              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 12px;">— tr. 164–166</small>
+              Chủ nghĩa duy vật giả định: Vật chất vô cơ → Tế bào thần kinh → Não bộ tiết ra ý thức.<br><br>
+              <strong>"Hard Problem" (Vấn đề hóc búa):</strong> Khoa học thần kinh không thể giải thích cơ chế làm sao các ion muối (Na+, K+) chạy qua màng tế bào vô tri lại biến thành cảm giác chủ quan như tình yêu hay nỗi sợ.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 163–165</small>
             </p>
           </div>
-          <div class="zen-card" style="border-top: 4px solid var(--text-dim);">
-            <div class="zen-card-title">"Ta Là + Nhãn Dán" (The Ego Story)</div>
+          <div class="zen-card" style="border-top: 4px solid var(--primary);">
+            <div class="zen-card-title" style="color: var(--primary);">2. Luận Điểm Phản Biện Của Chopra</div>
             <p class="zen-card-body">
-              "Tôi là giám đốc", "Tôi là người kém may mắn", "Tôi đang lo lắng"... Bản ngã đồng nhất mình với các vai diễn xã hội.<br><br>
-              <strong>Hệ quả:</strong> Liên tục bất an, sợ mất mát địa vị, luôn phải gồng mình bảo vệ một danh tính giả tạo.<br>
-              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 167–169</small>
+              Carbon, hydro, oxy không hề có tâm trí. Dù bạn có gom hàng tỷ nguyên tử vô tri lại, chúng vẫn là vật chất vô tri.<br><br>
+              <strong>Kết luận tất yếu:</strong> Ý thức không thể là "phẩm chất nảy sinh" từ thứ không có ý thức. Ý thức phải là nền tảng nguyên thủy của toàn bộ vũ trụ, tồn tại trước mọi phân tử.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 165–166</small>
             </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">3 / 9</div>
+      <div class="slide-number">3 / 10</div>
     </div>
 
-    <!-- SLIDE 4: Sky & Clouds Analogy -->
+    <!-- SLIDE 4: Dark Skull Paradox & Qualia -->
     <div class="slide" id="slide-4">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">ẨN DỤ BẦU TRỜI</span>
+          <span class="m3-chip m3-chip-tag">BẰNG CHỨNG 2 · NGHỊCH LÝ SINH HỌC</span>
         </div>
-        <h2 class="zen-title serif">Ý Thức Là Bầu Trời, Suy Nghĩ Là Mây</h2>
-        <div class="zen-card" style="padding: 42px 48px;">
-          <p class="zen-card-body" style="font-size: 18px; margin-bottom: 24px;">
-            "Ý thức của bạn giống như bầu trời quang đãng vô tận. Cơn giận, nỗi sợ, sự nghi ngờ hay niềm hân hoan chỉ là những đám mây giông hay mây trắng trôi ngang qua."
-          </p>
-          <div class="grid-dual" style="margin-top: 0;">
-            <div style="background: var(--md-sys-color-surface-dim); padding: 20px 24px; border-radius: var(--md-shape-corner-md);">
-              <strong style="color: var(--text-primary); font-size: 16px;">Những Đám Mây (Tâm Trí)</strong>
-              <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Sinh ra rồi tan biến, liên tục biến động, không có thực thể lâu dài (tr. 171).</p>
-            </div>
-            <div style="background: var(--primary-container); padding: 20px 24px; border-radius: var(--md-shape-corner-md);">
-              <strong style="color: var(--primary); font-size: 16px;">Bầu Trời (Ý Thức Bản Thể)</strong>
-              <p style="font-size: 14px; color: var(--primary); margin-top: 8px;">Dù bão tố dữ dội đến đâu, bầu trời vẫn hoàn toàn thanh tịnh, không hề bị tổn thương (tr. 173).</p>
-            </div>
+        <h2 class="zen-title serif">Nghịch Lý Hộp Sọ Tối Đen & Bản Chất Qualia</h2>
+        <div class="grid-dual">
+          <div class="zen-card">
+            <div class="zen-card-title">Hộp Sọ Hoàn Toàn Tối Đen & Câm Lặng</div>
+            <p class="zen-card-body">
+              Bên trong hộp sọ là bóng tối tuyệt đối và im lặng hoàn toàn. Não bộ không có ánh sáng, âm thanh hay hương vị.<br><br>
+              <strong>Thực tế thần kinh học:</strong> Mọi thứ não nhận được chỉ là các xung điện hóa học yếu ớt (~20 watt). Bộ não chưa bao giờ tiếp xúc trực tiếp với "thế giới bên ngoài".<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 167–169</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">Thực Tại Được Dệt Bằng "Qualia"</div>
+            <p class="zen-card-body">
+              <strong>Qualia:</strong> Là các phẩm chất trải nghiệm chủ quan (màu đỏ của hoa hồng, vị đắng của cà phê, tiếng đàn dương cầm).<br><br>
+              Ánh sáng, màu sắc và âm thanh <strong>chỉ thực sự xuất hiện trong Ý Thức</strong>. Thế giới bên ngoài không phải là các khối vật chất rắn rỏi, mà là trường Qualia do ý thức kiến tạo.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 169–170</small>
+            </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">4 / 9</div>
+      <div class="slide-number">4 / 10</div>
     </div>
 
-    <!-- SLIDE 5: Conquering Fear of Nothingness -->
+    <!-- SLIDE 5: Quantum Evidence & Observer Effect -->
     <div class="slide" id="slide-5">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">GIẢI MÃ NỖI SỢ</span>
+          <span class="m3-chip m3-chip-tag">BẰNG CHỨNG 3 · VẬT LÝ LƯỢNG TỬ</span>
         </div>
-        <h2 class="zen-title serif">Hư Vô Không Phải Là Sự Trống Rỗng</h2>
-        <div class="zen-quote-container">
-          <p class="zen-quote-text serif" style="font-size: 28px;">
-            "Con người sợ cái chết và sự hư vô bởi họ tưởng rằng không có suy nghĩ nghĩa là biến mất. Nhưng 'khoảng trống' giữa hai suy nghĩ không phải sự hư vô vô nghĩa — đó chính là nguồn cội của mọi sáng tạo và sự sống."
-          </p>
-          <div class="zen-citation">
-            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 176
+        <h2 class="zen-title serif">Vật Chất Là Sản Phẩm Phái Sinh Của Ý Thức</h2>
+        <div class="grid-dual">
+          <div class="zen-card">
+            <div class="zen-card-title">Chứng Cứ Từ Các Nhà Vật Lý Tiên Phong</div>
+            <p class="zen-card-body">
+              <em>"Tôi coi ý thức là nền tảng tối hậu. Tôi coi vật chất là sản phẩm phái sinh từ ý thức."</em><br>
+              <strong style="color: var(--primary);">— Max Planck (Nobel Vật lý)</strong><br><br>
+              Werner Heisenberg & Erwin Schrödinger cũng khẳng định: Ở thang đo hạ nguyên tử, không có hạt vật chất cố định; thực tại là một cấu trúc toán học của các trường nhận thức.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 171–172</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">Hiệu Ứng Người Quan Sát (Observer Effect)</div>
+            <p class="zen-card-body">
+              Hạt hạ nguyên tử tồn tại dưới dạng "sóng xác suất" (probability wave). Chỉ khi có hành động đo đạc/quan sát, sóng mới sụp đổ thành hạt cụ thể.<br><br>
+              <strong>Hệ quả:</strong> Người quan sát và vật được quan sát là một thể thống nhất không thể tách rời. Không có một vũ trụ khách quan độc lập đứng ngoài ý thức.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 173–174</small>
+            </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">5 / 9</div>
+      <div class="slide-number">5 / 10</div>
     </div>
 
-    <!-- SLIDE 6: Oneness -->
+    <!-- SLIDE 6: Brain as Transceiver Analogy -->
     <div class="slide" id="slide-6">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">TÍNH NHẤT THỂ</span>
+          <span class="m3-chip m3-chip-tag">GIẢI MÃ CƠ CHẾ · PHẢN BIỆN DUY CƠ</span>
         </div>
-        <h2 class="zen-title serif">Sự Tách Biệt Chỉ Là Một Thỏa Ước Ngôn Ngữ</h2>
+        <h2 class="zen-title serif">Bộ Não Là Chiếc Radio Thu Sóng, Không Phải Đài Phát</h2>
         <div class="grid-dual">
           <div class="zen-card">
-            <div class="zen-card-title">Cái Bẫy Của Ngôn Ngữ</div>
+            <div class="zen-card-title">Sai Lầm Phổ Biến Về Bộ Não</div>
             <p class="zen-card-body">
-              Chúng ta đặt tên cho từng cái cây, hòn đá, ngọn núi và con người, rồi lầm tưởng chúng hoàn toàn cô lập với nhau.<br><br>
-              <strong>Thực tế:</strong> Giống như những con sóng riêng lẻ trên mặt biển, mỗi con sóng đều có hình dáng khác nhau nhưng bản chất đều là đại dương.<br>
-              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 179</small>
+              Khoa học thần kinh cổ điển nhìn não phát ra sóng điện rồi kết luận não tạo ra tâm trí—tương tự việc mở tung chiếc radio ra tìm ban nhạc đang chơi bên trong.<br><br>
+              Khi chiếc đài bị đập vỡ, âm nhạc tắt ngấm, nhưng <strong>sóng phát thanh trong không gian không hề bị tiêu diệt</strong>.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 175–176</small>
             </p>
           </div>
           <div class="zen-card">
-            <div class="zen-card-title">Trải Nghiệm Đồng Nhất (Oneness)</div>
+            <div class="zen-card-title">Bộ Lọc & Giảm Áp Ý Thức</div>
             <p class="zen-card-body">
-              Khi buông bỏ sự phán xét và nhãn dán, bạn nhận ra người đối diện và bạn cùng đang thở chung một bầu khí quyển, cùng chung một trường ý thức.<br><br>
-              <strong>Hệ quả:</strong> Lòng trắc ẩn và sự thấu cảm không còn là nghĩa vụ đạo đức mà là sự thật hiển nhiên.<br>
-              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 12px;">— tr. 182</small>
+              Bộ não thực chất là một "bộ giảm áp" (reducing valve - Aldous Huxley). Nó thu hẹp trường ý thức vô hạn xuống một kênh tần số sinh học hẹp để con người định hướng sinh tồn.<br><br>
+              Tổn thương mô não làm méo mó tín hiệu biểu đạt, nhưng <strong>không thể phá hủy trường ý thức bản thể</strong>.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 176–177</small>
             </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">6 / 9</div>
+      <div class="slide-number">6 / 10</div>
     </div>
 
-    <!-- SLIDE 7: Example Badge Slide (slide-design-rules.md compliant) -->
+    <!-- SLIDE 7: "I Am" vs Ego Constructs -->
     <div class="slide" id="slide-7">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <span class="m3-chip m3-chip-tag">BẢN THỂ HỌC · ĐIỂM GIAO THỰC TẠI</span>
         </div>
-        <h2 class="zen-title serif">Khủng Hoảng Danh Tính Khi Vỡ Chiếc Vỏ Bản Ngã</h2>
-        <div class="zen-card" style="padding: 38px 44px;">
-          <div class="zen-card-title" style="margin-bottom: 16px;">Tình Huống: Doanh Nhân Thành Đạt Đối Mặt Biến Cố</div>
-          <p class="zen-card-body" style="font-size: 16px; line-height: 1.7;">
-            Một nhà sáng lập dành 15 năm xây dựng công ty và coi "chức danh CEO" là toàn bộ giá trị sống của mình. Khi công ty gặp khủng hoảng và phải rời vị trí, người ấy rơi vào trầm cảm nặng nề: <em>"Nếu không còn là giám đốc, tôi là ai?"</em><br><br>
-            <strong>Góc nhìn MetaHuman:</strong> Cơn khủng hoảng xảy ra vì người ấy đã nhầm lẫn giữa <em>"vai diễn"</em> và <em>"người diễn viên"</em>. Bạn không phải là chức danh, thu nhập hay thành quả. Bạn là sự hiện hữu tỉnh thức đang trải nghiệm vai diễn đó. Khi thấu hiểu chân lý này, sự tự do tuyệt đối sẽ trở lại.
-          </p>
+        <h2 class="zen-title serif">"Ta Là" (I Am): Điểm Giao Của Tồn Tại & Nhận Biết</h2>
+        <div class="grid-dual">
+          <div class="zen-card" style="border-top: 4px solid var(--primary);">
+            <div class="zen-card-title" style="color: var(--primary);">"Ta Là" (Pure "I Am") — Bản Thể Nguyên Khôi</div>
+            <p class="zen-card-body">
+              Bạn luôn nhận biết mình tồn tại trước khi bất kỳ suy nghĩ hay nhãn dán nào xuất hiện. Ngay cả trong giấc ngủ sâu hay khoảng lặng giữa hai nhịp thở, ý thức hiện hữu vẫn ở đó.<br><br>
+              <strong>Sat-Chit:</strong> Trong triết học Veda cổ đại, <em>Sat</em> (Tồn tại) và <em>Chit</em> (Ý thức) luôn đi cùng nhau như một.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 178–179</small>
+            </p>
+          </div>
+          <div class="zen-card" style="border-top: 4px solid var(--text-dim);">
+            <div class="zen-card-title">"Ta Là Cái Này / Cái Kia" — Cái Bẫy Bản Ngã</div>
+            <p class="zen-card-body">
+              "Tôi là giám đốc", "Tôi là người đau khổ", "Tôi là thân xác già yếu này"... Bản ngã gắn thêm nhãn dán vào sự tồn tại thuần túy.<br><br>
+              <strong>Căn nguyên đau khổ:</strong> Chúng ta nhầm lẫn giữa <em>"vai diễn"</em> và <em>"người quan sát vai diễn"</em>, dẫn đến nỗi sợ hãi tột cùng về cái chết và sự mất mát.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 180</small>
+            </p>
+          </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">7 / 9</div>
+      <div class="slide-number">7 / 10</div>
     </div>
 
-    <!-- SLIDE 8: Expanded Discussion (slide-design-rules.md compliant) -->
+    <!-- SLIDE 8: Practical Application & Paradigm Shift -->
     <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <div class="badge-source badge-example">💡 Minh chứng ứng dụng — Chuyển hóa mô thức</div>
+        </div>
+        <h2 class="zen-title serif">Từ Nạn Nhân Sinh Học Thành Chủ Thể Sáng Tạo</h2>
+        <div class="grid-dual">
+          <div class="zen-card" style="background: var(--md-sys-color-surface-dim);">
+            <div class="zen-card-title" style="color: var(--text-muted);">Mô Thức Cũ: Cỗ Máy Sinh Học Bất An</div>
+            <p class="zen-card-body">
+              Coi mình là sinh vật nhỏ bé chịu sự chi phối 100% của mã gen, hóa chất não và hoàn cảnh bên ngoài.<br><br>
+              <strong>Hậu quả:</strong> Sống trong căng thẳng mãn tính, lo sợ bệnh tật và cái chết, luôn cảm thấy cô độc trong một vũ trụ vật chất vô cảm.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 181</small>
+            </p>
+          </div>
+          <div class="zen-card" style="background: var(--primary-container); border: 1px solid var(--primary-border);">
+            <div class="zen-card-title" style="color: var(--primary);">Mô Thức MetaHuman: Thể Xác Là Ý Thức Kết Tinh</div>
+            <p class="zen-card-body" style="color: var(--primary);">
+              Cơ thể vật lý là biểu hiện động của ý thức. Căng thẳng hay lành bệnh đều bắt đầu từ nhận thức.<br><br>
+              <strong>Ứng dụng:</strong> Y học tâm thân (Mind-Body Medicine), thiền định làm thay đổi biểu hiện gen (Epigenetics), giải phóng tiềm năng chữa lành vô hạn của cơ thể.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 8px;">— tr. 182</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">8 / 10</div>
+    </div>
+
+    <!-- SLIDE 9: Deep Discussion Questions -->
+    <div class="slide" id="slide-9">
       <div class="slide-inner" style="text-align: center;">
         <div class="m3-chip-bar" style="justify-content: center;">
           <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi chiêm nghiệm cộng đồng</div>
         </div>
-        <h2 class="zen-title serif" style="margin-bottom: 36px;">Đối Thoại Chiêm Nghiệm</h2>
-        <div class="zen-card" style="max-width: 860px; margin: 0 auto; text-align: left; padding: 40px 48px;">
-          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
-            <span style="font-size: 26px;">💬</span>
-            <p class="zen-card-body" style="font-size: 17px;">
-              Nếu bạn buông bỏ tất cả các danh xưng nghề nghiệp, học vấn và vai trò xã hội, điều gì còn lại chân thật nhất bên trong bạn?
+        <h2 class="zen-title serif" style="margin-bottom: 30px;">Đối Thoại Phản Biện & Chiêm Nghiệm</h2>
+        <div class="zen-card" style="max-width: 900px; margin: 0 auto; text-align: left; padding: 36px 44px;">
+          <div style="display: flex; gap: 18px; margin-bottom: 22px;">
+            <span style="font-size: 24px;">🔬</span>
+            <p class="zen-card-body" style="font-size: 16.5px;">
+              Nếu khoa học thần kinh duy vật khẳng định não bộ tạo ra ý thức, tại sao sau hơn một thế kỷ nghiên cứu, <strong>chưa từng có ai giải thích được</strong> bằng cách nào các phân tử vô tri lại biến thành trải nghiệm chủ quan (Qualia)?
             </p>
           </div>
-          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
-            <span style="font-size: 26px;">💬</span>
-            <p class="zen-card-body" style="font-size: 17px;">
-              Làm thế nào để duy trì nhận thức <em>"Ý thức là bầu trời tĩnh lặng"</em> khi phải đối diện với những cơn giông bão cảm xúc trong đời sống hàng ngày?
+          <div style="display: flex; gap: 18px; margin-bottom: 22px;">
+            <span style="font-size: 24px;">🌌</span>
+            <p class="zen-card-body" style="font-size: 16.5px;">
+              Khi nhận ra hộp sọ hoàn toàn tối đen và tĩnh lặng, bạn nhận thức thế nào về sự thật: <em>Toàn bộ thế giới ánh sáng và âm thanh bên ngoài thực chất chỉ đang tồn tại bên trong Ý thức của bạn?</em>
             </p>
           </div>
           <div style="display: flex; gap: 18px;">
-            <span style="font-size: 26px;">💬</span>
-            <p class="zen-card-body" style="font-size: 17px;">
-              Trạng thái nhận biết <em>"Sự tồn tại và ý thức là một"</em> thay đổi cách bạn đối xử với những người có quan điểm trái ngược với mình như thế nào?
+            <span style="font-size: 24px;">🕊️</span>
+            <p class="zen-card-body" style="font-size: 16.5px;">
+              Chân lý <em>"Sự tồn tại và ý thức là một"</em> giải thoát bạn khỏi nỗi bất an về danh phận, sự già nua và bệnh tật trong đời sống thực tế như thế nào?
             </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">8 / 9</div>
+      <div class="slide-number">9 / 10</div>
     </div>
 
-    <!-- SLIDE 9: Closing -->
-    <div class="slide" id="slide-9">
+    <!-- SLIDE 10: Closing Summary -->
+    <div class="slide" id="slide-10">
       <div class="slide-inner" style="text-align: center;">
-        <h2 class="serif" style="font-size: 44px; font-weight: 900; color: var(--text-primary); margin-bottom: 14px;">BOOKnBEYOND</h2>
-        <p class="serif" style="font-size: 18px; color: var(--primary); font-style: italic; margin-bottom: 32px;">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
-        <div style="font-size: 64px; margin-bottom: 24px;">🕊️</div>
+        <h2 class="serif" style="font-size: 42px; font-weight: 900; color: var(--text-primary); margin-bottom: 12px;">BOOKnBEYOND</h2>
+        <p class="serif" style="font-size: 17px; color: var(--primary); font-style: italic; margin-bottom: 28px;">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 58px; margin-bottom: 20px;">⚛️</div>
         <h3 class="serif" style="font-size: 24px; color: var(--text-primary); margin-bottom: 8px;">Siêu Nhân Loại — Chương 6</h3>
-        <p style="font-size: 18px; color: var(--text-muted); margin-bottom: 36px; font-style: italic;">Sự tồn tại và ý thức là một</p>
-        <div style="display: flex; justify-content: center; gap: 28px; font-size: 15px; color: var(--text-secondary); font-weight: 500;">
+        <p style="font-size: 17px; color: var(--text-muted); margin-bottom: 28px; font-style: italic;">
+          Sự Tồn Tại Và Ý Thức Là Một (tr. 160 – 182)
+        </p>
+        <div class="evidence-point highlight" style="max-width: 720px; margin: 0 auto 30px auto; font-size: 15px;">
+          <em>"Bạn không phải một người quan sát cô đơn đứng ngoài nhìn vào vũ trụ. Bạn là ý thức mà thông qua đó vũ trụ đang tự nhận biết chính mình."</em>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 28px; font-size: 14px; color: var(--text-secondary); font-weight: 500;">
           <span>📅 04/10/2026 · Tuần 3</span>
           <span>🏛️ BOOKnBEYOND Book Club</span>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">9 / 9</div>
+      <div class="slide-number">10 / 10</div>
     </div>
 
   </div>
