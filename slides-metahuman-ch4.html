@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MetaHuman · Chương 4 — Siêu hiện thực cho tự do tuyệt đối | BOOKnBEYOND</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --md-sys-color-surface: #fbfaf8;
+      --md-sys-color-surface-dim: #f3f0ea;
+      --md-sys-color-surface-container: #ffffff;
+      --md-sys-color-surface-container-high: #f7f6f2;
+      --md-sys-color-outline-variant: rgba(15, 23, 42, 0.07);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+
+      --primary: #1e3a8a;
+      --primary-container: #eff6ff;
+      --primary-border: rgba(30, 58, 138, 0.16);
+
+      --badge-expand-bg: rgba(99, 102, 241, 0.08);
+      --badge-expand-border: rgba(99, 102, 241, 0.28);
+      --badge-expand-text: #6366f1;
+
+      --badge-example-bg: rgba(217, 119, 6, 0.08);
+      --badge-example-border: rgba(217, 119, 6, 0.28);
+      --badge-example-text: #d97706;
+
+      --md-shape-corner-md: 16px;
+      --md-shape-corner-lg: 24px;
+      --md-shape-corner-xl: 32px;
+      --md-shape-corner-full: 9999px;
+
+      --elevation-flat: 0 0 0 1px var(--md-sys-color-outline-variant);
+      --elevation-1: 0 1px 3px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02), 0 0 0 1px var(--md-sys-color-outline-variant);
+      --elevation-2: 0 8px 24px -4px rgba(15, 23, 42, 0.05), 0 2px 8px -2px rgba(15, 23, 42, 0.03), 0 0 0 1px var(--md-sys-color-outline-variant);
+      --motion-standard: cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: var(--md-sys-color-surface);
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      opacity: 0.022; pointer-events: none; z-index: 9999;
+    }
+
+    .deck { width: 100vw; height: 100vh; position: relative; }
+
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 60px 100px;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.5s var(--motion-standard), transform 0.5s var(--motion-standard);
+      transform: translateX(24px);
+    }
+    .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
+    .slide.exit { opacity: 0; transform: translateX(-24px); }
+
+    .slide-inner { position: relative; z-index: 1; width: 100%; max-width: 1160px; }
+    .serif { font-family: var(--font-display); }
+
+    .slide-number {
+      position: absolute; bottom: 28px; right: 48px;
+      font-size: 13px; color: var(--text-dim); letter-spacing: 2px; z-index: 10; font-weight: 500;
+    }
+    .slide-brand {
+      position: absolute; bottom: 28px; left: 48px;
+      font-size: 12px; color: var(--text-dim); letter-spacing: 1.8px; z-index: 10; font-weight: 600; text-transform: uppercase;
+    }
+
+    .m3-chip-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .m3-chip {
+      display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 16px;
+      border-radius: var(--md-shape-corner-full); font-size: 13px; font-weight: 600;
+      letter-spacing: 0.8px; text-transform: uppercase; box-shadow: var(--elevation-flat);
+    }
+    .m3-chip-tag { background: var(--primary-container); color: var(--primary); border: 1px solid var(--primary-border); }
+
+    .badge-source {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px;
+      border-radius: var(--md-shape-corner-full); font-size: 13px; font-weight: 600; letter-spacing: 0.3px;
+    }
+    .badge-expand { background: var(--badge-expand-bg); border: 1px solid var(--badge-expand-border); color: var(--badge-expand-text); }
+    .badge-example { background: var(--badge-example-bg); border: 1px solid var(--badge-example-border); color: var(--badge-example-text); }
+
+    .zen-card {
+      background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-lg);
+      padding: 36px 40px; box-shadow: var(--elevation-1);
+      transition: transform 0.28s var(--motion-standard), box-shadow 0.28s var(--motion-standard);
+      position: relative;
+    }
+    .zen-card:hover { transform: translateY(-2px); box-shadow: var(--elevation-2); }
+
+    .zen-quote-container {
+      background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-xl);
+      padding: 52px 60px; box-shadow: var(--elevation-1); border-left: 5px solid var(--primary);
+      position: relative; max-width: 960px; margin: 0 auto; text-align: left;
+    }
+    .zen-quote-container::before {
+      content: '\201C'; position: absolute; top: 14px; left: 24px;
+      font-family: var(--font-display); font-size: 88px; line-height: 1; color: var(--primary);
+      opacity: 0.12; pointer-events: none;
+    }
+    .zen-quote-text { font-size: 30px; line-height: 1.48; font-style: italic; color: var(--text-primary); margin-bottom: 22px; }
+    .zen-citation { font-size: 15px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+
+    .grid-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
+    .grid-triple { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 16px; }
+
+    .zen-title { font-size: 38px; font-weight: 800; line-height: 1.22; margin-bottom: 28px; letter-spacing: -0.5px; }
+    .zen-card-title { font-size: 21px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+    .zen-card-body { font-size: 16px; line-height: 1.68; color: var(--text-secondary); }
+    .zen-card-body strong { color: var(--text-primary); }
+
+    .step-number {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 32px; height: 32px; border-radius: var(--md-shape-corner-full);
+      background: var(--primary-container); color: var(--primary); font-size: 14px; font-weight: 700;
+    }
+
+    .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--primary); transition: width 0.3s var(--motion-standard); z-index: 1000; }
+    .nav-arrows { position: fixed; bottom: 24px; right: 120px; display: flex; gap: 8px; z-index: 100; }
+    .nav-btn {
+      width: 38px; height: 38px; border-radius: var(--md-shape-corner-full);
+      background: var(--md-sys-color-surface-container); border: 1px solid var(--md-sys-color-outline-variant);
+      box-shadow: var(--elevation-1); color: var(--text-secondary); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s var(--motion-standard);
+    }
+    .nav-btn:hover { background: #ffffff; color: var(--primary); box-shadow: var(--elevation-2); transform: translateY(-1px); }
+
+    @media (max-width: 900px) {
+      .slide { padding: 40px 24px; }
+      .grid-dual, .grid-triple { grid-template-columns: 1fr; gap: 18px; }
+      .zen-title { font-size: 26px; margin-bottom: 20px; }
+      .zen-quote-container { padding: 32px 24px; }
+      .zen-quote-text { font-size: 22px; }
+      .slide-brand { left: 24px; bottom: 18px; }
+      .slide-number { right: 24px; bottom: 18px; }
+      .nav-arrows { right: 80px; bottom: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck">
+
+    <!-- SLIDE 1: Cover -->
+    <div class="slide active" id="slide-1">
+      <div class="slide-inner" style="text-align: center;">
+        <div class="m3-chip-bar" style="justify-content: center;">
+          <span class="m3-chip m3-chip-tag">TUẦN 2 · CHƯƠNG 4</span>
+        </div>
+        <h1 class="serif" style="font-size: 52px; font-weight: 800; line-height: 1.18; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -0.5px;">
+          Siêu Hiện Thực Cho Tự Do Tuyệt Đối
+        </h1>
+        <p class="serif" style="font-size: 24px; color: var(--primary); margin-bottom: 40px; font-style: italic;">
+          Meta-Reality for Ultimate Freedom — Deepak Chopra, M.D.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 32px; font-size: 15px; color: var(--text-muted); font-weight: 500;">
+          <span>📅 Chủ nhật · 27/09/2026</span>
+          <span>📖 Phạm vi: tr. 114 – 134</span>
+          <span>🏛️ BOOKnBEYOND Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">1 / 9</div>
+    </div>
+
+    <!-- SLIDE 2: Core Koan -->
+    <div class="slide" id="slide-2">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CHƯƠNG 4 · ĐỊNH NGHĨA TỰ DO</span>
+        </div>
+        <h2 class="zen-title serif">Bước Ra Khỏi Cánh Cửa Nhà Tù</h2>
+        <div class="zen-quote-container">
+          <p class="zen-quote-text serif">
+            "Tự do thực sự không phải là việc bạn có thể tự do lựa chọn giữa các chấn song sắt trong nhà tù bản ngã. Tự do đích thực là bước chân ra khỏi cánh cửa nhà tù và bước vào Siêu Hiện Thực."
+          </p>
+          <div class="zen-citation">
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 116
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">2 / 9</div>
+    </div>
+
+    <!-- SLIDE 3: 3 Layers of Reality -->
+    <div class="slide" id="slide-3">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CẤU TRÚC HIỆN THỰC</span>
+        </div>
+        <h2 class="zen-title serif">3 Tầng Hiện Thực Của Trải Nghiệm Sống</h2>
+        <div class="grid-triple">
+          <div class="zen-card">
+            <div class="zen-card-title">
+              <span class="step-number">1</span>
+              <span>Hiện Thực Vật Lý</span>
+            </div>
+            <p class="zen-card-body">
+              Thế giới của 5 giác quan: Hình ảnh, âm thanh, tiếp xúc thân thể. Nơi các sự vật có vẻ hữu hạn và tách biệt.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 118</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">
+              <span class="step-number">2</span>
+              <span>Hiện Thực Tâm Trí</span>
+            </div>
+            <p class="zen-card-body">
+              Thế giới của suy nghĩ, phán đoán, phân tích và cảm xúc. Nơi con người thường bị kẹt vào những niềm tin chủ quan.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 120</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">
+              <span class="step-number">3</span>
+              <span>Siêu Hiện Thực</span>
+            </div>
+            <p class="zen-card-body">
+              Ý thức nguồn cội không bị che mờ. Không gian tĩnh lặng bao trùm mọi suy nghĩ và vật chất, cội nguồn tự do tuyệt đối.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 122</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">3 / 9</div>
+    </div>
+
+    <!-- SLIDE 4: The Shackles of Judgment -->
+    <div class="slide" id="slide-4">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">HÓA GIẢI XIỀNG XÍCH</span>
+        </div>
+        <h2 class="zen-title serif">Phán Xét Là Công Cụ Đóng Băng Thực Tại</h2>
+        <div class="grid-dual">
+          <div class="zen-card" style="border-top: 4px solid var(--text-dim);">
+            <div class="zen-card-title">Cái Bẫy Của Sự Phán Xét</div>
+            <p class="zen-card-body">
+              Mỗi khi bạn phân loại sự việc thành <em>"Tốt vs Xấu"</em>, <em>"Thành công vs Thất bại"</em>, bạn đang áp đặt một nhãn dán cứng nhắc lên dòng chảy sống động của thực tại.<br><br>
+              <strong>Hệ quả:</strong> Tâm trí liên tục kháng cự, xung đột nội tâm khởi sinh không dứt.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 124–125</small>
+            </p>
+          </div>
+          <div class="zen-card" style="border-top: 4px solid var(--primary);">
+            <div class="zen-card-title" style="color: var(--primary);">Buông Bỏ Phán Xét Nhị Nguyên</div>
+            <p class="zen-card-body">
+              Đón nhận sự vật và biến cố như chính chúng đang là, không phán xét, không định danh.<br><br>
+              <strong>Khai phóng:</strong> Tâm trí đạt tới trạng thái phẳng lặng như mặt hồ gương, phản chiếu sự thật mà không dính mắc.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 12px;">— tr. 126–127</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">4 / 9</div>
+    </div>
+
+    <!-- SLIDE 5: Effortless Being & Flow -->
+    <div class="slide" id="slide-5">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">DÒNG CHẢY TỰ NHIÊN</span>
+        </div>
+        <h2 class="zen-title serif">Nghệ Thuật Hiện Hữu Không Nỗ Lực</h2>
+        <div class="zen-quote-container">
+          <p class="zen-quote-text serif" style="font-size: 28px;">
+            "Một cái cây không hề gắng gượng để lớn lên, nó chỉ lớn lên. Mặt trời không hề nỗ lực để tỏa sáng, nó chỉ tỏa sáng. Khi bạn an trú trong Siêu Hiện Thực, bạn hành động mà không cưỡng cầu, và vạn sự tự nhiên hanh thông."
+          </p>
+          <div class="zen-citation">
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 129
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">5 / 9</div>
+    </div>
+
+    <!-- SLIDE 6: Ego Attachment vs Pure Creation -->
+    <div class="slide" id="slide-6">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">ĐỘNG CƠ HÀNH ĐỘNG</span>
+        </div>
+        <h2 class="zen-title serif">Giải Thoát Khỏi Nỗi Ám Ảnh Về Kết Quả</h2>
+        <div class="zen-card" style="padding: 42px 48px;">
+          <p class="zen-card-body" style="font-size: 18px; line-height: 1.7; margin-bottom: 24px;">
+            "Người bình thường hành động để tìm kiếm sự công nhận hoặc bù đắp cho cảm giác thiếu thốn bên trong. Người MetaHuman hành động như một điệu nhảy thuần khiết của sự hiện diện."
+          </p>
+          <div class="grid-dual" style="margin-top: 0;">
+            <div style="background: var(--md-sys-color-surface-dim); padding: 20px 24px; border-radius: var(--md-shape-corner-md);">
+              <strong style="color: var(--text-primary); font-size: 16px;">Hành Động Của Bản Ngã</strong>
+              <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">Luôn lo sợ thất bại, tham cầu lời khen, cạn kiệt năng lượng vì áp lực thành tích (tr. 132).</p>
+            </div>
+            <div style="background: var(--primary-container); padding: 20px 24px; border-radius: var(--md-shape-corner-md);">
+              <strong style="color: var(--primary); font-size: 16px;">Hành Động Trong Siêu Hiện Thực</strong>
+              <p style="font-size: 14px; color: var(--primary); margin-top: 8px;">Toàn tâm toàn ý vào hiện tại, thưởng thức chính quá trình, tràn đầy cảm hứng bất tận (tr. 134).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">6 / 9</div>
+    </div>
+
+    <!-- SLIDE 7: Example Badge Slide (slide-design-rules.md compliant) -->
+    <div class="slide" id="slide-7">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+        </div>
+        <h2 class="zen-title serif">Người Nghệ Sĩ Trong Trạng Thái Thăng Hoa</h2>
+        <div class="zen-card" style="padding: 38px 44px;">
+          <div class="zen-card-title" style="margin-bottom: 16px;">Khoảnh Khắc Quên Mình Của Người Nghệ Sĩ Dương Cầm</div>
+          <p class="zen-card-body" style="font-size: 16px; line-height: 1.7;">
+            Khi một nghệ sĩ dương cầm biểu diễn ở trạng thái đỉnh cao, người ấy không còn nghĩ: <em>"Ngón tay mình đang đánh nốt gì? Khán giả có đang vỗ tay không?"</em> Cái tôi hoàn toàn biến mất.<br><br>
+            Chỉ còn lại âm nhạc đang tự biểu hiện qua đôi bàn tay. Đó là khoảnh khắc chạm vào <strong>Siêu Hiện Thực</strong> — nơi người biểu diễn, cây đàn và bản nhạc hòa làm một trong sự tự do tuyệt đối.
+          </p>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">7 / 9</div>
+    </div>
+
+    <!-- SLIDE 8: Expanded Discussion (slide-design-rules.md compliant) -->
+    <div class="slide" id="slide-8">
+      <div class="slide-inner" style="text-align: center;">
+        <div class="m3-chip-bar" style="justify-content: center;">
+          <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi chiêm nghiệm cộng đồng</div>
+        </div>
+        <h2 class="zen-title serif" style="margin-bottom: 36px;">Đối Thoại Chiêm Nghiệm</h2>
+        <div class="zen-card" style="max-width: 860px; margin: 0 auto; text-align: left; padding: 40px 48px;">
+          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Điều gì xảy ra khi bạn quyết định không phán xét bất kỳ điều gì trong vòng 1 giờ đồng hồ làm việc?
+            </p>
+          </div>
+          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Bạn có thể cảm nhận được ranh giới giữa <em>"cố gắng hết sức bằng sự căng thẳng"</em> và <em>"tập trung trọn vẹn trong dòng chảy không nỗ lực"</em> không?
+            </p>
+          </div>
+          <div style="display: flex; gap: 18px;">
+            <span style="font-size: 26px;">💬</span>
+            <p class="zen-card-body" style="font-size: 17px;">
+              Làm thế nào để ứng dụng góc nhìn Siêu Hiện Thực để không bị cuốn vào những ganh đua vị thế tại môi trường công sở?
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">8 / 9</div>
+    </div>
+
+    <!-- SLIDE 9: Closing -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner" style="text-align: center;">
+        <h2 class="serif" style="font-size: 44px; font-weight: 900; color: var(--text-primary); margin-bottom: 14px;">BOOKnBEYOND</h2>
+        <p class="serif" style="font-size: 18px; color: var(--primary); font-style: italic; margin-bottom: 32px;">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 64px; margin-bottom: 24px;">🕊️</div>
+        <h3 class="serif" style="font-size: 24px; color: var(--text-primary); margin-bottom: 8px;">Siêu Nhân Loại — Chương 4</h3>
+        <p style="font-size: 18px; color: var(--text-muted); margin-bottom: 36px; font-style: italic;">Siêu hiện thực cho tự do tuyệt đối</p>
+        <div style="display: flex; justify-content: center; gap: 28px; font-size: 15px; color: var(--text-secondary); font-weight: 500;">
+          <span>📅 27/09/2026 · Tuần 2</span>
+          <span>🏛️ BOOKnBEYOND Book Club</span>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">9 / 9</div>
+    </div>
+
+  </div>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()" aria-label="Previous Slide">←</button>
+    <button class="nav-btn" onclick="nextSlide()" aria-label="Next Slide">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function showSlide(n) {
+      slides[current].classList.remove('active');
+      slides[current].classList.add('exit');
+      setTimeout(() => slides[current].classList.remove('exit'), 500);
+      current = ((n % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      document.getElementById('progressBar').style.width = ((current + 1) / slides.length * 100) + '%';
+    }
+    function nextSlide() { showSlide(current + 1); }
+    function prevSlide() { showSlide(current - 1); }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); nextSlide(); }
+      if (e.key === 'ArrowLeft' || e.key === 'Backspace') { e.preventDefault(); prevSlide(); }
+      if (e.key === 'f' || e.key === 'F') {
+        !document.fullscreenElement ? document.documentElement.requestFullscreen() : document.exitFullscreen();
+      }
+    });
+
+    let touchStartX = 0;
+    document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      const diffX = touchStartX - e.changedTouches[0].screenX;
+      if (Math.abs(diffX) > 45) { diffX > 0 ? nextSlide() : prevSlide(); }
+    }, { passive: true });
+
+    document.getElementById('progressBar').style.width = ((1) / slides.length * 100) + '%';
+  </script>
+</body>
+</html>
