@@ -104,7 +104,7 @@
 
     .zen-card {
       background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-lg);
-      padding: 36px 40px; box-shadow: var(--elevation-1);
+      padding: 30px 34px; box-shadow: var(--elevation-1);
       transition: transform 0.28s var(--motion-standard), box-shadow 0.28s var(--motion-standard);
       position: relative;
     }
@@ -112,24 +112,32 @@
 
     .zen-quote-container {
       background: var(--md-sys-color-surface-container); border-radius: var(--md-shape-corner-xl);
-      padding: 52px 60px; box-shadow: var(--elevation-1); border-left: 5px solid var(--primary);
+      padding: 40px 48px; box-shadow: var(--elevation-1); border-left: 5px solid var(--primary);
       position: relative; max-width: 960px; margin: 0 auto; text-align: left;
     }
     .zen-quote-container::before {
-      content: '\201C'; position: absolute; top: 14px; left: 24px;
-      font-family: var(--font-display); font-size: 88px; line-height: 1; color: var(--primary);
+      content: 'C'; position: absolute; top: 12px; left: 20px;
+      font-family: var(--font-display); font-size: 80px; line-height: 1; color: var(--primary);
       opacity: 0.12; pointer-events: none;
     }
-    .zen-quote-text { font-size: 30px; line-height: 1.48; font-style: italic; color: var(--text-primary); margin-bottom: 22px; }
-    .zen-citation { font-size: 15px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
+    .zen-quote-text { font-size: 25px; line-height: 1.5; font-style: italic; color: var(--text-primary); margin-bottom: 18px; }
+    .zen-citation { font-size: 14px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.3px; }
 
-    .grid-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
-    .grid-quad { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; }
+    .grid-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 14px; }
+    .grid-quad { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 14px; }
 
-    .zen-title { font-size: 38px; font-weight: 800; line-height: 1.22; margin-bottom: 28px; letter-spacing: -0.5px; }
-    .zen-card-title { font-size: 21px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
-    .zen-card-body { font-size: 16px; line-height: 1.68; color: var(--text-secondary); }
+    .zen-title { font-size: 32px; font-weight: 800; line-height: 1.24; margin-bottom: 20px; letter-spacing: -0.4px; }
+    .zen-card-title { font-size: 19px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+    .zen-card-body { font-size: 15px; line-height: 1.66; color: var(--text-secondary); }
     .zen-card-body strong { color: var(--text-primary); }
+
+    .evidence-point {
+      margin-top: 10px; padding: 10px 14px;
+      background: var(--md-sys-color-surface-dim); border-radius: 10px; font-size: 14px; line-height: 1.55;
+    }
+    .evidence-point.highlight {
+      background: var(--primary-container); border: 1px solid var(--primary-border); color: var(--primary);
+    }
 
     .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--primary); transition: width 0.3s var(--motion-standard); z-index: 1000; }
     .nav-arrows { position: fixed; bottom: 24px; right: 120px; display: flex; gap: 8px; z-index: 100; }
@@ -143,10 +151,10 @@
 
     @media (max-width: 900px) {
       .slide { padding: 40px 24px; }
-      .grid-dual, .grid-quad { grid-template-columns: 1fr; gap: 18px; }
-      .zen-title { font-size: 26px; margin-bottom: 20px; }
-      .zen-quote-container { padding: 32px 24px; }
-      .zen-quote-text { font-size: 22px; }
+      .grid-dual, .grid-quad { grid-template-columns: 1fr; gap: 16px; }
+      .zen-title { font-size: 23px; margin-bottom: 16px; }
+      .zen-quote-container { padding: 26px 18px; }
+      .zen-quote-text { font-size: 19px; }
       .slide-brand { left: 24px; bottom: 18px; }
       .slide-number { right: 24px; bottom: 18px; }
       .nav-arrows { right: 80px; bottom: 14px; }
@@ -161,232 +169,346 @@
     <div class="slide active" id="slide-1">
       <div class="slide-inner" style="text-align: center;">
         <div class="m3-chip-bar" style="justify-content: center;">
-          <span class="m3-chip m3-chip-tag">TUẦN 3 · KHÁM PHÁ BẢN THỂ</span>
+          <span class="m3-chip m3-chip-tag">TUẦN 3 · CHƯƠNG 5</span>
         </div>
-        <h1 class="serif" style="font-size: 52px; font-weight: 800; line-height: 1.18; margin-bottom: 18px; color: var(--text-primary); letter-spacing: -0.5px;">
+        <h1 class="serif" style="font-size: 48px; font-weight: 800; line-height: 1.18; margin-bottom: 16px; color: var(--text-primary); letter-spacing: -0.5px;">
           Tâm Trí, Cơ Thể, Não Bộ Và Vũ Trụ<br>Đều Là Ý Thức Biến Đổi
         </h1>
-        <p class="serif" style="font-size: 22px; color: var(--primary); margin-bottom: 40px; font-style: italic;">
-          Chương 5 · Siêu Nhân Loại (MetaHuman) — Deepak Chopra, M.D.
+        <p class="serif" style="font-size: 22px; color: var(--primary); margin-bottom: 34px; font-style: italic;">
+          Mind, Body, Brain, and Universe Are Modified Consciousness — Deepak Chopra, M.D.
         </p>
         <div style="display: flex; justify-content: center; gap: 32px; font-size: 15px; color: var(--text-muted); font-weight: 500;">
           <span>📅 Chủ nhật · 04/10/2026</span>
-          <span>📖 Phạm vi: tr. 135 – 159</span>
+          <span>📖 Phạm vi: tr. 135 – 159 (25 trang)</span>
           <span>🏛️ BOOKnBEYOND Club</span>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">1 / 9</div>
+      <div class="slide-number">1 / 12</div>
     </div>
 
-    <!-- SLIDE 2: Core Koan -->
+    <!-- SLIDE 2: Core Axiom -->
     <div class="slide" id="slide-2">
       <div class="slide-inner">
         <div class="m3-chip-bar">
           <span class="m3-chip m3-chip-tag">CHƯƠNG 5 · ĐỊNH ĐỀ NỀN TẢNG</span>
         </div>
-        <h2 class="zen-title serif">Ảo Tưởng Của Cỗ Máy Sinh Học</h2>
+        <h2 class="zen-title serif">Bốn Chiều Kích Thuộc Về Cùng Một Thực Tại Gốc</h2>
         <div class="zen-quote-container">
           <p class="zen-quote-text serif">
-            "Não bộ không hề sản sinh ra ý thức, cũng giống như chiếc radio không hề tạo ra bản nhạc mà nó thu nhận. Não bộ chỉ là thiết bị chuyển hóa trường ý thức vô hạn thành kinh nghiệm sống cá nhân."
+            "Khoa học truyền thống phân chia thế giới thành bốn lĩnh vực độc lập: Tâm trí tư duy, Não bộ dẫn truyền xung thần kinh, Cơ thể sinh học và Vũ trụ vật chất bên ngoài. Nhưng đó là một ảo tưởng phân mảnh. Cả bốn chiều kích ấy thực chất không hề tách rời—chúng là bốn phương thức biến đổi (modulations) sống động của cùng một trường Ý Thức duy nhất."
           </p>
           <div class="zen-citation">
-            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 138
+            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 135–138
+          </div>
+        </div>
+        <div style="margin-top: 20px; display: flex; justify-content: center;">
+          <div class="evidence-point highlight" style="max-width: 880px; text-align: center; font-size: 15px;">
+            🔑 <strong>Chân lý cốt lõi:</strong> Không có ranh giới cơ học giữa thế giới nội tâm và vũ trụ bên ngoài; vạn vật là các tầng biểu đạt khác nhau của cùng một dòng chảy nhận thức.
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">2 / 9</div>
+      <div class="slide-number">2 / 12</div>
     </div>
 
-    <!-- SLIDE 3: Dual Paradigm Comparison -->
+    <!-- SLIDE 3: The Materialist Trap -->
     <div class="slide" id="slide-3">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">CHUYỂN DỊCH NHẬN THỨC</span>
+          <span class="m3-chip m3-chip-tag">PHẢN BIỆN DUY VẬT · NGHỊCH LÝ NÃO BỘ</span>
         </div>
-        <h2 class="zen-title serif">Hai Góc Nhìn Về Vũ Trụ & Sự Sống</h2>
+        <h2 class="zen-title serif">Nguyên Tử Vô Tri Không Thể Tự Học Cách Suy Nghĩ</h2>
         <div class="grid-dual">
           <div class="zen-card" style="border-top: 4px solid var(--text-dim);">
-            <div class="zen-card-title">Góc Nhìn Duy Vật Cổ Điển</div>
+            <div class="zen-card-title">1. Nghịch Lý Hộp Sọ Tối Đen (Dark Skull)</div>
             <p class="zen-card-body">
-              Vật chất có trước, ngẫu nhiên hình thành các phân tử phức tạp sinh ra tế bào thần kinh, và cuối cùng não bộ tạo ra tư duy.<br><br>
-              <strong>Bế tắc:</strong> Khoa học chưa bao giờ giải thích được cơ chế làm sao các nguyên tử vô tri lại biến thành cảm xúc yêu thương hay nỗi đau.<br>
-              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 12px;">— tr. 140–142</small>
+              Bên trong hộp sọ là bóng tối tuyệt đối và im lặng hoàn toàn. Não bộ (~1,4kg) chỉ gồm nước, chất béo và dẫn truyền dòng điện yếu ớt (~20 watt).<br><br>
+              <strong>Thực tế giải phẫu:</strong> Bác sĩ phẫu thuật mở não chỉ thấy mô mềm; chưa từng có ai tìm thấy một ý nghĩ, một nỗi sợ hay một bức tranh ký ức bên trong tế bào thần kinh.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 138–140</small>
             </p>
           </div>
           <div class="zen-card" style="border-top: 4px solid var(--primary);">
-            <div class="zen-card-title" style="color: var(--primary);">Góc Nhìn MetaHuman</div>
+            <div class="zen-card-title" style="color: var(--primary);">2. Lỗ Hổng Của Chủ Nghĩa Duy Cơ</div>
             <p class="zen-card-body">
-              Ý thức là thực tại gốc rễ nguyên thủy. Vật chất, cơ thể và các vì sao đều là trạng thái kết tinh và biến đổi của ý thức.<br><br>
-              <strong>Khai phóng:</strong> Con người không phải là sinh vật nhỏ nhoi trong vũ trụ rộng lớn, mà vũ trụ đang diễn ra bên trong trường nhận thức của bạn.<br>
-              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 12px;">— tr. 143–145</small>
+              Chủ nghĩa duy vật giả định: Các nguyên tử carbon, hydro, oxy vô cơ va chạm ngẫu nhiên rồi tự động nảy sinh ra tư duy và tình yêu.<br><br>
+              <strong>Luận điểm của Chopra:</strong> Dù gom hàng tỷ nguyên tử vô tri lại, chúng vẫn là vật chất vô tri. Ý thức không thể là phụ phẩm của vật chất; Ý thức là trường bản thể tiên quyết chứa đựng mọi nguyên tử.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 140–142</small>
             </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">3 / 9</div>
+      <div class="slide-number">3 / 12</div>
     </div>
 
-    <!-- SLIDE 4: 4 Dimensions of Modified Consciousness -->
+    <!-- SLIDE 4: Mystery of Qualia -->
     <div class="slide" id="slide-4">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">CẤU TRÚC THỐNG NHẤT</span>
+          <span class="m3-chip m3-chip-tag">BẢN THỂ HỌC · BÍ ẨN CẢM NGHIỆM</span>
         </div>
-        <h2 class="zen-title serif">4 Dạng Thức Biến Đổi Của Ý Thức</h2>
-        <div class="grid-quad">
+        <h2 class="zen-title serif">Qualia: Thế Giới Không Tự Có Màu Sắc Hay Âm Thanh</h2>
+        <div class="grid-dual">
           <div class="zen-card">
-            <div class="zen-card-title">1. Tâm Trí (Mind)</div>
-            <p class="zen-card-body">Ý thức biến đổi thành dòng chảy suy nghĩ, tưởng tượng, ký ức và các khái niệm trừu tượng.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 146</small></p>
+            <div class="zen-card-title">Vũ Trụ Vật Lý Ngoài Kia Là "Vô Thanh & Vô Sắc"</div>
+            <p class="zen-card-body">
+              Thế giới bên ngoài cơ thể chỉ là các bước sóng điện từ vô hình, các phân tử hóa học không mùi và sóng áp suất không khí không có tiếng động.<br><br>
+              Không hề có màu đỏ của hoa hồng, vị đắng của cà phê hay tiếng đàn vĩ cầm lơ lửng trong không gian vật lý khách quan.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 142–144</small>
+            </p>
           </div>
           <div class="zen-card">
-            <div class="zen-card-title">2. Não Bộ (Brain)</div>
-            <p class="zen-card-body">Ý thức biểu hiện thành các xung điện thần kinh hóa học, đóng vai trò trạm điều phối tín hiệu.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 147</small></p>
+            <div class="zen-card-title">Ý Thức Là Người Dệt Nên Các Phẩm Tính "Qualia"</div>
+            <p class="zen-card-body">
+              <strong>Qualia:</strong> Là các phẩm tính trải nghiệm chủ quan sống động.<br><br>
+              Chính <strong>Ý Thức</strong> biến đổi những tín hiệu thô vô hồn thành thế giới ngập tràn ánh sáng, màu sắc và âm điệu du dương. Bạn không đang nhìn vào một thực tại có sẵn; bạn đang chứng kiến sự phóng chiếu của chính ý thức.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 144–146</small>
+            </p>
           </div>
-          <div class="zen-card">
-            <div class="zen-card-title">3. Thể Xác (Body)</div>
-            <p class="zen-card-body">Ý thức cô đặc thành nhịp đập sinh học, cảm giác nóng lạnh, xúc giác và hơi thở tuần hoàn.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 148</small></p>
-          </div>
-          <div class="zen-card">
-            <div class="zen-card-title">4. Vũ Trụ (Universe)</div>
-            <p class="zen-card-body">Ý thức phóng chiếu thành không gian, thời gian và thế giới vật lý mà các giác quan tiếp nhận.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 149</small></p>
+        </div>
+        <div style="margin-top: 14px; display: flex; justify-content: center;">
+          <div class="evidence-point highlight" style="max-width: 900px; text-align: center; font-size: 14.5px;">
+            🎨 <em>"Thế giới mà bạn nhìn thấy không phải là thứ đang tồn tại trơ trọi độc lập bên ngoài, mà là tác phẩm nghệ thuật do chính Ý Thức bạn dệt nên từng giây phút."</em> — Deepak Chopra, tr. 146
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">4 / 9</div>
+      <div class="slide-number">4 / 12</div>
     </div>
 
-    <!-- SLIDE 5: Observer Effect -->
+    <!-- SLIDE 5: 4 Modulations -->
     <div class="slide" id="slide-5">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">CƠ HỌC LƯỢNG TỬ & TÂM THỨC</span>
+          <span class="m3-chip m3-chip-tag">CẤU TRÚC THỐNG NHẤT · TỨ TRỤ NHẬN THỨC</span>
         </div>
-        <h2 class="zen-title serif">Hiệu Ứng Người Quan Sát (Observer Effect)</h2>
-        <div class="zen-card" style="padding: 44px 48px;">
-          <div style="font-size: 20px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 24px;">
-            "Trong vật lý lượng tử, một hạt không tồn tại ở một vị trí xác định cho đến khi nó được đo đạc. Tương tự, toàn bộ thực tại xung quanh bạn chỉ là <strong>trường tiềm năng vô định</strong> cho đến khi nhận thức của bạn tương tác và định hình nó."
+        <h2 class="zen-title serif">4 Chiều Kích Biến Điệu Của Trường Ý Thức</h2>
+        <div class="grid-quad">
+          <div class="zen-card">
+            <div class="zen-card-title">1. Tâm Trí (Mind)</div>
+            <p class="zen-card-body">Ý thức biến đổi thành dòng suy nghĩ, ý niệm trừu tượng, ước mơ, ký ức và những làn sóng cảm xúc.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 146–147</small></p>
           </div>
-          <div style="display: flex; gap: 32px; border-top: 1px solid var(--md-sys-color-outline-variant); padding-top: 20px;">
-            <div>
-              <strong style="color: var(--primary); font-size: 18px;">Người Quan Sát</strong>
-              <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">Tâm thức cá nhân</p>
-            </div>
-            <div style="color: var(--text-dim); font-size: 20px; align-self: center;">⇄</div>
-            <div>
-              <strong style="color: var(--primary); font-size: 18px;">Quá Trình Quan Sát</strong>
-              <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">Cảm nhận giác quan</p>
-            </div>
-            <div style="color: var(--text-dim); font-size: 20px; align-self: center;">⇄</div>
-            <div>
-              <strong style="color: var(--primary); font-size: 18px;">Đối Tượng Được Quan Sát</strong>
-              <p style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">Thế giới bên ngoài (tr. 152)</p>
-            </div>
+          <div class="zen-card">
+            <div class="zen-card-title">2. Não Bộ (Brain)</div>
+            <p class="zen-card-body">Ý thức kết tinh thành cấu trúc neuron, làm trạm thu phát và điều hướng các xung điện hóa học sinh học.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 147–148</small></p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">3. Cơ Thể (Body)</div>
+            <p class="zen-card-body">Ý thức cô đặc thành nhịp thở, nhịp tim, xúc giác nóng lạnh và sự chuyển hóa trao đổi chất của tế bào.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 148–149</small></p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">4. Vũ Trụ (Universe)</div>
+            <p class="zen-card-body">Ý thức phóng chiếu thành không gian, thời gian, các vì sao và các quy luật vật lý vận hành hoàn hảo.<br><small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 8px;">— tr. 149–150</small></p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">5 / 9</div>
+      <div class="slide-number">5 / 12</div>
     </div>
 
-    <!-- SLIDE 6: Qualia -->
+    <!-- SLIDE 6: Brain as Transceiver & Reducing Valve -->
     <div class="slide" id="slide-6">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <span class="m3-chip m3-chip-tag">BÍ ẨN CẢM NGHIỆM</span>
+          <span class="m3-chip m3-chip-tag">KHOA HỌC THẦN KINH · GIẢI MÃ CƠ CHẾ</span>
         </div>
-        <h2 class="zen-title serif">Qualia — Thế Giới Không Tự Có Màu Sắc</h2>
-        <div class="zen-quote-container">
-          <p class="zen-quote-text serif" style="font-size: 27px;">
-            "Thế giới vật lý ngoài kia không có ánh sáng rực rỡ, không có tiếng đàn violin dìu dặt, cũng không có mùi hoa hồng thơm ngát. Tất cả những thứ đó chỉ là sóng điện từ và dao động không khí. Chính <em>Ý Thức</em> mới là họa sĩ tạo ra màu sắc và giai điệu."
-          </p>
-          <div class="zen-citation">
-            — Deepak Chopra, M.D., <em>Siêu Nhân Loại (MetaHuman)</em>, tr. 155
+        <h2 class="zen-title serif">Bộ Não Là Chiếc Máy Thu Sóng, Không Phải Nguồn Phát</h2>
+        <div class="grid-dual">
+          <div class="zen-card">
+            <div class="zen-card-title">Mô Hình Đài Thu Thanh (Radio Analogy)</div>
+            <p class="zen-card-body">
+              Khoa học thần kinh thấy não bộ phát tín hiệu điện rồi kết luận não tạo ra suy nghĩ—tương tự việc mở tung chiếc radio ra tìm ban nhạc bên trong.<br><br>
+              Khi radio hỏng, âm thanh tắt ngấm, nhưng <strong>sóng vô tuyến trong không gian không hề bị phá hủy</strong>. Tổn thương não chỉ làm gián đoạn kênh biểu hiện.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 150–151</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">Chiếc Van Giảm Áp Của Aldous Huxley</div>
+            <p class="zen-card-body">
+              Bộ não thực chất là một "bộ giảm áp" (*reducing valve*). Ý thức nguyên thủy là vô hạn, đa chiều và toàn vẹn.<br><br>
+              Não bộ thu hẹp trường ý thức bao la xuống một kênh tần số hẹp có giới hạn để phục vụ sinh tồn trong không gian 3 chiều của một cá thể.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 152–153</small>
+            </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">6 / 9</div>
+      <div class="slide-number">6 / 12</div>
     </div>
 
-    <!-- SLIDE 7: Example Badge Slide (slide-design-rules.md compliant) -->
+    <!-- SLIDE 7: Mind-Body & Epigenetics -->
     <div class="slide" id="slide-7">
       <div class="slide-inner">
         <div class="m3-chip-bar">
-          <div class="badge-source badge-example">💡 Ví dụ minh họa — không trích nguyên văn</div>
+          <span class="m3-chip m3-chip-tag">Y HỌC TÂM THỂ · BIẾN ĐỔI TẾ BÀO</span>
         </div>
-        <h2 class="zen-title serif">Y Học Tâm Thể: Khi Ý Thức Thay Đổi Tế Bào</h2>
+        <h2 class="zen-title serif">Tế Bào Lắng Nghe & Phản Hồi Từng Ý Nghĩ</h2>
         <div class="grid-dual">
           <div class="zen-card">
-            <div class="zen-card-title">Hiệu Ứng Giả Dược (Placebo)</div>
+            <div class="zen-card-title">Hiệu Ứng Giả Dược (Placebo) & Sức Mạnh Niềm Tin</div>
             <p class="zen-card-body">
-              Khi bệnh nhân tin chắc rằng viên đường là thần dược, não bộ tự động giải phóng endorphin và kích hoạt hệ miễn dịch chữa lành tế bào.<br><br>
-              <strong>Ý nghĩa:</strong> Một ý nghĩ hay niềm tin (phi vật chất) trực tiếp tái cấu trúc phản ứng sinh hóa của cơ thể.
+              Khi bệnh nhân tin chắc rằng viên đường là thuốc đặc trị, não bộ giải phóng endorphin và kích hoạt hệ miễn dịch chữa lành tế bào.<br><br>
+              <strong>Bằng chứng y khoa:</strong> Một ý nghĩ phi vật chất có khả năng trực tiếp tái cấu trúc phản ứng hóa sinh của cơ thể vật lý.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 153–154</small>
             </p>
           </div>
           <div class="zen-card">
-            <div class="zen-card-title">Stress Tâm Lý & Tế Bào</div>
+            <div class="zen-card-title">Di Truyền Biểu Sinh (Epigenetics)</div>
             <p class="zen-card-body">
-              Nỗi lo sợ vô hình về tương lai kích hoạt phản ứng co thắt mạch máu và làm ngắn telomere của nhiễm sắc thể.<br><br>
-              <strong>Ý nghĩa:</strong> Trạng thái của tâm trí không nằm tách biệt mà liên tục tạo hình cho cơ thể vật lý từng giây từng phút.
+              Gen không phải là bản án tử cố định. Nghiên cứu của Chopra chứng minh: Trạng thái thiền định và an lạc có thể điều hòa biểu hiện của hơn 500 gen, kích hoạt enzym telomerase làm chậm lão hóa.<br><br>
+              <strong>Cơ thể là ý thức ở thể lỏng:</strong> Thay đổi nhận thức là thay đổi sinh học cơ thể.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 154–155</small>
             </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">7 / 9</div>
+      <div class="slide-number">7 / 12</div>
     </div>
 
-    <!-- SLIDE 8: Expanded Discussion (slide-design-rules.md compliant) -->
+    <!-- SLIDE 8: Quantum & Observer Effect -->
     <div class="slide" id="slide-8">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">VẬT LÝ LƯỢNG TỬ · VŨ TRỤ THAM GIA</span>
+        </div>
+        <h2 class="zen-title serif">Không Có Thực Tại Nằm Ngoài Người Quan Sát</h2>
+        <div class="grid-dual">
+          <div class="zen-card">
+            <div class="zen-card-title">Sự Sụp Đổ Của Hàm Sóng Xác Suất</div>
+            <p class="zen-card-body">
+              Ở quy mô hạ nguyên tử, các hạt vật chất chỉ tồn tại dưới dạng sóng xác suất tiềm năng. Chúng không ở một vị trí cố định nào.<br><br>
+              Chỉ khi có hành vi đo đạc hay quan sát của ý thức, hàm sóng mới sụp đổ thành một hạt vật chất xác định. Vật chất không độc lập với nhận thức.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 156–157</small>
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">Vũ Trụ Có Sự Tham Gia (Participatory Universe)</div>
+            <p class="zen-card-body">
+              Nhà vật lý John Wheeler khẳng định: Người quan sát, Quá trình quan sát và Đối tượng quan sát là một thể thống nhất không thể bóc tách.<br><br>
+              <strong>Kết luận:</strong> Vũ trụ không phải là một cỗ máy cơ học vô tri; vũ trụ là trường ý thức sống động mà bạn đang chủ động tham gia định hình.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 157–158</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">8 / 12</div>
+    </div>
+
+    <!-- SLIDE 9: MetaHuman Shift -->
+    <div class="slide" id="slide-9">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <span class="m3-chip m3-chip-tag">CHUYỂN HÓA MÔ THỨC · BƯỚC NHẢY TIỀM NĂNG</span>
+        </div>
+        <h2 class="zen-title serif">Từ "Nạn Nhân Sinh Học" Sang "Ý Thức Tự Chủ"</h2>
+        <div class="grid-dual">
+          <div class="zen-card" style="background: var(--md-sys-color-surface-dim);">
+            <div class="zen-card-title" style="color: var(--text-secondary);">Mô Thức Cũ: Nạn Nhân Sinh Học (Human)</div>
+            <p class="zen-card-body">
+              • Tin rằng mình là một cá thể nhỏ bé bị giam hãm trong thể xác.<br>
+              • Bất lực trước số phận, bệnh tật, sự lão hóa và mã gen di truyền.<br>
+              • Sống trong cơ chế sinh tồn thường trực, lo âu và căng thẳng triền miên.<br>
+              <small style="color: var(--text-muted); font-style: italic; display: block; margin-top: 10px;">— tr. 158</small>
+            </p>
+          </div>
+          <div class="zen-card" style="background: var(--primary-container); border: 1.5px solid var(--primary-border);">
+            <div class="zen-card-title" style="color: var(--primary);">Mô Thức Mới: Siêu Nhân Loại (MetaHuman)</div>
+            <p class="zen-card-body" style="color: var(--text-primary);">
+              • Nhận ra cơ thể, não bộ và hoàn cảnh là sự kết tinh của Ý thức.<br>
+              • Làm chủ quá trình kiến tạo sức khỏe, kích hoạt tiềm năng biểu sinh.<br>
+              • An định trong trường ý thức vĩnh hằng, bước vào sự tự do vô biên và sáng tạo không giới hạn.<br>
+              <small style="color: var(--primary); font-style: italic; display: block; margin-top: 10px;">— tr. 159</small>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">9 / 12</div>
+    </div>
+
+    <!-- SLIDE 10: Practical Example (slide-design-rules.md compliant) -->
+    <div class="slide" id="slide-10">
+      <div class="slide-inner">
+        <div class="m3-chip-bar">
+          <div class="badge-source badge-example">💡 Minh chứng ứng dụng & Ví dụ thực chứng</div>
+        </div>
+        <h2 class="zen-title serif">Tái Cấu Trúc Sức Khỏe & Bình An Tự Thân</h2>
+        <div class="grid-dual">
+          <div class="zen-card">
+            <div class="zen-card-title">1. Hóa Giải Căng Thẳng Thân - Tâm (Psychosomatic)</div>
+            <p class="zen-card-body">
+              Khi nhận diện trạng thái mệt mỏi hay đau nhức cơ bắp không phải là kẻ thù ngẫu nhiên, mà là tín hiệu tế bào phản hồi lại những suy nghĩ lo âu tích tụ.<br><br>
+              <strong>Ứng dụng:</strong> Dừng cuộc chiến nội tâm. Lắng nghe tín hiệu cơ thể từ sự hiện diện tĩnh lặng, giúp kích hoạt hệ thần kinh phó giao cảm (*parasympathetic*) để cơ thể tự phục hồi.
+            </p>
+          </div>
+          <div class="zen-card">
+            <div class="zen-card-title">2. Khai Phóng Trực Giác & Sáng Tạo Đột Phá</div>
+            <p class="zen-card-body">
+              Khi bộ não ngưng xoay vần trong các thuật toán lo sợ sinh tồn, nó chuyển sang nhịp sóng Alpha/Theta chậm rãi và thông suốt.<br><br>
+              <strong>Ứng dụng:</strong> Trong công việc và lãnh đạo, những quyết định sáng suốt nhất không đến từ sự gắng gượng tư duy phân tích mà xuất hiện từ khoảng lặng trực giác khi bạn hòa hợp với trường ý thức.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
+      <div class="slide-number">10 / 12</div>
+    </div>
+
+    <!-- SLIDE 11: Expanded Discussion (slide-design-rules.md compliant) -->
+    <div class="slide" id="slide-11">
       <div class="slide-inner" style="text-align: center;">
         <div class="m3-chip-bar" style="justify-content: center;">
           <div class="badge-source badge-expand">📌 Mở rộng — câu hỏi chiêm nghiệm cộng đồng</div>
         </div>
-        <h2 class="zen-title serif" style="margin-bottom: 36px;">Đối Thoại Chiêm Nghiệm</h2>
-        <div class="zen-card" style="max-width: 860px; margin: 0 auto; text-align: left; padding: 40px 48px;">
-          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
-            <span style="font-size: 26px;">💬</span>
-            <p class="zen-card-body" style="font-size: 17px;">
-              Nếu não bộ chỉ là chiếc máy thu nhận ý thức, điều đó giải phóng bạn như thế nào khỏi niềm tin rằng mình bị giam cầm trong những giới hạn thể xác?
+        <h2 class="zen-title serif" style="margin-bottom: 26px;">Đối Thoại Phản Biện & Chiêm Nghiệm Chương 5</h2>
+        <div class="zen-card" style="max-width: 920px; margin: 0 auto; text-align: left; padding: 30px 40px;">
+          <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+            <span style="font-size: 22px;">🧠</span>
+            <p class="zen-card-body" style="font-size: 15px;">
+              Nếu bộ não chỉ là một đài thu phát điện hóa (~20 watt) chứ không sản sinh ra ý thức, điều này giải phóng bạn như thế nào khỏi nỗi sợ hãi về sự già nua, bệnh tật và cái chết của thể xác?
             </p>
           </div>
-          <div style="display: flex; gap: 18px; margin-bottom: 24px;">
-            <span style="font-size: 26px;">💬</span>
-            <p class="zen-card-body" style="font-size: 17px;">
-              Bạn đã bao giờ trực tiếp cảm nhận một ý nghĩ tích cực hay tiêu cực ngay lập tức biến đổi trạng thái năng lượng trong cơ thể mình chưa?
+          <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+            <span style="font-size: 22px;">🌿</span>
+            <p class="zen-card-body" style="font-size: 15px;">
+              Deepak Chopra khẳng định tế bào liên tục lắng nghe và biến đổi theo từng ý nghĩ. Bạn đã từng chứng kiến một trạng thái tinh thần tiêu cực kéo dài biểu hiện thành bệnh lý thể chất cụ thể nào trên chính mình chưa?
             </p>
           </div>
-          <div style="display: flex; gap: 18px;">
-            <span style="font-size: 26px;">💬</span>
-            <p class="zen-card-body" style="font-size: 17px;">
-              Làm thế nào để ứng dụng góc nhìn <em>"Thế giới là ý thức đang chuyển động"</em> vào việc giữ bình tâm trước những biến động khó lường của công việc?
+          <div style="display: flex; gap: 16px;">
+            <span style="font-size: 22px;">🌌</span>
+            <p class="zen-card-body" style="font-size: 15px;">
+              Trong 4 dạng thức biến đổi (Tâm trí, Cơ thể, Não bộ, Vũ trụ), bạn thường dễ bị đồng hóa và mắc kẹt vào chiều kích nào nhất trong cuộc sống hàng ngày?
             </p>
           </div>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">8 / 9</div>
+      <div class="slide-number">11 / 12</div>
     </div>
 
-    <!-- SLIDE 9: Closing -->
-    <div class="slide" id="slide-9">
+    <!-- SLIDE 12: Closing Summary -->
+    <div class="slide" id="slide-12">
       <div class="slide-inner" style="text-align: center;">
-        <h2 class="serif" style="font-size: 44px; font-weight: 900; color: var(--text-primary); margin-bottom: 14px;">BOOKnBEYOND</h2>
-        <p class="serif" style="font-size: 18px; color: var(--primary); font-style: italic; margin-bottom: 32px;">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
-        <div style="font-size: 64px; margin-bottom: 24px;">✨</div>
+        <h2 class="serif" style="font-size: 42px; font-weight: 900; color: var(--text-primary); margin-bottom: 12px;">BOOKnBEYOND</h2>
+        <p class="serif" style="font-size: 17px; color: var(--primary); font-style: italic; margin-bottom: 24px;">"Đọc để biết · Chia sẻ để nhớ · Ứng dụng để chuyển hóa"</p>
+        <div style="font-size: 56px; margin-bottom: 18px;">✨</div>
         <h3 class="serif" style="font-size: 24px; color: var(--text-primary); margin-bottom: 8px;">Siêu Nhân Loại — Chương 5</h3>
-        <p style="font-size: 18px; color: var(--text-muted); margin-bottom: 36px; font-style: italic;">Tâm trí, cơ thể, não bộ và vũ trụ đều là ý thức biến đổi</p>
-        <div style="display: flex; justify-content: center; gap: 28px; font-size: 15px; color: var(--text-secondary); font-weight: 500;">
+        <p style="font-size: 17px; color: var(--text-muted); margin-bottom: 22px; font-style: italic;">
+          Tâm trí, cơ thể, não bộ và vũ trụ đều là ý thức biến đổi (tr. 135 – 159)
+        </p>
+        <div class="evidence-point highlight" style="max-width: 760px; margin: 0 auto 26px auto; font-size: 15px;">
+          <em>"Bạn không phải là một giọt nước cô đơn giữa đại dương bao la. Bạn chính là toàn bộ đại dương huyền nhiệm đang chuyển mình trong từng giọt nước."</em>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 28px; font-size: 14px; color: var(--text-secondary); font-weight: 500;">
           <span>📅 04/10/2026 · Tuần 3</span>
           <span>🏛️ BOOKnBEYOND Book Club</span>
         </div>
       </div>
       <div class="slide-brand">BOOKnBEYOND · METAHUMAN</div>
-      <div class="slide-number">9 / 9</div>
+      <div class="slide-number">12 / 12</div>
     </div>
 
   </div>
