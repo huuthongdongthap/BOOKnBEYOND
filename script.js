@@ -208,7 +208,11 @@
       'tâm trí, cơ thể': 'slides-metahuman-ch5.html',
       'sự tồn tại và ý thức': 'slides-metahuman-ch6.html',
       'thức tỉnh': 'slides-metahuman-ch7.html',
-      'trải nghiệm là tiên quyết': 'slides-metahuman-ch7.html'
+      'trải nghiệm là tiên quyết': 'slides-metahuman-ch7.html',
+      'vượt lên mọi giai thoại': 'slides-metahuman-ch8.html',
+      'con đường trực tiếp': 'slides-metahuman-ch9.html',
+      'trở thành siêu nhân': 'slides-metahuman-ch10.html',
+      'giải phóng cơ thể': 'slides-metahuman-ch10.html'
     };
 
     const getChapterSlide = (text) => {
