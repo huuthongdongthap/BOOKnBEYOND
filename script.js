@@ -212,7 +212,10 @@
       'vượt lên mọi giai thoại': 'slides-metahuman-ch8.html',
       'con đường trực tiếp': 'slides-metahuman-ch9.html',
       'trở thành siêu nhân': 'slides-metahuman-ch10.html',
-      'giải phóng cơ thể': 'slides-metahuman-ch10.html'
+      'giải phóng cơ thể': 'slides-metahuman-ch10.html',
+      'hồi sinh hoàn trí': 'slides-metahuman-ch11.html',
+      'nhận thức không chọn lựa': 'slides-metahuman-ch12.html',
+      'một cuộc đời': 'slides-metahuman-ch13.html'
     };
 
     const getChapterSlide = (text) => {
