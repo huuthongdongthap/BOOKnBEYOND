@@ -215,7 +215,9 @@
       'giải phóng cơ thể': 'slides-metahuman-ch10.html',
       'hồi sinh hoàn trí': 'slides-metahuman-ch11.html',
       'nhận thức không chọn lựa': 'slides-metahuman-ch12.html',
-      'một cuộc đời': 'slides-metahuman-ch13.html'
+      'một cuộc đời': 'slides-metahuman-ch13.html',
+      'một tháng thức tỉnh': 'slides-metahuman-31-days.html',
+      '31 bài học': 'slides-metahuman-31-days.html'
     };
 
     const getChapterSlide = (text) => {

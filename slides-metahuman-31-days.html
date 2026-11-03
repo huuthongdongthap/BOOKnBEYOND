@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Tổng Quan 31 Ngày Thức Tỉnh — Siêu Nhân Loại (MetaHuman) | BooknBeyond</title>
+  <meta name="description" content="Bảng tổng hợp hoạt động, mục tiêu và kết quả chuyển hóa của 31 bài học thức tỉnh từ cuốn sách Siêu Nhân Loại (MetaHuman) của Deepak Chopra.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --surface: #fbfaf8; --surface-dim: #f3f0ea; --card: #ffffff;
+      --ink: #0f172a; --ink-secondary: #334155; --muted: #64748b;
+      --primary: #1e3a8a; --primary-soft: #eff6ff;
+      --gold: #b87a1f; --gold-soft: #fef9ee;
+      --sage: #2d4a3e; --sage-soft: #e8f0eb;
+      --purple: #5b21b6; --purple-soft: #f5f3ff;
+      --border: rgba(15, 23, 42, 0.08);
+      --shadow: 0 8px 28px -6px rgba(15, 23, 42, 0.06), 0 0 0 1px var(--border);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--surface); color: var(--ink); font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    .serif { font-family: 'Playfair Display', Georgia, serif; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px 64px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(251, 250, 248, 0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 14px 24px;
+    }
+    .topbar-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 8px 15px; border-radius: 999px;
+      font-size: 0.86rem; font-weight: 600; text-decoration: none; cursor: pointer;
+      border: 1px solid var(--border); background: var(--card); color: var(--ink-secondary); transition: all 0.2s;
+    }
+    .btn:hover { border-color: var(--gold); color: var(--ink); transform: translateY(-1px); }
+    .btn-primary { background: var(--sage); color: #fff; border-color: var(--sage); }
+    .btn-primary:hover { background: #1f352c; color: #fff; }
+    .btn-gold { background: var(--gold); color: #fff; border-color: var(--gold); }
+    .hero {
+      margin: 28px 0; padding: 36px; border-radius: 24px; background: linear-gradient(135deg, #ffffff 0%, #f5f2eb 100%);
+      box-shadow: var(--shadow); border-left: 6px solid var(--gold);
+    }
+    .eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); }
+    .hero h1 { font-size: clamp(1.8rem, 3.2vw, 2.6rem); line-height: 1.2; margin: 8px 0 14px; color: var(--ink); }
+    .hero-lead { font-size: 1.02rem; color: var(--ink-secondary); max-width: 960px; margin-bottom: 20px; }
+    .spirit-pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin-top: 18px; }
+    .pillar { background: var(--card); padding: 16px 18px; border-radius: 16px; border: 1px solid var(--border); }
+    .pillar strong { display: block; color: var(--primary); margin-bottom: 4px; font-size: 0.94rem; }
+    .section-head { margin: 36px 0 16px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; }
+    .section-head h2 { font-size: 1.55rem; color: var(--ink); }
+    .phase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .phase-card { background: var(--card); border-radius: 20px; padding: 22px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 10px; border-top: 4px solid var(--primary); }
+    .phase-card[data-phase="2"] { border-top-color: var(--gold); }
+    .phase-card[data-phase="3"] { border-top-color: var(--sage); }
+    .phase-card[data-phase="4"] { border-top-color: var(--purple); }
+    .phase-card-head { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; font-weight: 700; }
+    .phase-chip { background: var(--surface-dim); padding: 3px 10px; border-radius: 999px; color: var(--ink-secondary); }
+    .phase-title { font-size: 1.15rem; color: var(--ink); }
+    .phase-row { font-size: 0.88rem; color: var(--ink-secondary); }
+    .outcome-highlight { background: var(--sage-soft); padding: 10px 12px; border-radius: 12px; color: var(--sage); margin-top: auto; }
+    .filter-bar {
+      position: sticky; top: 61px; z-index: 30; background: rgba(251, 250, 248, 0.95); backdrop-filter: blur(8px);
+      padding: 12px 16px; border-radius: 16px; border: 1px solid var(--border); margin-bottom: 16px;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;
+    }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { padding: 6px 13px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; border: 1px solid var(--border); background: var(--card); cursor: pointer; }
+    .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .search-box { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--border); font-size: 0.86rem; min-width: 240px; }
+    .table-wrap { background: var(--card); border-radius: 20px; box-shadow: var(--shadow); overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { background: var(--surface-dim); padding: 14px 16px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.8px; color: var(--ink-secondary); border-bottom: 1px solid var(--border); }
+    td { padding: 16px; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.89rem; }
+    .col-day { width: 130px; } .col-axiom { width: 25%; } .col-objective { width: 18%; } .col-action { width: 26%; } .col-outcome { width: 21%; }
+    .day-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; color: #fff; }
+    .phase-bg-1 { background: var(--primary); } .phase-bg-2 { background: var(--gold); } .phase-bg-3 { background: var(--sage); } .phase-bg-4 { background: var(--purple); }
+    .day-phase-tag { font-size: 0.76rem; color: var(--muted); margin: 4px 0 8px; }
+    .btn-open-day { display: inline-block; font-size: 0.78rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+    .lesson-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: var(--ink); }
+    .axiom-vi { font-style: italic; color: var(--ink-secondary); border-left: 3px solid var(--gold); padding-left: 10px; margin-bottom: 6px; }
+    .axiom-en { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 8px; }
+    .metaphor-box { background: var(--gold-soft); border-left: 3px solid var(--gold); padding: 8px 10px; border-radius: 8px; font-size: 0.83rem; margin: 8px 0; color: var(--ink); }
+    .contemplation-text { font-size: 0.83rem; color: var(--ink-secondary); margin-top: 6px; }
+    .steps-ol { margin: 8px 0 8px 18px; font-size: 0.83rem; color: var(--ink-secondary); display: flex; flex-direction: column; gap: 4px; }
+    .exp-guide-box { background: var(--primary-soft); color: var(--primary); padding: 8px 10px; border-radius: 8px; margin-bottom: 8px; font-size: 0.82rem; }
+    .cell-label { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+    .habit-tiers { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; font-size: 0.83rem; }
+    .tier-mini { background: var(--gold-soft); padding: 7px 10px; border-radius: 8px; }
+    .tier-full { background: var(--primary-soft); padding: 7px 10px; border-radius: 8px; }
+    .outcome-box { background: var(--sage-soft); color: #1b362b; padding: 9px 11px; border-radius: 10px; margin-bottom: 8px; font-size: 0.85rem; }
+    .prompt-box { font-size: 0.82rem; color: var(--ink-secondary); }
+    .day-pill { display: inline-block; background: var(--primary-soft); color: var(--primary); font-weight: 700; padding: 3px 10px; border-radius: 999px; font-size: 0.8rem; }
+    .sub-range { font-size: 0.76rem; color: var(--muted); margin-top: 3px; }
+    @media print {
+      .topbar, .filter-bar, .btn-open-day { display: none !important; }
+      body { background: #fff; }
+      .hero, .phase-card, .table-wrap { box-shadow: none; border: 1px solid #ddd; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="nav-links">
+        <a href="index.html" class="btn">← Trang chủ CLB</a>
+        <a href="book.html?id=metahuman" class="btn">📖 Sách Siêu Nhân Loại</a>
+      </div>
+      <div class="nav-links">
+        <button type="button" id="toggle-en" class="btn">🌐 Song ngữ VI/EN: Bật</button>
+        <button type="button" id="btn-copy-zalo" class="btn btn-gold">📋 Copy Bản Tóm Tắt Gửi Zalo</button>
+        <button type="button" id="btn-print" class="btn btn-primary">🖨️ In / Lưu PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">CẨM NANG THỰC HÀNH CHƯƠNG CUỐI · DEEPAK CHOPRA, M.D. (TR. 313–360)</div>
+      <h1 class="serif">Một Tháng Thức Tỉnh: Bảng Tổng Quan Hoạt Động, Mục Tiêu & Kết Quả 31 Ngày</h1>
+      <p class="hero-lead">
+        Trong chương cuối của <strong>Siêu Nhân Loại (Metahuman)</strong>, Deepak Chopra thiết kế lộ trình <strong>31 bài học thực chứng (+ 1 bài Cho Mọi Ngày)</strong>. Tinh thần cốt lõi của sách không phải là cố gắng “sửa chữa cái tôi” trong thực tại ảo, mà là thực hiện mỗi ngày một thí nghiệm nhận thức nhỏ để lùi lại phía sau ống kính, nhận ra mình là <strong>Ý thức thuần khiết</strong> — vừa tận hưởng bộ phim cuộc đời vừa biết rõ mình là người tạo ra bộ phim ấy.
+      </p>
+      <div class="spirit-pillars">
+        <div class="pillar"><strong>1. Tiên đề gốc (Core Axiom)</strong>Mỗi ngày mở đầu bằng 1 chân lý đảo ngược định kiến thông thường về cơ thể, tâm trí, thời gian và thế giới.</div>
+        <div class="pillar"><strong>2. Thí nghiệm "For Today" (1–10 phút)</strong>Bài tập giác quan & quán chiếu trực tiếp (Mini 1 phút cho ngày bận rộn hoặc Đầy đủ 5–10 phút).</div>
+        <div class="pillar"><strong>3. Nhật ký "Your Experience"</strong>Ghi lại khoảnh khắc thoáng thấy tỉnh thức (Glimpse) hoặc nhận ra tâm trí đang vướng vào thực tại ảo.</div>
+      </div>
+    </section>
+
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">BỨC TRANH LỚN</div>
+        <h2 class="serif">1. Tổng Hợp 4 Giai Đoạn Chuyển Hóa Nhận Thức</h2>
+      </div>
+    </div>
+    <section class="phase-grid" id="phase-overview-grid"></section>
+
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">NHỊP SINH HOẠT NHÓM CHÍNH BẮC</div>
+        <h2 class="serif">2. Khung Phản Tư 5 Tuần Cùng CLB BooknBeyond</h2>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th style="width:150px">Tuần</th><th style="width:32%">Chủ đề trọng tâm</th><th>Câu hỏi phản tư & chia sẻ nhóm Chủ Nhật</th></tr>
+        </thead>
+        <tbody id="week-matrix-body"></tbody>
+      </table>
+    </div>
+
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">MA TRẬN CHI TIẾT 31+1 BÀI HỌC</div>
+        <h2 class="serif">3. Bảng Mô Tả Hoạt Động 31 Ngày: Làm Gì, Mục Tiêu & Kết Quả</h2>
+      </div>
+      <div id="day-count-label" style="font-size:0.86rem;color:var(--muted);font-weight:600;"></div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-chips">
+        <button type="button" class="chip active" data-phase-filter="all">Tất cả (32 bài)</button>
+        <button type="button" class="chip" data-phase-filter="1">Chặng 1 · Giác quan (Ngày 1–10)</button>
+        <button type="button" class="chip" data-phase-filter="2">Chặng 2 · Giấc mơ tỉnh thức (Ngày 11–20)</button>
+        <button type="button" class="chip" data-phase-filter="3">Chặng 3 · Tự do & Siêu Nhân (Ngày 21–31)</button>
+        <button type="button" class="chip" data-phase-filter="4">Chặng 4 · Cho Mọi Ngày (Ngày 32)</button>
+      </div>
+      <input type="search" id="day-search" class="search-box" placeholder="🔍 Tìm ngày, từ khóa, bài tập...">
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="col-day">Ngày</th>
+            <th class="col-axiom">Bài học & Tiên đề cốt lõi (Axiom)</th>
+            <th class="col-objective">Mục tiêu thức tỉnh</th>
+            <th class="col-action">Hoạt động thực hành (Làm gì hôm nay?)</th>
+            <th class="col-outcome">Kết quả chuyển hóa & Câu hỏi tự vấn</th>
+          </tr>
+        </thead>
+        <tbody id="day-matrix-body"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script type="module" src="js/metahuman-overview-page.js"></script>
+</body>
+</html>

@@ -461,6 +461,9 @@
       } else if (book.driveLink) {
         readBtnHtml = `<a href="${book.driveLink}" target="_blank" rel="noopener" class="btn-read">📁 Mở thư mục Google Drive</a>`;
       }
+      if (book.id === 'metahuman') {
+        readBtnHtml += ` <a href="slides-metahuman-31-days.html" class="btn-read" style="background: #1e3a8a; margin-left: 8px;">📊 Bảng Tổng Quan 31 Ngày</a>`;
+      }
 
       contentDiv.innerHTML = `
         <div class="book-hero">
