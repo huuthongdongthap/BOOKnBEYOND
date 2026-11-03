@@ -99,11 +99,11 @@ export const DAYS_11_20 = [
   },
   {
     day: 16, phase: 2, pageRef: 'tr. 302–303',
-    titleVi: 'Nụ cười đứa trẻ chờ Giáng sinh giữa giấc mơ tỉnh thức',
-    axiomVi: 'Vì không có thế giới vật chất độc lập, thực tại thường ngày chính là một giấc mơ tỉnh thức đang diễn ra trong hiện tại sống động.',
+    titleVi: 'Nụ cười đứa trẻ chờ Giáng sinh giữa giấc mơ sống động (Lucid Dream)',
+    axiomVi: 'Vì không có thế giới vật chất độc lập, thực tại thường ngày chính là một giấc mơ sống động (lucid dream) đang diễn ra trong hiện tại rực rỡ.',
     axiomEn: 'Since there is no independent physical world, everyday reality is a lucid dream taking place in the vivid now.',
-    metaphorVi: 'Giấc mơ mờ nhạt vs. Giấc mơ toàn phần (Lucid Dream); nụ cười háo hức như đứa trẻ mong chờ sáng Giáng sinh (anticipating Christmas as a child).',
-    contemplationVi: 'Thực tại ảo là một trải nghiệm nhập vai toàn phần (full-immersion experience) nên có rất ít manh mối báo cho ta biết mình đang mơ. Vì thế những thoáng sáng tỏ, niềm vui bất chợt, trực giác sáng tạo và thiền định là vô cùng quý giá. Khi thức tỉnh, nhiều người ngỡ ngàng nhận ra mình đã ngủ mê suốt cuộc đời—và từ đó, Hiện Tại trở thành khung cửa sổ mở thẳng vào Ý thức thuần khiết.',
+    metaphorVi: 'Giấc mơ mờ nhạt vs. Giấc mơ sống động nhập vai toàn phần (Lucid Dream — khi đang mơ ta không hề biết đó là mơ); nụ cười háo hức như đứa trẻ mong chờ sáng Giáng sinh (anticipating Christmas as a child).',
+    contemplationVi: 'Trong nguyên tác, Deepak Chopra dùng khái niệm "giấc mơ sống động" (lucid dream) để chỉ giấc mơ nhập vai toàn phần đến mức khi đang mơ, bạn không hề có manh mối nào rằng đó là mơ. Thực tại ảo hàng ngày cũng nhập vai toàn phần y như thế! Vì vậy những thoáng sáng tỏ, niềm vui bất chợt, trực giác sáng tạo và thiền định là vô cùng quý giá—chúng mở khung cửa sổ Hiện Tại dẫn thẳng vào Ý thức thuần khiết.',
     practiceVi: 'Những khoảnh khắc nhìn xuyên qua cơn mê/giấc mơ thường đến bất ngờ. Nhưng hôm nay bạn có thể gieo hạt giống cho trải nghiệm siêu thực tại: Vào bất kỳ lúc nào, hãy nhìn quanh, mỉm cười với chính mình và nói: "Hãy hình dung xem, tất cả những điều này đều là một giấc mơ, và tôi chính là người mơ." Nụ cười ấy rất quan trọng—giống như đứa trẻ háo hức chờ Giáng sinh, bạn biết một điều tuyệt đẹp sắp đến và mở lối cho nó.',
     practiceEn: 'At any time, take a look around, smile to yourself, and say, "Imagine, this is all a dream, and I am the dreamer." The smile is important—like anticipating Christmas as a child.',
     stepsVi: [

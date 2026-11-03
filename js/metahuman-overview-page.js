@@ -81,12 +81,13 @@ function renderDayMatrix() {
           <p>${esc(out.objectiveVi || d.contemplationVi)}</p>
         </td>
         <td class="col-action">
-          <div class="action-main"><strong>Bài tập gốc trong sách (For Today):</strong> ${esc(d.practiceVi)}</div>
+          <div class="action-main"><strong>Bài tập nguyên tác trong sách (For Today):</strong> ${esc(d.practiceVi)}</div>
           ${state.showEn && d.practiceEn ? `<div class="axiom-en" style="margin-top:4px">${esc(d.practiceEn)}</div>` : ''}
           ${stepsHtml}
           <div class="habit-tiers">
-            <div class="tier-mini">⚡ <strong>Mini (1 phút):</strong> ${esc(d.miniVi)}</div>
-            <div class="tier-full">🧘 <strong>Đầy đủ (5–10 phút):</strong> ${esc(d.fullVi)}</div>
+            <div class="cell-label" style="margin-bottom:2px">💡 Gợi ý nhịp áp dụng CLB BooknBeyond:</div>
+            <div class="tier-mini">⚡ <strong>Nhịp nhanh (1 phút):</strong> ${esc(d.miniVi)}</div>
+            <div class="tier-full">🧘 <strong>Nhịp sâu (5–10 phút):</strong> ${esc(d.fullVi)}</div>
           </div>
         </td>
         <td class="col-outcome">

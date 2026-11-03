@@ -104,7 +104,7 @@ export const DAYS_01_10 = [
     axiomEn: 'The only constant in every snapshot of perception is the presence of being and awareness.',
     metaphorVi: 'Người nhiếp ảnh gia chuyên nghiệp đứng sau máy ảnh (photographer behind the camera): dù chụp hàng vạn bức ảnh khác nhau, người đứng sau ống kính vẫn là hằng số duy nhất.',
     contemplationVi: 'Những bức ảnh không tự chụp chính nó—phải có người nhiếp ảnh gia đứng sau ống kính để nhìn, sắp đặt bối cảnh, chỉnh ánh sáng và lấy nét. Các giác quan mang đến vô số mảnh dữ liệu thô biến đổi không ngừng, nhưng yếu tố bất biến duy nhất chính là BẠN—người đang nhìn và sắp xếp chúng. Nhận ra điều đó trao cho bạn tự do sáng tạo lớn lao.',
-    practiceVi: 'Quay lại tiếp xúc với các đơn vị trải nghiệm cơ bản. Ngồi yên một lát cùng ánh sáng, hơi ấm, mùi hương thoảng qua, vị trong miệng. Thư giãn vào trải nghiệm và nhận biết từng cảm giác một cách tự발 (spontaneously) bất cứ nơi đâu sự chú ý tìm đến. Bản thân sự thức tỉnh chính là trạng thái hoàn toàn thư giãn, tự nhiên và rộng mở với hiện tại.',
+    practiceVi: 'Quay lại tiếp xúc với các đơn vị trải nghiệm cơ bản. Ngồi yên một lát cùng ánh sáng, hơi ấm, mùi hương thoảng qua, vị trong miệng. Thư giãn vào trải nghiệm và nhận biết từng cảm giác một cách tự phát (spontaneously) bất cứ nơi đâu sự chú ý tìm đến. Bản thân sự thức tỉnh chính là trạng thái hoàn toàn thư giãn, tự nhiên và rộng mở với hiện tại.',
     practiceEn: 'Get back in touch with the basic units of experience—light, warmth, smells, taste in your mouth. Relax and notice each sensation spontaneously wherever your attention wanders.',
     stepsVi: [
       'Ngồi thư giãn và tiếp xúc lại với ánh sáng, hơi ấm, mùi hương và vị giác trong miệng.',

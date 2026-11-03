@@ -16,11 +16,11 @@ export const PHASES = [
   },
   {
     id: 2,
-    title: 'Giai đoạn 2 · Tâm trí định kiến & Giấc mơ tỉnh thức',
+    title: 'Giai đoạn 2 · Tâm trí định kiến & Giấc mơ sống động',
     subtitle: 'Bước ra ngoài thực tại ảo và thời gian đồng hồ (Ngày 11–20)',
     range: 'Ngày 11–20',
     badge: 'Phase 2 · Lucid Now',
-    summary: 'Nhận diện thân-tâm-thế giới là một hoạt động duy nhất của nhận biết và thức tỉnh như người mơ ngay trong hiện tại vượt thời gian.'
+    summary: 'Nhận diện thân-tâm-thế giới là một hoạt động duy nhất của nhận biết và nhìn xuyên qua giấc mơ sống động (Lucid Dream) ngay trong hiện tại vượt thời gian.'
   },
   {
     id: 3,

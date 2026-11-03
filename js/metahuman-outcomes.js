@@ -14,7 +14,7 @@ export const PHASE_OVERVIEW = [
     id: 2,
     range: 'Ngày 11–20',
     title: 'Giai đoạn 2 · Thoát khỏi Thực tại ảo & Thời gian đồng hồ',
-    spirit: 'Nhận ra tâm trí chỉ là ý thức bị điều kiện hóa bởi ký ức; đời sống thường nhật là một giấc mơ tỉnh thức (Lucid Dream) diễn ra trong hiện tại phi thời gian.',
+    spirit: 'Nhận ra tâm trí chỉ là ý thức bị điều kiện hóa bởi ký ức; đời sống thường nhật là một giấc mơ sống động nhập vai toàn phần (Lucid Dream) diễn ra trong hiện tại phi thời gian.',
     goal: 'Chuyển từ vai "diễn viên bị cuốn đi" sang "tác giả/người mơ tỉnh thức"; bước ra khỏi áp lực của thời gian đồng hồ và các nhãn mác định danh.',
     outcome: 'Hết cảm giác bị hoàn cảnh chi phối; trải nghiệm sự hợp nhất thân-tâm-cảnh trong niềm vui trực tiếp và chạm vào sự tĩnh lặng vô điều kiện.'
   },
@@ -98,8 +98,8 @@ export const DAY_OUTCOMES = {
     outcomeVi: 'Xóa bỏ cảm giác cô lập giữa "tôi ở trong này" và "thế giới lạnh lùng ở ngoài kia".'
   },
   16: {
-    objectiveVi: 'Đánh thức trạng thái "Mơ tỉnh" (Lucid Dreaming) ngay giữa đời sống ban ngày.',
-    outcomeVi: 'Sống trọn vẹn nhưng nhẹ nhõm, mỉm cười trước mọi việc vì biết "Tôi chính là người mơ".'
+    objectiveVi: 'Nhìn xuyên qua "giấc mơ sống động nhập vai toàn phần" (Lucid Dream) của thực tại ảo ngay giữa ban ngày.',
+    outcomeVi: 'Sống trọn vẹn nhưng nhẹ nhõm, mỉm cười như đứa trẻ chờ Giáng sinh vì biết rõ "Tôi chính là người mơ".'
   },
   17: {
     objectiveVi: 'Thực hành "Tâm chứng kiến" (Witnessing) như người ngồi tàu hỏa nhìn cảnh vật lướt qua.',
