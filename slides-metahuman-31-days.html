@@ -13,29 +13,18 @@
     :root {
       --surface: #fbfaf8; --surface-dim: #f3f0ea; --card: #ffffff;
       --ink: #0f172a; --ink-secondary: #334155; --muted: #64748b;
-      --primary: #1e3a8a; --primary-soft: #eff6ff;
-      --gold: #b87a1f; --gold-soft: #fef9ee;
-      --sage: #2d4a3e; --sage-soft: #e8f0eb;
-      --purple: #5b21b6; --purple-soft: #f5f3ff;
-      --border: rgba(15, 23, 42, 0.08);
-      --shadow: 0 8px 28px -6px rgba(15, 23, 42, 0.06), 0 0 0 1px var(--border);
+      --primary: #1e3a8a; --primary-soft: #eff6ff; --gold: #b87a1f; --gold-soft: #fef9ee;
+      --sage: #2d4a3e; --sage-soft: #e8f0eb; --purple: #5b21b6; --purple-soft: #f5f3ff;
+      --border: rgba(15, 23, 42, 0.08); --shadow: 0 8px 28px -6px rgba(15, 23, 42, 0.06), 0 0 0 1px var(--border);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--surface); color: var(--ink); font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif; line-height: 1.65; -webkit-font-smoothing: antialiased; }
     .serif { font-family: 'Playfair Display', Georgia, serif; }
     .container { max-width: 1280px; margin: 0 auto; padding: 0 24px 64px; }
-    .topbar {
-      position: sticky; top: 0; z-index: 40;
-      background: rgba(251, 250, 248, 0.92); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border); padding: 14px 24px;
-    }
+    .topbar { position: sticky; top: 0; z-index: 40; background: rgba(251, 250, 248, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 14px 24px; }
     .topbar-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
     .nav-links { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 6px; padding: 8px 15px; border-radius: 999px;
-      font-size: 0.86rem; font-weight: 600; text-decoration: none; cursor: pointer;
-      border: 1px solid var(--border); background: var(--card); color: var(--ink-secondary); transition: all 0.2s;
-    }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 15px; border-radius: 999px; font-size: 0.86rem; font-weight: 600; text-decoration: none; cursor: pointer; border: 1px solid var(--border); background: var(--card); color: var(--ink-secondary); transition: all 0.2s; }
     .btn:hover { border-color: var(--gold); color: var(--ink); transform: translateY(-1px); }
     .btn-primary { background: var(--sage); color: #fff; border-color: var(--sage); }
     .btn-primary:hover { background: #1f352c; color: #fff; }
@@ -110,6 +99,7 @@
         <a href="book.html?id=metahuman" class="btn">📖 Sách Siêu Nhân Loại</a>
       </div>
       <div class="nav-links">
+        <a href="assets/metahuman-31-days-keywords.png" download="MetaHuman-31-Ngay-Tu-Khoa-BooknBeyond.png" class="btn">🖼️ Tải Ảnh Bản Đồ Từ Khóa (PNG)</a>
         <button type="button" id="toggle-en" class="btn">🌐 Song ngữ VI/EN: Bật</button>
         <button type="button" id="btn-copy-zalo" class="btn btn-gold">📋 Copy Bản Tóm Tắt Gửi Zalo</button>
         <button type="button" id="btn-print" class="btn btn-primary">🖨️ In / Lưu PDF</button>
@@ -129,6 +119,16 @@
         <div class="pillar"><strong>2. Thực nghiệm "For Today" (Thực hành hôm nay)</strong>Bài thực nghiệm giác quan &amp; quán chiếu trực tiếp nguyên tác trong sách (kèm gợi ý nhịp thực hành 1 phút hoặc 5–10 phút của CLB).</div>
         <div class="pillar"><strong>3. Nhật ký "Your Experience" (Trải nghiệm của bạn)</strong>Phần ghi chép cuối mỗi bài học trong sách để ghi nhận khoảnh khắc thoáng thấy tỉnh thức hoặc nhận ra tâm trí đang vướng vào thực tại ảo.</div>
       </div>
+      <details style="margin-top:18px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 18px;" open>
+        <summary style="cursor:pointer;font-weight:700;color:var(--primary);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+          <span>🖼️ Infographic: Bản Đồ Từ Khóa 31 Ngày Thức Tỉnh (Chuẩn In Ấn 3200×3320px)</span>
+          <a href="assets/metahuman-31-days-keywords.png" download="MetaHuman-31-Ngay-Tu-Khoa-BooknBeyond.png" class="btn btn-gold" style="padding:5px 12px;font-size:0.8rem;">⬇️ Tải Ảnh Gốc Độ Phân Giải Cao</a>
+        </summary>
+        <picture style="display:block;margin-top:12px;">
+          <source srcset="assets/metahuman-31-days-keywords.webp" type="image/webp">
+          <img src="assets/metahuman-31-days-keywords.png" alt="Bản Đồ Từ Khóa 31 Ngày Thức Tỉnh — Siêu Nhân Loại (MetaHuman)" width="1600" height="1660" loading="eager" style="width:100%;height:auto;border-radius:12px;border:1px solid var(--border);display:block;">
+        </picture>
+      </details>
     </section>
 
     <div class="section-head">
